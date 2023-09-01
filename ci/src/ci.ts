@@ -18,7 +18,7 @@ await createPipe(() => {
     lintContext,
     testContext,
   ];
-  if (config.action === "Release" && config.releaseSHA && config.version) {
+  if (config.action === "Release") {
     return [...tasks];
   }
   if (config.action === "Test") {
