@@ -20,5 +20,6 @@
       "mode": "auto"
     }
   ],
-  "editor.formatOnSaveMode": "file"
+  "editor.formatOnSaveMode": "file",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

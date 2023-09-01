@@ -45,6 +45,7 @@ interface IGitHubConfig {
 }
 
 interface IGitHubContext {
+  githubGetTagsFromPR: (prop: { prNumber: number }) => Promise<string[]>;
   githubDeleteMergedBranch: (prop: { branchName: string }) => Promise<void>;
   githubDeleteCurrentMergedBranch: () => Promise<void>;
   githubInitPr: () => void;
@@ -266,12 +267,12 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
       });
     },
   }),
-  githubGetTagsFromPR: fn<{ prNumber: number }, Promise<void>>({
+  githubGetTagsFromPR: fn<{ prNumber: number }, Promise<string[]>>({
     value: z.object({
       prNumber: z.number(),
     }),
-    output: z.custom<Promise<void>>((val) => val),
-    implement: async (context, config, { prNumber, tagName }) => {
+    output: z.custom<Promise<string[]>>((value) => value),
+    implement: async (context, config, { prNumber }): Promise<string[]> => {
       const owner = config.githubOwner;
       const repo = config.githubRepo;
 
@@ -279,8 +280,9 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
         owner,
         repo,
         issue_number: prNumber,
-        name: tagName,
       });
+      const tags = value.data.map(({ node_id }) => node_id);
+      return tags;
     },
   }),
   githubRemoveTagToPR: fn<{ prNumber: number; tagName: string }, Promise<void>>({
