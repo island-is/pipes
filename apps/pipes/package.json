@@ -6,6 +6,7 @@
     "publishFields": [
       "name",
       "main",
+      "repository",
       "type",
       "types",
       "license",

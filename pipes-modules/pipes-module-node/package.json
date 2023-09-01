@@ -11,6 +11,7 @@
       "version",
       "type",
       "main",
+      "repository",
       "types",
       "license",
       "publishConfig",

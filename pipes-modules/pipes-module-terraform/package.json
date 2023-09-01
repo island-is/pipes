@@ -12,6 +12,7 @@
     "publishFields": [
       "name",
       "version",
+      "repository",
       "type",
       "main",
       "types",
