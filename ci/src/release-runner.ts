@@ -47,7 +47,11 @@ console.log(process.env.NODE_AUTH_TOKEN);
 for (const pkg of publishValues) {
   // run cwd and wait
   try {
-    await writeFile(join(pkg, ".npmrc"), `//registry.npmjs.org/:_authToken=${process.env.NODE_AUTH_TOKEN}`, "utf-8");
+    await writeFile(
+      join(pkg, ".npmrc"),
+      `//npm.pkg.github.com/:_authToken=${process.env.NODE_AUTH_TOKEN}\nalways-auth=true`,
+      "utf-8",
+    );
     const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
     report.msg[pkg] = value;
   } catch (e) {
