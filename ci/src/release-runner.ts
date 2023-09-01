@@ -3,6 +3,7 @@ import { writeFile } from "node:fs/promises";
 import { Shell, preparePublishPackage } from "@island.is/scripts";
 
 import * as getBuildOrderJs from "./get-build-order.js";
+import { join } from "node:path";
 
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];
 const reportJSON = process.env["TEST_REPORT_JSON"];
@@ -46,20 +47,13 @@ console.log(process.env.NODE_AUTH_TOKEN);
 for (const pkg of publishValues) {
   // run cwd and wait
   try {
+    const code = `//npm.pkg.github.com/:_authToken=${process.env["NODE_AUTH_TOKEN"]}\n
+@island-is:registry=https://npm.pkg.github.com/\n
+always-auth=false\n
+`;
     // THIS SHOULD BE ADDED TO A MODULE
-    await Shell.execute(
-      "yarn",
-      ["config", "set", "npmScopes.island.is.npmRegistryServer", "https://npm.pkg.github.com"],
-      { cwd: pkg },
-    );
-    await Shell.execute("yarn", ["config", "set", "npmScopes.island.is.npmAlwaysAuth", "https://npm.pkg.github.com"], {
-      cwd: pkg,
-    });
-    await Shell.execute(
-      "yarn",
-      ["config", "set", "npmScopes.island.is.npmAuthToken", process.env["NODE_AUTH_TOKEN"] ?? ""],
-      { cwd: pkg },
-    );
+    await writeFile(join(pkg, ".npmrc"), code, "utf-8");
+    await Shell.execute("npm", ["publish"], { cwd: pkg });
     const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
     report.msg[pkg] = value;
   } catch (e) {
