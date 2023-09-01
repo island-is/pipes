@@ -1,0 +1,33 @@
+{
+  "include": ["../../libs/dom/typing.d.ts"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
+    "noErrorTruncation": false,
+    "disableSizeLimit": true,
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": ["ES2020", "ES2022", "ES2015"],
+    "emitDeclarationOnly": false,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "jsxFactory": "PipesDOM.PipesJSXFactory",
+    "jsxFragmentFactory": "PipesDOM.Fragment",
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": false
+  }
+}

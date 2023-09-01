@@ -1,0 +1,24 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true,
+    "**/node_modules": true,
+    "**/dist": true
+  },
+
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "eslint.lintTask.enable": true,
+  "eslint.run": "onSave",
+  "eslint.codeActionsOnSave.mode": "problems",
+  "editor.formatOnSave": true,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "editor.formatOnSaveMode": "file"
+}

@@ -1,0 +1,36 @@
+name: Automerge
+
+on:
+  pull_request:
+    branches:
+      - devel
+    types:
+      - labeled
+concurrency:
+  group: devel-automerge
+  cancel-in-progress: false
+jobs:
+  automerge:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    if: contains(github.event.pull_request.labels.*.name, 'automerge')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+      - name: Install dependencies
+        run: yarn install
+      - name: Run automerge script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PIPES_ACTION: Merge
+        run: yarn node src/ci.ts
+        working-directory: ./ci

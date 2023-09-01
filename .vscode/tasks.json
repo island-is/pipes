@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "split exports",
+            "type": "shell",
+            "command": "yarn",
+            "args": [
+                "node",
+                "${workspaceFolder}/scripts/src/vscode-split.ts",
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Run ESLint on .ts and .tsx",
+            "type": "shell",
+            "command": "./node_modules/.bin/eslint",
+            "args": [
+              "--ext",
+              ".ts,.tsx",
+              "./"
+            ],
+            "problemMatcher": [
+              "$eslint-stylish"
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            }
+        },
+        {
+            "label": "generate import list",
+            "type": "shell",
+            "command": "yarn",
+            "args": [
+                "node",
+                "${workspaceFolder}/scripts/src/generate-list.ts",
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}
