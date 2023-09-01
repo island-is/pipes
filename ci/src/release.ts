@@ -9,6 +9,7 @@ import { devWithDistImageKey } from "./build.js";
 import { config as GlobalConfig } from "./config.js";
 import { devWorkDir } from "./dev-image.js";
 import { testReport } from "./report.js";
+import { readFile } from "fs/promises";
 
 /** TODO: Fix type generation */
 export const releaseContext = createPipesCore()
@@ -18,6 +19,9 @@ releaseContext.config.appName = `Release dir`;
 releaseContext.config.nodeWorkDir = devWorkDir;
 releaseContext.config.nodeImageKey = devWithDistImageKey;
 releaseContext.addScript(async (context, config) => {
+  const hehe = await readFile(join(config.nodeWorkDir, ".npmrc"));
+  console.log(hehe);
+  context.haltAll();
   if (GlobalConfig.npmAuthToken) {
     console.error(`Npm auth token not set`);
     context.haltAll();
