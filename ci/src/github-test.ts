@@ -32,14 +32,15 @@ githubTestContext.addScript(async (context, config) => {
     console.log(buildOrderReport);
     return context.haltAll();
   }
-
+  const buildReport = await testReport.build.get();
   const buildValue =
-    (await testReport.build.get()).filter((e) => e.status === "Error").length > 0
+    (buildReport.filter((e) => e.status === "Error").length > 0
       ? "❌ **Build failed** - please view logs"
       : "✅ Build succesful";
   if (buildValue.split("").includes("❌")) {
     await report(buildValue);
     console.log(buildValue);
+    console.log(buildReport.filter((e) => e.status === "Error"));
     return context.haltAll();
   }
   const valuesArr = await Promise.all([
