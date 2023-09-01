@@ -127,8 +127,8 @@ A typical module in this architecture consists of four main parts:
   This is used on runtime to parse context and config. 
 
   - **How** 
-    - **Config parser** Use [createConfig](https://github.com/island.is/pipes#createconfig).
-    - **Context parser** Use [createContext](https://github.com/island.is/pipes#createcontext).
+    - **Config parser** Use [createConfig](https://github.com/island-is/pipes#createconfig).
+    - **Context parser** Use [createContext](https://github.com/island-is/pipes#createcontext).
   - **Example** [See here](https://github.com/island.is/pipes#creating-config-and-context-parsers)
 
 ### Module.
