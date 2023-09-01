@@ -11,6 +11,7 @@ import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island
 
 import type { Client } from "@dagger.io/dagger";
 import type { PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "@island.is/pipes-module-core";
+import { PipesConfig } from "./config.js";
 
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
@@ -50,7 +51,7 @@ export class PipesCoreRunner {
         await Promise.race([fakePromise, contextPromises]);
       },
       //  TODO: Put back the custom streamer
-      { LogOutput: process.env["IS_DEV"] ? process.stdout : undefined },
+      { LogOutput: PipesConfig.isDev ? process.stdout : undefined },
     );
   }
 }
