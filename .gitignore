@@ -1,0 +1,17 @@
+apps/pipes/zod
+.pipes-resolver
+.yarn/*
+!.yarn/releases
+!.yarn/sdks
+!.yarn/patches
+node_modules
+yarn-error.log
+*.tsbuildinfo
+coverage
+tmp
+**/tmp
+.swc
+coverage
+.env*
+.husky
+**/dist

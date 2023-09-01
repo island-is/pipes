@@ -1,0 +1,33 @@
+{
+  "name": "@island-is/tsconfig-build",
+  "version": "0.1.0",
+  "main": "./tsconfig.json",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@island-is/tsconfig": "workspace:*"
+  },
+  "repository": {
+    "directory": "base/tsconfig-build",
+    "type": "git",
+    "url": "https://github.com/island-is/pipes"
+  },
+  "pipes": {
+    "skipBuild": true,
+    "skipTest": true,
+    "skipLint": true
+  },
+  "packageManager": "yarn@4.0.0-rc.47",
+  "engines": {
+    "node": "20.5.1",
+    "yarn": "4.0.0-rc.47",
+    "npm": "please use yarn",
+    "pnpm": "please use yarn"
+  },
+  "peerDependencies": {
+    "@swc/core": "*"
+  },
+  "devDependencies": {
+    "@swc/core": "1.3.92"
+  }
+}

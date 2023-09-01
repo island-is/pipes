@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "release-*"
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ec2-runners
+    container:
+      image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+      - name: Install dependencies
+        run: yarn install
+      - name: Extract release version from branch name
+        run: echo "RELEASE_VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/release-//')" >> $GITHUB_ENV
+      - name: Run script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PIPES_ACTION: Release
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+        run: yarn node src/ci.tsx
+        working-directory: ./ci

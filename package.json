@@ -1,0 +1,52 @@
+{
+  "name": "@island-is/pipes",
+  "version": "0.1.0",
+  "description": "Typescript utils for creating pipes using dagger.io",
+  "author": "Jon Arnarson <jonorn@andes.is>",
+  "type": "commonjs",
+  "packageManager": "yarn@4.0.0-rc.47",
+  "private": true,
+  "scripts": {
+    "build": "node base/scripts/src/build-all.ts",
+    "lint": "node base/scripts/src/build-all.ts --action lint",
+    "test": "node base/scripts/src/build-all.ts --action test",
+    "postinstall": "NODE_OPTIONS=\"--no-warnings=ExperimentalWarning  --experimental-loader=./loader.mjs\" yarn node base/scripts/src/post-install.ts"
+  },
+  "workspaces": [
+    "apps/*",
+    "ci",
+    "base/*",
+    "pipes-modules/*"
+  ],
+  "devDependencies": {
+    "@commitlint/config-conventional": "17.7.0",
+    "@island-is/eslint-config": "workspace:*",
+    "@island-is/prettier-config": "workspace:*",
+    "@island-is/scripts": "workspace:*",
+    "@island-is/tsconfig": "workspace:*",
+    "@swc/core": "1.3.92",
+    "@types/semver": "7.5.3",
+    "@yarnpkg/types": "4.0.0-rc.53",
+    "commitlint": "17.7.2",
+    "eslint": "8.51.0",
+    "express": "4.18.2",
+    "glob": "10.3.10",
+    "husky": "8.0.3",
+    "prettier": "3.0.3",
+    "semver": "7.5.4",
+    "typescript": "5.2.2",
+    "zod": "3.22.4"
+  },
+  "engines": {
+    "node": "20.5.1",
+    "yarn": "4.0.0-rc.47",
+    "npm": "please use yarn",
+    "pnpm": "please use yarn"
+  },
+  "resolutions": {
+    "rollup-plugin-dts@6.0.2": "patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch"
+  },
+  "peerDependencies": {
+    "@swc/core": "*"
+  }
+}
