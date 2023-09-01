@@ -16,11 +16,13 @@ const publishBuilds = getBuildOrderJs.buildOrder
   .flat()
   .filter((workspace) => workspace.config.publishFields && workspace.config.publishFiles);
 const report: {
+  token: string;
   packageFailed: string[];
   packageSuccess: string[];
   error: Record<string, any>;
   msg: Record<string, any>;
 } = {
+  token: process.env["NODE_AUTH_TOKEN"] ?? "NOT SET",
   packageFailed: [],
   packageSuccess: [],
   error: {},

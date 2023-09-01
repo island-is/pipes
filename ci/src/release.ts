@@ -54,9 +54,9 @@ releaseContext.addScript(async (context, config) => {
   if (value.error) {
     context.haltAll();
   }
-  const data = JSON.parse(value.message) as { packageFailed: string[]; packageSuccess: string[] };
+  const data = JSON.parse(value.message) as { packageFailed: string[]; packageSuccess: string[]; error: string[] };
   console.log(data);
-  if (data.packageFailed.length > 0) {
+  if (data.packageFailed.length > 0 || data.error.length > 0) {
     console.error("publish failed");
     context.haltAll();
   }
