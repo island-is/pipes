@@ -49,7 +49,8 @@ export class PipesCoreRunner {
         );
         await Promise.race([fakePromise, contextPromises]);
       },
-      { LogOutput: process.stdout },
+      //  TODO: Put back the custom streamer
+      { LogOutput: process.env["IS_DEV"] ? process.stdout : undefined },
     );
   }
 }

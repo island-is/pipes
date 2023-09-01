@@ -22,12 +22,14 @@ githubTestContext.addScript(async (context, config) => {
   const buildDevImageReport = await testReport.buildDevImage.get();
   if (buildDevImageReport.status === "Error") {
     await report(`❌ Failed creating build images with error: ${buildDevImageReport.error || "Unknown error"}`);
+    console.log(buildDevImageReport);
     return context.haltAll();
   }
 
   const buildOrderReport = await testReport.buildOrder.get();
   if (buildOrderReport.status === "Error") {
     await report(`❌ Failed creating build order: ${buildOrderReport.error || "Unknown error"}`);
+    console.log(buildOrderReport);
     return context.haltAll();
   }
 
@@ -37,6 +39,7 @@ githubTestContext.addScript(async (context, config) => {
       : "✅ Build succesful";
   if (buildValue.split("").includes("❌")) {
     await report(buildValue);
+    console.log(buildValue);
     return context.haltAll();
   }
   const valuesArr = await Promise.all([
