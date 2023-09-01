@@ -37,6 +37,7 @@ releaseContext.addScript(async (context, config) => {
   const testFile = join(currentPath, "release-runner.ts");
   const reportJSON = join(config.nodeWorkDir, "release-report.json");
   const reportJSONKey = "TEST_REPORT_JSON";
+  context.githubInitPr();
   const container = await context.nodeAddEnv({
     env: [
       [reportJSONKey, reportJSON],

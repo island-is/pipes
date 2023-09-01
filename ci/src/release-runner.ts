@@ -43,6 +43,8 @@ const publishValues = (
 for (const pkg of publishValues) {
   // run cwd and wait
   try {
+    await Shell.execute("yarn", ["config", "set", "npmPublishRegistry"], { cwd: pkg });
+    await Shell.execute("yarn", ["config", "set", process.env.NODE_AUTH_TOKEN ?? ""], { cwd: pkg });
     const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
     report.msg[pkg] = value;
   } catch (e) {
