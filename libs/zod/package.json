@@ -32,7 +32,7 @@
   "repository": {
     "directory": "libs/zod",
     "type": "git",
-    "url": "https://github.com/island-is/pipes.git"
+    "url": "https://github.com/island-is/pipes"
   },
   "type": "module",
   "engines": {

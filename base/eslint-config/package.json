@@ -46,7 +46,7 @@
   "repository": {
     "directory": "base/eslint-config",
     "type": "git",
-    "url": "https://github.com/island-is/pipes.git"
+    "url": "https://github.com/island-is/pipes"
   },
   "engines": {
     "node": "20.5.1",

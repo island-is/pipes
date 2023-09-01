@@ -22,7 +22,7 @@
   "repository": {
     "directory": "libs/cleanup",
     "type": "git",
-    "url": "https://github.com/island-is/pipes.git"
+    "url": "https://github.com/island-is/pipes"
   },
   "engines": {
     "node": "20.5.1",
