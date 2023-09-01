@@ -19,7 +19,7 @@ releaseContext.config.appName = `Release dir`;
 releaseContext.config.nodeWorkDir = devWorkDir;
 releaseContext.config.nodeImageKey = devWithDistImageKey;
 releaseContext.addScript(async (context, config) => {
-  const hehe = await readFile(process.env["NPM_CONFIG_USERCONFIG"] ?? "");
+  const hehe = await readFile(process.env["NPM_CONFIG_USERCONFIG"] ?? "", "utf-8");
   console.log(hehe);
   context.haltAll();
   if (GlobalConfig.npmAuthToken) {
