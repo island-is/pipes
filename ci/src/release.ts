@@ -37,7 +37,12 @@ releaseContext.addScript(async (context, config) => {
   const testFile = join(currentPath, "release-runner.ts");
   const reportJSON = join(config.nodeWorkDir, "release-report.json");
   const reportJSONKey = "TEST_REPORT_JSON";
-  const container = await context.nodeAddEnv({ env: [[reportJSONKey, reportJSON], ["NODE_AUTH_TOKEN"]] });
+  const container = await context.nodeAddEnv({
+    env: [
+      [reportJSONKey, reportJSON],
+      ["NODE_AUTH_TOKEN", config.githubToken],
+    ],
+  });
   const value = await context.nodeCompileAndRun({
     name: "test",
     file: testFile,
@@ -45,6 +50,7 @@ releaseContext.addScript(async (context, config) => {
     external: ["@island.is/scripts"],
     output: { fileFromEnv: reportJSONKey },
   });
+  console.log(value);
   if (value.error) {
     context.haltAll();
   }

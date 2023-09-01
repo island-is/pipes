@@ -6,6 +6,7 @@ import { devBuildOrderContext } from "./dev-image-with-build-order.js";
 import { devImageInstallContext } from "./dev-image.js";
 import { githubTestContext } from "./github-test.js";
 import { lintContext } from "./lint.js";
+import { releaseContext } from "./release.js";
 import { testContext } from "./test.js";
 import { workspaceTestContext } from "./workspace-test.js";
 
@@ -19,7 +20,7 @@ await createPipe(() => {
     testContext,
   ];
   if (config.action === "Release") {
-    return [...tasks];
+    return [...tasks, releaseContext];
   }
   if (config.action === "Test") {
     return [...tasks, githubTestContext];

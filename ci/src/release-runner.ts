@@ -15,10 +15,16 @@ if (!reportJSON) {
 const publishBuilds = getBuildOrderJs.buildOrder
   .flat()
   .filter((workspace) => workspace.config.publishFields && workspace.config.publishFiles);
-const report: { packageFailed: string[]; packageSuccess: string[]; error: Record<string, any>, msg: Record< } = {
+const report: {
+  packageFailed: string[];
+  packageSuccess: string[];
+  error: Record<string, any>;
+  msg: Record<string, any>;
+} = {
   packageFailed: [],
   packageSuccess: [],
   error: {},
+  msg: {},
 };
 const publishValues = (
   await Promise.all(
