@@ -1,0 +1,32 @@
+{
+  "exclude": ["node_modules", "**/node_modules/**", "../../../../../../node_modules/**"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "noErrorTruncation": false,
+    "disableSizeLimit": true,
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": ["ES2020", "ES2022", "ES2015"],
+    "emitDeclarationOnly": false,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": false
+  }
+}

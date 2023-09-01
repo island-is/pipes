@@ -1,0 +1,34 @@
+name: Pull request
+
+on:
+  pull_request:
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: "https://npm.pkg.github.com"
+          node-version-file: ".nvmrc"
+          check-latest: false
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+      - name: Install dependencies
+        run: yarn install
+      - name: Run script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PIPES_ACTION: Test
+        run: yarn node src/ci.tsx
+        working-directory: ./ci

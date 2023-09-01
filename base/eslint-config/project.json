@@ -1,0 +1,4 @@
+{
+  "name": "@island-is/eslint-config",
+  "$schema": "../../project-schema.json"
+}

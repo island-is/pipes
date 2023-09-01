@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render multiple line 1`] = `" [1m[L][22m"`;
+
+exports[`render simple string 1`] = `" [1m[T][22m"`;
+
+exports[`render simple with color 1`] = `" [1m[44m[32m[T][39m[49m[22m"`;

@@ -1,0 +1,41 @@
+diff --git a/cjs/react-reconciler.development.js b/cjs/react-reconciler.development.js
+index 37d5bc10bbc495ec35d4d74217630d1b62389edc..8929725a339bb41e1cfe42398ec8c0642e588ee4 100644
+--- a/cjs/react-reconciler.development.js
++++ b/cjs/react-reconciler.development.js
+@@ -4195,23 +4195,13 @@ function pushProvider(providerFiber, context, nextValue) {
+   if (isPrimaryRenderer) {
+     push(valueCursor, context._currentValue, providerFiber);
+     context._currentValue = nextValue;
+-
+     {
+-      if (context._currentRenderer !== undefined && context._currentRenderer !== null && context._currentRenderer !== rendererSigil) {
+-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
+-      }
+-
+       context._currentRenderer = rendererSigil;
+     }
+   } else {
+     push(valueCursor, context._currentValue2, providerFiber);
+     context._currentValue2 = nextValue;
+-
+     {
+-      if (context._currentRenderer2 !== undefined && context._currentRenderer2 !== null && context._currentRenderer2 !== rendererSigil) {
+-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
+-      }
+-
+       context._currentRenderer2 = rendererSigil;
+     }
+   }
+diff --git a/constants.js b/constants.js
+index df4f2b61987c04de6d1dbfb60f7cd1593689813c..ba8ed4174fa4c5b3c921928765f524e1c2ffc566 100644
+--- a/constants.js
++++ b/constants.js
+@@ -1,7 +1,3 @@
+ 'use strict';
+ 
+-if (process.env.NODE_ENV === 'production') {
+-  module.exports = require('./cjs/react-reconciler-constants.production.min.js');
+-} else {
+-  module.exports = require('./cjs/react-reconciler-constants.development.js');
+-}
++module.exports = require('./cjs/react-reconciler-constants.production.min.js');

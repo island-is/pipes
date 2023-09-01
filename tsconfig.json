@@ -1,0 +1,4 @@
+{
+  "extends": "@island-is/tsconfig",
+  "include": ["./yarn.config.js", "./rules/**/*.js", "./rules/rules.js", "./rules/*.d.ts"]
+}
