@@ -33,8 +33,7 @@ githubTestContext.addScript(async (context, config) => {
     return context.haltAll();
   }
   const buildReport = await testReport.build.get();
-  const buildValue =
-    (buildReport.filter((e) => e.status === "Error").length > 0
+  const buildValue = buildReport.filter((e) => e.status === "Error").length > 0
       ? "❌ **Build failed** - please view logs"
       : "✅ Build succesful";
   if (buildValue.split("").includes("❌")) {
