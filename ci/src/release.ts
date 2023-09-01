@@ -6,6 +6,7 @@ import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
 
 import { devWithDistImageKey } from "./build.js";
+import { config } from "./config.js";
 import { devWorkDir } from "./dev-image.js";
 import { testReport } from "./report.js";
 
@@ -14,10 +15,10 @@ export const releaseContext = createPipesCore()
   .addModule<PipesNodeModule>(PipesNode)
   .addModule<PipesGitHubModule>(PipesGitHub);
 releaseContext.config.appName = `Release dir`;
+releaseContext.config.githubToken = config.githubToken;
 releaseContext.config.nodeWorkDir = devWorkDir;
 releaseContext.config.nodeImageKey = devWithDistImageKey;
 releaseContext.addScript(async (context, config) => {
-  context.githubInitPr();
   const errArr = (
     await Promise.all([
       await testReport.buildOrder.get(),
@@ -37,12 +38,9 @@ releaseContext.addScript(async (context, config) => {
   const testFile = join(currentPath, "release-runner.ts");
   const reportJSON = join(config.nodeWorkDir, "release-report.json");
   const reportJSONKey = "TEST_REPORT_JSON";
-  context.githubInitPr();
+
   const container = await context.nodeAddEnv({
-    env: [
-      [reportJSONKey, reportJSON],
-      ["NODE_AUTH_TOKEN", config.githubToken],
-    ],
+    env: [[reportJSONKey, reportJSON], ["NODE_AUTH_TOKEN"]],
   });
   const value = await context.nodeCompileAndRun({
     name: "test",
