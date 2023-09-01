@@ -4,12 +4,6 @@ import ciInfo from "ci-info";
 /** Base config */
 export const config = (() => {
   const envConfig = {
-    githubToken: z
-      .string()
-      .default(undefined, {
-        env: "GITHUB_TOKEN",
-      })
-      .parse(undefined),
     version: z
       .string()
       .optional()

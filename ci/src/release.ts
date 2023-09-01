@@ -15,7 +15,6 @@ export const releaseContext = createPipesCore()
   .addModule<PipesNodeModule>(PipesNode)
   .addModule<PipesGitHubModule>(PipesGitHub);
 releaseContext.config.appName = `Release dir`;
-releaseContext.config.githubToken = config.githubToken;
 releaseContext.config.nodeWorkDir = devWorkDir;
 releaseContext.config.nodeImageKey = devWithDistImageKey;
 releaseContext.addScript(async (context, config) => {
@@ -33,14 +32,16 @@ releaseContext.addScript(async (context, config) => {
   if (errArr.length > 0) {
     console.error(`Failed!`);
   }
-
   const currentPath = fileURLToPath(dirname(import.meta.url));
   const testFile = join(currentPath, "release-runner.ts");
   const reportJSON = join(config.nodeWorkDir, "release-report.json");
   const reportJSONKey = "TEST_REPORT_JSON";
 
   const container = await context.nodeAddEnv({
-    env: [[reportJSONKey, reportJSON], ["NODE_AUTH_TOKEN"]],
+    env: [
+      [reportJSONKey, reportJSON],
+      ["NODE_AUTH_TOKEN", config.githubToken],
+    ],
   });
   const value = await context.nodeCompileAndRun({
     name: "test",
