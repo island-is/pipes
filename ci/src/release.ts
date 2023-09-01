@@ -2,11 +2,11 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
+import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 
 import { devWithDistImageKey } from "./build.js";
-import { config } from "./config.js";
+import { config as GlobalConfig } from "./config.js";
 import { devWorkDir } from "./dev-image.js";
 import { testReport } from "./report.js";
 
@@ -18,6 +18,10 @@ releaseContext.config.appName = `Release dir`;
 releaseContext.config.nodeWorkDir = devWorkDir;
 releaseContext.config.nodeImageKey = devWithDistImageKey;
 releaseContext.addScript(async (context, config) => {
+  if (GlobalConfig.npmAuthToken) {
+    console.error(`Npm auth token not set`);
+    context.haltAll();
+  }
   const errArr = (
     await Promise.all([
       await testReport.buildOrder.get(),
@@ -40,7 +44,8 @@ releaseContext.addScript(async (context, config) => {
   const container = await context.nodeAddEnv({
     env: [
       [reportJSONKey, reportJSON],
-      ["NODE_AUTH_TOKEN", config.githubToken],
+      ["NODE_AUTH_TOKEN", GlobalConfig.npmAuthToken],
+      ["NPM_AUTH_TOKEN", GlobalConfig.npmAuthToken],
     ],
   });
   const value = await context.nodeCompileAndRun({

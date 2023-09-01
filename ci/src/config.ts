@@ -23,6 +23,7 @@ export const config = (() => {
           long: "release-sha",
         },
       }),
+    npmAuthToken: z.string().optional().default(undefined, { env: "NPM_TOKEN" }).parse(undefined),
     action: z
       .union([z.literal("Test"), z.literal("Release")])
       .default("Test", {
