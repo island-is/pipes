@@ -31,6 +31,6 @@ jobs:
       - name: Run script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PIPES_ACTION: Test
+          PIPES_ACTION: Release
         run: yarn node src/ci.ts
         working-directory: ./ci

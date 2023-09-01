@@ -1,6 +1,8 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 
 import { runTestOnWorkspace, runWithLimitedConcurrency } from "@island.is/scripts";
+
+import { buildOrder } from "./get-build-order.js";
 
 import type { RunnerDetails, RunnerError } from "@island.is/scripts";
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];
@@ -11,8 +13,8 @@ if (!buildOrderJSON) {
 if (!reportJSON) {
   throw new Error(`Invalid env for report json`);
 }
-const buildOrder = JSON.parse(await readFile(buildOrderJSON, "utf-8"));
 let values: (RunnerError | RunnerDetails)[] = [];
+
 for (const build of buildOrder) {
   const tasks = build
     .map((e: any) => runTestOnWorkspace(e).flat())

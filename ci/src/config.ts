@@ -24,7 +24,7 @@ export const config = (() => {
         },
       }),
     action: z
-      .union([z.literal("Test"), z.literal("Release"), z.literal("Merge")])
+      .union([z.literal("Test"), z.literal("Release")])
       .default("Test", {
         env: "PIPES_ACTION",
         arg: {
