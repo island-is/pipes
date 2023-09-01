@@ -20,7 +20,7 @@ export async function compileFile(
       format: "esm" as const,
     },
     // @ts-expect-error - wrong typing
-    plugins: [nodeResolve({ module: true, only: [] }), swc({ minify: false })],
+    plugins: [nodeResolve({ only: [] }), swc({ minify: false })],
     external: [...builtinModules, ...builtinModules.map((e) => `node:${e}`), ...additionalExternals],
   };
 

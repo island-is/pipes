@@ -2,6 +2,7 @@ import { createPipesCore } from "@island.is/pipes-module-core";
 import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
 
 import { testReport } from "./report.js";
+import { inspect } from "node:util";
 
 /**
  * Context for PR on Dev - outputs info to github or console
@@ -18,18 +19,20 @@ githubTestContext.addScript(async (context, config) => {
     context.githubInitPr();
     await context.githubWriteCommentToCurrentPr({ comment: msg });
   };
-
+  const debugMsg = async (obj: any) => {
+    process.stderr.write(inspect(obj));
+  }
   const buildDevImageReport = await testReport.buildDevImage.get();
   if (buildDevImageReport.status === "Error") {
     await report(`❌ Failed creating build images with error: ${buildDevImageReport.error || "Unknown error"}`);
-    console.log(buildDevImageReport);
+    debugMsg(buildDevImageReport);
     return context.haltAll();
   }
 
   const buildOrderReport = await testReport.buildOrder.get();
   if (buildOrderReport.status === "Error") {
     await report(`❌ Failed creating build order: ${buildOrderReport.error || "Unknown error"}`);
-    console.log(buildOrderReport);
+    debugMsg(buildOrderReport);
     return context.haltAll();
   }
   const buildReport = await testReport.build.get();
@@ -38,8 +41,7 @@ githubTestContext.addScript(async (context, config) => {
       : "✅ Build succesful";
   if (buildValue.split("").includes("❌")) {
     await report(buildValue);
-    console.log(buildValue);
-    console.log(buildReport.filter((e) => e.status === "Error"));
+    debugMsg(buildReport.filter((e) => e.status === "Error"));
     return context.haltAll();
   }
   const valuesArr = await Promise.all([
@@ -57,7 +59,7 @@ githubTestContext.addScript(async (context, config) => {
     .join("\n");
   const hasErrors = values.split("").find((e) => e === "❌");
   if (hasErrors) {
-    console.error(valuesArr.flat());
+    debugMsg(valuesArr.flat().filter((e) => e.status === "Error"));
   }
   const finalReport = [hasErrors ? "❌ Test failed\n\n" : "✅ Test succesful\n\n", values].join("\n");
   await report(finalReport);
