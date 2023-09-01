@@ -40,11 +40,13 @@ const publishValues = (
   )
 ).filter((e): e is string => !!e);
 
+console.log(process.env.NODE_AUTH_TOKEN);
 for (const pkg of publishValues) {
   // run cwd and wait
   try {
     await Shell.execute("yarn", ["config", "set", "npmPublishRegistry", "https://npm.pkg.github.com/"], { cwd: pkg });
     await Shell.execute("yarn", ["config", "set", "npmAuthToken", process.env.NODE_AUTH_TOKEN ?? ""], { cwd: pkg });
+    await Shell.execute("yarn", ["config", "set", "nodeAuthToken", process.env.NODE_AUTH_TOKEN ?? ""], { cwd: pkg });
     const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
     report.msg[pkg] = value;
   } catch (e) {
