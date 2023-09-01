@@ -3,6 +3,7 @@ import { writeFile } from "node:fs/promises";
 import { Shell, preparePublishPackage } from "@island.is/scripts";
 
 import * as getBuildOrderJs from "./get-build-order.js";
+import { join } from "node:path";
 
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];
 const reportJSON = process.env["TEST_REPORT_JSON"];
@@ -46,9 +47,7 @@ console.log(process.env.NODE_AUTH_TOKEN);
 for (const pkg of publishValues) {
   // run cwd and wait
   try {
-    await Shell.execute("yarn", ["config", "set", "npmPublishRegistry", "https://npm.pkg.github.com/"], { cwd: pkg });
-    await Shell.execute("yarn", ["config", "set", "npmAuthToken", process.env.NODE_AUTH_TOKEN ?? ""], { cwd: pkg });
-    await Shell.execute("yarn", ["config", "set", "nodeAuthToken", process.env.NODE_AUTH_TOKEN ?? ""], { cwd: pkg });
+    await writeFile(join(pkg, ".npmrc"), `//registry.npmjs.org/:_authToken=${process.env.NODE_AUTH_TOKEN}`, "utf-8");
     const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
     report.msg[pkg] = value;
   } catch (e) {
