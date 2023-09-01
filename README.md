@@ -1,16 +1,6 @@
 # pipes
 
-<pre>
-           *            --
-          | |     .-       \
-      | .     .   -   /     \ 
-      |  _| |  _| __   \     
-      | |   | |            
-                         \
-                    \    
-                      -  - 
-          P   i   p   e  s
-</pre>
+
 **Pipes** is a modular framework designed for CI/CD, meticulously crafted in TypeScript. Its primary aim is to assist teams in developing a scalablen testable and human-readable deployment process, while emphasizing the importance of creating highly reusable components.
 
 Here are the core components of Pipes:
