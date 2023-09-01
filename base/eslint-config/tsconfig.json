@@ -1,0 +1,4 @@
+{
+  "extends": "@island.is/tsconfig",
+  "include": ["src/**/*.cjs"]
+}

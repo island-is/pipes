@@ -1,0 +1,16 @@
+.pipes-resolver
+.yarn/*
+!.yarn/releases
+!.yarn/sdks
+!.yarn/patches
+node_modules
+dist
+yarn-error.log
+*.tsbuildinfo
+coverage
+tmp
+.swc
+coverage
+.env*
+!.env
+**/dist

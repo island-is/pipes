@@ -1,0 +1,22 @@
+{
+  "jsc": {
+    "target": "esnext",
+    "parser": {
+      "syntax": "typescript",
+      "dynamicImport": true
+    },
+    "transform": {
+      "react": {
+        "pragma": "PipesDOM.PipesJSXFactory",
+        "pragmaFrag": "PipesDOM.Fragment",
+        "throwIfNamespace": true,
+        "development": false,
+        "useBuiltins": false
+      }
+    }
+  },
+  "module": {
+    "type": "nodenext",
+    "strict": true
+  }
+}

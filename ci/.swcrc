@@ -1,0 +1,17 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "target": "esnext",
+    "baseUrl": "."
+  },
+  "module": {
+    "type": "nodenext",
+    "strict": true
+  },
+  "sourceMaps": true
+}
