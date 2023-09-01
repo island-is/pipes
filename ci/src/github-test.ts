@@ -20,7 +20,12 @@ githubTestContext.addScript(async (context, config) => {
     await context.githubWriteCommentToCurrentPr({ comment: msg });
   };
   const debugMsg = async (obj: any) => {
-    process.stderr.write(inspect(obj));
+    process.stderr.write(inspect(obj, {
+      depth: 100,
+      colors: true,
+      showHidden: true,
+      showProxy: true,
+    }));
   }
   const buildDevImageReport = await testReport.buildDevImage.get();
   if (buildDevImageReport.status === "Error") {
