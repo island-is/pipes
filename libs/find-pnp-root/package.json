@@ -20,7 +20,7 @@
   "repository": {
     "directory": "libs/find-pnp-root",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island-is/pipes.git"
   },
   "engines": {
     "node": "20.5.1",

@@ -37,7 +37,7 @@
   "repository": {
     "directory": "scripts",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island-is/pipes.git"
   },
   "dependencies": {
     "glob": "10.3.3",

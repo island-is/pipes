@@ -15,7 +15,11 @@ if (!reportJSON) {
 const publishBuilds = getBuildOrderJs.buildOrder
   .flat()
   .filter((workspace) => workspace.config.publishFields && workspace.config.publishFiles);
-const report: { packageFailed: string[]; packageSuccess: string[] } = { packageFailed: [], packageSuccess: [] };
+const report: { packageFailed: string[]; packageSuccess: string[]; error: Record<string, any>, msg: Record< } = {
+  packageFailed: [],
+  packageSuccess: [],
+  error: {},
+};
 const publishValues = (
   await Promise.all(
     publishBuilds.map(async (workspace) => {
@@ -32,6 +36,11 @@ const publishValues = (
 
 for (const pkg of publishValues) {
   // run cwd and wait
-  await Shell.execute("npm", ["publish"], { cwd: pkg });
+  try {
+    const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
+    report.msg[pkg] = value;
+  } catch (e) {
+    report.error[pkg] = e;
+  }
 }
 await writeFile(reportJSON, JSON.stringify(report), "utf-8");

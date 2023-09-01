@@ -5,7 +5,7 @@
 
 > **Disclaimer**: This software is currently in development and is not considered production-ready. It more than likely contains bugs, incomplete features, or other discrepancies. Use at your own risk.
 >
-> It is strongly advised to only use this software in a production environment or for critical applications once it has been thoroughly tested and deemed stable.
+> It is strongly advised to NOT USE this software in a production environment or for critical applications until it has been thoroughly tested and deemed stable.
 
 
 **Pipes** consist of:

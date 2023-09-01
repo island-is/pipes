@@ -28,7 +28,7 @@
   "repository": {
     "directory": "libs/dom",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island-is/pipes.git"
   },
   "peerDependencies": {
     "@actions/core": "*",

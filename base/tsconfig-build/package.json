@@ -10,7 +10,7 @@
   "repository": {
     "directory": "base/tsconfig-build",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island-is/pipes.git"
   },
   "pipes": {
     "skipBuild": true,

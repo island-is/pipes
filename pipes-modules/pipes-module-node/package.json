@@ -29,7 +29,7 @@
   "repository": {
     "directory": "pipes-modules/pipes-module-node",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island-is/pipes.git"
   },
   "peerDependencies": {
     "@island.is/pipes-core": "*"
