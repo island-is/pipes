@@ -9,9 +9,10 @@ import {
 } from "@island.is/pipes-module-core";
 import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island.is/zod";
 
+import { PipesConfig } from "./config.js";
+
 import type { Client } from "@dagger.io/dagger";
 import type { PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "@island.is/pipes-module-core";
-import { PipesConfig } from "./config.js";
 
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
