@@ -4,7 +4,7 @@ import { builtinModules } from "node:module";
 const config = {
   input: "src/index.ts",
   output: {
-    file: "dist/fast-ts-loader.js",
+    file: "dist/pipes-loader.js",
     format: "esm",
   },
   plugins: [swc({ minify: false })],

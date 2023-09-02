@@ -1,10 +1,11 @@
 {
-  "name": "@island.is/fast-ts-loader",
+  "name": "@island.is/pipes-loader",
   "packageManager": "yarn@4.0.0-rc.47",
   "scripts": {
     "build": "rollup -c"
   },
   "type": "module",
+  "main": "dist/pipes-loader.js",
   "peerDependencies": {
     "@swc/core": "*"
   },
@@ -29,7 +30,7 @@
     "skipGlobalResolution": true
   },
   "repository": {
-    "directory": "libs/fast-ts-loader",
+    "directory": "libs/pipes-ts-loader",
     "type": "git",
     "url": "https://github.com/island-is/pipes"
   },

@@ -114,6 +114,7 @@ const load = async (url, context, defaultLoad)=>{
                 }
             }
         },
+        sourceMaps: "inline",
         module: {
             type: "nodenext",
             strict: true
@@ -131,7 +132,7 @@ const load = async (url, context, defaultLoad)=>{
  *
  * @param file File path or URL string
  * @returns null if wrong protocool, else string.
- */ const convertURL = (file)=>{
+ */ function convertURL(file) {
     if (!file) {
         return null;
     }
@@ -145,7 +146,7 @@ const load = async (url, context, defaultLoad)=>{
     // empty on purpose
     }
     return file;
-};
+}
 
 const isRelativePath = (path)=>{
     return !/^(?:\/|[a-zA-Z]:\\|https?:\/\/|data:|blob:)/.test(path);
@@ -182,7 +183,7 @@ const isRelativePath = (path)=>{
  * Checks if the string is a file or directory. Returns directory.
  * @param url fs location
  * @returns null if no directory found or string. Returns dirname of file if file, else path.
- */ const convertURLToDirectory = async (url)=>{
+ */ async function convertURLToDirectory(url) {
     if (!url) {
         return null;
     }
@@ -198,25 +199,25 @@ const isRelativePath = (path)=>{
         return rootDirectory;
     }
     return null;
-};
+}
 
 /**
  * @param path - path to fs
  * @returns true if file exists, else false.
- */ const doesFileExists = async (path)=>{
+ */ async function doesFileExists(path) {
     try {
         await fs.access(path, fs.constants.F_OK);
         return true;
     } catch (error) {
         return false;
     }
-};
+}
 
 /**
  * Checks if the file is ts, tsx or has a typescript file with different ending
  * @param path path to fs
- * @returns true if typescript, else false
- */ const shouldCompile = async (path)=>{
+ * @returns string if it exists else null
+ */ async function shouldCompile(path) {
     const fileIsHere = await doesFileExists(path);
     if (fileIsHere) {
         const currentExtension = extname(path);
@@ -233,7 +234,7 @@ const isRelativePath = (path)=>{
         }
     }
     return null;
-};
+}
 
 const resolve = async (url, context, nextResolve)=>{
     /** Ignore builtin modules. */ if (url.startsWith("node:") || builtinModules.includes(url)) {

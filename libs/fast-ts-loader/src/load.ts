@@ -56,6 +56,7 @@ export const load: LoadFn = async (url, context, defaultLoad) => {
         },
       },
     },
+    sourceMaps: "inline",
     module: {
       type: "nodenext",
       strict: true,
