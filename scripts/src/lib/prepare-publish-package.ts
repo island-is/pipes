@@ -24,6 +24,7 @@ export async function preparePublishPackage(workspace: Workspace): Promise<void 
     filteredJSON[field] = rawPackageJSON[field];
   }
   await writeFile(join(tempDir, "package.json"), JSON.stringify(filteredJSON, null, 2));
+
   for (const pattern of config.publishFiles) {
     const files = glob.sync(pattern, { cwd: workspacePath, nodir: true });
     for (const file of files) {
