@@ -22,7 +22,19 @@ const config = {
     file: files.main,
     format: "esm",
   },
-  plugins: [],
+  plugins: [
+    {
+      name: "island-is-resolve",
+      resolveId(source) {
+        try {
+          const file = import.meta.resolve?.(source);
+          return file.replace("file:///", "/");
+        } catch {
+          return null;
+        }
+      },
+    },
+  ],
   external: [...builtinModules.map((e) => `node:${e}`), "@swc/core", "glob"],
 };
 
