@@ -642,7 +642,7 @@ __metadata:
     eslint: "npm:8.47.0"
     glob: "npm:10.3.3"
     prettier: "npm:3.0.2"
-    rollup: "npm:3.28.0"
+    rollup: "npm:3.28.1"
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.9.1"
     typescript: "npm:5.1.6"
@@ -806,7 +806,7 @@ __metadata:
     lodash.clonedeep: "npm:"
     mobx: "npm:6.10.0"
     prettier: "npm:3.0.2"
-    rollup: "npm:3.28.0"
+    rollup: "npm:3.28.1"
     rollup-plugin-node-resolve: "npm:5.2.0"
     rollup-plugin-swc3: "npm:0.9.1"
     tmp-promise: "npm:3.0.3"
@@ -839,7 +839,7 @@ __metadata:
     lodash.clonedeep: "npm:"
     mobx: "npm:6.10.0"
     prettier: "npm:3.0.2"
-    rollup: "npm:3.28.0"
+    rollup: "npm:3.28.1"
     rollup-plugin-node-resolve: "npm:5.2.0"
     rollup-plugin-swc3: "npm:0.9.1"
     tmp-promise: "npm:3.0.3"
@@ -9807,9 +9807,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:3.28.0":
-  version: 3.28.0
-  resolution: "rollup@npm:3.28.0"
+"rollup@npm:3.28.1":
+  version: 3.28.1
+  resolution: "rollup@npm:3.28.1"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -9817,7 +9817,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: f478bc815f520fb0293fe65a1ed44a35e6b15373efb5c35aa23ba1b63a7a7bf9880a805f1f1dcd4a32fbce8c647077eb5a074fdc48e8e944281fd6e61805c2cf
+  checksum: 007423d1750273a8c4bb33dc450a795d03a627bf455d9674b79f05d6c6569090b50ad08dd87cf5f4777c553fc0559e41e5de3b8a87c23e7f32291c2a33d09aa2
   languageName: node
   linkType: hard
 
