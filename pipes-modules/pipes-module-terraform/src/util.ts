@@ -1,8 +1,7 @@
-import { lstat } from "fs/promises";
-import { readdir, stat } from "node:fs/promises";
+import { lstat, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
 
-export const doesFileExists = async (file: string): Promise<boolean> =>
+export const doesFileExists = (file: string): Promise<boolean> =>
   lstat(file)
     .catch(() => false)
     .then(() => true);

@@ -34,7 +34,13 @@ export async function buildWithRollup(workspace: Workspace): Promise<RollupResul
         file: input.files.output,
         format: "esm",
       };
-      newConfig.plugins = [...newConfig.plugins, swc({ minify: false })];
+      newConfig.plugins = [
+        ...newConfig.plugins,
+        swc({
+          sourceMaps: true,
+          minify: false,
+        }),
+      ];
       const bundle = await rollup(newConfig);
       await bundle.write(config.output);
       await bundle.close();

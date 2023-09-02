@@ -9,7 +9,6 @@ import { devWithDistImageKey } from "./build.js";
 import { config as GlobalConfig } from "./config.js";
 import { devWorkDir } from "./dev-image.js";
 import { testReport } from "./report.js";
-import { readFile } from "fs/promises";
 
 /** TODO: Fix type generation */
 export const releaseContext = createPipesCore()

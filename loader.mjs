@@ -5,7 +5,7 @@ import { transformFile } from "@swc/core";
 import * as fs from "node:fs/promises";
 import { readFile } from "node:fs/promises";
 import { glob } from "glob";
-import { readFile as readFile$1 } from "fs/promises";
+import { readFile as readFile$1 } from "node:fs/promises";
 import { join as join$1 } from "path";
 
 const getAllWorkspaces = async (root) => {

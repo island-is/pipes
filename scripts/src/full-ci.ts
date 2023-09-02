@@ -46,8 +46,9 @@ const buildAndTest = (
       .map((buildWorkspaces) => {
         const tasks = buildWorkspaces
           .map((workspace) => {
+            const testResults = runTestOnWorkspace(workspace);
             const buildResults = runBuildOnWorkspace(workspace);
-            return [...buildResults];
+            return [...testResults, ...buildResults];
           })
           .flat();
 
