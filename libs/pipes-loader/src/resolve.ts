@@ -27,7 +27,7 @@ export const resolve: ResolveFn = async (url, context, nextResolve) => {
     return nextResolve(url, context, nextResolve);
   }
   /** If we are in source mode and this is a local package - fetch it! */
-  if (should_use_source_extension_for_local_packages && url.startsWith(localScope)) {
+  if (should_use_source_extension_for_local_packages && localScope && url.startsWith(localScope)) {
     const obj = localProjects[url];
     if (obj) {
       return {

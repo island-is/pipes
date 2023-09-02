@@ -1,7 +1,7 @@
 /**
  * Library to be included from CI
  */
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 
 import type { workspaceWithHashes } from "@island.is/scripts";
 

@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join, sep } from "node:path";
 
 import { glob } from "glob";
-interface LocalPackage {
+export interface LocalPackage {
   name: string;
   source: string;
 }
