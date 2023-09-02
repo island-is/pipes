@@ -10,8 +10,6 @@ const input = join(currentPath, ...packageJSON.source.replace("./", "").split("/
 const output = join(currentPath, ...packageJSON.main.replace("./", "").split("/"));
 const types = join(currentPath, ...packageJSON.types.replace("./", "").split("/"));
 
-console.log({ input, output, types });
-
 export const files = {
   main: output,
   source: input,
@@ -20,6 +18,7 @@ export const files = {
 const config = {
   input: files.source,
   output: {
+    sourcemap: true,
     file: files.main,
     format: "esm",
   },
