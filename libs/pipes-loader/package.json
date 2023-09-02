@@ -9,6 +9,28 @@
   "peerDependencies": {
     "@swc/core": "*"
   },
+  "pipes": {
+    "publishFields": [
+      "name",
+      "main",
+      "repository",
+      "type",
+      "types",
+      "license",
+      "publishConfig",
+      "version",
+      "dependencies",
+      "repository"
+    ],
+    "publishFiles": [
+      "dist/**",
+      "README.md"
+    ],
+    "buildWithRollup": true
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@island.is/eslint-config": "workspace:*",
     "@island.is/prettier-config": "workspace:*",
@@ -26,9 +48,6 @@
     "typescript": "5.1.6"
   },
   "license": "MIT",
-  "pipes": {
-    "skipGlobalResolution": true
-  },
   "repository": {
     "directory": "libs/pipes-loader",
     "type": "git",

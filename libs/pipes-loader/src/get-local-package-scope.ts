@@ -3,7 +3,7 @@ import { join } from "path";
 
 let obj: null | string = null;
 
-export const getLocalPackageScoop = async (rootPath: string): Promise<string> => {
+export const getLocalPackageScoop = async (rootPath: string): Promise<string | null> => {
   if (typeof obj === "string") {
     return obj;
   }
@@ -11,7 +11,7 @@ export const getLocalPackageScoop = async (rootPath: string): Promise<string> =>
   const data = await readFile(file, "utf-8");
   const content = data.match(/initScope:(.*)\n/g);
   if (!content || !content[0]) {
-    throw new Error("Could not find initScope");
+    return null;
   }
   const initScope = `@${content[0].replaceAll("initScope:", "").replaceAll(" ", "").trim()}/`;
   obj = initScope;
