@@ -608,8 +608,6 @@ __metadata:
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.1"
     typescript: "npm:5.1.6"
-  peerDependencies:
-    "@swc/core": "*"
   languageName: unknown
   linkType: soft
 

@@ -5,12 +5,12 @@
     "build": "rollup -c"
   },
   "type": "module",
-  "main": "dist/pipes-loader.js",
-  "types": "dist/pipes-loader.d.ts",
-  "source": "src/index.ts",
+  "main": "./dist/pipes-loader.js",
+  "types": "./dist/pipes-loader.d.ts",
+  "source": "./src/index.ts",
   "dependencies": {
-    "glob": "10.3.3",
-    "@swc/core": "1.3.78"
+    "@swc/core": "1.3.78",
+    "glob": "10.3.3"
   },
   "pipes": {
     "publishFields": [
