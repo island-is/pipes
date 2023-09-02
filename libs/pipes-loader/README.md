@@ -26,13 +26,17 @@ Run node with
 
 ```bash
 
-NODE_OPTIONS=--loader=@island.is/pipes-loader node example.ts
+NODE_OPTIONS=--experimental-loader=@island.is/pipes-loader node example.ts
 
 ```
 
 **Optional**
 
-Add NODE_OPTIONS to an .env file.
+Add NODE_OPTIONS to an .env file:
+
+```
+NODE_OPTIONS=--experimental-loader=@island.is/pipes-loader
+```
 
 Either:
 
@@ -58,11 +62,11 @@ The module provides the following primary functions:
 
 - `resolve`: Determines the correct file path for a given module and decides whether it should be compiled. [^2]
 
-[^2]: (Specs are defined here)[https://nodejs.org/api/esm.html#resolvespecifier-context-nextresolve].
+[^2]: [Specs are defined here](https://nodejs.org/api/esm.html#resolvespecifier-context-nextresolve).
 
 - `load`: Handles the actual compilation process for `.ts` and `.tsx` files using the @swc/core. [^3]
 
-[^3]: (Specs are defined here)[https://nodejs.org/api/esm.html#loadurl-context-nextload]
+[^3]: [Specs are defined here](https://nodejs.org/api/esm.html#loadurl-context-nextload)
 
 > ---
 >
@@ -81,3 +85,9 @@ The module provides the following primary functions:
 ## ⚠️ Caveats
 
 The use of the Node.js Loader API is still experimental, meaning it could change in future versions of Node.js.
+
+This library is probably only suited for projects using Pipes.
+
+## 🛡️ License
+
+License is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
