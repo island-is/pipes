@@ -42,14 +42,6 @@
     "typescript": "5.1.6",
     "zod": "3.22.2"
   },
-  "dependenciesMeta": {
-    "rollup@3.28.0": {
-      "unplugged": true
-    },
-    "typescript@5.1.6": {
-      "unplugged": true
-    }
-  },
   "engines": {
     "node": "20.5.1",
     "yarn": "4.0.0-rc.47",
