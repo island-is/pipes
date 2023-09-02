@@ -536,7 +536,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
@@ -557,7 +557,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
     typescript: "npm:5.1.6"
@@ -577,7 +577,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
@@ -601,7 +601,7 @@ __metadata:
     "@swc/core": "npm:1.3.78"
     "@types/eslint": "npm:8.44.2"
     "@types/eslint-config-prettier": "npm:6.11.0"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     "@typescript-eslint/eslint-plugin": "npm:6.4.0"
     "@typescript-eslint/parser": "npm:6.4.0"
     eslint: "npm:8.47.0"
@@ -638,7 +638,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     glob: "npm:10.3.3"
     prettier: "npm:3.0.2"
@@ -659,7 +659,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
     typescript: "npm:5.1.6"
@@ -679,7 +679,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
     typescript: "npm:5.1.6"
@@ -703,7 +703,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@island.is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     "@types/which": "npm:3"
     ci-info: "npm:3.8.0"
     enquirer: "npm:2.4.1"
@@ -729,7 +729,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@island.is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     mobx: "npm:6.10.0"
@@ -764,7 +764,7 @@ __metadata:
     "@island.is/zod": "workspace:*"
     "@octokit/rest": "npm:20.0.1"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     enquirer: "npm:2.4.1"
     eslint: "npm:8.47.0"
@@ -800,7 +800,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@island.is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     lodash.clonedeep: "npm:"
@@ -833,7 +833,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@island.is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     lodash.clonedeep: "npm:"
@@ -960,7 +960,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.3"
+    "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     mobx: "npm:6.10.0"
     prettier: "npm:3.0.2"
@@ -1711,10 +1711,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.5.3":
-  version: 20.5.3
-  resolution: "@types/node@npm:20.5.3"
-  checksum: 602ae00a162d1d79e6c79a5139625671d0a0bfc9e9222d8457fe0647bde4754d12305fa3c878fa75e6bc3582e9d3f7d746aa719dba64a6d37ea9e3c16137687a
+"@types/node@npm:20.5.8":
+  version: 20.5.8
+  resolution: "@types/node@npm:20.5.8"
+  checksum: 831540dcdfe7d10ef7385abfaa86cbdb7488d6635d955175e174e8c861eef457ee6c6b1e78847e7f1459fd3b327b97081c4b599bfc33e042c59eb1534e60a74d
   languageName: node
   linkType: hard
 
