@@ -1,19 +1,23 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-let obj: null | string = null;
+const obj: Record<string, null | string> = {};
 
 export const getLocalPackageScoop = async (rootPath: string): Promise<string | null> => {
-  if (typeof obj === "string") {
-    return obj;
+  if (typeof obj[rootPath] === "string") {
+    return obj[rootPath];
   }
-  const file = join(rootPath, ".yarnrc.yml");
-  const data = await readFile(file, "utf-8");
-  const content = data.match(/initScope:(.*)\n/g);
-  if (!content || !content[0]) {
+  try {
+    const file = join(rootPath, ".yarnrc.yml");
+    const data = await readFile(file, "utf-8");
+    const content = data.match(/initScope:(.*)\n/g);
+    if (!content || !content[0]) {
+      return null;
+    }
+    const initScope = `@${content[0].replaceAll("initScope:", "").replaceAll(" ", "").trim()}/`;
+    obj[rootPath] = initScope;
+    return initScope;
+  } catch {
     return null;
   }
-  const initScope = `@${content[0].replaceAll("initScope:", "").replaceAll(" ", "").trim()}/`;
-  obj = initScope;
-  return initScope;
 };

@@ -19,6 +19,7 @@ export type LoadFn = (
 ) => Promise<{
   source?: string | Buffer | null | undefined;
   shortCircuit: boolean;
+  format?: "commonjs" | "module";
 }>;
 
 export const load: LoadFn = async (url, context, defaultLoad) => {
@@ -37,6 +38,7 @@ export const load: LoadFn = async (url, context, defaultLoad) => {
       shortCircuit: true,
     };
   }
+  const moduleType = await getPackageType(fileURLToPath(url));
   /** Transpile all code that ends with ts or tsx */
   const { code } = await transformFile(fileURLToPath(url), {
     cwd: process.cwd(),
@@ -58,13 +60,13 @@ export const load: LoadFn = async (url, context, defaultLoad) => {
     },
     sourceMaps: "inline",
     module: {
-      type: "nodenext",
+      type: moduleType === "commonjs" ? "commonjs" : "nodenext",
       strict: true,
     },
   });
 
   return {
-    format: "module",
+    format: moduleType,
     shortCircuit: true,
     source: code,
   };
