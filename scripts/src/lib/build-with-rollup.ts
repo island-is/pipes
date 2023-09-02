@@ -54,6 +54,7 @@ export async function buildWithRollup(workspace: Workspace): Promise<RollupResul
       status: "Success",
     };
   } catch (e) {
+    console.log(e);
     return {
       type: "Rollup",
       workspace: workspace.name,

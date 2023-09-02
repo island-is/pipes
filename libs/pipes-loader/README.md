@@ -68,15 +68,6 @@ The module provides the following primary functions:
 
 [^3]: [Specs are defined here](https://nodejs.org/api/esm.html#loadurl-context-nextload)
 
-> ---
->
-> 💡 **Note**
->
-> Ensure that @swc/core is installed
-> in the environment where this loader operates.
->
-> ---
-
 ## 🌟 Benefits
 
 - Ease of Use: Simplifies development and deployment.
