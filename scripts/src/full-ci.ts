@@ -64,7 +64,7 @@ const values = (await runWithLimitedConcurrency([...buildAndTest]).values).flat(
   return e && typeof e === "object" && e.status === "Error";
 }); */
 
-console.log(values);
+console.log(values.flat().filter((e) => e.status === "Error"));
 
 // eslint-disable-next-line no-console
 // console.error(errors);

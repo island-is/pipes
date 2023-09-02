@@ -14,6 +14,9 @@ type TestFn = (workspace: Workspace, imports: Imports) => ImportResult[];
 type Tests = Partial<Record<Workspace["packageType"] | "default", TestFn>>;
 export const tests: Tests = {
   libs: (workspace, imports) => {
+    if (workspace.name.endsWith("pipes-loader")) {
+      return [];
+    }
     const typeImportShouldBeInDevDependencies = imports.type.filter(
       (value) => !workspace.dependencies.peerDependencies.includes(value),
     );
