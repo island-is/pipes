@@ -9,6 +9,7 @@ yarn-error.log
 *.tsbuildinfo
 coverage
 tmp
+**/tmp
 .swc
 coverage
 .env*

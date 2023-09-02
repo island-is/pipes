@@ -8,3 +8,5 @@ export * from "./lib/workspace.js";
 export * from "./lib/get-all-workspaces.js";
 export * from "./lib/get-build-orders.js";
 export * from "./lib/error-messages.js";
+export * from "./lib/prepare-publish-package.js";
+export * from "./lib/shell.js";

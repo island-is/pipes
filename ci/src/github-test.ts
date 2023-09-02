@@ -1,8 +1,9 @@
+import { inspect } from "node:util";
+
 import { createPipesCore } from "@island.is/pipes-module-core";
 import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
 
 import { testReport } from "./report.js";
-import { inspect } from "node:util";
 
 /**
  * Context for PR on Dev - outputs info to github or console
@@ -19,14 +20,16 @@ githubTestContext.addScript(async (context, config) => {
     context.githubInitPr();
     await context.githubWriteCommentToCurrentPr({ comment: msg });
   };
-  const debugMsg = async (obj: any) => {
-    process.stderr.write(inspect(obj, {
-      depth: 100,
-      colors: true,
-      showHidden: true,
-      showProxy: true,
-    }));
-  }
+  const debugMsg = (obj: any) => {
+    process.stderr.write(
+      inspect(obj, {
+        depth: 100,
+        colors: true,
+        showHidden: true,
+        showProxy: true,
+      }),
+    );
+  };
   const buildDevImageReport = await testReport.buildDevImage.get();
   if (buildDevImageReport.status === "Error") {
     await report(`❌ Failed creating build images with error: ${buildDevImageReport.error || "Unknown error"}`);
@@ -41,7 +44,8 @@ githubTestContext.addScript(async (context, config) => {
     return context.haltAll();
   }
   const buildReport = await testReport.build.get();
-  const buildValue = buildReport.filter((e) => e.status === "Error").length > 0
+  const buildValue =
+    buildReport.filter((e) => e.status === "Error").length > 0
       ? "❌ **Build failed** - please view logs"
       : "✅ Build succesful";
   if (buildValue.split("").includes("❌")) {

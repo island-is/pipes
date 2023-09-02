@@ -1,3 +1,0 @@
-/**
- * @file All types.
- */ export { };

@@ -1,25 +1,22 @@
-name: Automerge
+name: Pull request
 
 on:
-  pull_request:
+  push:
     branches:
-      - devel
-    types:
-      - labeled
+      - "release-*"
 concurrency:
-  group: devel-automerge
-  cancel-in-progress: false
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  automerge:
+  tests:
     runs-on: ubuntu-22.04
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
-      repository-projects: write
-    if: contains(github.event.pull_request.labels.*.name, 'automerge')
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -28,9 +25,13 @@ jobs:
           cache-dependency-path: "yarn.lock"
       - name: Install dependencies
         run: yarn install
-      - name: Run automerge script
+      - name: Extract release version from branch name
+        run: echo "RELEASE_VERSION=$(echo ${{ github.ref }} | sed 's/refs\/heads\/release-//')" >> $GITHUB_ENV
+      - name: Run script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PIPES_ACTION: Merge
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PIPES_ACTION: Release
+          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         run: yarn node src/ci.ts
         working-directory: ./ci
