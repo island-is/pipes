@@ -11,7 +11,7 @@ export const findPnpRoot = (path: string): string => {
   if (baseDir[path]) {
     return baseDir[path];
   }
-  const file = existsSync(join(path, "./.yarnrc.yml"));
+  const file = existsSync(join(path, "yarn.lock"));
   if (file) {
     baseDir[path] = path;
     return path;
