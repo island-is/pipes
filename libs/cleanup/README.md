@@ -1,43 +1,45 @@
-# `@island.is/find-pnp-root`
+# @island.is/cleanup
 
-## Description
+onCleanup accepts a callback function that will be called once when process exits or uncaught exceptions are captured.
 
-This module provides a utility function to detect and return the root directory of a Yarn Plug'n'Play (PnP) project. The root directory is determined by the presence of a `.pnp.cjs` file.
+## 🛠️ Usage
 
-## Usage
+This library is exported by `@island.is/pipes-core`.
 
-```javascript
-import { findPnpRoot } from "@island.is/find-pnp-root";
+```ts
+import { onCleanup } from "@island.is/pipes-core";
 
-const rootDirectory = findPnpRoot(initialPath);
+const stopCleanup = onCleanup(() => {
+  console.log("Cleaning up resources...");
+});
+
+// Removing the cleanup listeners and calling the cleanup
+stopCleanup();
+
+// Removing the cleanup listeners and not calling cleanup
+stopCleanup(false);
 ```
 
-## API
+## 📚 API
 
-### `findPnpRoot(path: string): string`
+### `onCleanup(callback: () => void): (call?: boolean) => void`
 
-**Parameters:**
+The `onCleanup` function takes a `callback` function as its argument and returns a new function.
 
-- `path`: The initial directory path where the search begins.
+- **callback**: A function to be executed for cleanup tasks.
 
-**Returns:** The root directory path of the Yarn PnP project.
+The returned function can be called to manually trigger the cleanup and remove the event listeners.
 
-**Behavior:**
+## 🚦 Events Covered
 
-- If the environment variable `BASE_DIR` is set, it returns its value.
-- Utilizes caching to return previously computed root paths for improved performance on subsequent calls.
-- If the `.pnp.cjs` file is found in the provided path or any of its parent directories, the path to the directory containing the file is returned.
-- If the root is not found after recursively searching parent directories, it throws an error with the message "Could not find root".
+The utility listens for the following events and triggers the cleanup accordingly:
 
-### Exceptions
+- `exit`: Regular process exit
+- `SIGINT`: Interrupt from the terminal, usually from `Ctrl+C`
+- `SIGUSR1`: User-defined signal 1
+- `SIGUSR2`: User-defined signal 2
+- `uncaughtException`: Uncaught exceptions in the application
 
-- `Error`: "Could not find root" – Thrown when the root directory is not found after searching the provided path and its parent directories.
+## 🛡️ License
 
-## Example
-
-```javascript
-import { findPnpRoot } from "@island.is/find-pnp-root";
-
-const projectRoot = findPnpRoot("/path/to/any/sub/directory");
-console.log(projectRoot); // Outputs the path to the root directory of the Yarn PnP project
-```
+License is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

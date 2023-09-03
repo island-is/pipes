@@ -1,31 +1,24 @@
 import assert from "node:assert";
-import { EventEmitter } from "node:events";
-import test from "node:test";
+import { test } from "node:test";
 
-const mockProcess = new EventEmitter();
+import { onCleanup } from "./cleanup.js";
 
-const onCleanup = (callback: () => void) => {
-  mockProcess.on("exit", callback);
-  mockProcess.on("SIGINT", callback);
-  mockProcess.on("SIGUSR1", callback);
-  mockProcess.on("SIGUSR2", callback);
-  mockProcess.on("uncaughtException", callback);
-};
-
+/**
+ * We only can do one test! HAHA!
+ */
 test("onCleanup should trigger callback on 'exit'", () => {
-  let called = false;
+  let x = 0;
   onCleanup(() => {
-    called = true;
+    x += 1;
   });
-  mockProcess.emit("exit");
-  assert.strictEqual(called, true);
-});
-
-test("onCleanup should trigger callback on 'SIGINT'", () => {
-  let called = false;
   onCleanup(() => {
-    called = true;
+    x += 1;
   });
-  mockProcess.emit("SIGINT");
-  assert.strictEqual(called, true);
+  onCleanup(() => {
+    x += 1;
+  });
+  onCleanup(() => {
+    assert.equal(x, 3);
+  });
+  process.exit(0);
 });

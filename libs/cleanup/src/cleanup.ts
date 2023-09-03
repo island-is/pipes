@@ -1,25 +1,32 @@
 export function onCleanup(callback: () => void): (call?: boolean) => void {
-  const exitHandler = callback;
+  let called = false;
+
+  const executeCallback = () => {
+    if (!called) {
+      called = true;
+      callback();
+    }
+  };
   const sigintHandler = () => {
-    callback();
+    executeCallback();
     process.exit(2);
   };
   const sigusr1Handler = () => {
-    callback();
+    executeCallback();
     process.exit(3);
   };
   const sigusr2Handler = () => {
-    callback();
+    executeCallback();
     process.exit(4);
   };
   const uncaughtExceptionHandler = (err: Error) => {
     // eslint-disable-next-line no-console
     console.error("Uncaught exception:", err);
-    callback();
+    executeCallback();
     process.exit(99);
   };
 
-  process.on("exit", exitHandler);
+  process.on("exit", executeCallback);
   process.on("SIGINT", sigintHandler);
   process.on("SIGUSR1", sigusr1Handler);
   process.on("SIGUSR2", sigusr2Handler);
@@ -29,7 +36,7 @@ export function onCleanup(callback: () => void): (call?: boolean) => void {
     if (call) {
       callback();
     }
-    process.removeListener("exit", exitHandler);
+    process.removeListener("exit", executeCallback);
     process.removeListener("SIGINT", sigintHandler);
     process.removeListener("SIGUSR1", sigusr1Handler);
     process.removeListener("SIGUSR2", sigusr2Handler);
