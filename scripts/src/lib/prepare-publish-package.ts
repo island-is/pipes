@@ -6,7 +6,7 @@ import { glob } from "glob";
 
 import type { Workspace } from "./workspace.js";
 
-export async function preparePublishPackage(workspace: Workspace): Promise<void | string> {
+export async function preparePublishPackage(workspace: Workspace, version: string): Promise<void | string> {
   const { path: workspacePath, config, rawPackageJSON } = workspace;
   if (!config.publishFields || !config.publishFiles) {
     return;
@@ -23,6 +23,13 @@ export async function preparePublishPackage(workspace: Workspace): Promise<void 
   for (const field of config.publishFields) {
     filteredJSON[field] = rawPackageJSON[field];
   }
+  filteredJSON["version"] = version;
+  filteredJSON["dependencies"] = filteredJSON["dependencies"] || {};
+  Object.keys(filteredJSON["dependencies"]).forEach((e) => {
+    if (e.startsWith("@island.is")) {
+      filteredJSON["dependencies"][e] = version;
+    }
+  });
   await writeFile(join(tempDir, "package.json"), JSON.stringify(filteredJSON, null, 2));
 
   for (const pattern of config.publishFiles) {

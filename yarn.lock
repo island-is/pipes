@@ -604,7 +604,6 @@ __metadata:
     "@types/node": "npm:20.5.8"
     "@types/which": "npm:3"
     ci-info: "npm:3.8.0"
-    enquirer: "npm:2.4.1"
     eslint: "npm:8.47.0"
     mobx: "npm:6.10.0"
     prettier: "npm:3.0.2"
