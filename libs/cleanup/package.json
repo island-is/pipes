@@ -1,6 +1,6 @@
 {
   "name": "@island.is/cleanup",
-  "version": "0.0.1",
+  "version": "23.09.00",
   "main": "./dist/cleanup.js",
   "source": "./src/cleanup.ts",
   "devDependencies": {

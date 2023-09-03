@@ -1,6 +1,6 @@
 {
   "name": "@island.is/eslint-config",
-  "version": "1.0.0",
+  "version": "23.09.00",
   "main": "./index.cjs",
   "types": "./index.d.ts",
   "dependencies": {

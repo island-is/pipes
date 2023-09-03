@@ -1,6 +1,6 @@
 {
   "name": "@island.is/prettier-config",
-  "version": "0.0.1",
+  "version": "23.09.00",
   "main": "./src/index.cjs",
   "types": "./src/index.d.ts",
   "license": "MIT",
