@@ -4,7 +4,7 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
-import { z } from "@island.is/zod";
+import { z } from "@island.is/pipes-core";
 
 import { DAGGER_VERSION, MOBX_VERSION, SWC_VERSION, VERSION, YARN_VERSION } from "./const.js";
 import { PackageJSON } from "./package-json.js";
