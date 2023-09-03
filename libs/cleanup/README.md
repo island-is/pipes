@@ -6,6 +6,8 @@ onCleanup accepts a callback function that will be called once when process exit
 
 This library is exported by `@island.is/pipes-core`.
 
+## 📖 Example
+
 ```ts
 import { onCleanup } from "@island.is/pipes-core";
 
@@ -42,4 +44,4 @@ The utility listens for the following events and triggers the cleanup accordingl
 
 ## 🛡️ License
 
-License is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+License is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
