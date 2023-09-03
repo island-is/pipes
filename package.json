@@ -1,6 +1,6 @@
 {
   "name": "@island.is/pipes",
-  "version": "21.09.00",
+  "version": "23.09.00",
   "description": "Typescript utils for creating pipes using dagger.io",
   "main": "./dist/index.js",
   "author": "Jon Arnarson <jonorn@andes.is>",

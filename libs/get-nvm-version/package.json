@@ -1,6 +1,6 @@
 {
   "name": "@island.is/get-nvm-version",
-  "version": "21.09.00",
+  "version": "23.09.00",
   "main": "./dist/get-nvm-version.js",
   "source": "./src/get-nvm-version.ts",
   "scripts": {
