@@ -10,6 +10,7 @@
   "types": "./dist/create-pipes.d.ts",
   "source": "./src/create-pipes.ts",
   "dependencies": {
+    "@island.is/core": "workspace:*",
     "@dagger.io/dagger": "0.8.4",
     "@island.is/pipes-core": "workspace:*",
     "@swc/core": "1.3.78",
