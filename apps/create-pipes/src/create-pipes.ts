@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -11,50 +8,57 @@ import { PackageJSON } from "./package-json.js";
 import { sourceFile } from "./pipes.js";
 import { createYARNRC } from "./yarnrc.js";
 
-function executeCommand(command: string, cwd: string) {
-  try {
-    execSync(command, { stdio: "inherit", cwd });
-  } catch (error) {
-    console.error(`Failed to execute command: ${command}`);
-    process.exit(1);
-  }
+import type { WriteFileOptions } from "node:fs";
+
+export function getAppPaths(root: string, appName: string): { appPath: string; srcPath: string } {
+  const appPath = path.join(root, appName);
+  const srcPath = path.join(appPath, "src");
+  return { appPath, srcPath };
 }
 
-// Create a new app directory
-const appName = z
-  .string()
-  .default(undefined, {
-    arg: {
-      long: "appName",
-      positional: true,
-    },
-  })
-  .parse(undefined);
+export function createDirectories(path: string): void {
+  fs.mkdirSync(path, { recursive: true });
+}
 
-const appPath = path.join(process.cwd(), appName);
-const srcPath = path.join(appPath, "src");
-fs.mkdirSync(srcPath, { recursive: true });
+export function writeFile(filePath: string, content: string, encoding: WriteFileOptions = "utf-8"): void {
+  fs.writeFileSync(filePath, content, encoding);
+}
 
-fs.writeFileSync(path.join(srcPath, "ci.ts"), sourceFile);
-fs.writeFileSync(path.join(appPath, "yarn.lock"), sourceFile);
+export function main(root = process.cwd(), appNameArg: string | undefined = undefined): void {
+  const appName = z
+    .string()
+    .default(appNameArg, {
+      arg: {
+        long: "appName",
+        positional: true,
+      },
+    })
+    .parse(undefined);
 
-// Add "hehe" and "hoho" to dependencies
-const packageJsonPath = path.join(appPath, "package.json");
-fs.writeFileSync(
-  packageJsonPath,
-  PackageJSON({
+  const { appPath, srcPath } = getAppPaths(root, appName);
+
+  createDirectories(srcPath);
+
+  writeFile(path.join(srcPath, "ci.ts"), sourceFile);
+  writeFile(path.join(appPath, "yarn.lock"), sourceFile);
+
+  const packageJsonPath = path.join(appPath, "package.json");
+  const packageJsonContent = PackageJSON({
     name: appName,
     mobxVersion: MOBX_VERSION,
     daggerVersion: DAGGER_VERSION,
     yarnVersion: YARN_VERSION,
     swcVersion: SWC_VERSION,
     version: VERSION,
-  }),
-  "utf-8",
-);
+  });
+  writeFile(packageJsonPath, packageJsonContent);
 
-const yarnrcPath = path.join(appPath, ".yarnrc.yml");
-fs.writeFileSync(yarnrcPath, createYARNRC(), "utf-8");
+  const yarnrcPath = path.join(appPath, ".yarnrc.yml");
+  writeFile(yarnrcPath, createYARNRC());
 
-executeCommand(`yarn install`, appPath);
-console.log("App has been created successfully.");
+  console.log("App has been created successfully.");
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
