@@ -467,7 +467,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@island.is/create-pipes@workspace:apps/create-pipes"
   dependencies:
+    "@dagger.io/dagger": "npm:0.8.4"
     "@island.is/eslint-config": "workspace:*"
+    "@island.is/pipes-core": "workspace:*"
     "@island.is/prettier-config": "workspace:*"
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
@@ -476,6 +478,7 @@ __metadata:
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     glob: "npm:10.3.3"
+    mobx: "npm:6.10.0"
     prettier: "npm:3.0.2"
     rollup: "npm:3.28.1"
     rollup-plugin-swc: "npm:0.2.1"
