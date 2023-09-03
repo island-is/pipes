@@ -7,7 +7,7 @@ import {
   createModule,
   createPipesCore,
 } from "@island.is/pipes-module-core";
-import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island.is/zod";
+import { createGlobalZodKeyStore, createGlobalZodStore, createZodKeyStore, createZodStore, z } from "@island.is/zod";
 
 import { PipesConfig } from "./config.js";
 
@@ -100,8 +100,10 @@ export {
   z,
   PipesCoreClass,
   createZodStore,
+  createZodKeyStore,
   createGlobalZodKeyStore,
-  wrapContext,
+  createGlobalZodStore,
 };
 export type { createModuleDef, PipesCoreModule, Simplify };
 export * from "@dagger.io/dagger";
+export * from "@island.is/cleanup";
