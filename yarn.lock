@@ -484,6 +484,8 @@ __metadata:
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.1"
     typescript: "npm:5.1.6"
+  bin:
+    create-pipes: ./dist/create-pipes.js
   languageName: unknown
   linkType: soft
 

@@ -5,9 +5,7 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "bin": {
-    "create-pipes": "./dist/create-pipes.js"
-  },
+  "bin": "./dist/create-pipes.js",
   "type": "module",
   "main": "./dist/create-pipes.js",
   "types": "./dist/create-pipes.d.ts",
