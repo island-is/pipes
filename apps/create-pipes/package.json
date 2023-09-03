@@ -1,5 +1,6 @@
 {
   "name": "@island.is/create-pipes",
+  "version": "0.0.1",
   "packageManager": "yarn@4.0.0-rc.47",
   "scripts": {
     "build": "rollup -c"
@@ -9,8 +10,10 @@
   "types": "./dist/create-pipes.d.ts",
   "source": "./src/create-pipes.ts",
   "dependencies": {
+    "@dagger.io/dagger": "0.8.4",
     "@swc/core": "1.3.78",
-    "glob": "10.3.3"
+    "glob": "10.3.3",
+    "mobx": "6.10.0"
   },
   "pipes": {
     "publishFields": [
@@ -53,7 +56,7 @@
   },
   "license": "MIT",
   "repository": {
-    "directory": "apps/pipes-loader",
+    "directory": "apps/create-pipes",
     "type": "git",
     "url": "https://github.com/island-is/pipes"
   },

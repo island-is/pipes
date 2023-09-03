@@ -35,7 +35,7 @@ const config = {
       },
     },
   ],
-  external: [...builtinModules.map((e) => `node:${e}`), "@swc/core", "glob"],
+  external: [...builtinModules.map((e) => `node:${e}`), "mobx", "@swc/core", "glob"],
 };
 
 export default config;
