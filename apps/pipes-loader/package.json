@@ -27,7 +27,8 @@
     ],
     "publishFiles": [
       "dist/**",
-      "README.md"
+      "README.md",
+      "LICENSE"
     ],
     "buildWithRollup": true
   },
