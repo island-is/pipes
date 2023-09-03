@@ -1,6 +1,6 @@
 # CI
 
-This folder contains code using **pipes** to build and release **pipes**. This also serves as the first example code.
+This folder contains code using **pipes** to build and release **pipes**. This also serves as the first example pipeline written with pipes.
 
 ## 🛡️ License
 
