@@ -13,6 +13,7 @@ if (!buildOrderJSON) {
 if (!reportJSON) {
   throw new Error(`Invalid env for report json`);
 }
+console.log(`Publishing version ${process.env["NEW_VERSION"]}`);
 const publishBuilds = getBuildOrderJs.buildOrder
   .flat()
   .filter((workspace) => workspace.config.publishFields && workspace.config.publishFiles);
@@ -32,7 +33,7 @@ const report: {
 const publishValues = (
   await Promise.all(
     publishBuilds.map(async (workspace) => {
-      const value = await preparePublishPackage(workspace);
+      const value = await preparePublishPackage(workspace, process.env["NEW_VERSION"] as string);
       if (!value) {
         report.packageFailed.push(workspace.name);
       } else {
@@ -53,8 +54,8 @@ for (const pkg of publishValues) {
 always-auth=false\n
 `;
     await writeFile(join(pkg, ".npmrc"), code, "utf-8");
-    await Shell.execute("npm", ["publish"], { cwd: pkg });
-    const value = await Shell.execute("yarn", ["publish"], { cwd: pkg });
+    const value = await Shell.execute("npm", ["publish"], { cwd: pkg });
+
     report.msg[pkg] = value;
   } catch (e) {
     report.error[pkg] = e;

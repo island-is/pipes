@@ -46,8 +46,10 @@ releaseContext.addScript(async (context, config) => {
       [reportJSONKey, reportJSON],
       ["NODE_AUTH_TOKEN", GlobalConfig.npmAuthToken],
       ["NPM_AUTH_TOKEN", GlobalConfig.npmAuthToken],
+      ["NEW_VERSION", GlobalConfig.version],
     ],
   });
+
   const value = await context.nodeCompileAndRun({
     name: "test",
     file: testFile,
