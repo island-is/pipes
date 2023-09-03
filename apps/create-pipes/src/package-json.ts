@@ -17,8 +17,8 @@ export const PackageJSON = ({ mobxVersion, daggerVersion, swcVersion, name, vers
         dev: "node src/ci.tsx",
       },
       dependencies: {
-        "@island.is/pipes-core": version,
-        "@island.is/pipes-loader": version,
+        "@island-is/pipes-core": version,
+        "@island-is/pipes-loader": version,
         "@swc/core": swcVersion,
         "@dagger.io/dagger": daggerVersion,
         mobx: mobxVersion,

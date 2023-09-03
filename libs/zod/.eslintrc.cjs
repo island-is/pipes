@@ -1,4 +1,4 @@
-const addons = require("@island.is/eslint-config")(__dirname);
+const addons = require("@island-is/eslint-config")(__dirname);
 module.exports = {
   ...addons,
   rules: {

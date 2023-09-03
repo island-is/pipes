@@ -23,13 +23,15 @@ export async function preparePublishPackage(workspace: Workspace, version: strin
   for (const field of config.publishFields) {
     filteredJSON[field] = rawPackageJSON[field];
   }
-  filteredJSON["version"] = version;
+
   filteredJSON["dependencies"] = filteredJSON["dependencies"] || {};
   Object.keys(filteredJSON["dependencies"]).forEach((e) => {
-    if (e.startsWith("@island.is")) {
+    if (e.startsWith("@island-is")) {
       filteredJSON["dependencies"][e] = version;
     }
   });
+  filteredJSON["version"] = version;
+  console.log(filteredJSON);
   await writeFile(join(tempDir, "package.json"), JSON.stringify(filteredJSON, null, 2));
 
   for (const pattern of config.publishFiles) {

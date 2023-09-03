@@ -1,10 +1,10 @@
 import { writeFile } from "node:fs/promises";
 
-import { runLintOnWorkspace, runWithLimitedConcurrency } from "@island.is/scripts";
+import { runLintOnWorkspace, runWithLimitedConcurrency } from "@island-is/scripts";
 
 import { buildOrder } from "./get-build-order.js";
 
-import type { workspaceWithHashes } from "@island.is/scripts/src/lib/generate-hash.js";
+import type { workspaceWithHashes } from "@island-is/scripts/src/lib/generate-hash.js";
 
 const reportJSON = process.env["LINT_REPORT_JSON"];
 

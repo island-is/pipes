@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { Shell, preparePublishPackage } from "@island.is/scripts";
+import { Shell, preparePublishPackage } from "@island-is/scripts";
 
 import * as getBuildOrderJs from "./get-build-order.js";
 

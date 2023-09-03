@@ -1,4 +1,4 @@
-# @island.is/pipes-loader
+# @island-is/pipes-loader
 
 ## TypeScript and TypeScript React Loader.
 
@@ -8,7 +8,7 @@
 
 ```sh
 
-NODE_OPTIONS=--loader=@island.is/pipes-loader node example.ts
+NODE_OPTIONS=--loader=@island-is/pipes-loader node example.ts
 
 ```
 
@@ -18,7 +18,7 @@ NODE_OPTIONS=--loader=@island.is/pipes-loader node example.ts
 
 ```bash
 
-yarn add --dev @island.is/pipes-loader
+yarn add --dev @island-is/pipes-loader
 
 ```
 
@@ -26,7 +26,7 @@ Run node with
 
 ```bash
 
-NODE_OPTIONS=--experimental-loader=@island.is/pipes-loader node example.ts
+NODE_OPTIONS=--experimental-loader=@island-is/pipes-loader node example.ts
 
 ```
 
@@ -35,7 +35,7 @@ NODE_OPTIONS=--experimental-loader=@island.is/pipes-loader node example.ts
 Add NODE_OPTIONS to an .env file:
 
 ```
-NODE_OPTIONS=--experimental-loader=@island.is/pipes-loader
+NODE_OPTIONS=--experimental-loader=@island-is/pipes-loader
 ```
 
 Either:

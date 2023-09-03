@@ -1,5 +1,5 @@
-import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
+import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesGitHub, type PipesGitHubModule } from "@island-is/pipes-module-github";
 
 /**
  * Merge to devel

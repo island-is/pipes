@@ -1,11 +1,11 @@
-# `@island.is/find-pnp-root`
+# `@island-is/find-pnp-root`
 
 This module provides a utility function to detect and return the root directory of a Yarn Plug'n'Play (PnP) project. The root directory is determined by the presence of a `.pnp.cjs` file.
 
 ## Usage
 
 ```javascript
-import { findPnpRoot } from "@island.is/find-pnp-root";
+import { findPnpRoot } from "@island-is/find-pnp-root";
 
 const rootDirectory = findPnpRoot(initialPath);
 ```
@@ -34,7 +34,7 @@ const rootDirectory = findPnpRoot(initialPath);
 ## Example
 
 ```javascript
-import { findPnpRoot } from "@island.is/find-pnp-root";
+import { findPnpRoot } from "@island-is/find-pnp-root";
 
 const projectRoot = findPnpRoot("/path/to/any/sub/directory");
 console.log(projectRoot); // Outputs the path to the root directory of the Yarn PnP project

@@ -41,7 +41,7 @@ const config = {
     "@swc/core",
     "glob",
     "@dagger.io/dagger",
-    "@island.is/pipes-core",
+    "@island-is/pipes-core",
   ],
 };
 

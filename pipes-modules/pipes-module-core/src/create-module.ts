@@ -1,7 +1,7 @@
 /**
  * @file Create Pipes Context Module
  */
-import { z } from "@island.is/zod";
+import { z } from "@island-is/zod";
 
 import { createPipesContextCommand } from "./create-pipes-context-command.js";
 

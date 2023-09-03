@@ -15,7 +15,7 @@ import {
   type ZodType,
   type ZodUnion,
   z,
-} from "@island.is/zod";
+} from "@island-is/zod";
 
 import { expect } from "./expect.js";
 

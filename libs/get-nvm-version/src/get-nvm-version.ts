@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { findPnpRoot } from "@island.is/find-pnp-root";
+import { findPnpRoot } from "@island-is/find-pnp-root";
 
 const baseDir: Record<string, string> = {};
 

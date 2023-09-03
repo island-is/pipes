@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { findPnpRoot } from "@island.is/find-pnp-root";
+import { findPnpRoot } from "@island-is/find-pnp-root";
 
 export const getDaggerVersion = async (): Promise<string> => {
   const root = findPnpRoot(process.cwd());

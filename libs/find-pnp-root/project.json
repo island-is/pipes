@@ -1,4 +1,4 @@
 {
-  "name": "@island.is/find-pnp-root",
+  "name": "@island-is/find-pnp-root",
   "$schema": "../../project-schema.json"
 }

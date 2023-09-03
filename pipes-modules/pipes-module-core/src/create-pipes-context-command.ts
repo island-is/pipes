@@ -2,7 +2,7 @@
  * @file Create functions for context commands.
  */
 
-import { z } from "@island.is/zod";
+import { z } from "@island-is/zod";
 
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
 import type { PipesContextCommand } from "./types/pipes-command.js";

@@ -1,13 +1,13 @@
-# @island.is/create-pipes
+# @island-is/create-pipes
 
 **Usage**: Intended to be used as a custom loader in a Node.js environment with ES module support for usage with Pipes.
 
-### Prequsites
+### Prerequisites
 
 Insert into your your home directory (most likely /home/<USERNAME> on Unix and C:\Users<USERNAME> on windows) `.yarnrc.yml`
 
 ```yaml
-npmScopes: { island.is: { npmRegistryServer: "https://npm.pkg.github.com" } }
+npmScopes: { island-is: { npmRegistryServer: "https://npm.pkg.github.com" } }
 ```
 
 > Note: This is only while pipes is in heavy testing.
@@ -16,7 +16,7 @@ npmScopes: { island.is: { npmRegistryServer: "https://npm.pkg.github.com" } }
 
 ```sh
 
-yarn create @island.is/pipes example-app
+yarn create @island-is/pipes example-app
 
 ```
 

@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 
-import { checkPackages, runWithLimitedConcurrency } from "@island.is/scripts";
+import { checkPackages, runWithLimitedConcurrency } from "@island-is/scripts";
 
 const reportJSON = process.env["WORKSPACE_TEST_REPORT_JSON"];
 

@@ -1,10 +1,10 @@
 import { writeFile } from "node:fs/promises";
 
-import { runBuildOnWorkspace, runWithLimitedConcurrency } from "@island.is/scripts";
+import { runBuildOnWorkspace, runWithLimitedConcurrency } from "@island-is/scripts";
 
 import { buildOrder } from "./get-build-order.js";
 
-import type { RunnerDetails, RunnerError } from "@island.is/scripts";
+import type { RunnerDetails, RunnerError } from "@island-is/scripts";
 const reportJSON = process.env["BUILD_REPORT_JSON"];
 
 if (!reportJSON) {

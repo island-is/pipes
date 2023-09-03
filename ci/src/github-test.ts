@@ -1,7 +1,7 @@
 import { inspect } from "node:util";
 
-import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
+import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesGitHub, type PipesGitHubModule } from "@island-is/pipes-module-github";
 
 import { testReport } from "./report.js";
 

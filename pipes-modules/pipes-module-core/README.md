@@ -1,4 +1,4 @@
-# @island.is/pipes-module-core
+# @island-is/pipes-module-core
 
 Pipes is dev-friendly, testable pipelines library for local & CI/CD platforms, written in Typescript.
 
@@ -45,7 +45,7 @@ This is used on runtime to parse context and config.
 - **How**
   - **Config parser** Use [createConfig](https://github.com/island-is/pipes#createconfig).
   - **Context parser** Use [createContext](https://github.com/island-is/pipes#createcontext).
-- **Example** [See here](https://github.com/island.is/pipes#creating-config-and-context-parsers)
+- **Example** [See here](https://github.com/island-is/pipes#creating-config-and-context-parsers)
 
 ### Module.
 
