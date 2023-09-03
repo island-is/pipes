@@ -10,7 +10,7 @@
 
 - [**@island-is/pipes-core**](apps/pipes/) - Core of Pipes. Runs tasks with [dagger.io](https://dagger.io)
 
-- [**@island.is/pipes-loader**](libs/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
+- [**@island.is/pipes-loader**](apps/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
 
 ## 🧩 Modules
 
