@@ -12,6 +12,8 @@
 
 - [**@island.is/pipes-loader**](apps/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
 
+- [**@island.is/create-pipes**](apps/create-pipes/) - Utility to create a boilerplate for a new CI project.
+
 ## 🧩 Modules
 
 Pipes can be further extend with the usage of modules. Current modules are:
