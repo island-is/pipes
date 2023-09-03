@@ -1,13 +1,7 @@
-import { autorun, createAtom, makeAutoObservable } from "mobx";
+import { autorun, createAtom } from "mobx";
 
 import type { IAtom } from "mobx";
 import type { ZodAny, ZodType, z } from "zod";
-
-export class MobXStore {
-  constructor() {
-    makeAutoObservable(this);
-  }
-}
 
 type StoreObj = Record<string, z.ZodType<any> | Function>;
 

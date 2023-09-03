@@ -1,7 +1,5 @@
 # `@island.is/find-pnp-root`
 
-## Description
-
 This module provides a utility function to detect and return the root directory of a Yarn Plug'n'Play (PnP) project. The root directory is determined by the presence of a `.pnp.cjs` file.
 
 ## Usage
