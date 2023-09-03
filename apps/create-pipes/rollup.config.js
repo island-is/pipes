@@ -35,7 +35,14 @@ const config = {
       },
     },
   ],
-  external: [...builtinModules.map((e) => `node:${e}`), "mobx", "@swc/core", "glob"],
+  external: [
+    ...builtinModules.map((e) => `node:${e}`),
+    "mobx",
+    "@swc/core",
+    "glob",
+    "@dagger.io/dagger",
+    "@island.is/pipes-core",
+  ],
 };
 
 export default config;
