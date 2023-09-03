@@ -15,7 +15,6 @@ async function setupMockProject(root: string, projects: any) {
   }
 }
 
-// Utility function to teardown a mock project structure
 async function teardownMockProject(root: string) {
   await rmdir(root, { recursive: true });
 }
