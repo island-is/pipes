@@ -51,7 +51,7 @@
   },
   "license": "MIT",
   "repository": {
-    "directory": "libs/pipes-loader",
+    "directory": "apps/pipes-loader",
     "type": "git",
     "url": "https://github.com/island-is/pipes"
   },

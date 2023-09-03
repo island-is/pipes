@@ -590,9 +590,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-loader@workspace:libs/pipes-loader":
+"@island.is/pipes-loader@workspace:apps/pipes-loader":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-loader@workspace:libs/pipes-loader"
+  resolution: "@island.is/pipes-loader@workspace:apps/pipes-loader"
   dependencies:
     "@island.is/eslint-config": "workspace:*"
     "@island.is/prettier-config": "workspace:*"
