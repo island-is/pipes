@@ -1,6 +1,6 @@
 {
   "name": "@island.is/tsconfig-build",
-  "version": "0.0.1",
+  "version": "21.09.00",
   "main": "./tsconfig.json",
   "license": "MIT",
   "type": "commonjs",

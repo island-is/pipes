@@ -72,5 +72,6 @@
     "yarn": "4.0.0-rc.47",
     "npm": "please use yarn",
     "pnpm": "please use yarn"
-  }
+  },
+  "version": "21.09.00"
 }

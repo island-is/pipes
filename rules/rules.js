@@ -3,8 +3,13 @@ const fixModule = require("./fix-module").fixModule;
 const fixType = require("./fix-type.js").fixType;
 const fixGit = require("./fix-git.js").fixGit;
 const fixVersions = require("./fix-versions.js").fixVersions;
+const fixVersion = require("./fix-version.js").fixVersion;
 
 const obj = {
+  allVersionsShouldBeEqual: {
+    description: "All packages follow release schedule",
+    fn: fixVersion,
+  },
   typeNodeShouldBeOfCorrectVersion: {
     description: "Be sure that we are using same type as the node we are using",
     fn: fixPackageManager,

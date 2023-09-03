@@ -38,5 +38,6 @@
     "type": "git",
     "url": "https://github.com/island-is/pipes",
     "directory": "ci"
-  }
+  },
+  "version": "21.09.00"
 }

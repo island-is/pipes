@@ -1,6 +1,6 @@
 {
   "name": "@island.is/create-pipes",
-  "version": "0.0.1",
+  "version": "21.09.00",
   "packageManager": "yarn@4.0.0-rc.47",
   "scripts": {
     "build": "rollup -c"

@@ -1,6 +1,6 @@
 {
   "name": "@island.is/find-pnp-root",
-  "version": "0.0.1",
+  "version": "21.09.00",
   "main": "./dist/find-pnp-root.js",
   "source": "./src/find-pnp-root.ts",
   "devDependencies": {
