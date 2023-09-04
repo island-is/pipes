@@ -21,6 +21,7 @@
     "publishFields": [
       "name",
       "main",
+      "bin",
       "repository",
       "type",
       "types",

@@ -4,10 +4,13 @@
 
 ### Prerequisites
 
-Insert into your your home directory (most likely /home/<USERNAME> on Unix and C:\Users<USERNAME> on windows) `.yarnrc.yml`
+Create personal token with `write:packages` permission. Copy the token generated.
+
+Insert into your your home directory (most likely /home/<USERNAME> on Unix and C:\Users<USERNAME> on windows) `.npmrc`
 
 ```yaml
-npmScopes: { island-is: { npmRegistryServer: "https://npm.pkg.github.com" } }
+//npm.pkg.github.com/:_authToken={YOUR_TOKEN}
+@island-is:registry=https://npm.pkg.github.com/
 ```
 
 > Note: This is only while pipes is in heavy testing.
