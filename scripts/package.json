@@ -40,7 +40,7 @@
     "url": "https://github.com/island-is/pipes"
   },
   "dependencies": {
-    "glob": "10.3.3",
+    "glob": "10.3.4",
     "rollup-plugin-node-resolve": "5.2.0"
   },
   "engines": {
