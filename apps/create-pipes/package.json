@@ -25,6 +25,7 @@
       "repository",
       "type",
       "types",
+      "packageManager",
       "license",
       "publishConfig",
       "version",

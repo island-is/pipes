@@ -31,7 +31,7 @@ export async function preparePublishPackage(workspace: Workspace, version: strin
     }
   });
   filteredJSON["version"] = version;
-  console.log(filteredJSON);
+
   await writeFile(join(tempDir, "package.json"), JSON.stringify(filteredJSON, null, 2));
 
   for (const pattern of config.publishFiles) {
@@ -39,6 +39,13 @@ export async function preparePublishPackage(workspace: Workspace, version: strin
     for (const file of files) {
       const srcPath = join(workspacePath, file);
       const destPath = join(tempDir, file);
+      if (workspace.name === "@island-is/create-pipes") {
+        if (file === "dist/create-pipes.js") {
+          const content = await readFile(srcPath, "utf-8");
+          const newContent = ["#!/usr/bin/env node", content].join("\n");
+          await writeFile(srcPath, newContent);
+        }
+      }
       await mkdir(dirname(destPath), { recursive: true });
       const fileData = await readFile(srcPath);
       await writeFile(destPath, fileData);
