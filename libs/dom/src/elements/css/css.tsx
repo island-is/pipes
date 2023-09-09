@@ -5,9 +5,21 @@ import { convertDimension, cssBorderToComputed, dimensionToObject, getValue } fr
 
 import type { CSS, ComputedCSS, notNull } from "./types.js";
 
-export const computeCSS = (css: CSS): ComputedCSS => {
+export const computeCSS = (css: CSS, width: number): ComputedCSS => {
   const padding = dimensionToObject(css.padding);
   const margin = dimensionToObject(css.margin);
+  const getWidth = () => {
+    if (typeof css.width === "undefined") {
+      return undefined;
+    }
+    if (css.width === "auto") {
+      return undefined;
+    }
+    if (parseInt(`${css.width}`, 10) < 0) {
+      return undefined;
+    }
+    return Math.min(convertDimension(css.width) ?? 0, width);
+  };
   const computedCSS: ComputedCSS = {
     color: isCSSColor(css.color) ? getValue(CSS_COLORS, css.color) : undefined,
     backgroundColor: isCSSColor(css.backgroundColor) ? getValue(CSS_COLORS, css.backgroundColor) : undefined,
@@ -18,8 +30,8 @@ export const computeCSS = (css: CSS): ComputedCSS => {
             .map((e) => (isFontStyle(e) ? getValue(CSS_FONT_STYLES, e) : null))
             .filter((e): e is notNull<typeof e> => isNotNull(e))
         : undefined,
-    width: css.hidden ? 0 : convertDimension(css.width),
-    height: convertDimension(css.width),
+    width: getWidth(),
+    height: convertDimension(css.height),
     paddingTop: padding?.top,
     paddingLeft: padding?.left,
     paddingRight: padding?.right,
@@ -29,9 +41,9 @@ export const computeCSS = (css: CSS): ComputedCSS => {
     marginRight: margin?.right,
     marginBottom: margin?.bottom,
     ...cssBorderToComputed(css.border),
-    textAlign: css.textAlign && TEXT_ALIGNS.includes(css.textAlign) ? css.textAlign : undefined,
+    textAlign: css.textAlign && TEXT_ALIGNS.includes(css.textAlign.toUpperCase()) ? css.textAlign : undefined,
     hidden: css.hidden,
-    visibility: css.visibility,
+    visibility: !(css.visibility === false),
   };
   return Object.entries(computedCSS).reduce((obj, [key, value]) => {
     if (typeof value === "undefined" || value === null) {

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { PipeComponents } from "./elements/elements.js";
 
-export function PipesJSXFactory(type: string | PipeComponents, props?: any, ...children: any): JSX.Element {
+export function PipesJSXFactory(type: string | PipeComponents, props?: any, ...children: any): PipeComponents {
   if (type === null) {
     return {
       type: "Fragment",

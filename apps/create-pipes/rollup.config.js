@@ -16,7 +16,6 @@ export const files = {
   types,
 };
 const config = {
-  morePlugin: [],
   input: files.source,
   output: {
     sourcemap: true,

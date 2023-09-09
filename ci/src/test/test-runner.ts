@@ -2,7 +2,7 @@ import { writeFile } from "node:fs/promises";
 
 import { runTestOnWorkspace, runWithLimitedConcurrency } from "@island-is/scripts";
 
-import { buildOrder } from "./get-build-order.js";
+import { buildOrder } from "../util/get-build-order.js";
 
 import type { RunnerDetails, RunnerError } from "@island-is/scripts";
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];

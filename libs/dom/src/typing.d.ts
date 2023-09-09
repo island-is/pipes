@@ -27,40 +27,41 @@ declare global {
     Timestamp,
     Title,
     Warning,
-  } from "./elements.ts";
-  namespace JSX {
-    interface Element extends PipeComponents {}
-    // The list of your custom elements
-    interface IntrinsicElements {
-      Fragment: Fragment;
-      Dialog: Dialog;
-      Container: Container;
-      Row: Row;
-      Text: Text;
-      Success: Success;
-      Failure: Failure;
-      Error: Error;
-      Info: Info;
-      Log: Log;
-      Table: Table;
-      TableHeadings: TableHeadings;
-      TableRow: TableRow;
-      TableCell: TableCell;
-      Title: Title;
-      Subtitle: Subtitle;
-      List: List;
-      ListItem: ListItem;
-      Divider: Divider;
-      Highlight: Highlight;
-      Timestamp: Timestamp;
-      Badge: Badge;
-      Note: Note;
-      Warning: Warning;
-      Code: Code;
+  } from "./elements.js";
+
+  export namespace JSX {
+    export type Element = PipeComponents;
+    export interface IntrinsicElements {
+      Fragment: typeof Fragment;
+      Dialog: typeof Dialog;
+      Container: typeof Container;
+      Row: typeof Row;
+      Text: typeof Text;
+      Success: typeof Success;
+      Failure: typeof Failure;
+      Error: typeof Error;
+      Group: typeof Group;
+      Info: typeof Info;
+      Log: typeof Log;
+      Table: typeof Table;
+      TableHeadings: typeof TableHeadings;
+      TableRow: typeof TableRow;
+      TableCell: typeof TableCell;
+      Title: typeof Title;
+      Subtitle: typeof Subtitle;
+      List: typeof List;
+      ListItem: typeof ListItem;
+      Divider: typeof Divider;
+      Highlight: typeof Highlight;
+      Timestamp: typeof Timestamp;
+      Badge: typeof Badge;
+      Note: typeof Note;
+      Warning: typeof Warning;
+      Code: typeof Code;
     }
 
-    interface ElementChildrenAttribute {
-      children: PipeComponents | string | PipeComponents[];
+    export interface ElementChildrenAttribute {
+      children: PipeComponents | string | number | null | PipeComponents[];
     }
   }
 }

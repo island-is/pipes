@@ -1,4 +1,3 @@
-import type { CSS } from "./css/types.js";
 import type { Simplify } from "./simplify.js";
 
 export type JSX = {
@@ -14,7 +13,5 @@ export type SpecifixJSX<
   props extends Record<string, any> | null,
   children extends (JSX | string | null)[] | null | string | JSX,
 > = Simplify<
-  props extends null
-    ? { type: type; style?: CSS; renderAS?: "ansi" | "markdown" } & { children: children }
-    : { type: type; style?: CSS; renderAS?: "ansi" | "markdown" } & props & { children: children }
+  props extends null ? { type: type } & { children: children } : { type: type } & props & { children: children }
 >;

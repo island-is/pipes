@@ -2,7 +2,7 @@ import { z } from "@island-is/pipes-core";
 import ciInfo from "ci-info";
 
 /** Base config */
-export const config = (() => {
+export const GlobalConfig = (() => {
   const envConfig = {
     version: z
       .string()

@@ -1,29 +1,15 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { EOL } from "node:os";
 
-import ciinfo from "ci-info";
+import ciinfo, { isCI } from "ci-info";
 import terminalLink from "terminal-link";
 
+import { getDifferences } from "./compare.js";
+import { span } from "./elements/css/span.js";
 import { Command } from "./github-command.js";
-import {
-  ANSI_BG_WHITE,
-  ANSI_BLACK,
-  ANSI_BLUE,
-  ANSI_BOLD,
-  ANSI_CYAN,
-  ANSI_GREEN,
-  ANSI_RED,
-  ANSI_RESET,
-  ANSI_YELLOW,
-  DIALOG_STYLES,
-  isListItem,
-  isTableCell,
-  isTableHeadings,
-  isTableRow,
-} from "./helpers.js";
+import { isListItem } from "./helpers.js";
 
 import type {
-  DialogProps,
   IBadge,
   ICode,
   IContainer,
@@ -52,24 +38,10 @@ import type {
   ITimestamp,
   ITitle,
   IWarning,
+  PipeComponents,
 } from "./elements/elements.js";
-import type { BorderPart } from "./helpers.js";
 
-const renderBorder = (width: number, part: BorderPart): string => {
-  const paddedWidth = width + 4; // Additional 2 spaces for each side
-  switch (part) {
-    case "top":
-      return `┌${"─".repeat(paddedWidth)}┐`;
-    case "middle":
-      return `│${" ".repeat(paddedWidth)}│`;
-    case "bottom":
-      return `└${"─".repeat(paddedWidth)}┘`;
-    default:
-      return "";
-  }
-};
-
-const ComponentRenderersANSI: { [key: string]: (component: any) => string } = {
+const ComponentRenderersANSI: { [key: string]: (component: any, width: number) => string } = {
   Mask: (component: IMask) => {
     const values = (Array.isArray(component.values) ? component.values : [component.values]).filter(
       (e) => typeof e === "string" && e.length > 1,
@@ -79,8 +51,8 @@ const ComponentRenderersANSI: { [key: string]: (component: any) => string } = {
     }
     return "";
   },
-  Group: (component: IGroup) => {
-    const content = renderToANSIString(component.children);
+  Group: (component: IGroup, width: number) => {
+    const content = renderToANSIString(component.children, width);
     if (ciinfo.GITHUB_ACTIONS) {
       const startGroup = new Command("group", {}, component.title).toString();
       const endGroup = new Command("endgroup", {}, "").toString();
@@ -106,7 +78,9 @@ const ComponentRenderersANSI: { [key: string]: (component: any) => string } = {
       date = new Date();
     }
     if (isNaN(date.getTime())) {
-      return `${ANSI_RED}Invalid Date${ANSI_RESET}`;
+      return span("Invalid date", {
+        color: "red",
+      })[0];
     }
     const format = component.format || "ISO";
 
@@ -123,171 +97,301 @@ const ComponentRenderersANSI: { [key: string]: (component: any) => string } = {
         formattedDate = date.toLocaleString();
         break;
     }
-    return `${ANSI_BLUE}${formattedDate}${ANSI_RESET}`;
+    return span(formattedDate, {
+      color: "blue",
+    }).join("");
   },
-  Container: (component: IContainer) => {
+  Container: (component: IContainer, width: number) => {
     if (Array.isArray(component.children)) {
-      return `\n${component.children.map((child) => renderToANSIString(child as any)).join("\n")}`;
+      const values = component.children
+        .map((child) => {
+          const value = renderToANSIString(child as PipeComponents, width);
+          return value;
+        })
+        .join("");
+      return values;
     } else {
-      return `\n${renderToANSIString(component.children as any)}`;
+      return renderToANSIString(component.children as any, width);
     }
   },
-
-  Row: (component: IRow) => {
+  Row: (component: IRow, width: number) => {
     if ("children" in component) {
       if (Array.isArray(component.children)) {
-        return `${component.children.map((child) => renderToANSIString(child as any)).join("  ")}`;
+        const widthPerChild = Math.floor(width / component.children.length);
+        const css = {
+          width: widthPerChild,
+          margin: {
+            right: 1,
+          },
+        };
+        let children = component.children.map((value) => {
+          return span(renderToANSIString(value as any, widthPerChild), css);
+        });
+        const maxArrLength = children.reduce((a, b) => {
+          return Math.max(b.length, a);
+        }, 0);
+        const fillArr = Array(maxArrLength).fill(" ".repeat(widthPerChild));
+        children = children.map((e) => {
+          return [...e, ...fillArr].slice(0, maxArrLength);
+        });
+        let str = "";
+        for (let y = 0; y < maxArrLength; y++) {
+          for (let z = 0; z < children.length; z++) {
+            str += children[z][y];
+          }
+        }
+        return str;
       } else {
-        return `\n${renderToANSIString(component.children as any)}`;
+        return span(renderToANSIString(component.children as any, width), {
+          width: width,
+          margin: {
+            right: 1,
+          },
+        }).join("");
       }
     } else {
       return "";
     }
   },
-
-  Success: (component: ISuccess) => {
-    return `\n✅ ${ANSI_GREEN}${renderToANSIString(component.children as any)}${ANSI_RESET}\n`;
+  Success: (component: ISuccess, width: number) => {
+    return span(`✅ ${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "green",
+      height: 1,
+    }).join("");
   },
-
-  Failure: (component: IFailure) => {
-    return `\n❌ ${ANSI_RED}${renderToANSIString(component.children as any)}${ANSI_RESET}\n`;
+  Failure: (component: IFailure, width: number) => {
+    return span(`❌ ${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "red",
+      height: 1,
+    }).join("");
   },
-
-  Error: (component: IError) => {
-    return `${ANSI_RED}${renderToANSIString(component.children as any)}${ANSI_RESET}`;
+  Error: (component: IError, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "red",
+    }).join("");
   },
-
-  Info: (component: IInfo) => {
-    return `${ANSI_CYAN}${renderToANSIString(component.children as any)}${ANSI_RESET}`;
+  Info: (component: IInfo, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "cyan",
+    }).join("");
   },
-
-  Log: (component: ILog) => {
-    return renderToANSIString(component.children as any);
+  Log: (component: ILog, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+    }).join("");
   },
+  Title: (component: ITitle, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+      textAlign: "center",
+      margin: {
+        bottom: 0,
+      },
 
-  Title: (component: ITitle) => {
-    return `${ANSI_BOLD}${renderToANSIString(component.children as any)}${ANSI_RESET}\n`;
+      padding: {
+        top: 2,
+        bottom: 1,
+      },
+      fontStyle: "bold",
+      border: {
+        bottom: true,
+      },
+    }).join("");
   },
-  Subtitle: (component: ISubtitle) => {
-    return renderToANSIString(component.children as any);
+  Subtitle: (component: ISubtitle, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+      fontStyle: "underline",
+    }).join("");
   },
-
-  List: (component: IList) => {
+  List: (component: IList, width: number) => {
     if (Array.isArray(component.children)) {
       const children = component.children.filter((e): e is IListItem => isListItem(e));
-      return children.map((child) => `- ${renderToANSIString(child)}`).join("\n");
+      return children
+        .map((child) =>
+          span(`- ${renderToANSIString(child, width)}`, {
+            width,
+            margin: {
+              left: 2,
+            },
+          }),
+        )
+        .join("\n");
     } else {
       if (isListItem(component.children)) {
-        return `- ${renderToANSIString(component.children)}`;
+        return span(`- ${renderToANSIString(component.children, width - 2)}`, {
+          width,
+          margin: {
+            left: 2,
+          },
+        }).join("");
       }
     }
     return "";
   },
-
-  ListItem: (component: IListItem) => {
-    return renderToANSIString(component.children as any);
+  ListItem: (component: IListItem, width: number) => {
+    return span(renderToANSIString(component.children as any, width), {
+      width,
+    }).join("");
   },
+  Dialog: (component: IDialog, width: number) => {
+    const color =
+      component.dialogType === "error"
+        ? ("white" as const)
+        : component.dialogType === "failure"
+        ? ("white" as const)
+        : component.dialogType === "success"
+        ? ("white" as const)
+        : ("white" as const);
+    const backgroundColor =
+      component.dialogType === "error"
+        ? ("red" as const)
+        : component.dialogType === "failure"
+        ? ("red" as const)
+        : component.dialogType === "success"
+        ? ("green" as const)
+        : ("black" as const);
+    return span(component.message, {
+      width,
+      color,
+      backgroundColor,
+      border: {
+        top: true,
+        bottom: true,
+        left: true,
+        right: true,
+        style: "solid",
+      },
 
-  Dialog: (component: IDialog) => {
-    return Dialog(component);
+      padding: {
+        left: 2,
+        top: component.paddingTop,
+        bottom: component.paddingBottom,
+      },
+    }).join("");
   },
-
-  Divider: (_component: IDivider) => {
-    return "\n-----------------------------------\n";
-  },
-
   Badge: (component: IBadge) => {
-    return `[${renderToANSIString(component.children as any)}]`;
+    return span(`[${renderToANSIString(component.children as any, 1)}]`, {
+      width: 5,
+      padding: {
+        left: 1,
+        right: 1,
+      },
+    }).join("");
   },
-
-  Note: (component: INote) => {
-    const value = `${ANSI_CYAN}Note: ${renderToANSIString(component.children as any)}${ANSI_RESET}`;
-
-    return value;
+  Divider: (component: IDivider, width: number) => {
+    return span(" ", {
+      width,
+      height: 2,
+      border: {
+        bottom: true,
+        style: "solid",
+      },
+    }).join("");
   },
-
-  Warning: (component: IWarning) => {
-    return `${ANSI_YELLOW}Warning: ${renderToANSIString(component.children as any)}${ANSI_RESET}`;
+  Note: (component: INote, width: number) => {
+    return span(`Note: ${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "cyan",
+    }).join("");
   },
-  Highlight: (component: IHighlight) => {
-    return `${ANSI_BG_WHITE}${ANSI_BLACK}${renderToANSIString(component.children as any)}${ANSI_RESET}`;
+  Warning: (component: IWarning, width: number) => {
+    return span(`WARNING: ${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "yellow",
+    }).join("");
   },
-
-  Code: (component: ICode) => {
-    return renderToANSIString(component.children as any);
+  Highlight: (component: IHighlight, width: number) => {
+    return span(`${renderToANSIString(component.children as any, width)}`, {
+      width,
+      color: "black",
+      backgroundColor: "white",
+    }).join("");
   },
-
-  Fragment: (component: IFragment) => {
+  Fragment: (component: IFragment, width: number) => {
     if (Array.isArray(component.children)) {
-      return component.children.map((child) => renderToANSIString(child as any)).join("\n");
+      return component.children.map((child) => renderToANSIString(child as any, width)).join("");
     } else {
-      return renderToANSIString(component.children);
+      return renderToANSIString(component.children, width);
     }
   },
-  Table: (component: ITable) => {
-    const TERMINAL_WIDTH = process.stdout.columns || 80;
-
-    const components = [...(Array.isArray(component.children) ? component.children : [component.children])].filter(
-      (e): e is ITableHeadings | ITableRow => {
-        return isTableHeadings(e) || isTableRow(e);
-      },
-    );
-
-    const maxColumns = components.reduce((max, row) => {
-      if (Array.isArray(row.children)) {
-        return Math.max(max, row.children.length);
-      }
-      return max;
-    }, 1);
-
-    const maxColumnWidth = Math.floor(TERMINAL_WIDTH / maxColumns);
-    return components
-      .map((row) => {
-        const children = Array.isArray(row.children) ? row.children : [row.children];
-        const value = children
-          .map((cell) => {
-            if (!isTableCell(cell)) {
-              return "";
-            }
-            const cellContent = renderToANSIString(cell) || "";
-            const truncatedContent =
-              cellContent.length > maxColumnWidth ? `${cellContent.substring(0, maxColumnWidth - 2)}…` : cellContent;
-
-            return truncatedContent.padEnd(maxColumnWidth, " ");
-          })
-          .join("");
-        if (row.type === "TableHeadings") {
-          return `${ANSI_BOLD}${value}${ANSI_RESET}`;
-        }
-
-        return value;
-      })
-      .join("\n");
+  Code: (component: ICode) => {
+    // TODO: Fix this
+    return component.children?.toString() ?? "";
   },
-
-  TableHeadings: (_component: ITableHeadings) => {
-    throw new Error("Should be never called directly");
+  Table: (component: ITable, width: number) => {
+    const children = component.children
+      ? Array.isArray(component.children)
+        ? component.children
+        : [component.children]
+      : [];
+    return children
+      .map((e) => renderToANSIString(e as PipeComponents, width))
+      .flat()
+      .join("");
   },
-
-  TableRow: (_component: ITableRow) => {
-    throw new Error("Should be never called directly");
+  TableRow: (component: ITableRow, width: number) => {
+    const children = component.children
+      ? Array.isArray(component.children)
+        ? component.children
+        : [component.children]
+      : [];
+    const count = children.length;
+    const childWidth = Math.floor(width / count);
+    return children
+      .map((e) =>
+        span(renderToANSIString(e as PipeComponents, childWidth - 2), {
+          width: childWidth,
+          padding: {
+            left: 1,
+            right: 1,
+          },
+        }),
+      )
+      .join("");
   },
-
-  TableCell: (component: ITableCell) => {
-    return renderToANSIString(component.children as any);
+  TableCell: (component: ITableCell, width: number) => {
+    return renderToANSIString(component.children, width);
   },
-  // Continue for other component types...
+  TableHeadings: (component: ITableHeadings, width: number) => {
+    const children = component.children
+      ? Array.isArray(component.children)
+        ? component.children
+        : [component.children]
+      : [];
+    const count = children.length;
+    const childWidth = Math.floor(width / count);
+    return `${children
+      .map((e) =>
+        span(renderToANSIString(e as PipeComponents, childWidth), {
+          width: childWidth,
+          fontStyle: "bold",
+          padding: {
+            left: 0,
+            right: 0,
+          },
+        }),
+      )
+      .join("")}`;
+  },
 };
 
-export const renderToANSIString = (component: JSX.Element | null): string => {
+export const renderToANSIString = (component: PipeComponents | null, width: number): string => {
   if (component === null || typeof component === "undefined") {
     return "";
   }
-  if (typeof component === "string") {
-    return component;
+  if (typeof component === "string" || typeof component == "number") {
+    return `${component}`;
   }
   if (Array.isArray(component)) {
-    return component.map((value) => renderToANSIString(value)).join(" ");
+    return component
+      .flat(10)
+      .map((value) => renderToANSIString(value, width))
+      .join(" ");
   }
 
   if (!component || !("type" in component)) {
@@ -295,43 +399,21 @@ export const renderToANSIString = (component: JSX.Element | null): string => {
   }
 
   if (ComponentRenderersANSI[component.type as string]) {
-    return ComponentRenderersANSI[component.type as string](component);
+    return ComponentRenderersANSI[component.type as string](component, width);
   }
   throw new Error("Invalid type");
 };
 
-const Dialog = ({ dialogType = "default", message, paddingTop = 0, paddingBottom = 0 }: DialogProps) => {
-  const style = DIALOG_STYLES[dialogType];
-
-  const messageLines = (message || "").split("\n");
-  const messageWidth = Math.max(...messageLines.map((line) => line.length));
-
-  const topBorder = renderBorder(messageWidth, "top");
-  const bottomBorder = renderBorder(messageWidth, "bottom");
-
-  const formattedMessageLines = messageLines
-    .map(
-      (line) => `│  ${line.padEnd(messageWidth, " ")}  │`, // Additional 2 spaces for each side
-    )
-    .join("\n");
-
-  const components = [style, topBorder, formattedMessageLines, bottomBorder, ANSI_RESET];
-
-  const formattedMessage = "\n".repeat(paddingTop) + components.join("\n") + "\n".repeat(paddingBottom);
-
-  return formattedMessage.trim(); // This trims whitespace from the start and end of the string
-};
-
-export const renderToTerminal = (component: JSX.Element) => {
-  process.stdout.write(renderToANSIString(component));
-};
-
 class ConsoleRender {
-  #string = "";
+  #PRINT_ONLY_CHANGES = true;
   #TERMINAL_WIDTH = process.stdout.columns || 80;
-  #clearStr = "\r\x1B[1B";
-  #elements: JSX.Element[] = [];
+  #elements: PipeComponents[] = [];
   #renderInProgress = false;
+  constructor() {
+    process.stdout.on("resize", () => {
+      this.#TERMINAL_WIDTH = process.stdout.columns;
+    });
+  }
   #lockRender = async (fn: () => void | Promise<void>) => {
     await this.#waitForRenderLock();
     this.#renderInProgress = true;
@@ -366,41 +448,54 @@ class ConsoleRender {
       });
     });
   };
-  #write = async () => {
-    const lines = this.#string.split("\n");
+
+  async #clear() {
+    const clearLines = "\x1b[2J\x1b[H";
+
+    await this.#streamWrite(clearLines);
+  }
+
+  async mountAndRender(element: PipeComponents) {
+    this.#elements.push(element);
+    const indexOf = this.#elements.indexOf(element);
+
+    if (this.#PRINT_ONLY_CHANGES) {
+      await this.#render(element);
+    } else {
+      await this.#clear();
+      await this.#renderAll();
+    }
+    const render = async (newElements: PipeComponents) => {
+      if (isCI) {
+        const prevElements = this.#elements[indexOf];
+        const compare = getDifferences(newElements, prevElements);
+        this.#elements[indexOf] = newElements;
+        console.log(compare);
+        await this.#render(compare as any);
+
+        return;
+      }
+      await this.#clear();
+      this.#elements[indexOf] = newElements;
+      await this.#renderAll();
+    };
+    return render;
+  }
+  async #renderAll() {
+    for (const element of this.#elements) {
+      await this.#render(element);
+    }
+  }
+  async #render(element: PipeComponents) {
+    let string = "";
+
+    string += renderToANSIString(element, this.#TERMINAL_WIDTH);
+
+    string.replace("\n", EOL);
+    const lines = string.split("\n");
     for (const line of lines) {
       await this.#streamWrite(`${line}\n`);
     }
-  };
-  get lineCount() {
-    if (!this.#string) return 0;
-
-    const lines = this.#string.split("\n");
-
-    const lineCount = lines.length - 1;
-
-    return lineCount;
-  }
-  async #clear() {
-    let clearLines = "\x1B[K";
-    clearLines += "\x1B[1A\x1B[K".repeat(this.lineCount);
-    await this.#streamWrite(clearLines);
-  }
-  mount(element: JSX.Element) {
-    this.#elements.push(element);
-  }
-  async mountAndRender(element: JSX.Element) {
-    this.#elements.splice(0, this.#elements.length);
-    this.#elements.push(element);
-    await this.render();
-  }
-  async render() {
-    let string = "";
-    for (const element of this.#elements) {
-      string += renderToANSIString(element);
-    }
-    this.#string = string.replace("\n", EOL);
-    await this.#write();
   }
 }
 export const consoleRender = new ConsoleRender();

@@ -5,10 +5,10 @@ import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesGitHub, type PipesGitHubModule } from "@island-is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
-import { devWithDistImageKey } from "./build.js";
-import { config as GlobalConfig } from "./config.js";
-import { devWorkDir } from "./dev-image.js";
-import { testReport } from "./report.js";
+import { devWithDistImageKey } from "../build/build.js";
+import { GlobalConfig } from "../config.js";
+import { devWorkDir } from "../install/dev-image.js";
+import { testReport } from "../report.js";
 
 /** TODO: Fix type generation */
 export const releaseContext = createPipesCore()

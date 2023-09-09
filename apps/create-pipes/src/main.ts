@@ -39,7 +39,7 @@ export function main(root = process.cwd(), appNameArg: string | undefined = unde
 
   createDirectories(srcPath);
 
-  writeFile(path.join(srcPath, "ci.ts"), sourceFile);
+  writeFile(path.join(srcPath, "ci.tsx"), sourceFile);
   writeFile(path.join(appPath, "yarn.lock"), sourceFile);
 
   const packageJsonPath = path.join(appPath, "package.json");

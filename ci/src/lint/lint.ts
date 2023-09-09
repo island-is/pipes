@@ -4,9 +4,9 @@ import { fileURLToPath } from "url";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
-import { devWithDistImageKey } from "./build.js";
-import { devWorkDir } from "./dev-image.js";
-import { testReport } from "./report.js";
+import { devWithDistImageKey } from "../build/build.js";
+import { devWorkDir } from "../install/dev-image.js";
+import { testReport } from "../report.js";
 
 /** TODO: Fix type generation */
 export const lintContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);

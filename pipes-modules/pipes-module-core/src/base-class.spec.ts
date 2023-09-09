@@ -2,13 +2,17 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import { Client } from "@dagger.io/dagger";
+import { when } from "mobx";
 
-import { ContextHasModule, createPipesCore } from "./base-class.js";
+import { ContextHasModule, createInternalState, createPipesCore, createState } from "./base-class.js";
 import { createConfig, createContext, createModule, type createModuleDef, createModuleName } from "./create-module.js";
 import { type PipesCoreModule } from "./pipes-core-module.js";
 import { expect } from "./types/expect.js";
 
 import type { MergeModules } from "./types/module.js";
+
+const runningState = createState();
+runningState.state = "running";
 
 /**** TEST MODULES */
 interface HelloWorldModuleContext {
@@ -393,7 +397,7 @@ describe("base class", () => {
           const value = context.testFn(10);
           expect(value).toBe(10);
         });
-        await class1.run();
+        await class1.run(runningState);
       });
       it("call stack", async () => {
         const class1 = createPipesCore().addModule<HelloWorldModule>(HelloWorld).addModule<TestModule>(Test);
@@ -415,7 +419,7 @@ describe("base class", () => {
             "testFn2",
           ]);
         });
-        await class1.run();
+        await class1.run(runningState);
       });
       it("extreme call stack", async () => {
         const class1 = createPipesCore().addModule<TestDeepModule>(TestDeep);
@@ -426,7 +430,7 @@ describe("base class", () => {
         class1.addScript((context) => {
           context.a();
         });
-        await class1.run();
+        await class1.run(runningState);
       });
       it("extreme call stack 2", async () => {
         const class1 = createPipesCore().addModule<TestDeepModule>(TestDeep);
@@ -434,7 +438,7 @@ describe("base class", () => {
         class1.addScript((context) => {
           assert.throws(() => context.b());
         });
-        await class1.run();
+        await class1.run(runningState);
       });
       it("test optional module", async () => {
         const class1 = createPipesCore().addModule<HelloWorldModule>(HelloWorld).addModule<TestModule>(Test);
@@ -443,7 +447,7 @@ describe("base class", () => {
           const value = context.testFn(1);
           expect(value).toBe(1);
         });
-        await class1.run();
+        await class1.run(runningState);
         const class2 = createPipesCore()
           .addModule<HelloWorldModule>(HelloWorld)
           .addModule<MeasurementModule>(Measurement)
@@ -455,7 +459,7 @@ describe("base class", () => {
           const value = context.testFn(100);
           expect(value).toBe(300);
         });
-        await class2.run();
+        await class2.run(runningState);
       });
     });
   });
@@ -484,6 +488,69 @@ describe("base class", () => {
       class1.context.sayHello(context as any, config);
       const ble = class1.context.measurement(context as any, config as any);
       expect(ble).toBe(`Hello, World! A is 0 cm and B is 0 cm`);
+    });
+  });
+  describe("test dependency", () => {
+    it("can add dependency", () => {
+      createPipesCore().addModule<HelloWorldModule>(HelloWorld).addDependency(Symbol());
+    });
+    it("waits for dependency", async () => {
+      const deps = Symbol();
+      const state = createState();
+      const context = createPipesCore()
+        .addModule<HelloWorldModule>(HelloWorld)
+        .addDependency(deps)
+        .addScript(() => {
+          // Empty on purpose
+        });
+      context.client = new Client();
+      const internalState = createInternalState();
+      void context.run(state, internalState);
+      state.symbolsOfTasks = [deps];
+      state.state = "running";
+      await when(() => {
+        console.log(internalState.state);
+        console.log(internalState.state);
+        console.log(internalState.state);
+        return internalState.state === "waiting_for_dependency";
+      });
+      console.log("WHAT");
+      state.symbolsOfTasksCompleted = [deps];
+      await when(() => {
+        return internalState.state === "finished";
+      });
+    });
+    it("throws when dependency does not exist", async () => {
+      const deps = Symbol();
+      const state = createState();
+      const context = createPipesCore()
+        .addModule<HelloWorldModule>(HelloWorld)
+        .addDependency(deps)
+        .addScript(() => {
+          // Empty on purpose
+        });
+      context.client = new Client();
+      state.state = "running";
+      const internalState = createInternalState();
+      await assert.rejects(context.run(state, internalState));
+      assert(internalState.state === "failed");
+    });
+    it("throws when dependency has failed", async () => {
+      const deps = Symbol();
+      const state = createState();
+      const context = createPipesCore()
+        .addModule<HelloWorldModule>(HelloWorld)
+        .addDependency(deps)
+        .addScript(() => {
+          // Empty on purpose
+        });
+      context.client = new Client();
+      state.symbolsOfTasks = [deps];
+      state.symbolsOfTasksFailed = [deps];
+      state.state = "running";
+      const internalState = createInternalState();
+      await assert.rejects(context.run(state, internalState));
+      assert(internalState.state === "failed");
     });
   });
 });

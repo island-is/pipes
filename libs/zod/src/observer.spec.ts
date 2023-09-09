@@ -4,7 +4,13 @@ import { describe, it } from "node:test";
 import { autorun } from "mobx";
 import { z } from "zod";
 
-import { createLockStore, createZodKeyStore, createZodStore, wrapContext } from "./observer.js";
+import {
+  createGlobalSymbolStore,
+  createLockStore,
+  createZodKeyStore,
+  createZodStore,
+  wrapContext,
+} from "./observer.js";
 
 describe("createZodStore Tests", () => {
   it("should correctly initialize store with default values", () => {
@@ -16,6 +22,17 @@ describe("createZodStore Tests", () => {
 
     assert.strictEqual(store.name, undefined);
     assert.strictEqual(store.age, undefined);
+  });
+
+  it("should use default correctly", () => {
+    const schema = {
+      name: z.string().optional().default("ok"),
+      age: z.number().optional().default(2),
+    };
+    const store = createZodStore(schema);
+
+    assert.strictEqual(store.name, "ok");
+    assert.strictEqual(store.age, 2);
   });
 
   it("should set and get values correctly", () => {
@@ -110,6 +127,12 @@ describe("ZodKeyStore Tests", () => {
     assert.deepStrictEqual(result, { name: "Doe" });
     result = await keyStore.getKey("user2");
     assert.deepStrictEqual(result, { name: "Doe" });
+  });
+  it("should use default correctly", async () => {
+    const zodSchema = z.string().default("what");
+    const keyStore = createZodKeyStore(zodSchema);
+    const value = await keyStore.getKey("undefined");
+    assert(value === "what");
   });
 });
 
@@ -264,5 +287,20 @@ describe("wrapContext Tests", () => {
     wrappedStore.a();
     assert.throws(() => wrappedStore.two());
     assert.throws(() => wrappedStore.b());
+  });
+});
+
+describe("ZodSymbol", () => {
+  it("get one", async () => {
+    const symbol = Symbol();
+    const ble = await createGlobalSymbolStore(z.string().default("hehe"), "amazing");
+    let value = await ble.getKey(symbol);
+    /** @ts-expect-error - should not be possible */
+    const _x: typeof value = 1;
+    const _y: typeof value = "hehe";
+    assert(value === "hehe", "default not on");
+    ble.setKey(symbol, "nono");
+    value = await ble.getKey(symbol);
+    assert(value === "nono", "did not change");
   });
 });

@@ -1,8 +1,11 @@
 import { Client, Container } from "@dagger.io/dagger";
 import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island-is/zod";
+import { when } from "mobx";
 
+import { createInternalState, createState } from "./internal-schema.js";
 import { PipesCore, type PipesCoreModule } from "./pipes-core-module.js";
 
+import type { InternalStateStore, LoaderStateStore } from "./types/internal-schema-types.js";
 import type { AnyModule, MergeModules, ModuleName } from "./types/module.js";
 import type { PipesContextCommandBase } from "./types/pipes-command.js";
 import type { Simplify } from "./types/simplify.js";
@@ -26,7 +29,27 @@ export class PipesCoreClass<
    * @private
    */
   #scripts: ScriptFn[] = [];
-
+  #symbol: symbol;
+  get symbol(): symbol {
+    return this.#symbol;
+  }
+  #dependencies = new Set<symbol>();
+  addDependency(value: PipesCoreClass<any> | symbol): this {
+    if (value instanceof PipesCoreClass) {
+      this.#dependencies.add(value.symbol);
+      return this;
+    }
+    this.#dependencies.add(value);
+    return this;
+  }
+  removeDependency(value: PipesCoreClass<any> | symbol): this {
+    if (value instanceof PipesCoreClass) {
+      this.#dependencies.delete(value.symbol);
+      return this;
+    }
+    this.#dependencies.add(value);
+    return this;
+  }
   /**
    * Adds a new script to the core.
    */
@@ -96,7 +119,7 @@ export class PipesCoreClass<
     };
   }) {
     this.#internalStatesStore.modules = modules;
-
+    this.#symbol = Symbol();
     this.#configSchema = config;
     this.#contextSchema = context;
     this.config = createZodStore<typeof config, CurrentConfig["Merged"]>(this.#configSchema);
@@ -201,17 +224,58 @@ export class PipesCoreClass<
   }
 
   // Method to run all the scripts stored in the core.
-  async run(): Promise<void> {
+  async run(
+    state: LoaderStateStore = createState(),
+    internalState: InternalStateStore = createInternalState(),
+  ): Promise<void> {
     if (this.#internalStates.isReady.state === "NOT_READY") {
       throw new Error(this.#internalStates.isReady.reason);
     }
+    internalState.name = (this.config as { appName: string }).appName;
+    await when(() => {
+      if (state.state !== "running") {
+        return false;
+      }
+
+      if (state.state === "running") {
+        const hasNotDep = Array.from(this.#dependencies).some((item) => !state.symbolsOfTasks.includes(item));
+        if (hasNotDep) {
+          return true;
+        }
+      }
+      if (this.#dependencies.size === 0) {
+        return true;
+      }
+      internalState.state = "waiting_for_dependency";
+      for (const dep of this.#dependencies) {
+        if (!state.symbolsOfTasksCompleted.includes(dep) && !state.symbolsOfTasksFailed.includes(dep)) {
+          return false;
+        }
+      }
+      return true;
+    });
+    const hasNot = Array.from(this.#dependencies).some((item) => !state.symbolsOfTasks.includes(item));
+    if (hasNot) {
+      internalState.state = "failed";
+      throw new Error("A dependency was not included in runner");
+    }
+    const hasFailedDeps = !!state.symbolsOfTasksFailed.some((item) => this.#dependencies.has(item));
+    if (hasFailedDeps) {
+      internalState.state = "failed";
+      throw new Error("A dependency has failed");
+    }
+    internalState.state = "running";
     const context = wrapContext<typeof this.context, CurrentContext["ContextInterface"]>(this.context, this.config);
     await Promise.all(
       this.#scripts.map(async (fn) => {
         const value = await fn(context, this.config);
         return value;
       }),
-    );
+    ).catch((e) => {
+      internalState.state = "failed";
+      throw e;
+    });
+    internalState.state = "finished";
   }
 }
 
@@ -284,3 +348,7 @@ type State_Internal<T extends any = any> = T extends {
 
 type fn<Context extends any, Config extends any> = (context: Context, config: Config) => Promise<void> | void;
 type Diff<T, U> = T extends any & U ? (T extends infer R & U ? R : never) : never;
+
+export { render } from "./render.js";
+export * from "./internal-schema.js";
+export type * from "./types/internal-schema-types.js";

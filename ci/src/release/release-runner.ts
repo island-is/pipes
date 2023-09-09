@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { Shell, preparePublishPackage } from "@island-is/scripts";
 
-import * as getBuildOrderJs from "./get-build-order.js";
+import * as getBuildOrderJs from "../util/get-build-order.js";
 
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];
 const reportJSON = process.env["TEST_REPORT_JSON"];

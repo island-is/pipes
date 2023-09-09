@@ -4,8 +4,9 @@ import { fileURLToPath } from "node:url";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
-import { devImageKey, devWorkDir } from "./dev-image.js";
-import { testReport } from "./report.js";
+import { devImageKey, devWorkDir } from "../install/dev-image.js";
+import { testReport } from "../report.js";
+import { PipesDOM, render } from "@island-is/pipes-core";
 
 /**
  * This calculates the build order and injects it as a json file to a container
@@ -19,6 +20,30 @@ devBuildOrderContext.config.nodeImageKey = devImageKey;
 export const devBuildOrderImageKey = `${devImageKey}-with-build-order`;
 
 devBuildOrderContext.addScript(async (context, config) => {
+  render(
+    <PipesDOM.Table>
+      <PipesDOM.TableHeadings>
+        <PipesDOM.TableCell>Metric</PipesDOM.TableCell>
+        <PipesDOM.TableCell>Value</PipesDOM.TableCell>
+        <PipesDOM.TableCell>Change since last month</PipesDOM.TableCell>
+      </PipesDOM.TableHeadings>
+      <PipesDOM.TableRow>
+        <PipesDOM.TableCell>Users</PipesDOM.TableCell>
+        <PipesDOM.TableCell>4,500</PipesDOM.TableCell>
+        <PipesDOM.TableCell>+15%</PipesDOM.TableCell>
+      </PipesDOM.TableRow>
+      <PipesDOM.TableRow>
+        <PipesDOM.TableCell>Revenue</PipesDOM.TableCell>
+        <PipesDOM.TableCell>$12,000</PipesDOM.TableCell>
+        <PipesDOM.TableCell>-2%</PipesDOM.TableCell>
+      </PipesDOM.TableRow>
+      <PipesDOM.TableRow>
+        <PipesDOM.TableCell>Subscriptions</PipesDOM.TableCell>
+        <PipesDOM.TableCell>2,000</PipesDOM.TableCell>
+        <PipesDOM.TableCell>+8%</PipesDOM.TableCell>
+      </PipesDOM.TableRow>
+    </PipesDOM.Table>,
+  );
   try {
     const imageStore = await context.imageStore;
 

@@ -6,7 +6,7 @@ export type DialogProps = {
   paddingBottom?: number; // number of lines
 };
 export type IDialog = { type: "Dialog" } & DialogProps;
-export const Dialog = (props: Omit<IDialog, "type">): IDialog => {
+export const Dialog = (props: Omit<IDialog, "type" | "children">): IDialog => {
   return {
     type: "Dialog",
     ...props,

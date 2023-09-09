@@ -4,8 +4,8 @@ import { fileURLToPath } from "url";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
-import { devImageKey, devWorkDir } from "./dev-image.js";
-import { testReport } from "./report.js";
+import { devImageKey, devWorkDir } from "../install/dev-image.js";
+import { testReport } from "../report.js";
 
 /**
  * This calls yarn constraints on packages to lint dependencies.

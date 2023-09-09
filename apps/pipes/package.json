@@ -24,7 +24,7 @@
   },
   "main": "./dist/pipes-core.js",
   "types": "./dist/pipes-core.d.ts",
-  "source": "./src/pipes-core.ts",
+  "source": "./src/pipes-core.tsx",
   "engines": {
     "node": "20.5.1",
     "yarn": "4.0.0-rc.47",
@@ -39,6 +39,7 @@
     "@dagger.io/dagger": "0.8.4",
     "ci-info": "3.8.0",
     "mobx": "6.10.2",
+    "terminal-link": "3.0.0",
     "ts-toolbelt": "9.6.0",
     "zod": "3.22.2"
   },

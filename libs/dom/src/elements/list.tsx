@@ -10,7 +10,7 @@ export const List = (props: Omit<IList, "type" | "children">, children: IListIte
   };
 };
 
-export const ListItem = (props: Omit<IListItem, "type">, children: string): IListItem => {
+export const ListItem = (props: Omit<IListItem, "type" | "children">, children: string): IListItem => {
   return {
     type: "ListItem",
     ...props,

@@ -34,7 +34,7 @@ export const TableRow = (props: Omit<ITableRow, "type" | "children">, children: 
   };
 };
 
-export const TableCell = (props: Omit<ITableCell, "type">, children: string): ITableCell => {
+export const TableCell = (props: Omit<ITableCell, "type" | "children">, children: string): ITableCell => {
   return {
     type: "TableCell",
     ...props,
