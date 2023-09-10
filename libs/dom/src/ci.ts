@@ -527,6 +527,7 @@ class ConsoleRender {
     string += renderToANSIString(element, this.#TERMINAL_WIDTH);
 
     const lines = this.#splitByNewlineOrLength(string);
+    console.log({ lines });
     for (const line of lines) {
       await this.#streamWrite(`${line}\n`);
     }
