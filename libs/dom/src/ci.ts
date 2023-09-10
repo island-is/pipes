@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { EOL } from "node:os";
-
 import ciinfo from "ci-info";
+import stripAnsi from "strip-ansi";
 import terminalLink from "terminal-link";
 
 import { getDifferences } from "./compare.js";
@@ -406,7 +405,7 @@ export const renderToANSIString = (component: PipeComponents | null, width: numb
 
 class ConsoleRender {
   #PRINT_ONLY_CHANGES = true;
-  #TERMINAL_WIDTH = process.stdout.columns ?? 80;
+  #TERMINAL_WIDTH = process.stdout.columns ?? 120;
   #elements: PipeComponents[] = [];
   #renderInProgress = false;
   constructor() {
@@ -488,13 +487,46 @@ class ConsoleRender {
       await this.#render(element);
     }
   }
+  #splitByNewlineOrLength(inputString: string) {
+    const initialLines = inputString.split("\n");
+    let resultLines = [];
+
+    for (let line of initialLines) {
+      while (stripAnsi(line).length > 0) {
+        let counter = 0;
+        let idx = 0;
+        let inEscapeSequence = false;
+
+        while (idx < line.length && counter < this.#TERMINAL_WIDTH) {
+          if (line[idx] === "\x1b") {
+            inEscapeSequence = true;
+          }
+
+          if (!inEscapeSequence) {
+            counter++;
+          }
+
+          idx++;
+
+          if (inEscapeSequence && line[idx] === "m") {
+            inEscapeSequence = false;
+            idx++;
+          }
+        }
+
+        resultLines.push(line.slice(0, idx));
+        line = line.slice(idx);
+      }
+    }
+
+    return resultLines;
+  }
   async #render(element: PipeComponents) {
     let string = "";
 
     string += renderToANSIString(element, this.#TERMINAL_WIDTH);
 
-    string.replace("\n", EOL);
-    const lines = string.split("\n");
+    const lines = this.#splitByNewlineOrLength(string);
     for (const line of lines) {
       await this.#streamWrite(`${line}\n`);
     }

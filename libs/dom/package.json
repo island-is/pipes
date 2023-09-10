@@ -44,5 +44,8 @@
     "yarn": "4.0.0-rc.47",
     "npm": "please use yarn",
     "pnpm": "please use yarn"
+  },
+  "dependencies": {
+    "strip-ansi": "^7.1.0"
   }
 }
