@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { EOL } from "node:os";
 
-import ciinfo, { isCI } from "ci-info";
+import ciinfo from "ci-info";
 import terminalLink from "terminal-link";
 
 import { getDifferences } from "./compare.js";
@@ -406,11 +406,13 @@ export const renderToANSIString = (component: PipeComponents | null, width: numb
 
 class ConsoleRender {
   #PRINT_ONLY_CHANGES = true;
-  #TERMINAL_WIDTH = process.stdout.columns || 80;
+  #TERMINAL_WIDTH = process.stdout.columns ?? 80;
   #elements: PipeComponents[] = [];
   #renderInProgress = false;
   constructor() {
+    console.log(process.stdout.columns);
     process.stdout.on("resize", () => {
+      console.log(process.stdout.columns);
       this.#TERMINAL_WIDTH = process.stdout.columns;
     });
   }
@@ -466,7 +468,7 @@ class ConsoleRender {
       await this.#renderAll();
     }
     const render = async (newElements: PipeComponents) => {
-      if (isCI) {
+      if (this.#PRINT_ONLY_CHANGES) {
         const prevElements = this.#elements[indexOf];
         const compare = getDifferences(newElements, prevElements);
         this.#elements[indexOf] = newElements;

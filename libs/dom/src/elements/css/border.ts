@@ -48,7 +48,7 @@ export const addBorder = (lines: string[], css: ComputedCSS, width: number): str
 
   const marginLeft = css.marginLeft ? " ".repeat(css.marginLeft) : "";
   const marginRight = css.marginRight ? " ".repeat(css.marginRight) : "";
-  const widthTops = width + (!css.borderLeft ? 1 : 0) + (!css.borderRight ? 1 : 0);
+  const widthTops = width - (!css.borderLeft ? 0 : 1) - (!css.borderRight ? 0 : 1);
   const topBorder = !css.borderTop
     ? ""
     : (css.borderLeft ? style.topLeft : "") +
