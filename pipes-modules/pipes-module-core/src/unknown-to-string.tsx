@@ -2,11 +2,16 @@ import { DOMError, PipesDOM } from "@island-is/dom";
 
 import { render } from "./render.js";
 
+import type { PipeComponents } from "@island-is/dom";
+
 function isErr(e: unknown): e is Error {
   return e instanceof Error;
 }
 
-function unknownToString(e: unknown): string {
+function unknownToString(e: unknown): PipeComponents {
+  if (e instanceof DOMError) {
+    return e.get();
+  }
   if (isErr(e)) {
     return `${e.message}\n${e.stack || ""}`;
   } else if (typeof e === "string") {
@@ -27,7 +32,7 @@ function unknownToString(e: unknown): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = false) => {
+export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = true) => {
   const { stack } = context as unknown as { stack: string[] };
   const { appName } = config as unknown as { appName: string };
   const jsxSTACK = stack.map((e) => (
