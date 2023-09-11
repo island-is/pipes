@@ -102,7 +102,9 @@ export class PipesCoreRunner {
           const values = await taskState.getAll();
           for (const task of currentTasks) {
             const value = values[task];
-            obj.push(value);
+            if (value) {
+              obj.push(value);
+            }
           }
           return (
             <>
@@ -200,7 +202,10 @@ export class PipesCoreRunner {
         if (daggerState.value === "Finished") {
           process.exit(0);
         }
-        process.exit(1);
+        setTimeout(() => {
+          // Give time render and jobs to quit safely.
+          process.exit(1);
+        }, 100);
       });
   }
 }

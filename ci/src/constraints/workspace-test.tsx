@@ -32,7 +32,7 @@ workspaceTestContext.addScript(async (context, config) => {
       .default("Testing workspaces"),
   });
   render(() => (
-    <PipesDOM.Group title="Creating build order">
+    <PipesDOM.Group title="Workspaces">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {
           const duration = context.getDurationInMs();

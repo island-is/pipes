@@ -46,16 +46,16 @@ buildContext.addScript(async (context, config) => {
           const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed creating build order (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>Failed building (duration: {duration} ms)</PipesDOM.Failure>
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
         }
         if (state === "Build") {
           const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished creating build order (duration: {duration} ms)</PipesDOM.Success>;
+          return <PipesDOM.Success>Finished building (duration: {duration} ms)</PipesDOM.Success>;
         }
-        return <PipesDOM.Info>Creating build order…</PipesDOM.Info>;
+        return <PipesDOM.Info>Building…</PipesDOM.Info>;
       })(store.state)}
     </PipesDOM.Group>
   ));
