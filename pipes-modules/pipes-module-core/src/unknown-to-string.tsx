@@ -27,7 +27,7 @@ function unknownToString(e: unknown): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = true) => {
+export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = false) => {
   const { stack } = context as unknown as { stack: string[] };
   const { appName } = config as unknown as { appName: string };
   const jsxSTACK = stack.map((e) => (
