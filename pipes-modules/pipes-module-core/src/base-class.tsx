@@ -128,13 +128,15 @@ export class PipesCoreClass<
           <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
         </PipesDOM.TableRow>
       ));
-      console.log(stack);
+
       const jsx = (
-        <>
-          <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
-          <PipesDOM.Error>Stack</PipesDOM.Error>
-          <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-        </>
+        <PipesDOM.Error>
+          <PipesDOM.Table>
+            <PipesDOM.TableRow>Error in context: {appName} </PipesDOM.TableRow>
+            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
+            <PipesDOM.TableRow>{JSON.stringify(e)}</PipesDOM.TableRow>
+          </PipesDOM.Table>
+        </PipesDOM.Error>
       );
       void render(() => jsx, true);
       throw new DOMError(jsx);

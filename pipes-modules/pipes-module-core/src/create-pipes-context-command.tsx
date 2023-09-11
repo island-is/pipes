@@ -5,10 +5,11 @@
 import { DOMError, PipesDOM } from "@island-is/dom";
 import { z } from "@island-is/zod";
 
+import { render } from "./render.js";
+
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
 import type { PipesContextCommand } from "./types/pipes-command.js";
 import type { valueToZod } from "./types/value-to-zod.js";
-import { render } from "./render.js";
 
 export const createPipesContextCommand = <
   BaseModule extends Module<any, any, any, any, any, any>,
@@ -61,22 +62,16 @@ export const createPipesContextCommand = <
         </PipesDOM.TableRow>
       ));
       const jsx = (
-        <>
-          <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
-          <PipesDOM.Error>Stack</PipesDOM.Error>
-          <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-        </>
+        <PipesDOM.Error>
+          <PipesDOM.Table>
+            <PipesDOM.TableRow>Error in context: {appName} </PipesDOM.TableRow>
+            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
+            <PipesDOM.TableRow>{JSON.stringify(e)}</PipesDOM.TableRow>
+          </PipesDOM.Table>
+        </PipesDOM.Error>
       );
       void render(() => jsx, true);
-      throw new DOMError(
-        (
-          <>
-            <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
-            <PipesDOM.Error>Stack</PipesDOM.Error>
-            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-          </>
-        ),
-      );
+      throw new DOMError(jsx);
     }
   };
   const wrapper: ReturnType<typeof __fn> = (newFn: typeof implement) => _fn(newFn);
