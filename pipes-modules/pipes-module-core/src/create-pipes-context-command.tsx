@@ -2,10 +2,9 @@
  * @file Create functions for context commands.
  */
 
-import { DOMError, PipesDOM } from "@island-is/dom";
 import { z } from "@island-is/zod";
 
-import { render } from "./render.js";
+import { throwJSXError } from "./unknown-to-string.js";
 
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
 import type { PipesContextCommand } from "./types/pipes-command.js";
@@ -53,25 +52,8 @@ export const createPipesContextCommand = <
       return fn._fn(...args);
     } catch (e) {
       // args[0] is context
-      const { stack } = args[0] as unknown as { stack: string[] };
       // args[1] is config
-      const { appName } = args[1] as unknown as { appName: string };
-      const jsxSTACK = stack.map((e) => (
-        <PipesDOM.TableRow>
-          <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
-        </PipesDOM.TableRow>
-      ));
-      const jsx = (
-        <PipesDOM.Error>
-          <PipesDOM.Table>
-            <PipesDOM.TableRow>Error in context: {appName} </PipesDOM.TableRow>
-            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-            <PipesDOM.TableRow>{JSON.stringify(e)}</PipesDOM.TableRow>
-          </PipesDOM.Table>
-        </PipesDOM.Error>
-      );
-      void render(() => jsx, true);
-      throw new DOMError(jsx);
+      throwJSXError(args[0], args[1], e);
     }
   };
   const wrapper: ReturnType<typeof __fn> = (newFn: typeof implement) => _fn(newFn);

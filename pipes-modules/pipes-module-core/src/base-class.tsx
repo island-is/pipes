@@ -1,11 +1,10 @@
 import { Client, Container } from "@dagger.io/dagger";
-import { DOMError, PipesDOM } from "@island-is/dom";
 import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island-is/zod";
 import { when } from "mobx";
 
 import { createInternalState, createState } from "./internal-schema.js";
 import { PipesCore, type PipesCoreModule } from "./pipes-core-module.js";
-import { render } from "./render.js";
+import { throwJSXError } from "./unknown-to-string.js";
 
 import type { InternalStateStore, LoaderStateStore } from "./types/internal-schema-types.js";
 import type { AnyModule, MergeModules, ModuleName } from "./types/module.js";
@@ -120,27 +119,6 @@ export class PipesCoreClass<
       context: CurrentContext["MergedImplement"];
     };
   }) {
-    const throwJSXError = (context: any, config: any) => {
-      const { stack } = context as unknown as { stack: string[] };
-      const { appName } = config as unknown as { appName: string };
-      const jsxSTACK = stack.map((e) => (
-        <PipesDOM.TableRow>
-          <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
-        </PipesDOM.TableRow>
-      ));
-
-      const jsx = (
-        <PipesDOM.Error>
-          <PipesDOM.Table>
-            <PipesDOM.TableRow>Error in context: {appName} </PipesDOM.TableRow>
-            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-            <PipesDOM.TableRow>{JSON.stringify(e)}</PipesDOM.TableRow>
-          </PipesDOM.Table>
-        </PipesDOM.Error>
-      );
-      void render(() => jsx, true);
-      throw new DOMError(jsx);
-    };
     this.#internalStatesStore.modules = modules;
     this.#symbol = Symbol();
     this.#configSchema = config;
@@ -152,19 +130,15 @@ export class PipesCoreClass<
         key: "imageStore" as const,
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         get: () => {
-          try {
-            return createGlobalZodKeyStore(
-              z.custom<Container>((val: unknown) => {
-                if (val instanceof Container) {
-                  return val;
-                }
-                throwJSXError(this.context, this.config);
-              }),
-              "PIPES-IMAGE-STORE",
-            );
-          } catch (e) {
-            throwJSXError(this.context, this.config);
-          }
+          return createGlobalZodKeyStore(
+            z.custom<Container>((val: unknown) => {
+              if (val instanceof Container) {
+                return val;
+              }
+              throwJSXError(this.context, this.config, "Incorrect container");
+            }),
+            "PIPES-IMAGE-STORE",
+          );
         },
       },
       {
@@ -175,7 +149,7 @@ export class PipesCoreClass<
           try {
             return this.haltAll;
           } catch (e) {
-            throwJSXError(this.context, this.config);
+            throwJSXError(this.context, this.config, e);
           }
         },
       },
@@ -187,7 +161,7 @@ export class PipesCoreClass<
           try {
             return this.client;
           } catch (e) {
-            throwJSXError(this.context, this.config);
+            throwJSXError(this.context, this.config, e);
           }
         },
       },
@@ -199,7 +173,7 @@ export class PipesCoreClass<
           try {
             return this.modules;
           } catch (e) {
-            throwJSXError(this.context, this.config);
+            throwJSXError(this.context, this.config, e);
           }
         },
       },
