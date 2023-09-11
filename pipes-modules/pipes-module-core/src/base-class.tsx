@@ -149,19 +149,19 @@ export class PipesCoreClass<
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "imageStore" as const,
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: (context: any, config: any) => {
+        get: () => {
           try {
             return createGlobalZodKeyStore(
               z.custom<Container>((val: unknown) => {
                 if (val instanceof Container) {
                   return val;
                 }
-                throw new Error("Invalid value");
+                throwJSXError(this.context, this.config);
               }),
               "PIPES-IMAGE-STORE",
             );
           } catch (e) {
-            throwJSXError(context, config);
+            throwJSXError(this.context, this.config);
           }
         },
       },
@@ -169,11 +169,11 @@ export class PipesCoreClass<
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "haltAll" as const,
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: (context, config) => {
+        get: () => {
           try {
             return this.haltAll;
           } catch (e) {
-            throwJSXError(context, config);
+            throwJSXError(this.context, this.config);
           }
         },
       },
@@ -181,11 +181,11 @@ export class PipesCoreClass<
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "client",
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: (context, config) => {
+        get: () => {
           try {
             return this.client;
           } catch (e) {
-            throwJSXError(context, config);
+            throwJSXError(this.context, this.config);
           }
         },
       },
@@ -197,7 +197,7 @@ export class PipesCoreClass<
           try {
             return this.modules;
           } catch (e) {
-            throwJSXError(context, config);
+            throwJSXError(this.context, this.config);
           }
         },
       },
