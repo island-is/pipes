@@ -5,12 +5,12 @@ import { when } from "mobx";
 
 import { createInternalState, createState } from "./internal-schema.js";
 import { PipesCore, type PipesCoreModule } from "./pipes-core-module.js";
+import { render } from "./render.js";
 
 import type { InternalStateStore, LoaderStateStore } from "./types/internal-schema-types.js";
 import type { AnyModule, MergeModules, ModuleName } from "./types/module.js";
 import type { PipesContextCommandBase } from "./types/pipes-command.js";
 import type { Simplify } from "./types/simplify.js";
-import { render } from "./render.js";
 
 /**
  * Represents the core class for contexts and modules.
@@ -136,7 +136,7 @@ export class PipesCoreClass<
           <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
         </>
       );
-      void render(jsx);
+      void render(jsx, true);
       throw new DOMError(jsx);
     };
     this.#internalStatesStore.modules = modules;

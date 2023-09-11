@@ -47,6 +47,7 @@ buildContext.addScript(async (context, config) => {
           return (
             <>
               <PipesDOM.Failure>Failed building (duration: {duration} ms)</PipesDOM.Failure>
+              {state.errorJSX ? <PipesDOM.Error>{state.errorJSX}</PipesDOM.Error> : ""}
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
