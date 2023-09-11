@@ -66,7 +66,7 @@ export class PipesCoreRunner {
         ])
         .default("Connecting"),
     );
-    render(() => {
+    await render(() => {
       return (
         <PipesDOM.Group title="Dagger state">
           <PipesDOM.Container>
@@ -96,7 +96,7 @@ export class PipesCoreRunner {
     await connect(
       async (client: Client) => {
         daggerState.value = "Connected";
-        render(async () => {
+        await render(async () => {
           const currentTasks = [...tasks.value];
           const obj: InternalStateStore[] = [];
           const values = await taskState.getAll();
