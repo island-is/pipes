@@ -136,7 +136,7 @@ export class PipesCoreClass<
           <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
         </>
       );
-      void render(jsx, true);
+      void render(() => jsx, true);
       throw new DOMError(jsx);
     };
     this.#internalStatesStore.modules = modules;

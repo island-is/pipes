@@ -8,6 +8,7 @@ import { z } from "@island-is/zod";
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
 import type { PipesContextCommand } from "./types/pipes-command.js";
 import type { valueToZod } from "./types/value-to-zod.js";
+import { render } from "./render.js";
 
 export const createPipesContextCommand = <
   BaseModule extends Module<any, any, any, any, any, any>,
@@ -59,6 +60,14 @@ export const createPipesContextCommand = <
           <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
         </PipesDOM.TableRow>
       ));
+      const jsx = (
+        <>
+          <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
+          <PipesDOM.Error>Stack</PipesDOM.Error>
+          <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
+        </>
+      );
+      void render(() => jsx, true);
       throw new DOMError(
         (
           <>
