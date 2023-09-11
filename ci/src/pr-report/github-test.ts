@@ -11,12 +11,10 @@ import { testReport } from "../report.js";
 export const githubTestContext = createPipesCore().addModule<PipesGitHubModule>(PipesGitHub);
 githubTestContext.config.appName = `Github test`;
 githubTestContext.addScript(async (context, config) => {
+  if (!config.isCI || !config.isPR || config.env !== "github") {
+    return;
+  }
   const report = async (msg: string) => {
-    if (!config.isCI || !config.isPR || config.env !== "github") {
-      // Default
-      console.log(msg);
-      return;
-    }
     context.githubInitPr();
     await context.githubWriteCommentToCurrentPr({ comment: msg });
   };

@@ -1,10 +1,12 @@
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
+import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import { z } from "zod";
 
-import { devImageKey, devWorkDir } from "../install/dev-image.js";
+import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
 import { testReport } from "../report.js";
 
 /**
@@ -12,10 +14,43 @@ import { testReport } from "../report.js";
  * This does not need any workspace info so is called at the same time as build-order
  */
 export const workspaceTestContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);
-workspaceTestContext.config.appName = `Yarn constraints`;
+workspaceTestContext.config.appName = `Workspaces`;
 workspaceTestContext.config.nodeWorkDir = devWorkDir;
 workspaceTestContext.config.nodeImageKey = devImageKey;
+workspaceTestContext.addDependency(devImageInstallContext.symbol);
 workspaceTestContext.addScript(async (context, config) => {
+  const store = createZodStore({
+    state: z
+      .union([
+        z.literal("Testing workspaces"),
+        z.literal("Workspaces tested"),
+        z.object({
+          type: z.literal("Error"),
+          value: z.any(),
+        }),
+      ])
+      .default("Testing workspaces"),
+  });
+  render(() => (
+    <PipesDOM.Group title="Creating build order">
+      {((state) => {
+        if (typeof state === "object" && state.type === "Error") {
+          const duration = context.getDurationInMs();
+          return (
+            <>
+              <PipesDOM.Failure>Failed testing workspaces (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
+            </>
+          );
+        }
+        if (state === "Workspaces tested") {
+          const duration = context.getDurationInMs();
+          return <PipesDOM.Success>Finished testing workspaces (duration: {duration} ms)</PipesDOM.Success>;
+        }
+        return <PipesDOM.Info>Testing workspaces…</PipesDOM.Info>;
+      })(store.state)}
+    </PipesDOM.Group>
+  ));
   try {
     const currentPath = fileURLToPath(dirname(import.meta.url));
     const testFile = join(currentPath, "workspace-test-runner.ts");
@@ -30,6 +65,10 @@ workspaceTestContext.addScript(async (context, config) => {
       output: { fileFromEnv: reportKey },
     });
     if (value.error) {
+      store.state = {
+        type: "Error",
+        value: "Unknown error",
+      };
       await testReport.workspaceTest.set([
         {
           type: "Constraints",
@@ -43,7 +82,12 @@ workspaceTestContext.addScript(async (context, config) => {
     }
     const jsonMessage = JSON.parse(value.message);
     await testReport.workspaceTest.set(jsonMessage);
+    store.state = "Workspaces tested";
   } catch (e) {
+    store.state = {
+      type: "Error",
+      value: e,
+    };
     await testReport.workspaceTest.set([
       {
         type: "Constraints",

@@ -1,4 +1,5 @@
 import { Client, Container } from "@dagger.io/dagger";
+import { DOMError, PipesDOM } from "@island-is/dom";
 import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island-is/zod";
 import { when } from "mobx";
 
@@ -9,6 +10,7 @@ import type { InternalStateStore, LoaderStateStore } from "./types/internal-sche
 import type { AnyModule, MergeModules, ModuleName } from "./types/module.js";
 import type { PipesContextCommandBase } from "./types/pipes-command.js";
 import type { Simplify } from "./types/simplify.js";
+import { render } from "./render.js";
 
 /**
  * Represents the core class for contexts and modules.
@@ -118,6 +120,25 @@ export class PipesCoreClass<
       context: CurrentContext["MergedImplement"];
     };
   }) {
+    const throwJSXError = (context: any, config: any) => {
+      const { stack } = context as unknown as { stack: string[] };
+      const { appName } = config as unknown as { appName: string };
+      const jsxSTACK = stack.map((e) => (
+        <PipesDOM.TableRow>
+          <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
+        </PipesDOM.TableRow>
+      ));
+      console.log(stack);
+      const jsx = (
+        <>
+          <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
+          <PipesDOM.Error>Stack</PipesDOM.Error>
+          <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
+        </>
+      );
+      void render(jsx);
+      throw new DOMError(jsx);
+    };
     this.#internalStatesStore.modules = modules;
     this.#symbol = Symbol();
     this.#configSchema = config;
@@ -128,32 +149,44 @@ export class PipesCoreClass<
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "imageStore" as const,
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: () => {
-          return createGlobalZodKeyStore(
-            z.custom<Container>((val: unknown) => {
-              if (val instanceof Container) {
-                return val;
-              }
-              throw new Error("Invalid value");
-            }),
-            "PIPES-IMAGE-STORE",
-          );
+        get: (context: any, config: any) => {
+          try {
+            return createGlobalZodKeyStore(
+              z.custom<Container>((val: unknown) => {
+                if (val instanceof Container) {
+                  return val;
+                }
+                throw new Error("Invalid value");
+              }),
+              "PIPES-IMAGE-STORE",
+            );
+          } catch (e) {
+            throwJSXError(context, config);
+          }
         },
       },
       {
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "haltAll" as const,
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: () => {
-          return this.haltAll;
+        get: (context, config) => {
+          try {
+            return this.haltAll;
+          } catch (e) {
+            throwJSXError(context, config);
+          }
         },
       },
       {
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "client",
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
-        get: () => {
-          return this.client;
+        get: (context, config) => {
+          try {
+            return this.client;
+          } catch (e) {
+            throwJSXError(context, config);
+          }
         },
       },
       {
@@ -161,7 +194,11 @@ export class PipesCoreClass<
         key: "modules",
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         get: () => {
-          return this.modules;
+          try {
+            return this.modules;
+          } catch (e) {
+            throwJSXError(context, config);
+          }
         },
       },
     ]);
@@ -232,6 +269,7 @@ export class PipesCoreClass<
       throw new Error(this.#internalStates.isReady.reason);
     }
     internalState.name = (this.config as { appName: string }).appName;
+    (this.context as { startTime: Date }).startTime = new Date();
     await when(() => {
       if (state.state !== "running") {
         return false;

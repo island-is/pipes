@@ -382,7 +382,17 @@ describe("base class", () => {
     describe("context binding", () => {
       it("can get all keys", () => {
         const class1 = createPipesCore();
-        const shouldHave = ["imageStore", "haltAll", "addEnv", "client", "modules", "stack", "hasModule"];
+        const shouldHave = [
+          "startTime",
+          "getDurationInMs",
+          "imageStore",
+          "haltAll",
+          "addEnv",
+          "client",
+          "modules",
+          "stack",
+          "hasModule",
+        ];
         const keys = Object.keys(class1.context);
         // Don't want to hardcode the order
         assert.equal(keys.length, shouldHave.length, "Length should be equal");
@@ -509,12 +519,9 @@ describe("base class", () => {
       state.symbolsOfTasks = [deps];
       state.state = "running";
       await when(() => {
-        console.log(internalState.state);
-        console.log(internalState.state);
-        console.log(internalState.state);
         return internalState.state === "waiting_for_dependency";
       });
-      console.log("WHAT");
+
       state.symbolsOfTasksCompleted = [deps];
       await when(() => {
         return internalState.state === "finished";

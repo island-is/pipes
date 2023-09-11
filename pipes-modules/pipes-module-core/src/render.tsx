@@ -1,15 +1,18 @@
 import { PipesDOM } from "@island-is/dom";
-import { reaction } from "mobx";
+import { autorun, reaction } from "mobx";
 
-import type { JSX } from "@island-is/dom";
+import type { PipeComponents } from "@island-is/dom";
 
-export const render = <T extends any>(
-  fn: () => T,
-  element: (props: Awaited<T>) => JSX.Element,
-): ReturnType<typeof reaction> => {
-  return reaction(fn, async (value: T) => {
-    const renderValue = await value;
+export const render = async (element: () => PipeComponents | Promise<PipeComponents>): Promise<void> => {
+  const render = await PipesDOM.consoleRender.mountAndRender(<></>);
+  let prevValues: string | null = "";
+  autorun(async () => {
+    const values = await element();
+    if (JSON.stringify(values) === prevValues) {
+      return;
+    }
 
-    return PipesDOM.consoleRender.mountAndRender(element(renderValue));
+    prevValues = JSON.stringify(values);
+    return render(values);
   });
 };

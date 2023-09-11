@@ -1,5 +1,5 @@
 import { connect } from "@dagger.io/dagger";
-import { PipesDOM } from "@island-is/dom";
+import { DOMError, PipesDOM } from "@island-is/dom";
 import {
   ConfigHasModule,
   ContextHasModule,
@@ -15,15 +15,16 @@ import {
 } from "@island-is/pipes-module-core";
 import {
   createBasicZodStore,
-  createGlobalSymbolStore,
   createGlobalZodKeyStore,
   createGlobalZodStore,
   createZodKeyStore,
   createZodStore,
+  createZodSymbolStore,
   z,
 } from "@island-is/zod";
-import { autorun, when } from "mobx";
+import { reaction, when } from "mobx";
 
+import { PipesConfig } from "./config.js";
 import { PipesStream } from "./stream.js";
 
 import type { Client } from "@dagger.io/dagger";
@@ -51,55 +52,77 @@ export class PipesCoreRunner {
     const pipesStream = new PipesStream();
     const tasks = createBasicZodStore(taskSchema);
     const store = createState();
-    const taskState = await createGlobalSymbolStore(internalStateStoreSchema, "global-tasks-store");
+    const taskState = createZodSymbolStore(internalStateStoreSchema);
+    const daggerState = createBasicZodStore(
+      z
+        .union([
+          z.literal("Connecting"),
+          z.literal("Connected"),
+          z.literal("Finished"),
+          z.object({
+            type: z.literal("Failed"),
+            error: z.any(),
+          }),
+        ])
+        .default("Connecting"),
+    );
+    render(() => {
+      return (
+        <PipesDOM.Group title="Dagger state">
+          <PipesDOM.Container>
+            {((daggerState) => {
+              if (daggerState.value === "Connecting") {
+                return <PipesDOM.Log>Connecting to Dagger</PipesDOM.Log>;
+              }
+              if (daggerState.value === "Connected") {
+                return <PipesDOM.Info>Connected to Dagger</PipesDOM.Info>;
+              }
+              if (daggerState.value === "Finished") {
+                return <PipesDOM.Success>Dagger Finished</PipesDOM.Success>;
+              }
+              if (typeof daggerState.value === "object" && daggerState.value.type === "Failed") {
+                return (
+                  <>
+                    <PipesDOM.Error>Dagger Failed</PipesDOM.Error>
+                    <PipesDOM.Error>{JSON.stringify(daggerState.value.error)}</PipesDOM.Error>
+                  </>
+                );
+              }
+            })(daggerState)}
+          </PipesDOM.Container>
+        </PipesDOM.Group>
+      );
+    });
     await connect(
       async (client: Client) => {
-        render(
-          async () => {
-            const currentTasks = [...tasks.value];
-            const obj: InternalStateStore[] = [];
-            for (const task of currentTasks) {
-              const fetchValue = await taskState.awaitForAvailability(task);
-              if (fetchValue) {
-                // Every key so store knows we are observing them
-                const value: InternalStateStore = {
-                  name: fetchValue.name,
-                  state: fetchValue.state,
-                };
-                obj.push(value);
-              }
-            }
-            return {
-              tasks: obj,
-            };
-          },
-          ({ tasks }) => {
-            return (
-              <>
-                <PipesDOM.Group title="Pipes info">
-                  <PipesDOM.Container>
-                    <PipesDOM.Info>Connected to dagger</PipesDOM.Info>
-                    <PipesDOM.Table>
-                      <PipesDOM.Title>Tasks</PipesDOM.Title>
-                      <PipesDOM.TableHeadings>
-                        <PipesDOM.TableCell>Name</PipesDOM.TableCell>
-                        <PipesDOM.TableCell>Task</PipesDOM.TableCell>
-                      </PipesDOM.TableHeadings>
-                      {tasks.map(({ name, state }) => {
-                        return (
-                          <PipesDOM.TableRow>
-                            <PipesDOM.TableCell>{name}</PipesDOM.TableCell>
-                            <PipesDOM.TableCell>{state}</PipesDOM.TableCell>
-                          </PipesDOM.TableRow>
-                        );
-                      })}
-                    </PipesDOM.Table>
-                  </PipesDOM.Container>
-                </PipesDOM.Group>
-              </>
-            );
-          },
-        );
+        daggerState.value = "Connected";
+        render(async () => {
+          const currentTasks = [...tasks.value];
+          const obj: InternalStateStore[] = [];
+          const values = await taskState.getAll();
+          for (const task of currentTasks) {
+            const value = values[task];
+            obj.push(value);
+          }
+          return (
+            <>
+              <PipesDOM.Group title="Pipes tasks changes">
+                <PipesDOM.Container>
+                  <PipesDOM.Table>
+                    {obj.map(({ name, state }) => {
+                      return (
+                        <PipesDOM.TableRow>
+                          <PipesDOM.TableCell>{name}</PipesDOM.TableCell>
+                          <PipesDOM.TableCell>{state}</PipesDOM.TableCell>
+                        </PipesDOM.TableRow>
+                      );
+                    })}
+                  </PipesDOM.Table>
+                </PipesDOM.Container>
+              </PipesDOM.Group>
+            </>
+          );
+        });
         const _haltObj: { halt?: (value: string) => Promise<void> | void } = {};
         const halt = () => {
           if (_haltObj.halt) {
@@ -119,11 +142,22 @@ export class PipesCoreRunner {
           Array.from(this.#context).map(async (value) => {
             const internalState = createInternalState();
             tasks.value = [...tasks.value, value.symbol];
-            autorun(async () => {
-              await taskState.setKey(value.symbol, internalState);
-            });
 
             store.symbolsOfTasks = [...store.symbolsOfTasks, value.symbol];
+            reaction(
+              () => {
+                return {
+                  name: internalState.name,
+                  state: internalState.state,
+                };
+              },
+              async () => {
+                const name = internalState.name;
+                const state = internalState.state;
+                await taskState.setKey(value.symbol, { name, state });
+              },
+            );
+
             void when(() => internalState.state === "finished" || internalState.state === "failed").then(() => {
               if (internalState.state === "finished") {
                 store.symbolsOfTasksCompleted = [...store.symbolsOfTasksCompleted, value.symbol];
@@ -133,8 +167,12 @@ export class PipesCoreRunner {
                 store.symbolsOfTasksFailed = [...store.symbolsOfTasksFailed, value.symbol];
               }
             });
-            await value.run(store, internalState).catch(() => {
+            await value.run(store, internalState).catch((e) => {
               internalState.state = "failed";
+              if (e instanceof DOMError) {
+                render(e.get);
+              }
+              throw e;
             });
           }),
         );
@@ -142,7 +180,28 @@ export class PipesCoreRunner {
         await Promise.race([fakePromise, contextPromises]);
       },
       { LogOutput: pipesStream },
-    );
+    )
+      .catch((e) => {
+        daggerState.value = {
+          type: "Failed",
+          error: e,
+        };
+      })
+      .then(() => {
+        if (daggerState.value === "Connected") {
+          daggerState.value = "Finished";
+        }
+      })
+      .finally(() => {
+        if (PipesConfig.isDev) {
+          const value = pipesStream.getData();
+          render(() => <PipesDOM.Group title="Raw Dagger log">{value}</PipesDOM.Group>);
+        }
+        if (daggerState.value === "Finished") {
+          process.exit(0);
+        }
+        process.exit(1);
+      });
   }
 }
 

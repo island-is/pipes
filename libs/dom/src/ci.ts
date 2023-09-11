@@ -384,7 +384,7 @@ export const renderToANSIString = (component: PipeComponents | null, width: numb
     return "";
   }
   if (typeof component === "string" || typeof component == "number") {
-    return `${component}`;
+    return `${component}`.trimStart();
   }
   if (Array.isArray(component)) {
     return component
@@ -404,16 +404,19 @@ export const renderToANSIString = (component: PipeComponents | null, width: numb
 };
 
 class ConsoleRender {
-  #PRINT_ONLY_CHANGES = true;
-  #TERMINAL_WIDTH = process.stdout.columns ?? 120;
+  #PRINT_ONLY_CHANGES = false;
+  #TERMINAL_WIDTH: number;
   #elements: PipeComponents[] = [];
   #renderInProgress = false;
   constructor() {
-    console.log(process.stdout.columns);
-    process.stdout.on("resize", () => {
-      console.log(process.stdout.columns);
-      this.#TERMINAL_WIDTH = process.stdout.columns;
-    });
+    if (ciinfo.isCI || typeof process.stdout.columns == "undefined") {
+      this.#TERMINAL_WIDTH = 120;
+    } else {
+      this.#TERMINAL_WIDTH = 60;
+      process.stdout.on("resize", () => {
+        this.#TERMINAL_WIDTH = process.stdout.columns;
+      });
+    }
   }
   #lockRender = async (fn: () => void | Promise<void>) => {
     await this.#waitForRenderLock();
@@ -434,27 +437,19 @@ class ConsoleRender {
     });
   };
   #streamWrite = (chunk: string, stream = process.stdout, encoding: BufferEncoding = "utf-8") => {
-    return new Promise<void>(async (resolve, reject) => {
-      await this.#lockRender(() => {
-        const errListener = (err: any) => {
-          stream.removeListener("error", errListener);
-          reject(err);
-        };
-        stream.addListener("error", errListener);
-        const callback = () => {
-          stream.removeListener("error", errListener);
-          resolve();
-        };
-        stream.write(chunk, encoding, callback);
-      });
+    return new Promise<void>((resolve, reject) => {
+      const errListener = (err: any) => {
+        stream.removeListener("error", errListener);
+        reject(err);
+      };
+      stream.addListener("error", errListener);
+      const callback = () => {
+        stream.removeListener("error", errListener);
+        resolve();
+      };
+      stream.write(chunk, encoding, callback);
     });
   };
-
-  async #clear() {
-    const clearLines = "\x1b[2J\x1b[H";
-
-    await this.#streamWrite(clearLines);
-  }
 
   async mountAndRender(element: PipeComponents) {
     this.#elements.push(element);
@@ -463,33 +458,25 @@ class ConsoleRender {
     if (this.#PRINT_ONLY_CHANGES) {
       await this.#render(element);
     } else {
-      await this.#clear();
-      await this.#renderAll();
+      await this.#render(element);
     }
     const render = async (newElements: PipeComponents) => {
       if (this.#PRINT_ONLY_CHANGES) {
         const prevElements = this.#elements[indexOf];
         const compare = getDifferences(newElements, prevElements);
         this.#elements[indexOf] = newElements;
-        console.log(compare);
         await this.#render(compare as any);
 
         return;
       }
-      await this.#clear();
       this.#elements[indexOf] = newElements;
-      await this.#renderAll();
+      await this.#render(newElements);
     };
     return render;
   }
-  async #renderAll() {
-    for (const element of this.#elements) {
-      await this.#render(element);
-    }
-  }
   #splitByNewlineOrLength(inputString: string) {
     const initialLines = inputString.split("\n");
-    let resultLines = [];
+    const resultLines = [];
 
     for (let line of initialLines) {
       while (stripAnsi(line).length > 0) {
@@ -527,10 +514,11 @@ class ConsoleRender {
     string += renderToANSIString(element, this.#TERMINAL_WIDTH);
 
     const lines = this.#splitByNewlineOrLength(string);
-    console.log({ lines });
-    for (const line of lines) {
-      await this.#streamWrite(`${line}\n`);
-    }
+    await this.#lockRender(async () => {
+      for (const line of lines) {
+        await this.#streamWrite(`${line}\n`);
+      }
+    });
   }
 }
 export const consoleRender = new ConsoleRender();

@@ -89,12 +89,6 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
       .join("");
   }
 
-  // 4. Add borders
-  //let lines = [formattedText];
-  /* if (css.border) {
-    lines = addBorder(lines, css);
-  } */
-
   if (expectedWidth !== "auto") {
     lines = lines.map((e) => e.padEnd(Math.min(expectedWidth)));
     marginBottomStrArr = marginBottomStrArr.map((e) => e.padEnd(expectedWidth));
@@ -102,10 +96,8 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
   }
   lines = [...paddingTopStrArr, ...lines, ...paddingBottomStrArr];
   const lineLength = lines.reduce((a, b) => Math.max(a, escapeAnsi(b).length), 0);
-  /* if (typeof css.width !== "undefined") {
-    lines = lines.map((e) => e.padEnd(Math.min(css.width as number, width)));
-  } */
-  // 2. Apply font styles
+
+  // Apply font styles
   if (css.visibility === true && css.fontStyle) {
     for (const style of css.fontStyle) {
       for (let i = 0; i < lines.length; i++) {
@@ -122,6 +114,7 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
       });
     }
   }
+
   if (css.visibility === true && css.backgroundColor) {
     for (let i = 0; i < lines.length; i++) {
       lines[i] = applyANSIStyle(lines[i], {

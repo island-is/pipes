@@ -101,3 +101,5 @@ export namespace JSX {
     children: PipeComponents | string | number | null | PipeComponents[];
   }
 }
+
+export { DOMError } from "./dom-error.js";

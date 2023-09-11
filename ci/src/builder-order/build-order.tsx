@@ -1,49 +1,58 @@
 import { dirname, join } from "node:path/posix";
 import { fileURLToPath } from "node:url";
 
+import { PipesDOM, createZodStore, render, z } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
-import { devImageKey, devWorkDir } from "../install/dev-image.js";
+import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
 import { testReport } from "../report.js";
-import { PipesDOM, render } from "@island-is/pipes-core";
 
 /**
  * This calculates the build order and injects it as a json file to a container
  */
 export const devBuildOrderContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);
 
-devBuildOrderContext.config.appName = `Dev Build with Build order Context`;
+devBuildOrderContext.config.appName = `Build Order`;
 devBuildOrderContext.config.nodeWorkDir = devWorkDir;
 devBuildOrderContext.config.nodeImageKey = devImageKey;
-
+devBuildOrderContext.addDependency(devImageInstallContext.symbol);
 export const devBuildOrderImageKey = `${devImageKey}-with-build-order`;
 
 devBuildOrderContext.addScript(async (context, config) => {
-  render(
-    <PipesDOM.Table>
-      <PipesDOM.TableHeadings>
-        <PipesDOM.TableCell>Metric</PipesDOM.TableCell>
-        <PipesDOM.TableCell>Value</PipesDOM.TableCell>
-        <PipesDOM.TableCell>Change since last month</PipesDOM.TableCell>
-      </PipesDOM.TableHeadings>
-      <PipesDOM.TableRow>
-        <PipesDOM.TableCell>Users</PipesDOM.TableCell>
-        <PipesDOM.TableCell>4,500</PipesDOM.TableCell>
-        <PipesDOM.TableCell>+15%</PipesDOM.TableCell>
-      </PipesDOM.TableRow>
-      <PipesDOM.TableRow>
-        <PipesDOM.TableCell>Revenue</PipesDOM.TableCell>
-        <PipesDOM.TableCell>$12,000</PipesDOM.TableCell>
-        <PipesDOM.TableCell>-2%</PipesDOM.TableCell>
-      </PipesDOM.TableRow>
-      <PipesDOM.TableRow>
-        <PipesDOM.TableCell>Subscriptions</PipesDOM.TableCell>
-        <PipesDOM.TableCell>2,000</PipesDOM.TableCell>
-        <PipesDOM.TableCell>+8%</PipesDOM.TableCell>
-      </PipesDOM.TableRow>
-    </PipesDOM.Table>,
-  );
+  const store = createZodStore({
+    state: z
+      .union([
+        z.literal("Creating build order"),
+        z.literal("Build order created"),
+        z.object({
+          type: z.literal("Error"),
+          value: z.any(),
+        }),
+      ])
+      .default("Creating build order"),
+  });
+  render(() => (
+    <PipesDOM.Group title="Creating build order">
+      {((state) => {
+        if (typeof state === "object" && state.type === "Error") {
+          const duration = context.getDurationInMs();
+          return (
+            <>
+              <PipesDOM.Failure>Failed creating build order (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
+            </>
+          );
+        }
+        if (state === "Build order created") {
+          const duration = context.getDurationInMs();
+          return <PipesDOM.Success>Finished creating build order (duration: {duration} ms)</PipesDOM.Success>;
+        }
+        return <PipesDOM.Info>Creating build order…</PipesDOM.Info>;
+      })(store.state)}
+    </PipesDOM.Group>
+  ));
+
   try {
     const imageStore = await context.imageStore;
 
@@ -65,18 +74,27 @@ devBuildOrderContext.addScript(async (context, config) => {
 
     if (!result.error && result.container) {
       await imageStore.setKey(`node-${devBuildOrderImageKey}`, result.container);
+      store.state = "Build order created";
       await testReport.buildOrder.set({
         type: "BuildOrder",
         status: "Success",
       });
       return;
     }
+    store.state = {
+      type: "Error",
+      value: result.message,
+    };
     await testReport.buildOrder.set({
       type: "BuildOrder",
       status: "Error",
       error: result.message,
     });
   } catch (e) {
+    store.state = {
+      type: "Error",
+      value: e,
+    };
     await testReport.buildOrder.set({
       type: "BuildOrder",
       status: "Error",

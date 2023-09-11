@@ -2,6 +2,7 @@
  * @file Create functions for context commands.
  */
 
+import { DOMError, PipesDOM } from "@island-is/dom";
 import { z } from "@island-is/zod";
 
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
@@ -46,8 +47,28 @@ export const createPipesContextCommand = <
   };
   const __fn = _fn(implement);
   const fn: ReturnType<typeof __fn> = (...args: Parameters<typeof __fn>) => {
-    // We will add debug and stuff later.
-    return fn._fn(...args);
+    try {
+      return fn._fn(...args);
+    } catch (e) {
+      // args[0] is context
+      const { stack } = args[0] as unknown as { stack: string[] };
+      // args[1] is config
+      const { appName } = args[1] as unknown as { appName: string };
+      const jsxSTACK = stack.map((e) => (
+        <PipesDOM.TableRow>
+          <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
+        </PipesDOM.TableRow>
+      ));
+      throw new DOMError(
+        (
+          <>
+            <PipesDOM.Error>Error in context: {appName} </PipesDOM.Error>
+            <PipesDOM.Error>Stack</PipesDOM.Error>
+            <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
+          </>
+        ),
+      );
+    }
   };
   const wrapper: ReturnType<typeof __fn> = (newFn: typeof implement) => _fn(newFn);
   (fn as unknown as PipesContextCommand<BaseModule, Value, Output>)._wrapper = wrapper;

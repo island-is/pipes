@@ -1,4 +1,4 @@
-import { PipesDOM, createPipe, render } from "@island-is/pipes-core";
+import { createPipe } from "@island-is/pipes-core";
 
 import { buildContext } from "./build/build.js";
 import { devBuildOrderContext } from "./builder-order/build-order.js";
@@ -23,8 +23,15 @@ await createPipe(() => {
     return [...tasks, releaseContext];
   }
   if (GlobalConfig.action === "Test") {
-    console.log("test");
-    return [devImageInstallContext];
+    return [
+      githubTestContext,
+      devImageInstallContext,
+      devBuildOrderContext,
+      workspaceTestContext,
+      buildContext,
+      lintContext,
+      testContext,
+    ];
   }
   throw new Error("Not defined");
 });

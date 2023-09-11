@@ -506,13 +506,14 @@ __metadata:
     ci-info: "npm:3.8.0"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
-    strip-ansi: "npm:^7.1.0"
+    strip-ansi: "npm:7.1.0"
     terminal-link: "npm:3.0.0"
     typescript: "npm:5.1.6"
   peerDependencies:
     "@actions/core": "*"
     "@swc/core": "*"
     ci-info: "*"
+    strip-ansi: 7.1.0
     terminal-link: "*"
   languageName: unknown
   linkType: soft
@@ -6941,7 +6942,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
+"strip-ansi@npm:7.1.0, strip-ansi@npm:^7.0.1":
   version: 7.1.0
   resolution: "strip-ansi@npm:7.1.0"
   dependencies:

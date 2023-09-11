@@ -22,6 +22,7 @@
     "ci-info": "3.8.0",
     "eslint": "8.47.0",
     "prettier": "3.0.2",
+    "strip-ansi": "7.1.0",
     "terminal-link": "3.0.0",
     "typescript": "5.1.6"
   },
@@ -37,6 +38,7 @@
     "@actions/core": "*",
     "@swc/core": "*",
     "ci-info": "*",
+    "strip-ansi": "7.1.0",
     "terminal-link": "*"
   },
   "engines": {
@@ -44,8 +46,5 @@
     "yarn": "4.0.0-rc.47",
     "npm": "please use yarn",
     "pnpm": "please use yarn"
-  },
-  "dependencies": {
-    "strip-ansi": "^7.1.0"
   }
 }
