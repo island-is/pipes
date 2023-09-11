@@ -3,6 +3,8 @@ import { autorun } from "mobx";
 
 import type { PipeComponents } from "@island-is/dom";
 
+const _DEBOUNCE_MS = 100;
+
 function debounce(func: Function, timeout: { timeout: NodeJS.Timeout | null }, wait: number) {
   return function (...args: any[]) {
     /** @ts-expect-error - This is any */
@@ -41,7 +43,7 @@ export const render = async (element: () => PipeComponents | Promise<PipeCompone
           await render(values);
         },
         timeoutObj,
-        100,
+        _DEBOUNCE_MS,
       )();
     },
   );
