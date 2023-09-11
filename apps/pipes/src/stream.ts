@@ -1,7 +1,5 @@
 import { Writable } from "node:stream";
 
-import { PipesConfig } from "./config.js";
-
 import type { WritableOptions } from "node:stream";
 
 export class PipesStream extends Writable {
@@ -15,10 +13,6 @@ export class PipesStream extends Writable {
   }
 
   _write(chunk: Buffer, encoding: BufferEncoding | undefined, callback: (error?: Error | null) => void): void {
-    if (PipesConfig.isDev) {
-      process.stdout.write(chunk, encoding);
-    }
-
     const utf8String = chunk.toString("utf8");
     this.dataChunks.push(utf8String);
     callback();

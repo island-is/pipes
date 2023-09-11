@@ -167,10 +167,10 @@ export class PipesCoreRunner {
                 store.symbolsOfTasksFailed = [...store.symbolsOfTasksFailed, value.symbol];
               }
             });
-            await value.run(store, internalState).catch((e) => {
+            await value.run(store, internalState).catch(async (e) => {
               internalState.state = "failed";
               if (e instanceof DOMError) {
-                render(e.get);
+                await render(e.get, true);
               }
               throw e;
             });
@@ -192,10 +192,10 @@ export class PipesCoreRunner {
           daggerState.value = "Finished";
         }
       })
-      .finally(() => {
+      .finally(async () => {
         if (PipesConfig.isDev) {
           const value = pipesStream.getData();
-          render(() => <PipesDOM.Group title="Raw Dagger log">{value}</PipesDOM.Group>);
+          await render(() => <PipesDOM.Group title="Raw Dagger log">{value}</PipesDOM.Group>, true);
         }
         if (daggerState.value === "Finished") {
           process.exit(0);
