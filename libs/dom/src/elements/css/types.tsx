@@ -28,6 +28,7 @@ export type CSS_BORDER = {
 };
 
 export interface CSS {
+  showTruncation?: boolean;
   color?: CSS_COLOR_STYLE;
   backgroundColor?: CSS_COLOR_STYLE;
   fontStyle?: CSS_FONT_STYLE;
@@ -42,6 +43,7 @@ export interface CSS {
 }
 export const TEXT_ALIGNS = ["LEFT", "CENTER", "RIGHT"];
 export interface ComputedCSS {
+  showTruncation: boolean;
   color?: (typeof CSS_COLORS)[keyof typeof CSS_COLORS];
   backgroundColor?: (typeof CSS_COLORS)[keyof typeof CSS_COLORS];
   fontStyle?: (typeof CSS_FONT_STYLES)[keyof typeof CSS_FONT_STYLES][];

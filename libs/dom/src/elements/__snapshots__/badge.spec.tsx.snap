@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render multiple lines with color-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/badge.spec.tsx 1`] = `" [[44m[32mL[0m[49m] "`;
+
+exports[`render multiple lines-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/badge.spec.tsx 1`] = `"[L]  "`;
+
+exports[`render simple string with color-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/badge.spec.tsx 1`] = `" [[44m[32mT[0m[49m] "`;
+
+exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/badge.spec.tsx 1`] = `"[T]  "`;

@@ -21,6 +21,7 @@ export const computeCSS = (css: CSS, width: number): ComputedCSS => {
     return Math.min(convertDimension(css.width) ?? 0, width);
   };
   const computedCSS: ComputedCSS = {
+    showTruncation: css.showTruncation === false ? false : true,
     color: isCSSColor(css.color) ? getValue(CSS_COLORS, css.color) : undefined,
     backgroundColor: isCSSColor(css.backgroundColor) ? getValue(CSS_COLORS, css.backgroundColor) : undefined,
     fontStyle:
@@ -49,6 +50,7 @@ export const computeCSS = (css: CSS, width: number): ComputedCSS => {
     if (typeof value === "undefined" || value === null) {
       return obj;
     }
+    /** @ts-expect-error - Incorrect */
     obj[key as keyof ComputedCSS] = value;
     return obj;
   }, {} as ComputedCSS);

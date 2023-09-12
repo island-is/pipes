@@ -1,56 +1,10 @@
+import { applyANSIStyle, escapeAnsi } from "./ansi-escape.js";
 import { addBorder } from "./border.js";
 import { CSS_COLORS } from "./colors.js";
 import { computeCSS } from "./css.js";
+import { splitByHeight, splitByWidth } from "./split-helpers.js";
 
-import type { CSS, ComputedCSS } from "./types.js";
-
-const applyANSIStyle = (text: string, ansiCode: { startTag: string; endTag: string }) => {
-  return `${ansiCode.startTag}${text}${ansiCode.endTag}`;
-};
-
-function escapeAnsi(line: string) {
-  const ansiEscape = new RegExp("(?:\\x9B|\\x1B\\[)[0-?]*[ -/]*[@-~]", "g");
-  return line.replace(ansiEscape, "");
-}
-
-const splitByWidth = (
-  text: string,
-  width: number | "auto",
-  paddingLeft: number,
-  paddingRight: number,
-  textAlign: ComputedCSS["textAlign"] = "left",
-) => {
-  const result = [];
-  let currentIndex = 0;
-  const usageWidth = width === "auto" ? 0 : Math.max(width - paddingLeft - paddingRight, 0);
-  if (usageWidth === 0) {
-    return [];
-  }
-  if (width === "auto") {
-    const paddingLeftStr = " ".repeat(paddingLeft);
-    const paddingRightStr = " ".repeat(paddingRight);
-    return [`${paddingLeftStr}${text}${paddingRightStr}`];
-  }
-  while (currentIndex < text.length) {
-    let lineText = text.slice(currentIndex, currentIndex + usageWidth);
-    const paddingLeftStr = " ".repeat(paddingLeft);
-    const paddingRightStr = " ".repeat(paddingRight);
-    switch (textAlign) {
-      case "center":
-        const totalSpaces = width - escapeAnsi(lineText).length - paddingRight - paddingLeft;
-        const startPadding = Math.floor(totalSpaces / 2);
-        const endPadding = totalSpaces - startPadding;
-        lineText = " ".repeat(startPadding) + lineText + " ".repeat(endPadding);
-        break;
-      case "right":
-        lineText = " ".repeat(width - lineText.length - paddingRight) + lineText;
-        break;
-    }
-    result.push(`${paddingLeftStr}${lineText}${paddingRightStr}`);
-    currentIndex += usageWidth;
-  }
-  return result;
-};
+import type { CSS } from "./types.js";
 
 export const span = (text: string, _css: CSS, width: number = process.stdout.columns || 80): string[] => {
   const css = computeCSS(_css, width);
@@ -60,7 +14,8 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
   const outsideHeight = borderHeight + marginHeight + paddingHeight;
   const marginWidth = (css.marginLeft ?? 0) + (css.marginRight ?? 0);
   const borderWidth = (css.borderLeft ? 1 : 0) + (css.borderRight ? 1 : 0);
-  const expectedWidth = css.width ? Math.max(css.width ?? 0 - marginWidth - borderWidth, 0) : "auto";
+  const paddingLeft = css.paddingLeft ?? 0;
+  const expectedWidth = css.width ? css.width - marginWidth - borderWidth - 1 : "auto";
   let expectedHeight = typeof css.height !== "undefined" ? Math.max(css.height - outsideHeight, 0) : ("auto" as const);
   let marginTopStrArr = Array(css.marginTop ?? 0).fill("");
   let marginBottomStrArr = Array(css.marginBottom ?? 0).fill("");
@@ -72,25 +27,15 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
   if (expectedHeight === 0 || css.hidden) {
     return [];
   }
-
   let lines = text.split("\n").flatMap((line) => {
     return splitByWidth(line, expectedWidth, css.paddingLeft ?? 0, css.paddingRight ?? 0, css.textAlign);
   });
+
   if (typeof expectedHeight === "number" && lines.length > expectedHeight) {
-    lines = lines.splice(0, expectedHeight);
-    lines[lines.length - 1] = lines[lines.length - 1]
-      .split("")
-      .map((e, index, arr) => {
-        if (index === arr.length - 1) {
-          return "…";
-        }
-        return e;
-      })
-      .join("");
+    lines = splitByHeight(lines, expectedHeight);
   }
 
   if (expectedWidth !== "auto") {
-    lines = lines.map((e) => e.padEnd(Math.min(expectedWidth)));
     marginBottomStrArr = marginBottomStrArr.map((e) => e.padEnd(expectedWidth));
     marginTopStrArr = marginTopStrArr.map((e) => e.padEnd(expectedWidth));
   }
@@ -123,7 +68,9 @@ export const span = (text: string, _css: CSS, width: number = process.stdout.col
       });
     }
   }
-  lines = [...marginTopStrArr, ...addBorder(lines, css, lineLength), ...marginBottomStrArr];
+  const realBorderWidth =
+    typeof expectedWidth === "number" ? expectedWidth : lines.reduce((a, b) => Math.max(escapeAnsi(b).length, a), 0);
+  lines = [...marginTopStrArr, ...addBorder(lines, css, realBorderWidth), ...marginBottomStrArr];
   if (!css.visibility) {
     return lines.map((e) => e.split("").fill(" ").join(""));
   }
