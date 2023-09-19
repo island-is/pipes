@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { Box, Text, useWidthContext } from "@island-is/ink";
+import { Box, Text } from "@island-is/ink";
 import * as React from "react";
 
 import type { SpecifixJSX } from "./jsx.js";
@@ -24,30 +24,13 @@ export const Row = (props: Omit<IRow, "type">): ReactNode => {
 export const renderRow = {
   ansi: (component: IRow): ReactNode => {
     const color = component.color ?? "gray";
-    const totalWidths: number = useWidthContext();
-    const _widths = (component.width ?? []).map((e) => {
-      if (!e) {
-        return undefined;
-      }
-      if (typeof e === "number") {
-        return e;
-      }
-      if (typeof e === "string" && e.endsWith("%")) {
-        return (totalWidths / 100) * parseInt(e, 10);
-      }
-      return parseInt(e, 10);
-    });
-    const widthLeft = totalWidths - (_widths.reduce((a, b) => (a ?? 0) + (b ?? 0), 0 as number) as number);
     const children = Array.isArray(component.children) ? component.children : [component.children];
     const widths = Array(children.length)
       .fill(0)
-      .map((_e, index) => {
-        if (typeof _widths[index] != "undefined") {
-          return _widths[index];
-        }
-        return Math.floor(widthLeft / children.length);
-      })
-      .filter((e): e is number => typeof e === "number");
+      .map((_e) => {
+        return `${100 / children.length}%`;
+      });
+
     return (
       <Box
         flexDirection="row"
