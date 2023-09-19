@@ -2,6 +2,7 @@ import { PipesDOM, render, z } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode } from "@island-is/pipes-module-node";
 import { createZodStore } from "@island-is/zod";
+import React from "react";
 
 import { GlobalConfig } from "../config.js";
 import { testReport } from "../report.js";
@@ -17,7 +18,7 @@ devImageInstallContext.config.appName = `Development install`;
 devImageInstallContext.config.nodeImageKey = `dev-image`;
 devImageInstallContext.config.nodeSourceIncludeOrExclude = "exclude";
 
-// Skip node_modules and dist.
+// Skstringip node_modules and dist.
 devImageInstallContext.config.nodeSourceExclude = [
   "**/node_modules",
   "**/dist",
@@ -43,7 +44,7 @@ devImageInstallContext.addScript(async (context) => {
       ])
       .default("Installing"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Installing packages">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {

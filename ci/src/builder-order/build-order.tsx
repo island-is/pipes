@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { PipesDOM, createZodStore, render, z } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import React from "react";
 
 import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
 import { testReport } from "../report.js";

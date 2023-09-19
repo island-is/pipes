@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import React from "react";
 import { z } from "zod";
 
 import { buildContext, devWithDistImageKey } from "../build/build.js";
@@ -32,7 +33,7 @@ testContext.addScript(async (context, config) => {
       ])
       .default("Testing"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Test">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {
@@ -73,21 +74,21 @@ testContext.addScript(async (context, config) => {
     // If this has any errors
     const typescriptErrors = returnValue
       .filter((e): e is TypescriptResult => e.status === "Error" && e.type === "Typescript")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={index}>
           Type error in workspace {e.workspace} in file {e.status === "Error" ? e.file : "Unknown"}
         </PipesDOM.Error>
       ));
     const importErrors = returnValue
       .filter((e): e is ImportResult => e.status === "Error" && e.type === "Import")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={index}>
           Import error in workspace {e.workspace} with error: {e.status === "Error" ? e.error.message : "Unknown"}
         </PipesDOM.Error>
       ));
     const testErrors = returnValue
       .filter((e): e is TestResult => e.status === "Error" && e.type === "Test")
-      .map((e) => <PipesDOM.Error>Test error in workspace {e.workspace}</PipesDOM.Error>);
+      .map((e, index) => <PipesDOM.Error key={index}>Test error in workspace {e.workspace}</PipesDOM.Error>);
     const errors = [...importErrors, ...testErrors, ...typescriptErrors];
     if (errors.length === 0) {
       store.state = {

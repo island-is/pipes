@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import * as React from "react";
 import { z } from "zod";
 
 import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
@@ -31,7 +32,7 @@ workspaceTestContext.addScript(async (context, config) => {
       ])
       .default("Testing workspaces"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Workspaces">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {

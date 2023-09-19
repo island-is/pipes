@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, z } from "@island-is/pipes-core";
 import { createPipesCore, render } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import React from "react";
 
 import { buildContext, devWithDistImageKey } from "../build/build.js";
 import { devWorkDir } from "../install/dev-image.js";
@@ -29,7 +30,7 @@ lintContext.addScript(async (context, config) => {
       ])
       .default("Linting"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Linter">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {
