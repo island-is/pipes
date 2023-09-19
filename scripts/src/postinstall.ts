@@ -20,10 +20,12 @@ interface EnvContent {
   PIPES_PROJECT_ROOT: string;
   NODE_OPTIONS: string[];
   PIPES_LOCAL_DEV: string;
+  NODE_ENV: string;
 }
 
 const EnvContent: EnvContent = {
   PIPES_PROJECT_ROOT: root,
+  NODE_ENV: "production",
   NODE_OPTIONS: [
     "--experimental-import-meta-resolve",
     "--no-warnings=ExperimentalWarning",
