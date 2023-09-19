@@ -6,13 +6,13 @@ import {
   createContext,
   createModule,
   createPipesCore,
-} from "@island.is/pipes-module-core";
-import { createGlobalZodKeyStore, createGlobalZodStore, createZodKeyStore, createZodStore, z } from "@island.is/zod";
+} from "@island-is/pipes-module-core";
+import { createGlobalZodKeyStore, createGlobalZodStore, createZodKeyStore, createZodStore, z } from "@island-is/zod";
 
 import { PipesConfig } from "./config.js";
 
 import type { Client } from "@dagger.io/dagger";
-import type { PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "@island.is/pipes-module-core";
+import type { PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "@island-is/pipes-module-core";
 
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
@@ -106,4 +106,4 @@ export {
 };
 export type { createModuleDef, PipesCoreModule, Simplify };
 export * from "@dagger.io/dagger";
-export * from "@island.is/cleanup";
+export * from "@island-is/cleanup";

@@ -1,5 +1,5 @@
 export const sourceFile = [
-  'import { createPipe } from "@island.is/pipes-core";',
+  'import { createPipe } from "@island-is/pipes-core";',
   "",
   "await createPipe(({ createPipesCore }) => {",
   "  const mainContext = createPipesCore();",

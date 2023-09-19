@@ -1,9 +1,9 @@
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesGitHub, type PipesGitHubModule } from "@island.is/pipes-module-github";
-import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
+import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesGitHub, type PipesGitHubModule } from "@island-is/pipes-module-github";
+import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
 import { devWithDistImageKey } from "./build.js";
 import { config as GlobalConfig } from "./config.js";
@@ -46,13 +46,15 @@ releaseContext.addScript(async (context, config) => {
       [reportJSONKey, reportJSON],
       ["NODE_AUTH_TOKEN", GlobalConfig.npmAuthToken],
       ["NPM_AUTH_TOKEN", GlobalConfig.npmAuthToken],
+      ["NEW_VERSION", GlobalConfig.version],
     ],
   });
+
   const value = await context.nodeCompileAndRun({
     name: "test",
     file: testFile,
     container,
-    external: ["@island.is/scripts"],
+    external: ["@island-is/scripts"],
     output: { fileFromEnv: reportJSONKey },
   });
   console.log(value);

@@ -70,7 +70,7 @@ console.log(values.flat().filter((e) => e.status === "Error"));
 // console.error(errors);
 const publishValues = await Promise.all(
   publishBuilds.map((workspace) => {
-    return preparePublishPackage(workspace);
+    return preparePublishPackage(workspace, "23.09.00");
   }),
 );
 

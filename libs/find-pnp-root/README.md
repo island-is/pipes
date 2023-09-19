@@ -1,17 +1,17 @@
-# `@island.is/find-pnp-root`
+# `@island-is/find-pnp-root`
 
 This library provides a utility function to detect and return the root directory of a Yarn project.
 
 ## 🛠️ Usage
 
-Import `findPnpRoot` from `@island.is/find-pnp-root`
+Import `findPnpRoot` from `@island-is/find-pnp-root`
 
 This package is not published outside the monorepo.
 
 ## 📖 Example
 
 ```typescript
-import { findPnpRoot } from "@island.is/find-pnp-root";
+import { findPnpRoot } from "@island-is/find-pnp-root";
 
 const projectRoot = findPnpRoot("/path/to/any/sub/directory");
 console.log(projectRoot);

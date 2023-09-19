@@ -22,7 +22,7 @@ import type {
   ZodTypeAny,
   ZodUnion,
   ZodVoid,
-} from "@island.is/zod";
+} from "@island-is/zod";
 import type { If } from "ts-toolbelt/out/Any/If.js";
 import type { Is } from "ts-toolbelt/out/Any/Is.js";
 import type { IsLiteral } from "ts-toolbelt/out/Community/IsLiteral.js";

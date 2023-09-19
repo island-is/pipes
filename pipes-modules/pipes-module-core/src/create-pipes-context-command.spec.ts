@@ -1,12 +1,12 @@
 import assert from "node:assert";
 import test from "node:test";
 
-import { z } from "@island.is/zod";
+import { z } from "@island-is/zod";
 
 import { createPipesContextCommand } from "./create-pipes-context-command.js";
 
 import type { CreateModule, newModuleName } from "./types/module.js";
-import type { ZodString } from "@island.is/zod";
+import type { ZodString } from "@island-is/zod";
 
 interface TestConfig {
   bravo: boolean;

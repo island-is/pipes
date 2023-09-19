@@ -1,4 +1,4 @@
-declare module "@island.is/prettier-config" {
+declare module "@island-is/prettier-config" {
   interface Config {
     bracketSpacing: boolean;
     trailingComma: "all" | "es5";

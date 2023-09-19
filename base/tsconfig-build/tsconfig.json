@@ -1,5 +1,5 @@
 {
-  "extends": "@island.is/tsconfig",
+  "extends": "@island-is/tsconfig",
   "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"],
   "compilerOptions": {
     "module": "NodeNext",

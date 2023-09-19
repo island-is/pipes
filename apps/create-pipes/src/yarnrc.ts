@@ -4,6 +4,6 @@ export const createYARNRC = (): string => {
     "   - .env.root?",
     "nmMode: hardlinks-local",
     "nodeLinker: node-modules",
-    'npmScopes: { island.is: { npmRegistryServer: "https://npm.pkg.github.com" } }',
+    'npmScopes: { island-is: { npmRegistryServer: "https://npm.pkg.github.com" } }',
   ].join("\n");
 };

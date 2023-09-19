@@ -1,8 +1,8 @@
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
+import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
 import { devWithDistImageKey } from "./build.js";
 import { devWorkDir } from "./dev-image.js";
@@ -24,7 +24,7 @@ testContext.addScript(async (context, config) => {
       name: "test",
       file: testFile,
       container,
-      external: ["@island.is/scripts"],
+      external: ["@island-is/scripts"],
       output: { fileFromEnv: reportJSONKey },
     });
     if (value.error) {

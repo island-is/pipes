@@ -1,4 +1,4 @@
-import { z } from "@island.is/zod";
+import { z } from "@island-is/zod";
 
 export const PipesConfig = {
   isDev: z

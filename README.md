@@ -10,9 +10,9 @@
 
 - [**@island-is/pipes-core**](apps/pipes/) - Core of Pipes. Runs tasks with [dagger.io](https://dagger.io)
 
-- [**@island.is/pipes-loader**](apps/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
+- [**@island-is/pipes-loader**](apps/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
 
-- [**@island.is/create-pipes**](apps/create-pipes/) - Utility to create a boilerplate for a new CI project.
+- [**@island-is/create-pipes**](apps/create-pipes/) - Utility to create a boilerplate for a new CI project.
 
 ## Prerequisites
 
@@ -44,17 +44,20 @@ After setting up the above prerequisites, you're ready to dive into **Pipes**!
 
 ## Installation
 
-Insert into your your home directory (most likely /home/<USERNAME> on Unix and C:\Users<USERNAME> on windows) `.yarnrc.yml`
+Create personal token with `write:packages` permission. Copy the token generated.
+
+Insert into your your home directory (most likely /home/<USERNAME> on Unix and C:\Users<USERNAME> on windows) `.npmrc`
 
 ```yaml
-npmScopes: { island.is: { npmRegistryServer: "https://npm.pkg.github.com" } }
+//npm.pkg.github.com/:_authToken={YOUR_TOKEN}
+@island-is:registry=https://npm.pkg.github.com/
 ```
 
 > Note: This is only while pipes is in heavy testing.
 
 ```sh
 
-yarn create @island.is/pipes example-app
+yarn create @island-is/pipes example-app
 
 ```
 

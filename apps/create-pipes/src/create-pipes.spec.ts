@@ -5,7 +5,7 @@ import path from "node:path";
 import { describe, it } from "node:test";
 
 import { DAGGER_VERSION, MOBX_VERSION, SWC_VERSION, VERSION, YARN_VERSION } from "./const.js";
-import * as createPipes from "./create-pipes.js";
+import * as createPipes from "./main.js";
 
 describe("create-pipes", () => {
   describe("all versions are defined", () => {

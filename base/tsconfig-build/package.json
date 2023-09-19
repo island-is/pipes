@@ -1,11 +1,11 @@
 {
-  "name": "@island.is/tsconfig-build",
+  "name": "@island-is/tsconfig-build",
   "version": "23.09.00",
   "main": "./tsconfig.json",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "@island.is/tsconfig": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
   },
   "repository": {
     "directory": "base/tsconfig-build",

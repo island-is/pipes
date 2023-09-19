@@ -1,10 +1,10 @@
-import { createPipesCore } from "@island.is/pipes-module-core";
-import { PipesNode } from "@island.is/pipes-module-node";
+import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesNode } from "@island-is/pipes-module-node";
 
 import { config } from "./config.js";
 import { testReport } from "./report.js";
 
-import type { PipesNodeModule } from "@island.is/pipes-module-node";
+import type { PipesNodeModule } from "@island-is/pipes-module-node";
 
 /**
  * This installs source files to a image and calls yarn install

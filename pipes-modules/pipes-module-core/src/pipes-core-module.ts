@@ -3,7 +3,7 @@
  * @file Core module for pipes
  */
 import { Client, Container } from "@dagger.io/dagger";
-import { createGlobalZodKeyStore } from "@island.is/zod";
+import { createGlobalZodKeyStore } from "@island-is/zod";
 import ciinfo from "ci-info";
 
 // eslint-disable-next-line sort-imports
@@ -11,7 +11,7 @@ import { createConfig, createContext, createModule as _createModule } from "./cr
 
 import type { createModuleDef as _createModuleDef } from "./create-module.js";
 import type { AnyModule, ModuleName, moduleNameToString } from "./types/module.js";
-import type { createZodKeyStore, z } from "@island.is/zod";
+import type { createZodKeyStore, z } from "@island-is/zod";
 
 interface IPipesCoreContext {
   client: Client;

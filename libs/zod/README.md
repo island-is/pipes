@@ -1,15 +1,15 @@
-# @island.is/zod
+# @island-is/zod
 
 A utility that extends Zod to parse arguments and environment variables, and to create and manage reactive MobX stores with Zod schema validation.
 
-This package is exported by `@island.is/pipes-core`
+This package is exported by `@island-is/pipes-core`
 
 ## 🛠️ Usage
 
-Add `@island.is/pipes-core` and import from there:
+Add `@island-is/pipes-core` and import from there:
 
 ```typescript
-import { z } from "@island.is/pipes-core";
+import { z } from "@island-is/pipes-core";
 ```
 
 ## Features
@@ -19,7 +19,7 @@ import { z } from "@island.is/pipes-core";
 Zod has been extended in Pipes so it can easily use type-safe env and arguments, for example:
 
 ```ts
-import { z } from "@island.is/pipes-core";
+import { z } from "@island-is/pipes-core";
 
 // Getting string from argument or environment
 // default is "fallback default"
@@ -143,7 +143,7 @@ The `createZodStore` uses MobX and Zod to create a reactive store with validatio
 ```typescript
 import { autorun } from "mobx";
 
-import { createZodStore, z } from "@island.is/pipes-core";
+import { createZodStore, z } from "@island-is/pipes-core";
 
 // Create a store with name and age
 const schema = {
@@ -203,7 +203,7 @@ This function creates or retrieves a singleton Zod store instance associated wit
 ##### 📖 Example
 
 ```typescript
-import { createGlobalZodStore } from "@island.is/pipes-core";
+import { createGlobalZodStore } from "@island-is/pipes-core";
 
 const schema = {
   name: z.string().optional(),
@@ -277,7 +277,7 @@ This function creates or retrieves a singleton Zod key-store instance associated
 ##### 📖 Example
 
 ```typescript
-import { createGlobalZodKeyStore } from "@island.is/pipes-core";
+import { createGlobalZodKeyStore } from "@island-is/pipes-core";
 
 const myZodSchema = z.object({
   name: z.string(),

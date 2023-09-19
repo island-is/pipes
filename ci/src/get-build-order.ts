@@ -3,7 +3,7 @@
  */
 import { readFile } from "node:fs/promises";
 
-import type { workspaceWithHashes } from "@island.is/scripts";
+import type { workspaceWithHashes } from "@island-is/scripts";
 
 const buildOrderJSON = process.env["BUILD_ORDER_JSON"];
 

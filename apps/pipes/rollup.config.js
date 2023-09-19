@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFile } from "node:fs/promises";
 
-const internalPackages = ["@island.is/zod", "@island.is/cleanup", "@island.is/pipes-module-core"];
+const internalPackages = ["@island-is/zod", "@island-is/cleanup", "@island-is/pipes-module-core"];
 const currentPath = fileURLToPath(dirname(import.meta.url));
 /** @type {{main: string, dist: string, source: string, dependencies: Record<string, string>, peerDependencies: Record<string, string>, types: string}} */
 const packageJSON = JSON.parse(await readFile(join(currentPath, "package.json"), "utf-8"));

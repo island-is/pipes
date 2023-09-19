@@ -4,11 +4,11 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path/posix";
 
-import { createConfig, createContext, z } from "@island.is/pipes-core";
+import { createConfig, createContext, z } from "@island-is/pipes-core";
 
 import { doesFileExists, getFilesFromPath } from "./util.js";
 
-import type { Container, PipesCoreModule, Simplify, createModuleDef } from "@island.is/pipes-core";
+import type { Container, PipesCoreModule, Simplify, createModuleDef } from "@island-is/pipes-core";
 /**
  * @file Core module for pipes
  */
