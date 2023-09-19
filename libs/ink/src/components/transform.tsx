@@ -16,7 +16,7 @@ export type Props = {
  * That's what <Transform> component does,
  * it gives you an output string of its child components and lets you transform it in any way.
  */
-export default function Transform({ children, transform }: Props): React.JSX.Element | null {
+export default function Transform({ children, transform }: Props): JSX.Element | null {
   if (children === undefined || children === null) {
     return null;
   }

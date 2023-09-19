@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import React from "react";
 import { z } from "zod";
 
 import { devBuildOrderContext, devBuildOrderImageKey } from "../builder-order/build-order.js";
@@ -39,14 +40,15 @@ buildContext.addScript(async (context, config) => {
       ])
       .default("Building"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Building">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {
           const duration = context.getDurationInMs();
+          const value = `Failed building (duration: ${duration} ms)`;
           return (
             <>
-              <PipesDOM.Failure>Failed building (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>{value}</PipesDOM.Failure>
               {state.errorJSX ? <PipesDOM.Error>{state.errorJSX}</PipesDOM.Error> : ""}
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
@@ -54,7 +56,8 @@ buildContext.addScript(async (context, config) => {
         }
         if (state === "Build") {
           const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished building (duration: {duration} ms)</PipesDOM.Success>;
+          const value = `Finished building (duration: ${duration} ms)`;
+          return <PipesDOM.Success>{value}</PipesDOM.Success>;
         }
         return <PipesDOM.Info>Building…</PipesDOM.Info>;
       })(store.state)}
@@ -82,24 +85,24 @@ buildContext.addScript(async (context, config) => {
     const returnValue = await testReport.build.get();
     const typescriptErrors = returnValue
       .filter((e): e is TypescriptResult => e.status === "Error" && e.type === "Typescript")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={`tsc${index}`}>
           Type error in workspace {e.workspace} in file {e.status === "Error" ? e.file : "Unknown"}
         </PipesDOM.Error>
       ));
     const swcErrors = returnValue
       .filter((e): e is SWCResult => e.status === "Error" && e.type === "SWC")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={`swc${index}`}>
           Import error in workspace {e.workspace} with error: {e.status === "Error" ? e.error.message : "Unknown"}
         </PipesDOM.Error>
       ));
     const rollupErrors = returnValue
       .filter((e): e is RollupResult => e.status === "Error" && e.type === "Rollup")
-      .map((e) => <PipesDOM.Error>Test error in workspace {e.workspace}</PipesDOM.Error>);
+      .map((e, index) => <PipesDOM.Error key={`rollup${index}`}>Test error in workspace {e.workspace}</PipesDOM.Error>);
     const unknownErrors = returnValue
       .filter((e): e is RunnerError => e.status === "Error" && e.type === "Runner")
-      .map(() => <PipesDOM.Error>Unknown build error</PipesDOM.Error>);
+      .map((_e, index) => <PipesDOM.Error key={`unknown${index}`}>Unknown build error</PipesDOM.Error>);
     const errors = [...typescriptErrors, ...swcErrors, ...rollupErrors, ...unknownErrors];
     if (errors.length > 0) {
       store.state = {

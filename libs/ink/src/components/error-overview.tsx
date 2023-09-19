@@ -23,7 +23,7 @@ type Props = {
   readonly error: Error;
 };
 
-export default function ErrorOverview({ error }: Props): React.JSX.Element {
+export default function ErrorOverview({ error }: Props): JSX.Element {
   const stack = error.stack ? error.stack.split("\n").slice(1) : undefined;
   const origin = stack ? stackUtils.parseLine(stack[0]!) : undefined;
   const filePath = cleanupPath(origin?.file);

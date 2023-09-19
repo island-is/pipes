@@ -33,7 +33,7 @@ export type Props<T> = {
  * a list of completed tests. [Gatsby](https://github.com/gatsbyjs/gatsby) uses it
  * to display a list of generated pages, while still displaying a live progress bar.
  */
-export default function Static<T>(props: Props<T>): React.JSX.Element {
+export default function Static<T>(props: Props<T>): JSX.Element {
   const { items, children: render, style: customStyle } = props;
   const [index, setIndex] = useState(0);
 

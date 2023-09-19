@@ -32,7 +32,7 @@ devBuildOrderContext.addScript(async (context, config) => {
       ])
       .default("Creating build order"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Creating build order">
       {((state) => {
         if (typeof state === "object" && state.type === "Error") {
