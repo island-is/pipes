@@ -1,10 +1,29 @@
-import type { SpecifixJSX } from "./jsx.js";
+import React from "react";
 
-export type ISuccess = SpecifixJSX<"Success", null, string>;
-export const Success = (props: Omit<ISuccess, "type">, children: string): ISuccess => {
-  return {
+import { Dialog } from "./dialog.js";
+
+import type { SpecifixJSX } from "./jsx.js";
+import type { ReactNode } from "react";
+
+export type ISuccess = SpecifixJSX<"Success", { title?: string }, string>;
+export const Success = (props: Omit<ISuccess, "type">): ReactNode => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return renderSuccess.ansi({
     type: "Success",
     ...props,
-    children,
-  };
+  });
+};
+
+export const renderSuccess = {
+  ansi: (component: ISuccess): ReactNode => {
+    return (
+      <Dialog dialogType="success" title={component.title ?? "Success"}>
+        {component.children}
+      </Dialog>
+    );
+  },
+
+  markdown: (_component: ISuccess): ReactNode => {
+    throw new Error("Not implemented");
+  },
 };

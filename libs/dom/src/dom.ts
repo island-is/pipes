@@ -1,9 +1,5 @@
-import * as CI from "./ci.js";
-import * as elements from "./elements/elements.js";
-import * as factory from "./factory.js";
+export { render } from "@island-is/ink";
 
-export const PipesDOM = {
-  ...elements,
-  ...factory,
-  ...CI,
-};
+export * from "./elements/elements.js";
+
+export { DOMError } from "./dom-error.js";

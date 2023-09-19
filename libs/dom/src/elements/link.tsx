@@ -1,10 +1,11 @@
-import type { SpecifixJSX } from "./jsx.js";
+import { Text, Transform } from "@island-is/ink";
+import React from "react";
+import terminalLink from "terminal-link";
 
-export type ILink = SpecifixJSX<"Link", { href: string }, string>;
-export const Link = (props: Omit<ILink, "type">, children: string): ILink => {
-  return {
-    type: "Link",
-    ...props,
-    children,
-  };
+export const Link = ({ url, children }: { children: string; url: string }): React.ReactNode => {
+  return (
+    <Transform transform={(children) => terminalLink(children, url, { fallback: true })}>
+      <Text>{children}</Text>
+    </Transform>
+  );
 };

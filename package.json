@@ -50,5 +50,8 @@
   },
   "peerDependencies": {
     "@swc/core": "*"
+  },
+  "dependencies": {
+    "node-gyp": "^9.4.0"
   }
 }

@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFile } from "node:fs/promises";
 
-const internalPackages = ["@island-is/zod", "@island-is/cleanup", "@island-is/pipes-module-core"];
+const internalPackages = ["@island-is/zod", "@island-is/cleanup", "@island-is/pipes-module-core", "@island-is/ink"];
 const currentPath = fileURLToPath(dirname(import.meta.url));
 /** @type {{main: string, dist: string, source: string, dependencies: Record<string, string>, peerDependencies: Record<string, string>, types: string}} */
 const packageJSON = JSON.parse(await readFile(join(currentPath, "package.json"), "utf-8"));
@@ -18,6 +18,7 @@ export const files = {
   source: input,
   types,
 };
+const externalPackages = [...builtinModules, ...builtinModules.map((e) => `node:${e}`), ...external, "yoga-wasm-web"];
 const config = {
   input,
   output: {
@@ -38,8 +39,9 @@ const config = {
       },
     },
   ],
-
-  external: [...builtinModules, ...builtinModules.map((e) => `node:${e}`), ...external],
+  external(id) {
+    return externalPackages.includes(id) || id.includes("node_modules");
+  },
 };
 
 export default config;

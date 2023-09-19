@@ -14,6 +14,8 @@ import type { AnyModule, ModuleName, moduleNameToString } from "./types/module.j
 import type { createZodKeyStore, z } from "@island-is/zod";
 
 interface IPipesCoreContext {
+  startTime: Date;
+  getDurationInMs: () => number;
   client: Client;
   haltAll: () => void;
   modules: ModuleName[];
@@ -63,6 +65,14 @@ const PipesCoreConfig = createConfig<PipesCoreModule>(({ z }) => ({
 }));
 
 const PipesCoreContext = createContext<PipesCoreModule>(({ z, fn }): PipesCoreModule["Context"]["Implement"] => ({
+  startTime: z.date().default(new Date()),
+  getDurationInMs: fn<undefined, number>({
+    output: z.number(),
+    implement: (context) => {
+      const currentTime = new Date();
+      return currentTime.getTime() - context.startTime.getTime();
+    },
+  }),
   haltAll: fn<undefined, undefined>({
     implement: () => {},
   }),

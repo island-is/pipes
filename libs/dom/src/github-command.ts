@@ -5,6 +5,7 @@ export interface CommandProperties {
 }
 
 const CMD_STRING = "::";
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function toCommandValue(input: any): string {
   if (input === null || input === undefined) {
     return "";

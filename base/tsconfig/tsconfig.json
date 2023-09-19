@@ -1,7 +1,6 @@
 {
   "include": ["../../libs/dom/typing.d.ts"],
   "compilerOptions": {
-    "allowImportingTsExtensions": false,
     "module": "ESNext",
     "moduleResolution": "nodenext",
     "target": "ESNext",
@@ -19,8 +18,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "jsx": "react",
-    "jsxFactory": "PipesDOM.PipesJSXFactory",
-    "jsxFragmentFactory": "PipesDOM.Fragment",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
     "allowJs": true,
     "checkJs": true,
     "noImplicitAny": true,

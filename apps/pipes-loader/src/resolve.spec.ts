@@ -14,9 +14,9 @@ describe("resolve", () => {
   it("should return source URL for local scoped packages", async () => {
     const nextResolve = mock.fn(() => ({ url: "node:fs", shortCircuit: false })) as any;
     const result = await resolve("@island-is/pipes-core", {}, nextResolve);
-    console.log(result);
+
     assert.strictEqual(result.url.startsWith("file:///"), true);
-    assert.strictEqual(result.url.endsWith("pipes-core.ts"), true);
+    assert.strictEqual(result.url.endsWith("pipes-core.tsx"), true);
     assert.strictEqual(result.shortCircuit, true);
   });
 

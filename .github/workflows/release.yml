@@ -33,5 +33,5 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PIPES_ACTION: Release
           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
-        run: yarn node src/ci.ts
+        run: yarn node src/ci.tsx
         working-directory: ./ci

@@ -28,7 +28,7 @@ describe("create-pipes", () => {
     createPipes.main(tempDir, "appName");
     const rootDir = path.join(tempDir, "appName");
 
-    assert(fs.existsSync(path.join(rootDir, "src", "ci.ts")));
+    assert(fs.existsSync(path.join(rootDir, "src", "ci.tsx")));
     assert(fs.existsSync(path.join(rootDir, "yarn.lock")));
     assert(fs.existsSync(path.join(rootDir, "package.json")));
     assert(fs.existsSync(path.join(rootDir, ".yarnrc.yml")));

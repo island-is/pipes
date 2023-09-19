@@ -1,10 +1,29 @@
-import type { SpecifixJSX } from "./jsx.js";
+import React from "react";
 
-export type IFailure = SpecifixJSX<"Failure", null, string>;
-export const Failure = (props: Omit<IFailure, "type">, children: string): IFailure => {
-  return {
+import { Dialog } from "./dialog.js";
+
+import type { SpecifixJSX } from "./jsx.js";
+import type { ReactNode } from "react";
+
+export type IFailure = SpecifixJSX<"Failure", { title?: string }, string>;
+export const Failure = (props: Omit<IFailure, "type">): ReactNode => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return renderFailure.ansi({
     type: "Failure",
     ...props,
-    children,
-  };
+  });
+};
+
+export const renderFailure = {
+  ansi: (component: IFailure): ReactNode => {
+    return (
+      <Dialog title={component.title ?? "Failure"} dialogType={"failure"}>
+        {component.children}
+      </Dialog>
+    );
+  },
+
+  markdown: (_component: IFailure): ReactNode => {
+    throw new Error(`Not implemented`);
+  },
 };

@@ -13,5 +13,4 @@ tmp
 .swc
 coverage
 .env*
-!.env
 **/dist

@@ -1,5 +1,7 @@
 import { autorun, createAtom } from "mobx";
 
+import { generateRandomString } from "./random.js";
+
 import type { IAtom } from "mobx";
 import type { ZodAny, ZodType, z } from "zod";
 
@@ -9,7 +11,8 @@ class AtomMap {
   #atom = new Map<string, IAtom>();
   get(key: string): IAtom {
     if (!this.#atom.has(key)) {
-      const value = createAtom(key);
+      const randomStr = generateRandomString();
+      const value = createAtom(`${randomStr}:${key}`);
       this.#atom.set(key, value);
       return value;
     }
@@ -17,6 +20,33 @@ class AtomMap {
   }
 }
 const createAtomMap = () => new AtomMap();
+
+export function createBasicZodStore<T extends ZodType>(v: T): { value: z.infer<T> } {
+  let currentValue: z.infer<T> | undefined = undefined;
+  const atom = createAtom(generateRandomString());
+  return new Proxy(
+    { value: currentValue },
+    {
+      get: (_target, prop) => {
+        if (prop === "value") {
+          atom.reportObserved();
+          if (currentValue == undefined) {
+            return v.parse(currentValue);
+          }
+          return currentValue;
+        }
+      },
+      set: (_target, prop, value) => {
+        if (prop === "value") {
+          currentValue = v.parse(value);
+          atom.reportChanged();
+          return true;
+        }
+        return false;
+      },
+    },
+  );
+}
 
 interface Skip<T extends StoreObj, key extends keyof T = keyof T> {
   key: keyof T;
@@ -50,6 +80,12 @@ export function createZodStore<T extends StoreObj = StoreObj, Output = DefaultOu
       for (const key of Object.keys(obj)) {
         if (skipped.includes(key)) {
           continue;
+        }
+        if ("safeParse" in obj[key] && typeof obj[key] !== "function") {
+          const newValue = (obj[key] as ZodType<any>).safeParse(undefined);
+          if (newValue.success) {
+            this.#values[key as keyof T] = newValue.data;
+          }
         }
         // So we can get all keys with Object.keys
         (this as any)[key] = true;
@@ -202,6 +238,7 @@ export const createLockStore = (): {
 export const createZodKeyStore = <T extends z.ZodType<any>>(
   type: T,
 ): {
+  getAll: () => Promise<Record<string, z.infer<T>>>;
   awaitForAvailability(key: string): Promise<z.infer<T>>;
   getKey(key: string): Promise<z.infer<T> | null>;
   setKey(key: string, value: z.infer<T>): Promise<void>;
@@ -212,8 +249,18 @@ export const createZodKeyStore = <T extends z.ZodType<any>>(
     #atom = createAtomMap();
     #map = new Map<string, z.infer<T>>();
     #lock = createLockStore();
+    #allKeys = new Set<string>();
     constructor() {
       this.#type = type;
+    }
+    async getAll(): Promise<Record<string, T>> {
+      const values: Record<string, T> = {};
+      this.#atom.get("#getAll").reportObserved();
+      for (const key of Array.from(this.#allKeys)) {
+        const value = await this.getKey(key);
+        values[key] = value as T;
+      }
+      return values;
     }
     awaitForAvailability(key: string): Promise<z.infer<T>> {
       return new Promise((resolve) => {
@@ -232,8 +279,15 @@ export const createZodKeyStore = <T extends z.ZodType<any>>(
       });
     }
     async getKey(key: string): Promise<z.infer<T> | null> {
+      this.#atom.get(key).reportObserved();
       const value = await this.#lock.lock(key, () => {
         this.#atom.get(key).reportObserved();
+        if (!this.#map.has(key)) {
+          const value = this.#type.safeParse(undefined);
+          if (value.success) {
+            return value.data;
+          }
+        }
         return !this.#map.has(key) ? null : this.#map.get(key);
       });
       return value;
@@ -241,18 +295,22 @@ export const createZodKeyStore = <T extends z.ZodType<any>>(
     async setKey(key: string, value: z.infer<T>): Promise<void> {
       await this.#lock.lock(key, () => {
         this.#map.set(key, this.#type.parse(value));
+        this.#allKeys.add(key);
         this.#atom.get(key).reportChanged();
+        this.#atom.get("#getAll").reportChanged();
       });
     }
     async getOrSet(key: string, fn: () => Promise<z.infer<T>> | z.infer<T>): Promise<z.infer<T>> {
+      this.#atom.get(key).reportObserved();
       const value = await this.#lock.lock(key, async () => {
         if (!this.#map.has(key)) {
           const newValue = await fn();
           this.#atom.get(key).reportChanged();
+          this.#atom.get("#getAll").reportChanged();
+          this.#allKeys.add(key);
           this.#map.set(key, newValue);
           return newValue;
         }
-        this.#atom.get(key).reportObserved();
         return this.#map.get(key);
       });
       return value as T | null;
@@ -288,4 +346,66 @@ export const createGlobalZodKeyStore = <T extends z.ZodType<any>>(
     globalstore[key] = createZodKeyStore<T>(obj);
     return globalstore[key] as ReturnType<typeof createZodKeyStore<T>>;
   });
+};
+
+type FunctionWithSymbolArg<T extends (...args: any[]) => any> = T extends () => infer Return
+  ? Return extends Promise<Record<string, infer X extends any>>
+    ? () => Promise<Record<symbol, X>>
+    : never
+  : T extends (firstArg: string) => infer Return
+  ? (symbol: symbol) => Return
+  : T extends (symbol: string, ...args: infer B) => infer Return
+  ? (symbol: symbol, ...args: B) => Return
+  : never;
+
+type SymbolStore<
+  X extends ZodType<any> = any,
+  T extends Awaited<ReturnType<typeof createZodKeyStore<X>>> = Awaited<ReturnType<typeof createZodKeyStore<X>>>,
+> = {
+  [K in keyof T]: FunctionWithSymbolArg<T[K]>;
+};
+const globalSymbol = new Map<symbol, string>();
+let currentKey = 0;
+export const createZodSymbolStore = <T extends z.ZodType<any>>(obj: T): SymbolStore<T> => {
+  const getSymbolKey = (symbol: symbol) => {
+    let hashKey: string;
+    if (globalSymbol.has(symbol)) {
+      hashKey = globalSymbol.get(symbol) as string;
+    } else {
+      hashKey = `Symbol(id: ${currentKey++})`;
+      globalSymbol.set(symbol, hashKey);
+    }
+    return hashKey;
+  };
+  const store = createZodKeyStore<T>(obj);
+  const allKeys: Record<string, symbol> = {};
+  return {
+    awaitForAvailability: (symbol) => {
+      const key = getSymbolKey(symbol);
+      return store.awaitForAvailability(key);
+    },
+    getAll: async () => {
+      const values = await store.getAll();
+      const obj: Record<symbol, T> = {};
+      for (const key of Object.keys(values)) {
+        const symbol = allKeys[key];
+        obj[symbol] = values[key];
+      }
+      return obj;
+    },
+    getKey: (symbol) => {
+      const key = getSymbolKey(symbol);
+      return store.getKey(key);
+    },
+    getOrSet: (symbol, fn) => {
+      const key = getSymbolKey(symbol);
+      allKeys[key] = symbol;
+      return store.getOrSet(key, fn);
+    },
+    setKey: (symbol, value) => {
+      const key = getSymbolKey(symbol);
+      allKeys[key] = symbol;
+      return store.setKey(key, value);
+    },
+  };
 };
