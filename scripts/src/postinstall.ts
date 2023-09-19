@@ -21,11 +21,13 @@ interface EnvContent {
   NODE_OPTIONS: string[];
   PIPES_LOCAL_DEV: string;
   NODE_ENV: string;
+  FORCE_COLOR: string;
 }
 
 const EnvContent: EnvContent = {
   PIPES_PROJECT_ROOT: root,
   NODE_ENV: "production",
+  FORCE_COLOR: "2",
   NODE_OPTIONS: [
     "--experimental-import-meta-resolve",
     "--no-warnings=ExperimentalWarning",
