@@ -16,6 +16,7 @@ export const files = {
   types,
 };
 const config = {
+  morePlugin: [],
   input: files.source,
   output: {
     sourcemap: true,
@@ -41,7 +42,7 @@ const config = {
     "@swc/core",
     "glob",
     "@dagger.io/dagger",
-    "@island.is/pipes-core",
+    "@island-is/pipes-core",
   ],
 };
 

@@ -8,7 +8,7 @@ import {
   createModule,
   type createModuleDef,
   z,
-} from "@island.is/pipes-core";
+} from "@island-is/pipes-core";
 import { Octokit } from "@octokit/rest";
 
 type GithubUser = {

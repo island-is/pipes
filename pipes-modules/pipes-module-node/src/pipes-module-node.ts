@@ -3,12 +3,12 @@
  */
 import { basename, join } from "node:path/posix";
 
-import { getNvmVersion } from "@island.is/get-nvm-version";
-import { Container, createConfig, createContext, createModule } from "@island.is/pipes-core";
+import { getNvmVersion } from "@island-is/get-nvm-version";
+import { Container, createConfig, createContext, createModule } from "@island-is/pipes-core";
 
 import { compileFile } from "./build.js";
 
-import type { PipesCoreModule, Simplify, createModuleDef } from "@island.is/pipes-core";
+import type { PipesCoreModule, Simplify, createModuleDef } from "@island-is/pipes-core";
 
 interface IPipesNodeConfig {
   nodeVersion: "AUTO" | string;

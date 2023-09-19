@@ -1,15 +1,15 @@
-# @island.is/cleanup
+# @island-is/cleanup
 
 onCleanup accepts a callback function that will be called once when process exits or uncaught exceptions are captured.
 
 ## 🛠️ Usage
 
-This library is exported by `@island.is/pipes-core`.
+This library is exported by `@island-is/pipes-core`.
 
 ## 📖 Example
 
 ```ts
-import { onCleanup } from "@island.is/pipes-core";
+import { onCleanup } from "@island-is/pipes-core";
 
 const stopCleanup = onCleanup(() => {
   console.log("Cleaning up resources...");

@@ -1,4 +1,4 @@
 {
-  "extends": "@island.is/tsconfig",
+  "extends": "@island-is/tsconfig",
   "include": ["src/**/*.ts"]
 }

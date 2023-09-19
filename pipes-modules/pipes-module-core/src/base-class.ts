@@ -1,5 +1,5 @@
 import { Client, Container } from "@dagger.io/dagger";
-import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island.is/zod";
+import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "@island-is/zod";
 
 import { PipesCore, type PipesCoreModule } from "./pipes-core-module.js";
 

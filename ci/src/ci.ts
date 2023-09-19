@@ -1,4 +1,4 @@
-import { createPipe } from "@island.is/pipes-core";
+import { createPipe } from "@island-is/pipes-core";
 
 import { buildContext } from "./build.js";
 import { config } from "./config.js";

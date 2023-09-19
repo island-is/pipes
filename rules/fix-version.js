@@ -10,7 +10,7 @@ const { Yarn } = require("@yarnpkg/types");
 const fixVersion = (yarn) => {
   let root = process.cwd();
   for (const workspace of yarn.workspaces()) {
-    if (workspace.ident === "@island.is/pipes") {
+    if (workspace.ident === "@island-is/pipes") {
       root = workspace.cwd;
     }
   }

@@ -1,4 +1,4 @@
-import { createGlobalZodKeyStore, z } from "@island.is/pipes-core";
+import { createGlobalZodKeyStore, z } from "@island-is/pipes-core";
 
 import type {
   ConstraintsResult,
@@ -8,8 +8,8 @@ import type {
   SWCResult,
   TestResult,
   TypescriptResult,
-} from "@island.is/scripts";
-import type { RollupResult } from "@island.is/scripts/src/lib/build-with-rollup.js";
+} from "@island-is/scripts";
+import type { RollupResult } from "@island-is/scripts/src/lib/build-with-rollup.js";
 
 const globalTestReport = await createGlobalZodKeyStore(z.custom<any>(), "GLOBAL_REPORT");
 const globalTestReportKeys = ["buildDevImage", "buildOrder", "workspaceTest", "build", "lint", "test"] as const;

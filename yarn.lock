@@ -420,18 +420,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@island.is/ci@workspace:ci":
+"@island-is/ci@workspace:ci":
   version: 0.0.0-use.local
-  resolution: "@island.is/ci@workspace:ci"
+  resolution: "@island-is/ci@workspace:ci"
   dependencies:
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/pipes-core": "workspace:*"
-    "@island.is/pipes-module-github": "workspace:*"
-    "@island.is/pipes-module-node": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
+    "@island-is/pipes-module-github": "workspace:*"
+    "@island-is/pipes-module-node": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
@@ -444,15 +444,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/cleanup@workspace:*, @island.is/cleanup@workspace:libs/cleanup":
+"@island-is/cleanup@workspace:*, @island-is/cleanup@workspace:libs/cleanup":
   version: 0.0.0-use.local
-  resolution: "@island.is/cleanup@workspace:libs/cleanup"
+  resolution: "@island-is/cleanup@workspace:libs/cleanup"
   dependencies:
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
@@ -463,17 +463,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/create-pipes@workspace:apps/create-pipes":
+"@island-is/create-pipes@workspace:apps/create-pipes":
   version: 0.0.0-use.local
-  resolution: "@island.is/create-pipes@workspace:apps/create-pipes"
+  resolution: "@island-is/create-pipes@workspace:apps/create-pipes"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/pipes-core": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
@@ -484,19 +484,21 @@ __metadata:
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.1"
     typescript: "npm:5.1.6"
+  bin:
+    create-pipes: ./dist/create-pipes.js
   languageName: unknown
   linkType: soft
 
-"@island.is/dom@workspace:*, @island.is/dom@workspace:libs/dom":
+"@island-is/dom@workspace:*, @island-is/dom@workspace:libs/dom":
   version: 0.0.0-use.local
-  resolution: "@island.is/dom@workspace:libs/dom"
+  resolution: "@island-is/dom@workspace:libs/dom"
   dependencies:
     "@actions/core": "npm:1.10.0"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
@@ -512,13 +514,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/eslint-config@workspace:*, @island.is/eslint-config@workspace:base/eslint-config":
+"@island-is/eslint-config@workspace:*, @island-is/eslint-config@workspace:base/eslint-config":
   version: 0.0.0-use.local
-  resolution: "@island.is/eslint-config@workspace:base/eslint-config"
+  resolution: "@island-is/eslint-config@workspace:base/eslint-config"
   dependencies:
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/eslint": "npm:8.44.2"
     "@types/eslint-config-prettier": "npm:6.11.0"
@@ -548,13 +550,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/find-pnp-root@workspace:*, @island.is/find-pnp-root@workspace:libs/find-pnp-root":
+"@island-is/find-pnp-root@workspace:*, @island-is/find-pnp-root@workspace:libs/find-pnp-root":
   version: 0.0.0-use.local
-  resolution: "@island.is/find-pnp-root@workspace:libs/find-pnp-root"
+  resolution: "@island-is/find-pnp-root@workspace:libs/find-pnp-root"
   dependencies:
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
@@ -565,41 +567,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/get-nvm-version@workspace:*, @island.is/get-nvm-version@workspace:libs/get-nvm-version":
+"@island-is/get-nvm-version@workspace:*, @island-is/get-nvm-version@workspace:libs/get-nvm-version":
   version: 0.0.0-use.local
-  resolution: "@island.is/get-nvm-version@workspace:libs/get-nvm-version"
+  resolution: "@island-is/get-nvm-version@workspace:libs/get-nvm-version"
   dependencies:
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/find-pnp-root": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/find-pnp-root": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
     prettier: "npm:3.0.2"
     typescript: "npm:5.1.6"
   peerDependencies:
-    "@island.is/find-pnp-root": "*"
+    "@island-is/find-pnp-root": "*"
     "@swc/core": "*"
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-core@workspace:*, @island.is/pipes-core@workspace:apps/pipes":
+"@island-is/pipes-core@workspace:*, @island-is/pipes-core@workspace:apps/pipes":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-core@workspace:apps/pipes"
+  resolution: "@island-is/pipes-core@workspace:apps/pipes"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/cleanup": "workspace:*"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/find-pnp-root": "workspace:*"
-    "@island.is/pipes-module-core": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/cleanup": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/find-pnp-root": "workspace:*"
+    "@island-is/pipes-module-core": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     "@types/which": "npm:3"
@@ -614,15 +616,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-loader@workspace:apps/pipes-loader":
+"@island-is/pipes-loader@workspace:apps/pipes-loader":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-loader@workspace:apps/pipes-loader"
+  resolution: "@island-is/pipes-loader@workspace:apps/pipes-loader"
   dependencies:
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"
@@ -635,17 +637,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-module-core@workspace:*, @island.is/pipes-module-core@workspace:pipes-modules/pipes-module-core":
+"@island-is/pipes-module-core@workspace:*, @island-is/pipes-module-core@workspace:pipes-modules/pipes-module-core":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-module-core@workspace:pipes-modules/pipes-module-core"
+  resolution: "@island-is/pipes-module-core@workspace:pipes-modules/pipes-module-core"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
@@ -657,7 +659,7 @@ __metadata:
     zod: "npm:3.22.2"
   peerDependencies:
     "@dagger.io/dagger": "*"
-    "@island.is/zod": "*"
+    "@island-is/zod": "*"
     "@swc/core": "*"
     ci-info: "*"
     mobx: "*"
@@ -666,20 +668,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-module-github@workspace:*, @island.is/pipes-module-github@workspace:pipes-modules/pipes-module-github":
+"@island-is/pipes-module-github@workspace:*, @island-is/pipes-module-github@workspace:pipes-modules/pipes-module-github":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-module-github@workspace:pipes-modules/pipes-module-github"
+  resolution: "@island-is/pipes-module-github@workspace:pipes-modules/pipes-module-github"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/get-nvm-version": "workspace:*"
-    "@island.is/pipes-core": "workspace:*"
-    "@island.is/pipes-module-core": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/get-nvm-version": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
+    "@island-is/pipes-module-core": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@octokit/rest": "npm:20.0.1"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
@@ -694,7 +696,7 @@ __metadata:
     zod: "npm:3.22.2"
   peerDependencies:
     "@dagger.io/dagger": "*"
-    "@island.is/pipes-core": "*"
+    "@island-is/pipes-core": "*"
     ci-info: "*"
     enquirer: "*"
     mobx: "*"
@@ -703,20 +705,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-module-node@workspace:*, @island.is/pipes-module-node@workspace:pipes-modules/pipes-module-node":
+"@island-is/pipes-module-node@workspace:*, @island-is/pipes-module-node@workspace:pipes-modules/pipes-module-node":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-module-node@workspace:pipes-modules/pipes-module-node"
+  resolution: "@island-is/pipes-module-node@workspace:pipes-modules/pipes-module-node"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/get-nvm-version": "workspace:*"
-    "@island.is/pipes-core": "workspace:*"
-    "@island.is/pipes-module-core": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/get-nvm-version": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
+    "@island-is/pipes-module-core": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
@@ -732,24 +734,24 @@ __metadata:
     typescript: "npm:5.1.6"
     zod: "npm:3.22.2"
   peerDependencies:
-    "@island.is/pipes-core": "*"
+    "@island-is/pipes-core": "*"
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform":
+"@island-is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform"
+  resolution: "@island-is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform"
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/get-nvm-version": "workspace:*"
-    "@island.is/pipes-core": "workspace:*"
-    "@island.is/pipes-module-core": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/get-nvm-version": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
+    "@island-is/pipes-module-core": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     ci-info: "npm:3.8.0"
@@ -765,20 +767,20 @@ __metadata:
     typescript: "npm:5.1.6"
     zod: "npm:3.22.2"
   peerDependencies:
-    "@island.is/pipes-core": "*"
+    "@island-is/pipes-core": "*"
   languageName: unknown
   linkType: soft
 
-"@island.is/pipes@workspace:.":
+"@island-is/pipes@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@island.is/pipes@workspace:."
+  resolution: "@island-is/pipes@workspace:."
   dependencies:
     "@commitlint/config-conventional": "npm:17.7.0"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/find-pnp-root": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/find-pnp-root": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/semver": "npm:7.5.1"
     "@yarnpkg/types": "npm:4.0.0-rc.47"
@@ -796,11 +798,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/prettier-config@workspace:*, @island.is/prettier-config@workspace:base/prettier-config":
+"@island-is/prettier-config@workspace:*, @island-is/prettier-config@workspace:base/prettier-config":
   version: 0.0.0-use.local
-  resolution: "@island.is/prettier-config@workspace:base/prettier-config"
+  resolution: "@island-is/prettier-config@workspace:base/prettier-config"
   dependencies:
-    "@island.is/scripts": "workspace:*"
+    "@island-is/scripts": "workspace:*"
     "@swc/core": "npm:1.3.78"
     prettier: "npm:3.0.2"
   peerDependencies:
@@ -808,16 +810,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/scripts@workspace:*, @island.is/scripts@workspace:scripts":
+"@island-is/scripts@workspace:*, @island-is/scripts@workspace:scripts":
   version: 0.0.0-use.local
-  resolution: "@island.is/scripts@workspace:scripts"
+  resolution: "@island-is/scripts@workspace:scripts"
   dependencies:
-    "@island.is/cleanup": "workspace:*"
-    "@island.is/dom": "workspace:*"
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/zod": "workspace:*"
+    "@island-is/cleanup": "workspace:*"
+    "@island-is/dom": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/zod": "workspace:*"
     "@swc/cli": "npm:0.1.62"
     "@swc/core": "npm:1.3.78"
     "@types/debug": "npm:4.1.8"
@@ -840,22 +842,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/tsconfig-build@workspace:*, @island.is/tsconfig-build@workspace:base/tsconfig-build":
+"@island-is/tsconfig-build@workspace:*, @island-is/tsconfig-build@workspace:base/tsconfig-build":
   version: 0.0.0-use.local
-  resolution: "@island.is/tsconfig-build@workspace:base/tsconfig-build"
+  resolution: "@island-is/tsconfig-build@workspace:base/tsconfig-build"
   dependencies:
-    "@island.is/tsconfig": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.3.78"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
   linkType: soft
 
-"@island.is/tsconfig@workspace:*, @island.is/tsconfig@workspace:base/tsconfig":
+"@island-is/tsconfig@workspace:*, @island-is/tsconfig@workspace:base/tsconfig":
   version: 0.0.0-use.local
-  resolution: "@island.is/tsconfig@workspace:base/tsconfig"
+  resolution: "@island-is/tsconfig@workspace:base/tsconfig"
   dependencies:
-    "@island.is/prettier-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
     "@swc/core": "npm:1.3.78"
     prettier: "npm:3.0.2"
   peerDependencies:
@@ -863,15 +865,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@island.is/zod@workspace:*, @island.is/zod@workspace:libs/zod":
+"@island-is/zod@workspace:*, @island-is/zod@workspace:libs/zod":
   version: 0.0.0-use.local
-  resolution: "@island.is/zod@workspace:libs/zod"
+  resolution: "@island-is/zod@workspace:libs/zod"
   dependencies:
-    "@island.is/eslint-config": "workspace:*"
-    "@island.is/prettier-config": "workspace:*"
-    "@island.is/scripts": "workspace:*"
-    "@island.is/tsconfig": "workspace:*"
-    "@island.is/tsconfig-build": "workspace:*"
+    "@island-is/eslint-config": "workspace:*"
+    "@island-is/prettier-config": "workspace:*"
+    "@island-is/scripts": "workspace:*"
+    "@island-is/tsconfig": "workspace:*"
+    "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.5.8"
     eslint: "npm:8.47.0"

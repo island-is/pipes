@@ -1,17 +1,17 @@
-# `@island.is/get-nvm-version`
+# `@island-is/get-nvm-version`
 
 This library provides a utility function to find and return the Node.js version specified in `.nvmrc` or `.node-version` files within a Yarn project.
 
 ## 🛠️ Usage
 
-Import `getNvmVersion` from `@island.is/get-nvm-version`
+Import `getNvmVersion` from `@island-is/get-nvm-version`
 
 This package is not published outside the monorepo.
 
 ## 📖 Example
 
 ```typescript
-import { getNvmVersion } from "@island.is/get-nvm-version";
+import { getNvmVersion } from "@island-is/get-nvm-version";
 
 const nodeVersion = getNvmVersion("/path/to/any/sub/directory");
 console.log(nodeVersion);

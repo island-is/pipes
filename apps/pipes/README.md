@@ -1,4 +1,4 @@
-# @island.is/pipes-core
+# @island-is/pipes-core
 
 Pipes is dev-friendly, testable pipelines library for local & CI/CD platforms, written in Typescript.
 
@@ -14,11 +14,11 @@ Here are the core components of Pipes:
 
 - All functionalities and tools highly integrated to deliver a seamless deployment experience.
 
-**island.is/pipes-core** incorporates the following libraries. Read their documentations for more info.
+**island-is/pipes-core** incorporates the following libraries. Read their documentations for more info.
 
-- `@island.is/zod` for extending zod, and reactive stores.
-- `@island.is/cleanup` for cleanups when process doesn't exit cleanly.
-- `@island.is/pipes-module-core` for context base and creating modules.
+- `@island-is/zod` for extending zod, and reactive stores.
+- `@island-is/cleanup` for cleanups when process doesn't exit cleanly.
+- `@island-is/pipes-module-core` for context base and creating modules.
 
 ## PipeCoreRunner
 
@@ -52,7 +52,7 @@ Creates and runs a pipe using the provided function. The function passed to `cre
   - `contextHasModule` - type-guard for if context has module
   - `configHasModule` - type-guard for if context config has module
 
-  More information about these can be acquired from `@island.is/zod` and `@island.is/pipes-core-module`
+  More information about these can be acquired from `@island-is/zod` and `@island-is/pipes-core-module`
 
   The function should return a `Promise` that resolves to an array of `PipeBase` objects, or directly return an array of `PipeBase` objects.
 
@@ -70,3 +70,7 @@ await createPipe(async ({ z, createPipesCore }) => {
   ];
 });
 ```
+
+## 🛡️ License
+
+License is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

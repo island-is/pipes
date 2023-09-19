@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 
-import { generateHashesFromBuild, getAllWorkspaces, getBuildOrder } from "@island.is/scripts";
+import { generateHashesFromBuild, getAllWorkspaces, getBuildOrder } from "@island-is/scripts";
 
 const sourceDir = process.env["PROJECT_ROOT"] || process.cwd();
 

@@ -2,7 +2,7 @@ import { dirname, join } from "node:path";
 
 import { getScriptDirectory } from "./get-script-directory.js";
 
-import type * as Iz from "@island.is/zod";
+import type * as Iz from "@island-is/zod";
 
 // Libraries outside scripts might not be ready;
 const root = dirname(getScriptDirectory());

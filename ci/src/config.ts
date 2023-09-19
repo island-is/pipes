@@ -1,4 +1,4 @@
-import { z } from "@island.is/pipes-core";
+import { z } from "@island-is/pipes-core";
 import ciInfo from "ci-info";
 
 /** Base config */
