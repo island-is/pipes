@@ -42,20 +42,33 @@ const getTasks = (workspace: Workspace) => {
             env: process.env,
           },
         );
-        const data = (JSON.parse(stdout) as Omit<TestResult, "workspace">[]).map((e) => ({
-          ...e,
-          workspace: workspace.name,
-        }));
-        if (code !== 0) {
-          data.push({
-            type: "Test",
-            status: "Error",
+        try {
+          const data = (JSON.parse(stdout) as Omit<TestResult, "workspace">[]).map((e) => ({
+            ...e,
             workspace: workspace.name,
-            message: "Unknown error",
-          } as TestResult);
+          }));
+          return data;
+        } catch (e) {
+          if (code === 0) {
+            return [
+              {
+                type: "Test",
+                status: "Error",
+                workspace: workspace.name,
+                message: JSON.stringify(e),
+              } as TestResult,
+            ];
+          }
+          return [
+            {
+              type: "Test",
+              status: "Success",
+              workspace: workspace.name,
+            } as TestResult,
+          ];
         }
-        return data;
       } catch (e) {
+        console.log(e);
         return {
           type: "Test",
           status: "Error",

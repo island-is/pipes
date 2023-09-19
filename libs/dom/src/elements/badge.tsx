@@ -1,39 +1,37 @@
-import { span } from "./css/span.js";
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import { Box, Text } from "@island-is/ink";
+import * as React from "react";
 
 import type { SpecifixJSX } from "./jsx.js";
-import type { PipeComponents } from "./pipe-components.js";
 
-export type IBadge = SpecifixJSX<"Badge", null, string>;
-export const Badge = (props: Omit<IBadge, "type" | "children">, children: string): IBadge => {
-  return {
+type Color = Parameters<typeof Text>[0]["color"];
+type BackgroundColor = Parameters<typeof Text>[0]["color"];
+
+export type IBadge = SpecifixJSX<
+  "Badge",
+  { color?: Color; backgroundColor?: BackgroundColor; display?: "ansi" | "markdown" | undefined },
+  string
+>;
+export const Badge = (props: Omit<IBadge, "type">): React.ReactNode => {
+  const type = props.display ?? "ansi";
+  return renderBadge[type]({
     type: "Badge",
     ...props,
-    children,
-  };
+  });
 };
 
 export const renderBadge = {
-  ansi:
-    (render: (component: PipeComponents | null, width: number) => string) =>
-    (component: IBadge): string => {
-      const child = span(render(component.children, 1), {
-        width: 1,
-        height: 1,
-        showTruncation: false,
-      })[0].trim();
-      return span(`[${child}]`, {
-        width: 5,
-        showTruncation: false,
-        height: 1,
-        padding: {
-          left: 1,
-          right: 1,
-        },
-      }).join("");
-    },
-  markdown:
-    (_render: (component: PipeComponents | null, width: number) => string) =>
-    (_component: IBadge): string => {
-      throw new Error("Not implemented");
-    },
+  ansi: (component: IBadge): React.ReactNode => {
+    const val = component.children.trim().split("")[0] ?? "X";
+    return (
+      <Box height={1} marginLeft={1} marginRight={1} width={4}>
+        <Text wrap={"truncate"} bold={true} color={component.color} backgroundColor={component.backgroundColor}>
+          [{val}]
+        </Text>
+      </Box>
+    );
+  },
+  markdown: (_component: IBadge): string => {
+    throw new Error("Not implemented");
+  },
 };

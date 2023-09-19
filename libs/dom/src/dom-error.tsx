@@ -1,11 +1,13 @@
-import { renderToANSIString } from "./ci.js";
-import { PipesDOM } from "./dom.js";
+import { render } from "@island-is/ink";
+import React from "react";
 
-import type { PipeComponents } from "./factory.js";
+import { Error as UIError } from "./elements/elements.js";
+
+import type { ReactNode } from "react";
 
 export class DOMError extends Error {
-  #message: PipeComponents;
-  constructor(pipeComponent: PipeComponents) {
+  #message: ReactNode;
+  constructor(pipeComponent: ReactNode) {
     super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
 
     if (Error.captureStackTrace) {
@@ -17,14 +19,15 @@ export class DOMError extends Error {
     this.#message = (
       <>
         {pipeComponent}
-        <PipesDOM.Error>{this.stack}</PipesDOM.Error>
+        <UIError>{this.stack}</UIError>
       </>
     );
   }
-  get = (): PipeComponents => {
+  get = (): ReactNode => {
     return this.#message;
   };
-  toString = (): string => {
-    return renderToANSIString(this.#message, process.stdout.columns || 80);
+  toString = async (): Promise<string> => {
+    const value = await render(this.#message, true);
+    return value.value();
   };
 }

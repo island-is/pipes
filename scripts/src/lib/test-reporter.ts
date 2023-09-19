@@ -15,7 +15,13 @@ const customReporter = new Transform({
         if (!event.data.file) {
           break;
         }
-        obj.push({ type: "Test", status: "Error", name: event.data.name, file: event.data.file });
+        obj.push({
+          type: "Test",
+          status: "Error",
+          name: event.data.name,
+          file: event.data.file,
+          error: event.details.error,
+        });
         break;
     }
   },
@@ -24,6 +30,7 @@ const customReporter = new Transform({
 const callback = () => {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(obj));
+  console.log("\n");
 };
 
 const exitHandler = callback;

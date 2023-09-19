@@ -1,80 +1,51 @@
-import { describe, it } from "node:test";
+import { describe } from "node:test";
 
-import { renderToANSIString } from "../ci.js";
+import React from "react";
 
-import { snapTest } from "./snap-test.js";
-import { Timestamp, renderTimestamp } from "./timestamp.js";
+import { testJSX } from "./snap-test.js";
+import { Timestamp } from "./timestamp.js";
 
 describe("Render Timestamp", () => {
-  describe("ansi", () => {
-    it("render simple timestamp", () => {
-      const element = Timestamp({ time: new Date("2023-09-10T10:20:30Z") });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render simple timestamp");
-      console.log(`Timestamp Simple: ${value}`);
-    });
-    it("render timestamp with European format", () => {
-      const element = Timestamp({
-        time: new Date("2023-09-10T10:20:30Z"),
-        format: "European",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with european format");
-      console.log(`Timestamp European Format: ${value}`);
-    });
-    it("render timestamp with American format", () => {
-      const element = Timestamp({
-        time: new Date("2023-09-10T10:20:30Z"),
-        format: "American",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with american format");
-      console.log(`Timestamp American Format: ${value}`);
-    });
-    it("render timestamp with iso", () => {
-      const element = Timestamp({
-        time: new Date("2023-09-10T10:20:30Z"),
-        format: "ISO",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with iso format");
-      console.log(`Timestamp ISO Format: ${value}`);
-    });
-    it("render timestamp with custom format", () => {
-      const element = Timestamp({
-        time: new Date(0),
-        format: "yyyy-MM-dd HH:mm",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with custom format");
-      console.log(`Timestamp Custom Format: ${value}`);
-    });
-    it("render timestamp with custom format - only time", () => {
-      const element = Timestamp({
-        time: new Date(1000 * 60 * 60),
-        format: "HH:mm:ss",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with custom format - only time");
-      console.log(`Timestamp Custom Format: ${value}`);
-    });
-    it("render invalid time", () => {
-      const element = Timestamp({
-        time: new Date(NaN),
-        format: "HH:mm:ss",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with invalid time");
-      console.log(`Invalid time: ${value}`);
-    });
-    it("render invalid format", () => {
-      const element = Timestamp({
-        time: new Date(0),
-        format: "YYYY-mm-DD",
-      });
-      const value = renderTimestamp.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render timestamp with invalid format");
-      console.log(`Invalid format: ${value}`);
-    });
+  describe("ansi", async () => {
+    const tests = [
+      testJSX(<Timestamp time={new Date("2023-09-10T10:20:30Z")} />, "render simple timestamp", import.meta.url),
+      testJSX(
+        <Timestamp time={new Date("2023-09-10T10:20:30Z")} format="European" />,
+        "render timestamp with european format",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date("2023-09-10T10:20:30Z")} format="American" />,
+        "render timestamp with american format",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date("2023-09-10T10:20:30Z")} format="ISO" />,
+        "render timestamp with iso format",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date(0)} format="yyyy-MM-dd HH:mm" />,
+        "render timestamp with custom format",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date(1000 * 60 * 60)} format="HH:mm:ss" />,
+        "render timestamp with custom format - only time",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date(NaN)} format="HH:mm:ss" />,
+        "render timestamp with invalid time",
+        import.meta.url,
+      ),
+      testJSX(
+        <Timestamp time={new Date(0)} format="YYYY-mm-DD" />,
+        "render timestamp with invalid format",
+        import.meta.url,
+      ),
+    ];
+
+    await Promise.all(tests);
   });
 });

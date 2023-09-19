@@ -24,8 +24,8 @@ export const compileWithSWC = async (workspace: Workspace): Promise<SWCResult[]>
       },
       transform: {
         react: {
-          pragma: "PipesDOM.PipesJSXFactory",
-          pragmaFrag: "PipesDOM.Fragment",
+          pragma: "React.createElement",
+          pragmaFrag: "React.Fragment",
           throwIfNamespace: true,
           development: false,
           useBuiltins: false,

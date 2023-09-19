@@ -1,21 +1,17 @@
-import { describe, it } from "node:test";
+import { describe } from "node:test";
 
-import { renderToANSIString } from "../ci.js";
+import React from "react";
 
-import { span } from "./css/span.js";
-import { Error, renderError } from "./error.js"; // Assuming error component file is named error.js
+import { Error } from "./error.js"; // Assuming error component file is named error.js
 import { LOREM_IPSUM } from "./lorem.ipsum.spec.js";
-import { snapTest } from "./snap-test.js";
-const TERMINAL_WIDTH = process.stdout.columns;
+import { testJSX } from "./snap-test.js";
 
 describe("Render error", () => {
-  describe("ansi", () => {
-    it("render simple string error", () => {
-      const element = Error({}, "Error message");
-      const value = renderError.ansi(renderToANSIString)(element, process.stdout.columns);
-      console.log(JSON.stringify(value));
-      console.log(`\n${value}`);
-      snapTest(value, import.meta.url, "render simple string error");
-    });
+  describe("ansi", async () => {
+    const tests = [
+      testJSX(<Error>Error mesage</Error>, "render simple string", import.meta.url),
+      testJSX(<Error>{LOREM_IPSUM}</Error>, "render multiple line", import.meta.url),
+    ];
+    await Promise.all(tests);
   });
 });

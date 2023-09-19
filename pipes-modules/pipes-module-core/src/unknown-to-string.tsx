@@ -1,14 +1,15 @@
-import { DOMError, PipesDOM } from "@island-is/dom";
+import { DOMError, Error, Row, Text } from "@island-is/dom";
+import React from "react";
 
 import { render } from "./render.js";
 
-import type { PipeComponents } from "@island-is/dom";
+import type { ReactNode } from "react";
 
 function isErr(e: unknown): e is Error {
   return e instanceof Error;
 }
 
-function unknownToString(e: unknown): PipeComponents {
+function unknownToString(e: unknown): ReactNode {
   if (e instanceof DOMError) {
     return e.get();
   }
@@ -35,20 +36,16 @@ function unknownToString(e: unknown): PipeComponents {
 export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = true) => {
   const { stack } = context as unknown as { stack: string[] };
   const { appName } = config as unknown as { appName: string };
-  const jsxSTACK = stack.map((e) => (
-    <PipesDOM.TableRow>
-      <PipesDOM.TableCell>{e}</PipesDOM.TableCell>
-    </PipesDOM.TableRow>
-  ));
+  const jsxSTACK = stack.map((e, index) => <Row key={index}>{e}</Row>);
 
   const jsx = (
-    <PipesDOM.Error>
-      <PipesDOM.Table>
-        <PipesDOM.TableRow>Error in context: {appName} </PipesDOM.TableRow>
-        <PipesDOM.Table>{jsxSTACK}</PipesDOM.Table>
-        <PipesDOM.TableRow>{unknownToString(errorMSG)}</PipesDOM.TableRow>
-      </PipesDOM.Table>
-    </PipesDOM.Error>
+    <Error>
+      <Row>Error in context: {appName} </Row>
+      {jsxSTACK}
+      <Row>
+        <Text>{unknownToString(errorMSG)}</Text>
+      </Row>
+    </Error>
   );
   if (shouldRender) {
     void render(() => jsx, true);

@@ -14,17 +14,62 @@ type TestFn = (workspace: Workspace, imports: Imports) => ImportResult[];
 type Tests = Partial<Record<Workspace["packageType"] | "default", TestFn>>;
 export const tests: Tests = {
   libs: (workspace, imports) => {
-    if (workspace.name.endsWith("pipes-loader")) {
-      return [];
-    }
-    const typeImportShouldBeInDevDependencies = imports.type.filter(
-      (value) => !workspace.dependencies.peerDependencies.includes(value),
-    );
-    const importShouldBeInDevAndPeer = imports.main.filter(
-      (value) =>
-        !workspace.dependencies.peerDependencies.includes(value) ||
-        !workspace.dependencies.devDependencies.includes(value),
-    );
+    const typeImportShouldBeInDevDependencies = imports.type
+      .filter((value) => value !== "@island-is/ink")
+      .filter((value) => value !== "jest-snapshot")
+      .filter((value) => !value.startsWith("date-fns"))
+      .filter((value) => !workspace.dependencies.peerDependencies.includes(value))
+      .filter((e) => {
+        const x = e.split("/");
+
+        for (let i = x.length - 1; i > -1; i--) {
+          const value = x.reduce((a, b, index) => {
+            if (index === 0) {
+              return b;
+            }
+            if (index === i) {
+              return a;
+            }
+            return `${a}/${b}`;
+          }, "");
+          if (workspace.dependencies.peerDependencies.includes(value)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+    const importShouldBeInDevAndPeer = imports.main
+      .filter((value) => value !== "@island-is/ink")
+      .filter((value) => value !== "jest-snapshot")
+      .filter((value) => !value.startsWith("date-fns"))
+      .filter(
+        (value) =>
+          !workspace.dependencies.peerDependencies.includes(value) ||
+          !workspace.dependencies.devDependencies.includes(value),
+      )
+      .filter((e) => {
+        const x = e.split("/");
+
+        for (let i = x.length - 1; i > -1; i--) {
+          const value = x.reduce((a, b, index) => {
+            if (index === 0) {
+              return b;
+            }
+            if (index === i) {
+              return a;
+            }
+            return `${a}/${b}`;
+          }, "");
+          if (
+            workspace.dependencies.peerDependencies.includes(value) &&
+            workspace.dependencies.peerDependencies.includes(value)
+          ) {
+            return false;
+          }
+        }
+        return true;
+      });
     const results: ImportResult[] = [];
     typeImportShouldBeInDevDependencies.forEach((e) => {
       results.push({

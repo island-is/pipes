@@ -1,36 +1,37 @@
+import { Text } from "@island-is/ink";
 import ciinfo from "ci-info";
+import React from "react";
 
 import { Command } from "../github-command.js";
 
-import type { AnyElement, SpecifixJSX } from "./jsx.js";
+import type { SpecifixJSX } from "./jsx.js";
+import type { ReactNode } from "react";
 
 export type IGroup = SpecifixJSX<"Group", { title: string }, any | any[]>;
-export const Group = (props: Omit<IGroup, "type" | "children">, ...children: AnyElement[]): IGroup => {
-  return {
+export const Group = (props: Omit<IGroup, "type">): ReactNode => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return renderGroup.ansi({
     type: "Group",
     ...props,
-    children,
-  };
+  });
 };
 
 export const renderGroup = {
-  ansi:
-    (render: (children: any, width: number) => string) =>
-    (component: IGroup, width: number): string => {
-      const content = render(component.children, width);
-
-      if (ciinfo.GITHUB_ACTIONS) {
-        const startGroup = new Command("group", {}, component.title).toString();
-        const endGroup = new Command("endgroup", {}, "").toString();
-        return `\n${startGroup}\n${content}\n${endGroup}`;
-      }
-
-      return content;
-    },
-  markdown:
-    (_render: (children: any, _width: number) => string) =>
-    (_component: IGroup, _width: number): string => {
-      // You can implement markdown specific rendering logic here if needed
-      return "";
-    },
+  ansi: (component: IGroup): ReactNode => {
+    if (ciinfo.GITHUB_ACTIONS) {
+      const startGroup = new Command("group", {}, component.title).toString();
+      const endGroup = new Command("endgroup", {}, "").toString();
+      return (
+        <>
+          <Text>{startGroup}</Text>
+          {component.children}
+          <Text>{endGroup}</Text>
+        </>
+      );
+    }
+    return component.children;
+  },
+  markdown: (component: IGroup, _width: number): ReactNode => {
+    return component.children;
+  },
 };

@@ -15,6 +15,7 @@ module.exports = (path, type = "module") => {
       es2021: true,
     },
     extends: [
+      "plugin:react/recommended",
       ...[
         // "./comment.cjs",
         "./array.cjs",
@@ -32,6 +33,8 @@ module.exports = (path, type = "module") => {
       },
     },
     rules: {
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error",
       "no-console": "off",
       "import/named": "off",
       "import/namespace": "off",

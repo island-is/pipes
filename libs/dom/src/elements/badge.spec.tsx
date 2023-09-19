@@ -1,53 +1,24 @@
-import { describe, it } from "node:test";
+import { describe } from "node:test";
 
-import { renderToANSIString } from "../ci.js";
+import React from "react";
 
-import { Badge, renderBadge } from "./badge.js";
-import { span } from "./css/span.js";
+import { Badge } from "./badge.js";
 import { LOREM_IPSUM } from "./lorem.ipsum.spec.js";
-import { snapTest } from "./snap-test.js";
+import { testJSX } from "./snap-test.js";
 
 describe("Render badge", () => {
-  describe("ansi", () => {
-    it("render simple string", () => {
-      const element = Badge({}, "T");
-      const value = renderBadge.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render simple string");
-    });
-    it("render simple string with color", () => {
-      const child = span(
-        "This is text  Trewopijgperjgpewqojgpoewj",
-        {
-          color: "green",
-          backgroundColor: "blue",
-        },
-        100,
-      );
-      const element = Badge({}, child[0]);
-      const value = renderBadge.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render simple string with color");
-      console.log(`Badge Colored String: ${value}`);
-    });
-    it("render multiple lines", () => {
-      // This should be cut out!
-      const element = Badge({}, LOREM_IPSUM);
-      const value = renderBadge.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render multiple lines");
-      console.log(`Badge Multiple Lines String: ${value}`);
-    });
-    it("render multiple lines with color", () => {
-      const child = span(
-        LOREM_IPSUM,
-        {
-          color: "green",
-          backgroundColor: "blue",
-        },
-        100,
-      );
-      const element = Badge({}, child[0]);
-      const value = renderBadge.ansi(renderToANSIString)(element);
-      snapTest(value, import.meta.url, "render multiple lines with color");
-      console.log(`Badge Multiple Lines String: ${value}`);
-    });
+  describe("ansi", async () => {
+    const tests = [
+      testJSX(<Badge>T</Badge>, "render simple string", import.meta.url),
+      testJSX(
+        <Badge color={"green"} backgroundColor={"blue"}>
+          T
+        </Badge>,
+        "render simple with color",
+        import.meta.url,
+      ),
+      testJSX(<Badge>{LOREM_IPSUM}</Badge>, "render multiple line", import.meta.url),
+    ];
+    await Promise.all(tests);
   });
 });

@@ -1,5 +1,6 @@
 import { connect } from "@dagger.io/dagger";
-import { DOMError, PipesDOM } from "@island-is/dom";
+import { Container, DOMError, Error, Group, Info, Log, Row, Success, Text } from "@island-is/dom";
+import * as PipesDOM from "@island-is/dom";
 import {
   ConfigHasModule,
   ContextHasModule,
@@ -23,6 +24,7 @@ import {
   z,
 } from "@island-is/zod";
 import { reaction, when } from "mobx";
+import React from "react";
 
 import { PipesConfig } from "./config.js";
 import { PipesStream } from "./stream.js";
@@ -68,29 +70,29 @@ export class PipesCoreRunner {
     );
     await render(() => {
       return (
-        <PipesDOM.Group title="Dagger state">
-          <PipesDOM.Container>
+        <Group title="Dagger state">
+          <Container>
             {((daggerState) => {
               if (daggerState.value === "Connecting") {
-                return <PipesDOM.Log>Connecting to Dagger</PipesDOM.Log>;
+                return <Log>Connecting to Dagger</Log>;
               }
               if (daggerState.value === "Connected") {
-                return <PipesDOM.Info>Connected to Dagger</PipesDOM.Info>;
+                return <Info>Connected to Dagger</Info>;
               }
               if (daggerState.value === "Finished") {
-                return <PipesDOM.Success>Dagger Finished</PipesDOM.Success>;
+                return <Success>Dagger Finished</Success>;
               }
               if (typeof daggerState.value === "object" && daggerState.value.type === "Failed") {
                 return (
                   <>
-                    <PipesDOM.Error>Dagger Failed</PipesDOM.Error>
-                    <PipesDOM.Error>{JSON.stringify(daggerState.value.error)}</PipesDOM.Error>
+                    <Error>Dagger Failed</Error>
+                    <Error>{JSON.stringify(daggerState.value.error)}</Error>
                   </>
                 );
               }
             })(daggerState)}
-          </PipesDOM.Container>
-        </PipesDOM.Group>
+          </Container>
+        </Group>
       );
     });
     await connect(
@@ -108,20 +110,18 @@ export class PipesCoreRunner {
           }
           return (
             <>
-              <PipesDOM.Group title="Pipes tasks changes">
-                <PipesDOM.Container>
-                  <PipesDOM.Table>
-                    {obj.map(({ name, state }) => {
-                      return (
-                        <PipesDOM.TableRow>
-                          <PipesDOM.TableCell>{name}</PipesDOM.TableCell>
-                          <PipesDOM.TableCell>{state}</PipesDOM.TableCell>
-                        </PipesDOM.TableRow>
-                      );
-                    })}
-                  </PipesDOM.Table>
-                </PipesDOM.Container>
-              </PipesDOM.Group>
+              <Group title="Pipes tasks changes">
+                <Container>
+                  {obj.map(({ name, state }) => {
+                    return (
+                      <Row key={name}>
+                        <Text>{name}</Text>
+                        <Text>{state}</Text>
+                      </Row>
+                    );
+                  })}
+                </Container>
+              </Group>
             </>
           );
         });
@@ -197,7 +197,14 @@ export class PipesCoreRunner {
       .finally(async () => {
         if (PipesConfig.isDev) {
           const value = pipesStream.getData();
-          await render(() => <PipesDOM.Group title="Raw Dagger log">{value}</PipesDOM.Group>, true);
+          await render(
+            () => (
+              <Group title="Raw Dagger log">
+                <Text>{value}</Text>
+              </Group>
+            ),
+            true,
+          );
         }
         if (daggerState.value === "Finished") {
           process.exit(0);

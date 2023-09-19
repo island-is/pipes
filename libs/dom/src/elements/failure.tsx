@@ -1,30 +1,29 @@
-import { span } from "./css/span.js";
+import React from "react";
+
+import { Dialog } from "./dialog.js";
 
 import type { SpecifixJSX } from "./jsx.js";
+import type { ReactNode } from "react";
 
-export type IFailure = SpecifixJSX<"Failure", null, string>;
-export const Failure = (props: Omit<IFailure, "type" | "children">, children: string): IFailure => {
-  return {
+export type IFailure = SpecifixJSX<"Failure", { title?: string }, string>;
+export const Failure = (props: Omit<IFailure, "type">): ReactNode => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return renderFailure.ansi({
     type: "Failure",
     ...props,
-    children,
-  };
+  });
 };
 
 export const renderFailure = {
-  ansi:
-    (render: (child: any, width: number) => string) =>
-    (component: IFailure, width: number): string => {
-      return span(`❌ ${render(component.children, width)}`, {
-        width,
-        color: "red",
-        height: 1,
-      }).join("");
-    },
+  ansi: (component: IFailure): ReactNode => {
+    return (
+      <Dialog title={component.title ?? "Failure"} dialogType={"failure"}>
+        {component.children}
+      </Dialog>
+    );
+  },
 
-  markdown:
-    (render: (child: any) => string) =>
-    (component: IFailure): string => {
-      return `❌ ${render(component.children)}`;
-    },
+  markdown: (_component: IFailure): ReactNode => {
+    throw new Error(`Not implemented`);
+  },
 };

@@ -6,6 +6,7 @@ import { readFile } from "node:fs/promises";
 const currentPath = fileURLToPath(dirname(import.meta.url));
 /** @type {{main: string, dist: string, source: string, dependencies: Record<string, string>, peerDependencies: Record<string, string>, types: string}} */
 const packageJSON = JSON.parse(await readFile(join(currentPath, "package.json"), "utf-8"));
+const deps = Object.keys(packageJSON.dependencies);
 const input = join(currentPath, ...packageJSON.source.replace("./", "").split("/"));
 const output = join(currentPath, ...packageJSON.main.replace("./", "").split("/"));
 const types = join(currentPath, ...packageJSON.types.replace("./", "").split("/"));
@@ -37,7 +38,9 @@ const config = {
   ],
   external: [
     ...builtinModules.map((e) => `node:${e}`),
+    ...deps,
     "mobx",
+    "yoga-wasm-web",
     "@swc/core",
     "glob",
     "@dagger.io/dagger",
