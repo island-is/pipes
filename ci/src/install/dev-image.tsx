@@ -33,6 +33,7 @@ export const devWorkDir = devImageInstallContext.config.nodeWorkDir;
 
 devImageInstallContext.addScript(async (context) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Installing"),
@@ -46,32 +47,39 @@ devImageInstallContext.addScript(async (context) => {
   });
   void render(() => (
     <PipesDOM.Group title="Installing packages">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed installing (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>
+                Failed installing <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
         }
         if (state === "Installed") {
-          const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished installing (duration: {duration} ms)</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              <PipesDOM.Text>Finished installing duration:</PipesDOM.Text>
+              <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Installing packages…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
     await context.nodePrepareContainer();
+    store.duration = context.getDurationInMs();
     await testReport.buildDevImage.set({
       type: "BuildDevImage",
       status: "Success",
     });
     store.state = "Installed";
   } catch (e) {
+    store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,

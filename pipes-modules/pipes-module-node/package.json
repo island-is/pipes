@@ -6,6 +6,7 @@
   "source": "./src/pipes-module-node.ts",
   "main": "./dist/pipes-module-node.js",
   "pipes": {
+    "skipTest": true,
     "publishFields": [
       "name",
       "version",

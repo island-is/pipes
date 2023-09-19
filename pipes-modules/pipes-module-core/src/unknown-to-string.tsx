@@ -1,4 +1,4 @@
-import { DOMError, Error, Row, Text } from "@island-is/dom";
+import { Container, DOMError, Error } from "@island-is/dom";
 import React from "react";
 
 import { render } from "./render.js";
@@ -36,16 +36,14 @@ function unknownToString(e: unknown): ReactNode {
 export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = true) => {
   const { stack } = context as unknown as { stack: string[] };
   const { appName } = config as unknown as { appName: string };
-  const jsxSTACK = stack.map((e, index) => <Row key={index}>{e}</Row>);
+  const jsxSTACK = stack.map((e, index) => <Error key={index}>{e}</Error>);
 
   const jsx = (
-    <Error>
-      <Row>Error in context: {appName} </Row>
+    <Container>
+      <Error>Error in context: {appName}</Error>
       {jsxSTACK}
-      <Row>
-        <Text>{unknownToString(errorMSG)}</Text>
-      </Row>
-    </Error>
+      <Error>{unknownToString(errorMSG)}</Error>
+    </Container>
   );
   if (shouldRender) {
     void render(() => jsx, true);

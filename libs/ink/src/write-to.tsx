@@ -1,5 +1,13 @@
 import process from "node:process";
 
+const _RENDER_STATE = {
+  force_stop: false,
+};
+
+export const haltAllRender = (): void => {
+  _RENDER_STATE.force_stop = true;
+};
+
 export class WriteTo {
   static #locked: boolean = false;
   static #lockPromises: Array<() => void> = [];
@@ -36,6 +44,9 @@ export class WriteTo {
   };
 
   static #write(msg: string, output: "stdout" | "stderr" = "stdout") {
+    if (_RENDER_STATE.force_stop) {
+      return;
+    }
     process[output].write(msg);
   }
 }

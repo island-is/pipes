@@ -19,7 +19,7 @@ import { WriteTo } from "./write-to.js";
 const isCi = process.env["CI"] === "false" ? false : originalIsCi;
 const noop = () => {};
 
-const _THROTTLE_MS = 1000;
+const _THROTTLE_MS = 500;
 type RenderValue = ReactNode;
 type ValueOrPromise<T> = T | Promise<T>;
 type FnOrValue<T> = T | (() => T);

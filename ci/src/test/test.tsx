@@ -21,6 +21,7 @@ testContext.config.nodeImageKey = devWithDistImageKey;
 testContext.addDependency(buildContext.symbol);
 testContext.addScript(async (context, config) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Testing"),
@@ -35,22 +36,26 @@ testContext.addScript(async (context, config) => {
   });
   void render(() => (
     <PipesDOM.Group title="Test">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed testing (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>
+                Failed testing <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
               <PipesDOM.Error>{state.errorJSX ? state.errorJSX : JSON.stringify(state.value)} </PipesDOM.Error>
             </>
           );
         }
         if (state === "Tested") {
-          const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished testing (duration: {duration} ms)</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              Finished testing <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Testing…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
@@ -99,7 +104,9 @@ testContext.addScript(async (context, config) => {
       return;
     }
     store.state = "Tested";
+    store.duration = context.getDurationInMs();
   } catch (e) {
+    store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,

@@ -28,7 +28,7 @@ export const renderRow = {
     const widths = Array(children.length)
       .fill(0)
       .map((_e) => {
-        return `${100 / children.length}%`;
+        return `${Math.floor(100 / children.length)}%`;
       });
 
     return (
@@ -46,19 +46,7 @@ export const renderRow = {
         {children.map((e, index) => {
           const child = typeof e === "string" ? <Text>{e}</Text> : e;
           return (
-            <Box
-              key={index}
-              paddingLeft={2}
-              paddingRight={2}
-              width={widths[index]}
-              borderRight={true}
-              borderLeft={true}
-              borderBottom={true}
-              borderTop={true}
-              borderStyle={"single"}
-              borderColor={color}
-              borderDimColor={true}
-            >
+            <Box key={index} alignSelf="flex-start" paddingLeft={1} paddingRight={1} width={widths[index]}>
               {child}
             </Box>
           );

@@ -13,6 +13,7 @@ import { testReport } from "../report.js";
 
 import type { RunnerError, SWCResult, TypescriptResult } from "@island-is/scripts";
 import type { RollupResult } from "@island-is/scripts/src/lib/build-with-rollup.js";
+import { DOMError } from "@island-is/dom";
 
 export const devWithDistImageKey = `${devBuildOrderImageKey}-dist`;
 
@@ -28,6 +29,7 @@ buildContext.config.nodeImageKey = devBuildOrderImageKey;
 buildContext.addDependency(devBuildOrderContext.symbol);
 buildContext.addScript(async (context, config) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Building"),
@@ -42,25 +44,29 @@ buildContext.addScript(async (context, config) => {
   });
   void render(() => (
     <PipesDOM.Group title="Building">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
-          const value = `Failed building (duration: ${duration} ms)`;
           return (
             <>
-              <PipesDOM.Failure>{value}</PipesDOM.Failure>
-              {state.errorJSX ? <PipesDOM.Error>{state.errorJSX}</PipesDOM.Error> : ""}
+              <PipesDOM.Failure>
+                Failed building duration:
+                <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
+              <>{state.errorJSX ? state.errorJSX : ""}</>
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
         }
         if (state === "Build") {
-          const duration = context.getDurationInMs();
-          const value = `Finished building (duration: ${duration} ms)`;
-          return <PipesDOM.Success>{value}</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              Finished building duration:
+              <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Building…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
@@ -88,6 +94,7 @@ buildContext.addScript(async (context, config) => {
       .map((e, index) => (
         <PipesDOM.Error key={`tsc${index}`}>
           Type error in workspace {e.workspace} in file {e.status === "Error" ? e.file : "Unknown"}
+          with error {JSON.stringify((e as any).error)}
         </PipesDOM.Error>
       ));
     const swcErrors = returnValue
@@ -104,16 +111,17 @@ buildContext.addScript(async (context, config) => {
       .filter((e): e is RunnerError => e.status === "Error" && e.type === "Runner")
       .map((_e, index) => <PipesDOM.Error key={`unknown${index}`}>Unknown build error</PipesDOM.Error>);
     const errors = [...typescriptErrors, ...swcErrors, ...rollupErrors, ...unknownErrors];
+    store.duration = context.getDurationInMs();
     if (errors.length > 0) {
       store.state = {
         type: "Error",
         errorJSX: <>{errors}</>,
       };
-      context.haltAll();
-      return;
+      throw new DOMError(errors);
     }
     store.state = "Build";
   } catch {
+    store.duration = context.getDurationInMs();
     await testReport.build.set([
       {
         type: "Rollup",

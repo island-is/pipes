@@ -18,6 +18,7 @@ lintContext.config.nodeImageKey = devWithDistImageKey;
 lintContext.addDependency(buildContext.symbol);
 lintContext.addScript(async (context, config) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Linting"),
@@ -32,22 +33,26 @@ lintContext.addScript(async (context, config) => {
   });
   void render(() => (
     <PipesDOM.Group title="Linter">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed linting (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>
+                Failed linting <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
               <PipesDOM.Error>{state.errorJSX ? state.errorJSX : JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
         }
         if (state === "Linted") {
-          const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished linting (duration: {duration} ms)</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              Finished linting <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Linting…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
@@ -71,15 +76,15 @@ lintContext.addScript(async (context, config) => {
     const values = await testReport.lint.get();
     const errors = values
       .filter((e) => e.status === "Error")
-      .map((e) => {
+      .map((e, index) => {
         if (e.type === "Lint") {
           return (
-            <PipesDOM.Error>
+            <PipesDOM.Error key={index}>
               Lint error in workspace {e.workspace}, file: {e.file}
             </PipesDOM.Error>
           );
         }
-        return <PipesDOM.Error>Unknown lint error</PipesDOM.Error>;
+        return <PipesDOM.Error key={index}>Unknown lint error</PipesDOM.Error>;
       });
     if (errors.length > 0) {
       store.state = {
@@ -89,8 +94,10 @@ lintContext.addScript(async (context, config) => {
       context.haltAll();
       return;
     }
+    store.duration = context.getDurationInMs();
     store.state = "Linted";
   } catch (e) {
+    store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,

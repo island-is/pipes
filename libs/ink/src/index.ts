@@ -13,3 +13,4 @@ export { default as Spacer } from "./components/spacer.js";
 export { default as measureElement } from "./measure-element.js";
 export type { DOMElement } from "./dom.js";
 export { WidthContext, useWidthContext } from "./components/width-context.js";
+export { haltAllRender } from "./write-to.js";

@@ -53,7 +53,7 @@ export class Table<T extends ScalarDict> extends React.Component<Pick<TableProps
     return {
       data: this.props.data,
       columns: this.props.columns || this.getDataKeys(),
-      padding: this.props.padding || 1,
+      padding: this.props.padding || 2,
       header: this.props.header || Header,
       cell: this.props.cell || Cell,
       skeleton: this.props.skeleton || Skeleton,
@@ -202,7 +202,7 @@ export class Table<T extends ScalarDict> extends React.Component<Pick<TableProps
      * Render the table line by line.
      */
     return (
-      <Box flexDirection="column">
+      <Box flexDirection="column" width="100%">
         {/* Header */}
         {this.header({ key: "header", columns, data: {} })}
         {this.heading({ key: "heading", columns, data: headings })}
@@ -329,7 +329,7 @@ function row<T extends ScalarDict>(config: RowConfig): (props: RowProps<T>) => J
  */
 export function Header(props: React.PropsWithChildren<{}>): JSX.Element {
   return (
-    <Text bold color="blue">
+    <Text bold color="whiteBright">
       {props.children}
     </Text>
   );
@@ -346,7 +346,11 @@ export function Cell(props: CellProps): JSX.Element {
  * Redners the scaffold of the table.
  */
 export function Skeleton(props: React.PropsWithChildren<{}>): JSX.Element {
-  return <Text bold>{props.children}</Text>;
+  return (
+    <Text dimColor={true} color={"gray"}>
+      {props.children}
+    </Text>
+  );
 }
 
 /* Utility functions */

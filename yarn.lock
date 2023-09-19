@@ -998,6 +998,7 @@ __metadata:
     "@swc/core": "*"
     ci-info: "*"
     date-fns: "*"
+    object-hash: "*"
     react: "*"
     terminal-link: "*"
   languageName: unknown

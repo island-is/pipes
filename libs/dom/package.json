@@ -6,7 +6,7 @@
   "types": "./dist/dom.d.ts",
   "pipes": {
     "skipGlobalResolution": false,
-    "skipLinting": true
+    "skipLinting": false
   },
   "devDependencies": {
     "@actions/core": "1.10.0",
@@ -45,6 +45,7 @@
     "@swc/core": "*",
     "ci-info": "*",
     "date-fns": "*",
+    "object-hash": "*",
     "react": "*",
     "terminal-link": "*"
   },
