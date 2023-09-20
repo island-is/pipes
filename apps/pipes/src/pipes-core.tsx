@@ -133,9 +133,10 @@ export class PipesCoreRunner {
         const halt = () => {
           if (_haltObj.halt) {
             void _haltObj.halt("Forced quit");
+            // Give clean-up time force quit if not
             setTimeout(() => {
               process.exit(1);
-            }, 500);
+            }, 5000);
           } else {
             process.exit(1);
           }
@@ -182,7 +183,6 @@ export class PipesCoreRunner {
                 await render(e.get);
               }
               halt();
-              throw e;
             });
           }),
         );

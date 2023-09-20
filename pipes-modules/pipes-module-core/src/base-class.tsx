@@ -55,7 +55,14 @@ export class PipesCoreClass<
    * Adds a new script to the core.
    */
   addScript(fn: ScriptFn): this {
-    this.#scripts.push(fn);
+    const _fn = async (context: any, config: any) => {
+      try {
+        await fn(context, config);
+      } catch (e) {
+        throwJSXError(context, config, e);
+      }
+    };
+    this.#scripts.push(_fn as any);
     return this as any;
   }
   #haltAll: () => void = () => {};
