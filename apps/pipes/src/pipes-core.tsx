@@ -133,6 +133,7 @@ export class PipesCoreRunner {
         const halt = () => {
           if (_haltObj.halt) {
             void _haltObj.halt("Forced quit");
+
             // Give clean-up time force quit if not
             setTimeout(() => {
               process.exit(1);
