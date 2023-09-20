@@ -29,7 +29,6 @@ await createPipe(() => {
       devBuildOrderContext,
       workspaceTestContext,
       buildContext,
-      lintContext,
       testContext,
     ];
   }
