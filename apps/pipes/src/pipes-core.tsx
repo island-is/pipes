@@ -1,5 +1,5 @@
 import { connect } from "@dagger.io/dagger";
-import { Container, DOMError, Error, Group, Info, Log, Row, Success, Text } from "@island-is/dom";
+import { Container, DOMError, Error, Group, Info, Log, Success, Table, Text } from "@island-is/dom";
 import * as PipesDOM from "@island-is/dom";
 import {
   ConfigHasModule,
@@ -83,12 +83,7 @@ export class PipesCoreRunner {
                 return <Success>Dagger Finished</Success>;
               }
               if (typeof daggerState.value === "object" && daggerState.value.type === "Failed") {
-                return (
-                  <>
-                    <Error>Dagger Failed</Error>
-                    <Error>{JSON.stringify(daggerState.value.error)}</Error>
-                  </>
-                );
+                return <Error>{daggerState.value.error}</Error>;
               }
             })(daggerState)}
           </Container>
@@ -108,18 +103,27 @@ export class PipesCoreRunner {
               obj.push(value);
             }
           }
+          const getState = (state: string) =>
+            state.split("_").reduce((a, b, index) => {
+              if (index === 0) {
+                return b
+                  .split("")
+                  .map((e, index) => {
+                    return index === 0 ? e.toUpperCase() : e;
+                  })
+                  .join("");
+              }
+              return `${a} ${b}`;
+            }, "");
+          const tableValues = obj.map((e) => ({ Name: e.name, State: getState(e.state) }));
+          if (tableValues.length === 0) {
+            return <></>;
+          }
           return (
             <>
               <Group title="Pipes tasks changes">
                 <Container>
-                  {obj.map(({ name, state }) => {
-                    return (
-                      <Row key={name}>
-                        <Text>{name}</Text>
-                        <Text>{state}</Text>
-                      </Row>
-                    );
-                  })}
+                  <Table data={tableValues} />
                 </Container>
               </Group>
             </>
@@ -129,6 +133,9 @@ export class PipesCoreRunner {
         const halt = () => {
           if (_haltObj.halt) {
             void _haltObj.halt("Forced quit");
+            setTimeout(() => {
+              process.exit(1);
+            }, 500);
           } else {
             process.exit(1);
           }
@@ -172,8 +179,9 @@ export class PipesCoreRunner {
             await value.run(store, internalState).catch(async (e) => {
               internalState.state = "failed";
               if (e instanceof DOMError) {
-                await render(e.get, true);
+                await render(e.get);
               }
+              halt();
               throw e;
             });
           }),
@@ -212,7 +220,7 @@ export class PipesCoreRunner {
         setTimeout(() => {
           // Give time render and jobs to quit safely.
           process.exit(1);
-        }, 100);
+        }, 500);
       });
   }
 }

@@ -12,6 +12,6 @@ export type Props = {
 /**
  * Adds one or more newline (\n) characters. Must be used within <Text> components.
  */
-export default function Newline({ count = 1 }: Props): React.JSX.Element {
+export default function Newline({ count = 1 }: Props): JSX.Element {
   return <ink-text>{"\n".repeat(count)}</ink-text>;
 }

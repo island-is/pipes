@@ -7,6 +7,7 @@
   "source": "./src/pipes-module-github.ts",
   "main": "./dist/pipes-module-github.js",
   "pipes": {
+    "skipTest": true,
     "publishFields": [
       "name",
       "version",

@@ -60,7 +60,11 @@ export const renderTimestamp = {
         }
     }
 
-    return <Text color="blue">{formattedDate}</Text>;
+    return (
+      <Text color="white" backgroundColor={"blue"}>
+        {formattedDate}
+      </Text>
+    );
   },
 
   markdown: (_component: ITimestamp): string => {

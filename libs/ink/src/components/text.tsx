@@ -71,7 +71,7 @@ export default function Text({
   inverse = false,
   wrap = "wrap",
   children,
-}: Props): React.JSX.Element | null {
+}: Props): JSX.Element | null {
   if (children === undefined || children === null) {
     return null;
   }

@@ -5,7 +5,7 @@ import { Dialog } from "./dialog.js";
 import type { SpecifixJSX } from "./jsx.js";
 import type { ReactNode } from "react";
 
-export type ISuccess = SpecifixJSX<"Success", { title?: string }, string>;
+export type ISuccess = SpecifixJSX<"Success", { title?: string }, ReactNode | ReactNode[]>;
 export const Success = (props: Omit<ISuccess, "type">): ReactNode => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return renderSuccess.ansi({

@@ -1,4 +1,4 @@
-export { render } from "@island-is/ink";
+export { render, haltAllRender } from "@island-is/ink";
 
 export * from "./elements/elements.js";
 

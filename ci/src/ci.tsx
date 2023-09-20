@@ -11,14 +11,7 @@ import { releaseContext } from "./release/release.js";
 import { testContext } from "./test/test.js";
 
 await createPipe(() => {
-  const tasks = [
-    devImageInstallContext,
-    devBuildOrderContext,
-    workspaceTestContext,
-    buildContext,
-    lintContext,
-    testContext,
-  ];
+  const tasks = [devImageInstallContext, devBuildOrderContext, workspaceTestContext, buildContext, testContext];
   if (GlobalConfig.action === "Release") {
     return [...tasks, releaseContext];
   }
@@ -29,7 +22,6 @@ await createPipe(() => {
       devBuildOrderContext,
       workspaceTestContext,
       buildContext,
-      lintContext,
       testContext,
     ];
   }

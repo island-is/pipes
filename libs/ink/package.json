@@ -3,13 +3,17 @@
   "version": "23.09.00",
   "description": "React for Pipes",
   "license": "MIT",
+  "pipes": {
+    "skipGlobalResolution": false,
+    "skipLinting": false
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/island-is/pipes",
     "directory": "libs/ink"
   },
   "source": "./src/index.ts",
-  "main": "./dist/index.ts",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": {
     "name": "Vadim Demedes",

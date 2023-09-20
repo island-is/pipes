@@ -22,6 +22,7 @@ export class DOMError extends Error {
         <UIError>{this.stack}</UIError>
       </>
     );
+    void render(this.#message);
   }
   get = (): ReactNode => {
     return this.#message;

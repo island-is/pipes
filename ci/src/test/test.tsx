@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import React from "react";
 import { z } from "zod";
 
 import { buildContext, devWithDistImageKey } from "../build/build.js";
@@ -20,6 +21,7 @@ testContext.config.nodeImageKey = devWithDistImageKey;
 testContext.addDependency(buildContext.symbol);
 testContext.addScript(async (context, config) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Testing"),
@@ -32,24 +34,28 @@ testContext.addScript(async (context, config) => {
       ])
       .default("Testing"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Test">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed testing (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>
+                Failed testing <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
               <PipesDOM.Error>{state.errorJSX ? state.errorJSX : JSON.stringify(state.value)} </PipesDOM.Error>
             </>
           );
         }
         if (state === "Tested") {
-          const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished testing (duration: {duration} ms)</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              Finished testing <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Testing…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
@@ -73,23 +79,24 @@ testContext.addScript(async (context, config) => {
     // If this has any errors
     const typescriptErrors = returnValue
       .filter((e): e is TypescriptResult => e.status === "Error" && e.type === "Typescript")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={index}>
           Type error in workspace {e.workspace} in file {e.status === "Error" ? e.file : "Unknown"}
         </PipesDOM.Error>
       ));
     const importErrors = returnValue
       .filter((e): e is ImportResult => e.status === "Error" && e.type === "Import")
-      .map((e) => (
-        <PipesDOM.Error>
+      .map((e, index) => (
+        <PipesDOM.Error key={index}>
           Import error in workspace {e.workspace} with error: {e.status === "Error" ? e.error.message : "Unknown"}
         </PipesDOM.Error>
       ));
     const testErrors = returnValue
       .filter((e): e is TestResult => e.status === "Error" && e.type === "Test")
-      .map((e) => <PipesDOM.Error>Test error in workspace {e.workspace}</PipesDOM.Error>);
+      .map((e, index) => <PipesDOM.Error key={index}>Test error in workspace {e.workspace}</PipesDOM.Error>);
     const errors = [...importErrors, ...testErrors, ...typescriptErrors];
-    if (errors.length === 0) {
+    if (errors.length !== 0) {
+      store.duration = context.getDurationInMs();
       store.state = {
         type: "Error",
         errorJSX: <>{errors}</>,
@@ -97,12 +104,14 @@ testContext.addScript(async (context, config) => {
       context.haltAll();
       return;
     }
+    store.duration = context.getDurationInMs();
     store.state = "Tested";
   } catch (e) {
+    store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,
-      errorJSX: <></>,
+      errorJSX: <PipesDOM.Error>{JSON.stringify(e)}</PipesDOM.Error>,
     };
     await testReport.test.set([
       {

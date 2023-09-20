@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import * as React from "react";
 import { z } from "zod";
 
 import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
@@ -20,6 +21,7 @@ workspaceTestContext.config.nodeImageKey = devImageKey;
 workspaceTestContext.addDependency(devImageInstallContext.symbol);
 workspaceTestContext.addScript(async (context, config) => {
   const store = createZodStore({
+    duration: z.number().default(0),
     state: z
       .union([
         z.literal("Testing workspaces"),
@@ -31,24 +33,28 @@ workspaceTestContext.addScript(async (context, config) => {
       ])
       .default("Testing workspaces"),
   });
-  render(() => (
+  void render(() => (
     <PipesDOM.Group title="Workspaces">
-      {((state) => {
+      {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
-          const duration = context.getDurationInMs();
           return (
             <>
-              <PipesDOM.Failure>Failed testing workspaces (duration: {duration} ms)</PipesDOM.Failure>
+              <PipesDOM.Failure>
+                Failed testing workspaces <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
               <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
             </>
           );
         }
         if (state === "Workspaces tested") {
-          const duration = context.getDurationInMs();
-          return <PipesDOM.Success>Finished testing workspaces (duration: {duration} ms)</PipesDOM.Success>;
+          return (
+            <PipesDOM.Success>
+              Finished testing workspaces <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
         }
         return <PipesDOM.Info>Testing workspaces…</PipesDOM.Info>;
-      })(store.state)}
+      })(store.state, store.duration)}
     </PipesDOM.Group>
   ));
   try {
@@ -82,8 +88,10 @@ workspaceTestContext.addScript(async (context, config) => {
     }
     const jsonMessage = JSON.parse(value.message);
     await testReport.workspaceTest.set(jsonMessage);
+    store.duration = context.getDurationInMs();
     store.state = "Workspaces tested";
   } catch (e) {
+    store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,

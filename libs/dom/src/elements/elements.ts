@@ -16,3 +16,4 @@ export { Success } from "./success.js";
 export { Text } from "@island-is/ink";
 export { Timestamp } from "./timestamp.js";
 export { Title } from "./title.js";
+export { Table } from "./table.js";

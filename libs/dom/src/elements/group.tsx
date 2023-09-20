@@ -1,4 +1,4 @@
-import { Text } from "@island-is/ink";
+import { Box, Text } from "@island-is/ink";
 import ciinfo from "ci-info";
 import React from "react";
 
@@ -18,6 +18,10 @@ export const Group = (props: Omit<IGroup, "type">): ReactNode => {
 
 export const renderGroup = {
   ansi: (component: IGroup): ReactNode => {
+    if (React.Children.toArray(component.children).length === 0) {
+      return <></>;
+    }
+
     if (ciinfo.GITHUB_ACTIONS) {
       const startGroup = new Command("group", {}, component.title).toString();
       const endGroup = new Command("endgroup", {}, "").toString();
@@ -29,7 +33,16 @@ export const renderGroup = {
         </>
       );
     }
-    return component.children;
+    return (
+      <>
+        <Box width="100%" alignItems="flex-end">
+          <Text color="white" underline={true}>
+            {component.title.trim()}
+          </Text>
+        </Box>
+        {component.children}
+      </>
+    );
   },
   markdown: (component: IGroup, _width: number): ReactNode => {
     return component.children;

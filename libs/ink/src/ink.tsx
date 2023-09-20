@@ -19,7 +19,11 @@ import { WriteTo } from "./write-to.js";
 const isCi = process.env["CI"] === "false" ? false : originalIsCi;
 const noop = () => {};
 
-const _THROTTLE_MS = 1000;
+const _THROTTLE_MS = 500;
+type RenderValue = ReactNode;
+type ValueOrPromise<T> = T | Promise<T>;
+type FnOrValue<T> = T | (() => T);
+type RenderValueParam = FnOrValue<ValueOrPromise<RenderValue>>;
 
 export default class Ink {
   // Ignore last render after unmounting a tree to prevent empty output before exit
@@ -73,7 +77,7 @@ export default class Ink {
   }
 
   prevValues: string = "";
-  #setupAutorun(fn: ReactNode | (() => ReactNode)) {
+  #setupAutorun(fn: RenderValueParam) {
     if (this.#autorunDispenser) {
       this.#autorunDispenser();
     }
@@ -103,15 +107,16 @@ export default class Ink {
         trailing: true,
       },
     );
-
     this.#autorunDispenser = autorun(async () => {
       updateStore.value;
-      let node: ReactNode;
-      if (typeof fn === "function") {
-        node = <App>{fn()}</App>;
-      } else {
-        node = <App>{fn}</App>;
-      }
+      const nodeValue = await (() => {
+        if (typeof fn === "function") {
+          return fn();
+        }
+        return fn;
+      })();
+      const node = <App>{nodeValue}</App>;
+
       this.#rec.updateContainer(node, this.#container, null, noop);
 
       const value = this.#getRenderedOutput();
@@ -128,9 +133,10 @@ export default class Ink {
 
     this.#rootNode.yogaNode!.calculateLayout(undefined, undefined, Yoga.DIRECTION_LTR);
   };
-  async render(node: ReactNode | (() => ReactNode), now = false): Promise<void> {
+
+  async render(node: RenderValueParam, now = false): Promise<void> {
     if (now) {
-      const x = typeof node === "function" ? node() : node;
+      const x = await (typeof node === "function" ? node() : node);
       this.#rec.updateContainer(x, this.#container, null, noop);
       const value = this.#getRenderedOutput();
       if (!this.toString) {
@@ -141,7 +147,7 @@ export default class Ink {
       return;
     }
     if (this.#autorunDispenser) {
-      const x = typeof node === "function" ? node() : node;
+      const x = await (typeof node === "function" ? node() : node);
       this.#rec.updateContainer(x, this.#container, null, noop);
       return;
     }
