@@ -1185,6 +1185,7 @@ __metadata:
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
     "@island-is/cleanup": "workspace:*"
+    "@island-is/dom": "workspace:*"
     "@island-is/eslint-config": "workspace:*"
     "@island-is/find-pnp-root": "workspace:*"
     "@island-is/pipes-module-core": "workspace:*"

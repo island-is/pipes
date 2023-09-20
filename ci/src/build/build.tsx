@@ -1,6 +1,7 @@
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
+import { DOMError } from "@island-is/dom";
 import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
 import { createPipesCore } from "@island-is/pipes-module-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
@@ -13,7 +14,6 @@ import { testReport } from "../report.js";
 
 import type { RunnerError, SWCResult, TypescriptResult } from "@island-is/scripts";
 import type { RollupResult } from "@island-is/scripts/src/lib/build-with-rollup.js";
-import { DOMError } from "@island-is/dom";
 
 export const devWithDistImageKey = `${devBuildOrderImageKey}-dist`;
 
@@ -82,6 +82,7 @@ buildContext.addScript(async (context, config) => {
       external: ["@island-is/scripts"],
       output: { fileFromEnv: reportJSONKey },
     });
+
     if (value.error || !value.container) {
       throw new Error("Failed");
     }
@@ -121,7 +122,6 @@ buildContext.addScript(async (context, config) => {
     }
     store.state = "Build";
   } catch {
-    store.duration = context.getDurationInMs();
     await testReport.build.set([
       {
         type: "Rollup",
@@ -132,5 +132,6 @@ buildContext.addScript(async (context, config) => {
         },
       },
     ]);
+    throw new DOMError(<PipesDOM.Error>Build faied</PipesDOM.Error>);
   }
 });

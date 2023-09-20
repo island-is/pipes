@@ -95,7 +95,8 @@ testContext.addScript(async (context, config) => {
       .filter((e): e is TestResult => e.status === "Error" && e.type === "Test")
       .map((e, index) => <PipesDOM.Error key={index}>Test error in workspace {e.workspace}</PipesDOM.Error>);
     const errors = [...importErrors, ...testErrors, ...typescriptErrors];
-    if (errors.length === 0) {
+    if (errors.length !== 0) {
+      store.duration = context.getDurationInMs();
       store.state = {
         type: "Error",
         errorJSX: <>{errors}</>,
@@ -103,14 +104,14 @@ testContext.addScript(async (context, config) => {
       context.haltAll();
       return;
     }
-    store.state = "Tested";
     store.duration = context.getDurationInMs();
+    store.state = "Tested";
   } catch (e) {
     store.duration = context.getDurationInMs();
     store.state = {
       type: "Error",
       value: e,
-      errorJSX: <></>,
+      errorJSX: <PipesDOM.Error>{JSON.stringify(e)}</PipesDOM.Error>,
     };
     await testReport.test.set([
       {

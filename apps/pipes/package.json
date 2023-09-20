@@ -37,6 +37,7 @@
   "type": "module",
   "dependencies": {
     "@dagger.io/dagger": "0.8.4",
+    "@island-is/dom": "workspace:*",
     "ansi-escapes": "6.0.0",
     "auto-bind": "5.0.1",
     "ava": "5.1.1",

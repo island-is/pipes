@@ -135,6 +135,7 @@ export class PipesCoreClass<
               if (val instanceof Container) {
                 return val;
               }
+              console.log(val);
               throwJSXError(this.context, this.config, "Incorrect container");
             }),
             "PIPES-IMAGE-STORE",

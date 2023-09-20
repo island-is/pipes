@@ -88,8 +88,8 @@ workspaceTestContext.addScript(async (context, config) => {
     }
     const jsonMessage = JSON.parse(value.message);
     await testReport.workspaceTest.set(jsonMessage);
-    store.state = "Workspaces tested";
     store.duration = context.getDurationInMs();
+    store.state = "Workspaces tested";
   } catch (e) {
     store.duration = context.getDurationInMs();
     store.state = {
