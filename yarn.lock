@@ -938,8 +938,6 @@ __metadata:
     lodash: "npm:4.17.21"
     mobx: "npm:6.10.2"
     ms: "npm:2.1.3"
-    node-gyp: "npm:9.4.0"
-    node-pty: "npm:0.10.1"
     object-hash: "npm:3.0.0"
     p-queue: "npm:7.3.4"
     prettier: "npm:3.0.2"
@@ -1129,7 +1127,6 @@ __metadata:
     mobx: "npm:6.10.0"
     ms: "npm:2.1.3"
     node-gyp: "npm:9.4.0"
-    node-pty: "npm:0.10.1"
     p-queue: "npm:7.3.4"
     prettier: "npm:3.0.2"
     react: "npm:18.2.0"
@@ -1216,8 +1213,6 @@ __metadata:
     lodash: "npm:4.17.21"
     mobx: "npm:6.10.2"
     ms: "npm:2.1.3"
-    node-gyp: "npm:9.4.0"
-    node-pty: "npm:0.10.1"
     object-hash: "npm:3.0.0"
     p-queue: "npm:7.3.4"
     prettier: "npm:3.0.2"
@@ -8472,15 +8467,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nan@npm:^2.14.0":
-  version: 2.18.0
-  resolution: "nan@npm:2.18.0"
-  dependencies:
-    node-gyp: "npm:latest"
-  checksum: 5520e22c64e2b5b495b1d765d6334c989b848bbe1502fec89c5857cabcc7f9f0474563377259e7574bff1c8a041d3b90e9ffa1f5e15502ffddee7b2550cc26a0
-  languageName: node
-  linkType: hard
-
 "natural-compare-lite@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare-lite@npm:1.4.0"
@@ -8579,15 +8565,6 @@ __metadata:
   version: 0.4.0
   resolution: "node-int64@npm:0.4.0"
   checksum: b7afc2b65e56f7035b1a2eec57ae0fbdee7d742b1cdcd0f4387562b6527a011ab1cbe9f64cc8b3cca61e3297c9637c8bf61cec2e6b8d3a711d4b5267dfafbe02
-  languageName: node
-  linkType: hard
-
-"node-pty@npm:0.10.1":
-  version: 0.10.1
-  resolution: "node-pty@npm:0.10.1"
-  dependencies:
-    nan: "npm:^2.14.0"
-  checksum: c1380cf470b50a9411fdd1bf945ddab2134dfe878d31b3962f7d064269a8027c8cbec9b7f66a0f481960c996d9a60a2b2dc6e6d62fea912933d9f74ab4faac7f
   languageName: node
   linkType: hard
 
