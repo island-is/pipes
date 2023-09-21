@@ -9,7 +9,7 @@ export const getPackageType = async (path: string): Promise<"module" | "commonjs
     if (!("type" in content)) {
       return "commonjs";
     }
-    return content["module"] === "module" ? "module" : "commonjs";
+    return content["type"] === "module" ? "module" : "commonjs";
   } catch (e) {
     if (dirname(path) === path) {
       throw new Error("Cannot find file");

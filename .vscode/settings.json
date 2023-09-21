@@ -6,7 +6,8 @@
   },
 
   "files.exclude": {
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/dist": true
   },
   "eslint.lintTask.enable": true,
   "eslint.run": "onSave",

@@ -13,7 +13,7 @@ async function setupMockFiles(root: string, files: Record<string, string>, type:
   writeFile(
     join(root, "package.json"),
     JSON.stringify({
-      module: type,
+      type: type,
     }),
     "utf-8",
   );
