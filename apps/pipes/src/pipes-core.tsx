@@ -1,6 +1,8 @@
 import { connect } from "@dagger.io/dagger";
-import { Container, DOMError, Error, Group, Info, Log, Success, Table, Text } from "@island-is/dom";
-import * as PipesDOM from "@island-is/dom";
+import { reaction, when } from "mobx";
+import React from "react";
+
+import { PipesConfig } from "./config.js";
 import {
   ConfigHasModule,
   ContextHasModule,
@@ -11,9 +13,10 @@ import {
   createPipesCore,
   createState,
   internalStateStoreSchema,
-  render,
   taskSchema,
-} from "@island-is/pipes-module-core";
+} from "./core/index.js";
+import { PipesStream } from "./stream.js";
+import * as PipesDOM from "./utils/dom/dom.js";
 import {
   createBasicZodStore,
   createGlobalZodKeyStore,
@@ -22,21 +25,10 @@ import {
   createZodStore,
   createZodSymbolStore,
   z,
-} from "@island-is/zod";
-import { reaction, when } from "mobx";
-import React from "react";
+} from "./utils/zod/zod.js";
 
-import { PipesConfig } from "./config.js";
-import { PipesStream } from "./stream.js";
-
+import type { InternalStateStore, PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "./core/index.js";
 import type { Client } from "@dagger.io/dagger";
-import type {
-  InternalStateStore,
-  PipesCoreClass,
-  PipesCoreModule,
-  Simplify,
-  createModuleDef,
-} from "@island-is/pipes-module-core";
 
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
@@ -68,32 +60,32 @@ export class PipesCoreRunner {
         ])
         .default("Connecting"),
     );
-    await render(() => {
+    await PipesDOM.render(() => {
       return (
-        <Group title="Dagger state">
-          <Container>
+        <PipesDOM.Group title="Dagger state">
+          <PipesDOM.Container>
             {((daggerState) => {
               if (daggerState.value === "Connecting") {
-                return <Log>Connecting to Dagger</Log>;
+                return <PipesDOM.Log>Connecting to Dagger</PipesDOM.Log>;
               }
               if (daggerState.value === "Connected") {
-                return <Info>Connected to Dagger</Info>;
+                return <PipesDOM.Info>Connected to Dagger</PipesDOM.Info>;
               }
               if (daggerState.value === "Finished") {
-                return <Success>Dagger Finished</Success>;
+                return <PipesDOM.Success>Dagger Finished</PipesDOM.Success>;
               }
               if (typeof daggerState.value === "object" && daggerState.value.type === "Failed") {
-                return <Error>{daggerState.value.error}</Error>;
+                return <PipesDOM.Error>{daggerState.value.error}</PipesDOM.Error>;
               }
             })(daggerState)}
-          </Container>
-        </Group>
+          </PipesDOM.Container>
+        </PipesDOM.Group>
       );
     });
     await connect(
       async (client: Client) => {
         daggerState.value = "Connected";
-        await render(async () => {
+        await PipesDOM.render(async () => {
           const currentTasks = [...tasks.value];
           const obj: InternalStateStore[] = [];
           const values = await taskState.getAll();
@@ -121,11 +113,11 @@ export class PipesCoreRunner {
           }
           return (
             <>
-              <Group title="Pipes tasks changes">
-                <Container>
-                  <Table data={tableValues} />
-                </Container>
-              </Group>
+              <PipesDOM.Group title="Pipes tasks changes">
+                <PipesDOM.Container>
+                  <PipesDOM.Table data={tableValues} />
+                </PipesDOM.Container>
+              </PipesDOM.Group>
             </>
           );
         });
@@ -180,8 +172,8 @@ export class PipesCoreRunner {
             });
             await value.run(store, internalState).catch(async (e) => {
               internalState.state = "failed";
-              if (e instanceof DOMError) {
-                await render(e.get);
+              if (e instanceof PipesDOM.DOMError) {
+                await PipesDOM.render(e.get);
               }
               halt();
             });
@@ -206,11 +198,11 @@ export class PipesCoreRunner {
       .finally(async () => {
         if (PipesConfig.isDev) {
           const value = pipesStream.getData();
-          await render(
+          await PipesDOM.render(
             () => (
-              <Group title="Raw Dagger log">
-                <Text>{value}</Text>
-              </Group>
+              <PipesDOM.Group title="Raw Dagger log">
+                <PipesDOM.Text>{value}</PipesDOM.Text>
+              </PipesDOM.Group>
             ),
             true,
           );
@@ -273,9 +265,11 @@ export {
   createZodKeyStore,
   createGlobalZodKeyStore,
   createGlobalZodStore,
-  render,
 };
 
 export type { createModuleDef, PipesCoreModule, Simplify };
 export * from "@dagger.io/dagger";
-export * from "@island-is/cleanup";
+export * from "./utils/find-pnp-root/find-pnp-root.js";
+export * from "./utils/cleanup/cleanup.js";
+export * from "./utils/get-nvm-version/get-nvm-version.js";
+export * from "./utils/base-utils/base-utils.js";

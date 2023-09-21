@@ -1,5 +1,6 @@
-import { z } from "@island-is/zod";
 import ciinfo from "ci-info";
+
+import { z } from "./utils/zod/zod.js";
 
 export const PipesConfig = {
   isDev: z
