@@ -1062,8 +1062,8 @@ __metadata:
   dependencies:
     "@dagger.io/dagger": "npm:0.8.4"
     "@island-is/eslint-config": "workspace:*"
+    "@island-is/pipes-core": "workspace:*"
     "@island-is/prettier-config": "workspace:*"
-    "@island-is/scripts": "workspace:*"
     "@island-is/tsconfig": "workspace:*"
     "@island-is/tsconfig-build": "workspace:*"
     "@octokit/rest": "npm:20.0.1"

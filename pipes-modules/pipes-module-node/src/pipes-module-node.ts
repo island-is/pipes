@@ -3,8 +3,7 @@
  */
 import { basename, join } from "node:path/posix";
 
-import { getNvmVersion } from "@island-is/get-nvm-version";
-import { Container, createConfig, createContext, createModule } from "@island-is/pipes-core";
+import { Container, createConfig, createContext, createModule, getNvmVersion } from "@island-is/pipes-core";
 
 import { compileFile } from "./build.js";
 
