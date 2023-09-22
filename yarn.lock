@@ -997,11 +997,11 @@ __metadata:
     "@island-is/scripts": "workspace:*"
     "@island-is/tsconfig": "workspace:*"
     "@island-is/tsconfig-build": "workspace:*"
-    "@rollup/plugin-node-resolve": "npm:^15.2.1"
+    "@rollup/plugin-node-resolve": "npm:15.2.1"
     "@swc/core": "npm:1.3.78"
     "@types/lodash": "npm:4.14.191"
     "@types/node": "npm:20.5.8"
-    "@types/object-hash": "npm:^3"
+    "@types/object-hash": "npm:3"
     "@types/react": "npm:18.2.0"
     "@types/react-reconciler": "npm:0.28.2"
     "@types/slice-ansi": "npm:4.0.0"
@@ -1097,36 +1097,6 @@ __metadata:
     "@island-is/eslint-config": "workspace:*"
     "@island-is/pipes-core": "workspace:*"
     "@island-is/prettier-config": "workspace:*"
-    "@island-is/scripts": "workspace:*"
-    "@island-is/tsconfig": "workspace:*"
-    "@island-is/tsconfig-build": "workspace:*"
-    "@swc/core": "npm:1.3.78"
-    "@types/node": "npm:20.5.8"
-    ci-info: "npm:3.8.0"
-    eslint: "npm:8.47.0"
-    lodash.clonedeep: "npm:"
-    mobx: "npm:6.10.2"
-    prettier: "npm:3.0.2"
-    rollup: "npm:3.29.2"
-    rollup-plugin-node-resolve: "npm:5.2.0"
-    rollup-plugin-swc3: "npm:0.10.1"
-    tmp-promise: "npm:3.0.3"
-    ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.1.6"
-    zod: "npm:3.22.2"
-  peerDependencies:
-    "@island-is/pipes-core": "*"
-  languageName: unknown
-  linkType: soft
-
-"@island-is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform":
-  version: 0.0.0-use.local
-  resolution: "@island-is/pipes-module-terraform@workspace:pipes-modules/pipes-module-terraform"
-  dependencies:
-    "@dagger.io/dagger": "npm:0.8.4"
-    "@island-is/eslint-config": "workspace:*"
-    "@island-is/prettier-config": "workspace:*"
-    "@island-is/scripts": "workspace:*"
     "@island-is/tsconfig": "workspace:*"
     "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
@@ -1680,7 +1650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:^15.2.1":
+"@rollup/plugin-node-resolve@npm:15.2.1":
   version: 15.2.1
   resolution: "@rollup/plugin-node-resolve@npm:15.2.1"
   dependencies:
@@ -2068,7 +2038,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/object-hash@npm:^3":
+"@types/object-hash@npm:3":
   version: 3.0.4
   resolution: "@types/object-hash@npm:3.0.4"
   checksum: 0c9f3c9262a7a4e5e5a5ee6c3bd513e05296f0c5e9c198ec99c5d9a4d9f4a6b2e2f19db7b28beab077de3713e04eb7aea5eb25e54b8f6c85a16753f6f9f463a5
