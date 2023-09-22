@@ -1,12 +1,14 @@
+import React from "react";
 import { z } from "zod";
-import { createZodStore } from "../pipes-core.js";
+
+import { PipesDOM, createZodStore } from "../pipes-core.js";
 
 /**
  * This is for a basic task.
  */
-export const createTask = async <Context extends { getDurationInMs: () => number }, Fn extends () => unknown>(
+export const createTask = async <Context extends { getDurationInMs: () => number }, Fn extends () => any>(
   task: Fn,
-  texts: { inProgress: string; finished: (duration: number) => string; error: (duration: number) => string },
+  texts: { inProgress: string; finished: string; error: string },
   context: Context,
 ): Promise<Awaited<ReturnType<Fn>>> => {
   const store = createZodStore({
@@ -22,6 +24,31 @@ export const createTask = async <Context extends { getDurationInMs: () => number
       ])
       .default("In progress"),
   });
+  void PipesDOM.render(() => (
+    <PipesDOM.Group title={texts.inProgress}>
+      {((state, duration) => {
+        if (typeof state === "object" && state.type === "Error") {
+          return (
+            <>
+              <PipesDOM.Failure>
+                {texts.error} <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+              </PipesDOM.Failure>
+              <PipesDOM.Error>{JSON.stringify(state.value)}</PipesDOM.Error>
+            </>
+          );
+        }
+        if (state === "Completed") {
+          return (
+            <PipesDOM.Success>
+              <PipesDOM.Text>{texts.finished}</PipesDOM.Text>
+              <PipesDOM.Timestamp time={duration} format={"mm:ss.SSS"} />
+            </PipesDOM.Success>
+          );
+        }
+        return <PipesDOM.Info>{texts.inProgress}…</PipesDOM.Info>;
+      })(store.state, store.duration)}
+    </PipesDOM.Group>
+  ));
   try {
     const value = await task();
     store.duration = context.getDurationInMs();
@@ -33,7 +60,6 @@ export const createTask = async <Context extends { getDurationInMs: () => number
       type: "Error",
       value: error,
     };
-    errorCallback && errorCallback(error);
     throw error;
   }
 };
