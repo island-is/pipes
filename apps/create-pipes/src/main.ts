@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { z } from "@island-is/pipes-core";
 
-import { DAGGER_VERSION, MOBX_VERSION, SWC_VERSION, VERSION, YARN_VERSION } from "./const.js";
+import { VERSION, YARN_VERSION } from "./const.js";
 import { PackageJSON } from "./package-json.js";
 import { sourceFile } from "./pipes.js";
 import { createYARNRC } from "./yarnrc.js";
@@ -40,15 +40,12 @@ export function main(root = process.cwd(), appNameArg: string | undefined = unde
   createDirectories(srcPath);
 
   writeFile(path.join(srcPath, "ci.tsx"), sourceFile);
-  writeFile(path.join(appPath, "yarn.lock"), sourceFile);
+  writeFile(path.join(appPath, "yarn.lock"), "");
 
   const packageJsonPath = path.join(appPath, "package.json");
   const packageJsonContent = PackageJSON({
     name: appName,
-    mobxVersion: MOBX_VERSION,
-    daggerVersion: DAGGER_VERSION,
     yarnVersion: YARN_VERSION,
-    swcVersion: SWC_VERSION,
     version: VERSION,
   });
   writeFile(packageJsonPath, packageJsonContent);

@@ -1,39 +1,32 @@
-export * from "./base-class.js";
-export * from "./pipes-core-module.js";
-export * from "./create-module.js";
-export type { AnyModule } from "./types/module.js";
-export * from "./pipes-error.js";
-export * from "./time-function.js";
-export * from "./types/value-to-zod.js";
-export * from "./types/simplify.js";
+import { z } from "zod";
+import { createZodStore } from "../pipes-core.js";
 
 /**
  * This is for a basic task.
  */
-export const createTask = async <Context extends Record<string, unknown>, Config extends Record<string, unknown>>(
-  task: () => Promise<void> | void,
+export const createTask = async <Context extends { getDurationInMs: () => number }, Fn extends () => unknown>(
+  task: Fn,
   texts: { inProgress: string; finished: (duration: number) => string; error: (duration: number) => string },
   context: Context,
-  config: Config,
-) => {
+): Promise<Awaited<ReturnType<Fn>>> => {
   const store = createZodStore({
     duration: z.number().default(0),
     state: z
       .union([
-        z.literal("Installing"),
-        z.literal("Installed"),
+        z.literal("In progress"),
+        z.literal("Completed"),
         z.object({
           type: z.literal("Error"),
           value: z.any(),
         }),
       ])
-      .default("Installing"),
+      .default("In progress"),
   });
   try {
-    await task();
+    const value = await task();
     store.duration = context.getDurationInMs();
     store.state = "Completed";
-    successCallback && successCallback();
+    return value;
   } catch (error) {
     store.duration = context.getDurationInMs();
     store.state = {

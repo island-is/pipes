@@ -1,14 +1,9 @@
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
-
-import { PipesDOM, createZodStore, render } from "@island-is/pipes-core";
-import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesDOM, createPipesCore, createZodStore } from "@island-is/pipes-core";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 import * as React from "react";
 import { z } from "zod";
 
 import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
-import { testReport } from "../report.js";
 
 /**
  * This calls yarn constraints on packages to lint dependencies.
@@ -19,7 +14,7 @@ workspaceTestContext.config.appName = `Workspaces`;
 workspaceTestContext.config.nodeWorkDir = devWorkDir;
 workspaceTestContext.config.nodeImageKey = devImageKey;
 workspaceTestContext.addDependency(devImageInstallContext.symbol);
-workspaceTestContext.addScript(async (context, config) => {
+workspaceTestContext.addScript(async (context, _config) => {
   const store = createZodStore({
     duration: z.number().default(0),
     state: z
@@ -33,7 +28,20 @@ workspaceTestContext.addScript(async (context, config) => {
       ])
       .default("Testing workspaces"),
   });
-  void render(() => (
+
+  const testFailed = (reason: any) => {
+    store.duration = context.getDurationInMs();
+    store.state = {
+      type: "Error",
+      value: reason,
+    };
+    throw reason;
+  };
+  const testPassed = () => {
+    store.duration = context.getDurationInMs();
+    store.state = "Workspaces tested";
+  };
+  void PipesDOM.render(() => (
     <PipesDOM.Group title="Workspaces">
       {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
@@ -58,52 +66,13 @@ workspaceTestContext.addScript(async (context, config) => {
     </PipesDOM.Group>
   ));
   try {
-    const currentPath = fileURLToPath(dirname(import.meta.url));
-    const testFile = join(currentPath, "workspace-test-runner.ts");
-    const reportJSON = join(config.nodeWorkDir, "workspace-test-report.json");
-    const reportKey = "WORKSPACE_TEST_REPORT_JSON";
-    const container = await context.nodeAddEnv({ env: [[reportKey, reportJSON]] });
-    const value = await context.nodeCompileAndRun({
-      name: "workspaceTest",
-      file: testFile,
-      container,
-      external: ["@island-is/scripts"],
-      output: { fileFromEnv: reportKey },
-    });
-    if (value.error) {
-      store.state = {
-        type: "Error",
-        value: "Unknown error",
-      };
-      await testReport.workspaceTest.set([
-        {
-          type: "Constraints",
-          status: "Error",
-          error: {
-            message: "Unknown error",
-          },
-        },
-      ]);
+    const value = await context.nodeRun({ args: ["constraints"] });
+    if (value.state === "Error") {
+      testFailed(value.error);
       return;
     }
-    const jsonMessage = JSON.parse(value.message);
-    await testReport.workspaceTest.set(jsonMessage);
-    store.duration = context.getDurationInMs();
-    store.state = "Workspaces tested";
+    testPassed();
   } catch (e) {
-    store.duration = context.getDurationInMs();
-    store.state = {
-      type: "Error",
-      value: e,
-    };
-    await testReport.workspaceTest.set([
-      {
-        type: "Constraints",
-        status: "Error",
-        error: {
-          message: "Unknown error",
-        },
-      },
-    ]);
+    testFailed(e);
   }
 });

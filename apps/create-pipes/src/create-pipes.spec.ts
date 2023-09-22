@@ -4,15 +4,12 @@ import os from "node:os";
 import path from "node:path";
 import { describe, it } from "node:test";
 
-import { DAGGER_VERSION, MOBX_VERSION, SWC_VERSION, VERSION, YARN_VERSION } from "./const.js";
+import { VERSION, YARN_VERSION } from "./const.js";
 import * as createPipes from "./main.js";
 
 describe("create-pipes", () => {
   describe("all versions are defined", () => {
     assert(typeof YARN_VERSION === "string");
-    assert(typeof MOBX_VERSION === "string");
-    assert(typeof DAGGER_VERSION === "string");
-    assert(typeof SWC_VERSION === "string");
     assert(typeof VERSION === "string");
   });
   describe("getAppPaths", () => {

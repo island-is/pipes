@@ -268,8 +268,10 @@ export {
 };
 
 export type { createModuleDef, PipesCoreModule, Simplify };
+export * from "./core/index.js";
 export * from "@dagger.io/dagger";
 export * from "./utils/find-pnp-root/find-pnp-root.js";
 export * from "./utils/cleanup/cleanup.js";
 export * from "./utils/get-nvm-version/get-nvm-version.js";
 export * from "./utils/base-utils/base-utils.js";
+export type { removeContextCommand } from "./core/types/remove-context-command.js";

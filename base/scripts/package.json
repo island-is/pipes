@@ -2,6 +2,9 @@
   "name": "@island-is/scripts",
   "packageManager": "yarn@4.0.0-rc.47",
   "type": "module",
+  "scripts": {
+    "lint": "yarn node ./src/lint.tsx"
+  },
   "devDependencies": {
     "@island-is/eslint-config": "workspace:*",
     "@island-is/prettier-config": "workspace:*",

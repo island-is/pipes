@@ -1,11 +1,8 @@
-import { PipesDOM, render, z } from "@island-is/pipes-core";
-import { createPipesCore } from "@island-is/pipes-module-core";
+import { PipesDOM, createPipesCore, createZodStore, z } from "@island-is/pipes-core";
 import { PipesNode } from "@island-is/pipes-module-node";
-import { createZodStore } from "@island-is/zod";
 import React from "react";
 
 import { GlobalConfig } from "../config.js";
-import { testReport } from "../report.js";
 
 import type { PipesNodeModule } from "@island-is/pipes-module-node";
 
@@ -45,7 +42,20 @@ devImageInstallContext.addScript(async (context) => {
       ])
       .default("Installing"),
   });
-  void render(() => (
+  const installPassed = () => {
+    store.duration = context.getDurationInMs();
+    store.state = "Installed";
+  };
+  const installFailed = (error: any) => {
+    store.duration = context.getDurationInMs();
+    store.state = {
+      type: "Error",
+      value: error,
+    };
+    throw error;
+  };
+
+  void PipesDOM.render(() => (
     <PipesDOM.Group title="Installing packages">
       {((state, duration) => {
         if (typeof state === "object" && state.type === "Error") {
@@ -72,22 +82,8 @@ devImageInstallContext.addScript(async (context) => {
   ));
   try {
     await context.nodePrepareContainer();
-    store.duration = context.getDurationInMs();
-    await testReport.buildDevImage.set({
-      type: "BuildDevImage",
-      status: "Success",
-    });
-    store.state = "Installed";
-  } catch (e) {
-    store.duration = context.getDurationInMs();
-    store.state = {
-      type: "Error",
-      value: e,
-    };
-    await testReport.buildDevImage.set({
-      type: "BuildDevImage",
-      status: "Error",
-      error: e,
-    });
+    installPassed();
+  } catch (error) {
+    installFailed(error);
   }
 });
