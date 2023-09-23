@@ -8,7 +8,7 @@ import ciinfo from "ci-info";
 import { createGlobalZodKeyStore } from "../utils/zod/zod.js";
 
 // eslint-disable-next-line sort-imports
-import { createConfig, createContext, createModule as _createModule } from "./create-module.js";
+import { createModule as _createModule, createConfig, createContext } from "./create-module.js";
 
 import type { createModuleDef as _createModuleDef } from "./create-module.js";
 import type { AnyModule, ModuleName, moduleNameToString } from "./types/module.js";
@@ -24,6 +24,7 @@ interface IPipesCoreContext {
   hasModule: <Module extends AnyModule>(name: moduleNameToString<Module["ModuleName"]>) => boolean;
   imageStore: Promise<ReturnType<typeof createZodKeyStore<z.ZodType<Container>>>>;
   addEnv: (prop: { container: Container; env: [string, string][] }) => Container;
+  addContextToCore: (props: { context: { run: () => Promise<any> } }) => void;
 }
 
 interface IPipesCoreConfig {
@@ -72,6 +73,11 @@ const PipesCoreContext = createContext<PipesCoreModule>(({ z, fn }): PipesCoreMo
     implement: (context) => {
       const currentTime = new Date();
       return currentTime.getTime() - context.startTime.getTime();
+    },
+  }),
+  addContextToCore: fn({
+    implement: () => {
+      throw new Error(`This should be overwritten`);
     },
   }),
   haltAll: fn<undefined, undefined>({

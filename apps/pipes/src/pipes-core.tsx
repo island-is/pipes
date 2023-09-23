@@ -15,6 +15,7 @@ import {
   internalStateStoreSchema,
   taskSchema,
 } from "./core/index.js";
+import { DynamicPromiseAggregator } from "./dynamic.js";
 import { PipesStream } from "./stream.js";
 import * as PipesDOM from "./utils/dom/dom.js";
 import {
@@ -39,28 +40,95 @@ export class PipesCoreRunner {
       this.removeContext(value);
     };
   }
+  #injectContext = (_context: any, _config: any, props: { context: PipesCoreClass }): void => {
+    if (!this.#client) {
+      // We haven't started so this is not injection
+      this.addContext(props.context);
+      return;
+    }
+    this.#contextPromiseAggregator.addPromise(this.#processContext(props.context));
+  };
   removeContext(value: PipesCoreClass): void {
     this.#context.delete(value);
   }
-  async run(): Promise<void> {
-    const pipesStream = new PipesStream();
-    const tasks = createBasicZodStore(taskSchema);
-    const store = createState();
-    const taskState = createZodSymbolStore(internalStateStoreSchema);
-    const daggerState = createBasicZodStore(
-      z
-        .union([
-          z.literal("Connecting"),
-          z.literal("Connected"),
-          z.literal("Finished"),
-          z.object({
-            type: z.literal("Failed"),
-            error: z.any(),
-          }),
-        ])
-        .default("Connecting"),
+  #_haltObj: { halt?: (value: string) => Promise<void> | void } = {};
+  #halt(e?: any) {
+    if (this.#_haltObj.halt) {
+      void this.#_haltObj.halt(e ? JSON.stringify(e) : "Forced quit");
+    } else {
+      // Give clean-up time force quit if not
+      setTimeout(() => {
+        process.exit(1);
+      }, 500);
+    }
+  }
+  #client: Client | null = null;
+  async #processContext(value: PipesCoreClass): Promise<void> {
+    if (!this.#client) {
+      throw new Error(`Client not set`);
+    }
+    value.client = this.#client;
+    value.haltAll = this.#halt;
+    value.addContext = this.#injectContext;
+    const internalState = createInternalState();
+    this.#tasks.value = [...this.#tasks.value, value.symbol];
+
+    this.#store.symbolsOfTasks = [...this.#store.symbolsOfTasks, value.symbol];
+    reaction(
+      () => {
+        return {
+          name: internalState.name,
+          state: internalState.state,
+        };
+      },
+      async () => {
+        const name = internalState.name;
+        const state = internalState.state;
+        await this.#taskState.setKey(value.symbol, { name, state });
+      },
     );
-    await PipesDOM.render(() => {
+
+    void when(() => internalState.state === "finished" || internalState.state === "failed").then(() => {
+      if (internalState.state === "finished") {
+        this.#store.symbolsOfTasksCompleted = [...this.#store.symbolsOfTasksCompleted, value.symbol];
+        return;
+      }
+      if (internalState.state === "failed") {
+        this.#store.symbolsOfTasksFailed = [...this.#store.symbolsOfTasksFailed, value.symbol];
+      }
+    });
+    await value.run(this.#store, internalState).catch(async (e) => {
+      internalState.state = "failed";
+      if (e instanceof PipesDOM.DOMError) {
+        await PipesDOM.render(e.get);
+      }
+      this.#halt();
+    });
+  }
+  #fakePromise = new Promise<void>((_resolve, reject) => {
+    this.#_haltObj.halt = reject;
+  });
+  #contextPromiseAggregator = new DynamicPromiseAggregator();
+  #contextPromise = this.#contextPromiseAggregator.watch();
+  #pipesStream = new PipesStream();
+  #tasks = createBasicZodStore(taskSchema);
+  #store = createState();
+  #taskState = createZodSymbolStore(internalStateStoreSchema);
+  #daggerState = createBasicZodStore(
+    z
+      .union([
+        z.literal("Connecting"),
+        z.literal("Connected"),
+        z.literal("Finished"),
+        z.object({
+          type: z.literal("Failed"),
+          error: z.any(),
+        }),
+      ])
+      .default("Connecting"),
+  );
+  #renderDaggerInfo() {
+    return PipesDOM.render(() => {
       return (
         <PipesDOM.Group title="Dagger state">
           <PipesDOM.Container>
@@ -77,138 +145,99 @@ export class PipesCoreRunner {
               if (typeof daggerState.value === "object" && daggerState.value.type === "Failed") {
                 return <PipesDOM.Error>{daggerState.value.error}</PipesDOM.Error>;
               }
-            })(daggerState)}
+            })(this.#daggerState)}
           </PipesDOM.Container>
         </PipesDOM.Group>
       );
     });
+  }
+  #renderTaskState() {
+    return PipesDOM.render(async () => {
+      const currentTasks = [...this.#tasks.value];
+      const obj: InternalStateStore[] = [];
+      const values = await this.#taskState.getAll();
+      for (const task of currentTasks) {
+        const value = values[task];
+        if (value) {
+          obj.push(value);
+        }
+      }
+      const getState = (state: string) =>
+        state.split("_").reduce((a, b, index) => {
+          if (index === 0) {
+            return b
+              .split("")
+              .map((e, index) => {
+                return index === 0 ? e.toUpperCase() : e;
+              })
+              .join("");
+          }
+          return `${a} ${b}`;
+        }, "");
+      const tableValues = obj.map((e) => ({ Name: e.name, State: getState(e.state) }));
+      if (tableValues.length === 0) {
+        return <></>;
+      }
+      return (
+        <>
+          <PipesDOM.Group title="Pipes tasks changes">
+            <PipesDOM.Container>
+              <PipesDOM.Table data={tableValues} />
+            </PipesDOM.Container>
+          </PipesDOM.Group>
+        </>
+      );
+    });
+  }
+  #renderRawLog() {
+    const value = this.#pipesStream.getData();
+    return PipesDOM.render(
+      () => (
+        <PipesDOM.Group title="Raw Dagger log">
+          <PipesDOM.Text>{value}</PipesDOM.Text>
+        </PipesDOM.Group>
+      ),
+      {
+        forceRenderNow: true,
+      },
+    );
+  }
+  async run(): Promise<void> {
+    await this.#renderDaggerInfo();
     await connect(
       async (client: Client) => {
-        daggerState.value = "Connected";
-        await PipesDOM.render(async () => {
-          const currentTasks = [...tasks.value];
-          const obj: InternalStateStore[] = [];
-          const values = await taskState.getAll();
-          for (const task of currentTasks) {
-            const value = values[task];
-            if (value) {
-              obj.push(value);
-            }
-          }
-          const getState = (state: string) =>
-            state.split("_").reduce((a, b, index) => {
-              if (index === 0) {
-                return b
-                  .split("")
-                  .map((e, index) => {
-                    return index === 0 ? e.toUpperCase() : e;
-                  })
-                  .join("");
-              }
-              return `${a} ${b}`;
-            }, "");
-          const tableValues = obj.map((e) => ({ Name: e.name, State: getState(e.state) }));
-          if (tableValues.length === 0) {
-            return <></>;
-          }
-          return (
-            <>
-              <PipesDOM.Group title="Pipes tasks changes">
-                <PipesDOM.Container>
-                  <PipesDOM.Table data={tableValues} />
-                </PipesDOM.Container>
-              </PipesDOM.Group>
-            </>
-          );
-        });
-        const _haltObj: { halt?: (value: string) => Promise<void> | void } = {};
-        const halt = () => {
-          if (_haltObj.halt) {
-            void _haltObj.halt("Forced quit");
+        this.#daggerState.value = "Connected";
+        this.#client = client;
+        await this.#renderTaskState();
 
-            // Give clean-up time force quit if not
-            setTimeout(() => {
-              process.exit(1);
-            }, 5000);
-          } else {
-            process.exit(1);
-          }
-        };
-        const fakePromise = new Promise<void>((_resolve, reject) => {
-          _haltObj.halt = reject;
-        });
-        for (const context of this.#context) {
-          context.client = client;
-          context.haltAll = halt;
-        }
-        const contextPromises = Promise.all(
-          Array.from(this.#context).map(async (value) => {
-            const internalState = createInternalState();
-            tasks.value = [...tasks.value, value.symbol];
-
-            store.symbolsOfTasks = [...store.symbolsOfTasks, value.symbol];
-            reaction(
-              () => {
-                return {
-                  name: internalState.name,
-                  state: internalState.state,
-                };
-              },
-              async () => {
-                const name = internalState.name;
-                const state = internalState.state;
-                await taskState.setKey(value.symbol, { name, state });
-              },
-            );
-
-            void when(() => internalState.state === "finished" || internalState.state === "failed").then(() => {
-              if (internalState.state === "finished") {
-                store.symbolsOfTasksCompleted = [...store.symbolsOfTasksCompleted, value.symbol];
-                return;
-              }
-              if (internalState.state === "failed") {
-                store.symbolsOfTasksFailed = [...store.symbolsOfTasksFailed, value.symbol];
-              }
-            });
-            await value.run(store, internalState).catch(async (e) => {
-              internalState.state = "failed";
-              if (e instanceof PipesDOM.DOMError) {
-                await PipesDOM.render(e.get);
-              }
-              halt();
-            });
+        /** Add all context */
+        this.#contextPromiseAggregator.addPromise(
+          Array.from(this.#context).map((value) => {
+            return this.#processContext(value);
           }),
         );
-        store.state = "running";
-        await Promise.race([fakePromise, contextPromises]);
+
+        this.#store.state = "running";
+        await Promise.race([this.#fakePromise, this.#contextPromise]);
       },
-      { LogOutput: pipesStream },
+      { LogOutput: this.#pipesStream },
     )
       .catch((e) => {
-        daggerState.value = {
+        this.#daggerState.value = {
           type: "Failed",
           error: e,
         };
       })
       .then(() => {
-        if (daggerState.value === "Connected") {
-          daggerState.value = "Finished";
+        if (this.#daggerState.value === "Connected") {
+          this.#daggerState.value = "Finished";
         }
       })
       .finally(async () => {
-        console.log("OK");
         if (PipesConfig.isDev) {
-          const value = pipesStream.getData();
-          await PipesDOM.render(
-            () => (
-              <PipesDOM.Group title="Raw Dagger log">
-                <PipesDOM.Text>{value}</PipesDOM.Text>
-              </PipesDOM.Group>
-            ),
-            true,
-          );
+          await this.#renderRawLog();
         }
-        if (daggerState.value === "Finished") {
+        if (this.#daggerState.value === "Finished") {
           process.exit(0);
         }
         setTimeout(() => {

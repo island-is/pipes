@@ -39,7 +39,9 @@ export const snapTest = (actual: any, testFile: string, testTitle: string) => {
 
 export const testJSX = async (jsx: ReactNode, name: string, filename: string): Promise<void> => {
   await it(name, async () => {
-    const rendered = await render(jsx, true);
+    const rendered = await render(jsx, {
+      forceRenderNow: true,
+    });
     const value = rendered.value();
     console.log(`${name}\n${value}`);
     snapTest(value, filename, name);

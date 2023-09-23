@@ -73,6 +73,9 @@ export class PipesCoreClass<
   get haltAll(): () => void {
     return this.#haltAll;
   }
+  addContext = (_props: { context: PipesCoreClass }): void => {
+    throw new Error("This should be overwritten");
+  };
   /**
    * Private state management related to the readiness and modules of the core.
    */
@@ -133,6 +136,14 @@ export class PipesCoreClass<
     this.#contextSchema = context;
     this.config = createZodStore<typeof config, CurrentConfig["Merged"]>(this.#configSchema);
     this.context = createZodStore<typeof context, CurrentContext["OutsideInterface"]>(this.#contextSchema, [
+      {
+        /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
+        key: "addContextToCore" as const,
+        /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
+        get: () => {
+          return this.addContext;
+        },
+      },
       {
         /** @ts-expect-error - For simplification this is not hardcoded into the generic. */
         key: "imageStore" as const,
