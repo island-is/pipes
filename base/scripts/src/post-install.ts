@@ -10,7 +10,7 @@ import { writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+const root = dirname(dirname(dirname(dirname(fileURLToPath(import.meta.url)))));
 const _ENV_FILE = join(root, ".env.root");
 
 // This will be written to the env file.
