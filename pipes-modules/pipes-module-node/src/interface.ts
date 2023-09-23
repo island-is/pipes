@@ -19,7 +19,11 @@ export interface IPipesNodeContext {
   nodeGetVersion: () => Promise<string>;
   nodeGetContainer: () => Promise<Container>;
   nodePrepareContainer: () => Promise<Container>;
-  nodeRun: (props: { args: string[]; relativeCwd?: string }) => Promise<RunState>;
+  nodeRun: (props: {
+    args: string[];
+    relativeCwd?: string;
+    packageManager?: IPipesNodeConfig["nodePackageManager"];
+  }) => Promise<RunState>;
   nodeCompileAndRun: (props: {
     file: string;
     name: string;

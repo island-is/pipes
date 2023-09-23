@@ -1,6 +1,7 @@
 import fsSync from "node:fs";
 
 import {
+  ContextHasModule,
   type PipesCoreModule,
   type Simplify,
   createConfig,
@@ -10,6 +11,8 @@ import {
   z,
 } from "@island-is/pipes-core";
 import { Octokit } from "@octokit/rest";
+
+import type { IPipesNodeContext, PipesNodeModule } from "@island-is/pipes-module-node";
 
 type GithubUser = {
   login: string;
@@ -45,6 +48,7 @@ interface IGitHubConfig {
 }
 
 interface IGitHubContext {
+  githubNodePublish: (prop: { token: string; relativeWorkDir: string }) => Promise<void>;
   githubGetTagsFromPR: (prop: { prNumber: number }) => Promise<string[]>;
   githubDeleteMergedBranch: (prop: { branchName: string }) => Promise<void>;
   githubDeleteCurrentMergedBranch: () => Promise<void>;
@@ -63,7 +67,13 @@ interface IGitHubContext {
   githubAllChecksPassedCurrentPR: () => Promise<boolean>;
 }
 
-export type PipesGitHubModule = createModuleDef<"PipesGitHub", IGitHubContext, IGitHubConfig, [PipesCoreModule]>;
+export type PipesGitHubModule = createModuleDef<
+  "PipesGitHub",
+  IGitHubContext,
+  IGitHubConfig,
+  [PipesCoreModule],
+  [PipesNodeModule]
+>;
 
 const githubUserschema = z.object({ login: z.string() }).default({ login: "" });
 const githubRepository = z
@@ -162,6 +172,30 @@ const GitHubConfig = createConfig<PipesGitHubModule>(({ z }) => ({
 }));
 
 const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubModule["Context"]["Implement"] => ({
+  githubNodePublish: fn<{ token: string; relativeWorkDir: string }, Promise<void>>({
+    value: z.object({ token: z.string(), relativeWorkDir: z.string() }),
+    implement: async (context, _config, props) => {
+      if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
+        await context.nodeRun({
+          args: ["config", "set", "registry", "https://npm.pkg.github.com"],
+          packageManager: "npm",
+          relativeCwd: props.relativeWorkDir,
+        });
+        await context.nodeRun({
+          args: ["config", "set", `_authToken=${props.token}`],
+          packageManager: "npm",
+          relativeCwd: props.relativeWorkDir,
+        });
+        await context.nodeRun({
+          args: ["publish", "--registry", "https://npm.pkg.github.com"],
+          packageManager: "npm",
+          relativeCwd: props.relativeWorkDir,
+        });
+        return;
+      }
+      throw new Error("Node module not set in context");
+    },
+  }),
   githubDeleteMergedBranch: fn<{ branchName: string }, Promise<void>>({
     value: z.object({ branchName: z.string() }),
     output: z.custom<Promise<void>>(),
@@ -386,11 +420,11 @@ export const PipesGitHub: {
   config: Simplify<PipesGitHubModule["Config"]["Implement"]>;
   context: Simplify<PipesGitHubModule["Context"]["Implement"]>;
   required: "PipesCore"[];
-  optional: [];
+  optional: "PipesNode"[];
 } = createModule<PipesGitHubModule>({
   name: "PipesGitHub",
   config: GitHubConfig,
   context: GitHubContext,
   required: ["PipesCore"],
-  optional: [],
+  optional: ["PipesNode"],
 });

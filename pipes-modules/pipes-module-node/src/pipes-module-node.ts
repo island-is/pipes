@@ -22,4 +22,4 @@ export const PipesNode: {
   context: PipesNodeContext,
   required: ["PipesCore"],
 });
-export type { PipesNodeModule } from "./interface.js";
+export type { PipesNodeModule, IPipesNodeContext, IPipesNodeConfig } from "./interface.js";
