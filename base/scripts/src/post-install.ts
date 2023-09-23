@@ -64,5 +64,5 @@ const tasks = [
 ];
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await Promise.all(tasks);
+  await Promise.all(tasks.map((e) => e()));
 }
