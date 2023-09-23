@@ -14,6 +14,7 @@ export interface IPipesNodeConfig {
 }
 
 export interface IPipesNodeContext {
+  nodeModifyPackageJSON: (prop: { relativeCwd: string; fn: (value: any) => string | Promise<string> }) => Promise<void>;
   nodeIsVersionGreaterOrEqual: (prop: { version: number }) => Promise<boolean>;
   nodeAddEnv: (prop: { container?: Container; env: [string, string][] }) => Promise<Container>;
   nodeGetVersion: () => Promise<string>;

@@ -1,8 +1,3 @@
-import { writeFile } from "node:fs/promises";
-import os from "node:os";
-import { join } from "node:path/posix";
-import path from "path";
-
 import { createPipesCore, createTask } from "@island-is/pipes-core";
 import { PipesGitHub } from "@island-is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
@@ -37,7 +32,7 @@ const createBuildContext = (props: Props) => {
     buildContext.addDependency(props.required.symbol);
   }
 
-  buildContext.addScript(async (context, config) => {
+  buildContext.addScript(async (context) => {
     const fn = (value: string) => {
       return context.nodeRun({ args: ["run", value], relativeCwd: props.relativeWorkDir });
     };
@@ -62,16 +57,13 @@ const createBuildContext = (props: Props) => {
         });
         await Promise.all([fn("lint"), fn("test"), fn("build")]);
         if (GlobalConfig.action === "Release") {
-          const container = await context.nodePrepareContainer();
-          const packageJSONPath = join(config.nodeWorkDir, props.relativeWorkDir, "dist", "package.json");
-          const packageJSON = JSON.parse(await container.file(packageJSONPath).contents());
-          packageJSON.version = GlobalConfig.version;
-          const packageJSONNew = JSON.stringify(packageJSON, null, 2);
-          const packageJSONNewPath = path.join(os.tmpdir(), `${path.basename(props.relativeWorkDir)}.json`);
-          await writeFile(packageJSONNewPath, packageJSONNew);
-          const packageJSONNewFile = context.client.host().file(packageJSONNewPath);
-          const newContainer = container.withFile(packageJSONPath, packageJSONNewFile);
-          await (await context.imageStore).setKey(`node-${config.nodeImageKey}`, newContainer);
+          await context.nodeModifyPackageJSON({
+            relativeCwd: props.relativeWorkDir,
+            fn: (packageJSON) => {
+              packageJSON.version = GlobalConfig.version;
+              return packageJSON;
+            },
+          });
         }
       },
       {
