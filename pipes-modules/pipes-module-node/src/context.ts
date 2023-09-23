@@ -1,7 +1,14 @@
 import { Container } from "@dagger.io/dagger";
 import { createContext } from "@island-is/pipes-core";
 
-import { addEnv, compileAndRun, getContainer, getVersion, prepareContainer } from "./context/context.js";
+import {
+  addEnv,
+  compileAndRun,
+  getContainer,
+  getVersion,
+  isVersionGreaterOrEqual,
+  prepareContainer,
+} from "./context/context.js";
 import { RunStateSchema, run } from "./context/run.js";
 
 import type { RunState } from "./context/run.js";
@@ -9,6 +16,11 @@ import type { PipesNodeModule } from "./interface.js";
 
 export const PipesNodeContext = createContext<PipesNodeModule>(
   ({ z, fn }): PipesNodeModule["Context"]["Implement"] => ({
+    nodeIsVersionGreaterOrEqual: fn<{ version: number }, Promise<boolean>>({
+      value: z.object({ version: z.number() }),
+      output: z.promise(z.boolean()),
+      implement: isVersionGreaterOrEqual,
+    }),
     nodeRun: fn<{ args: string[]; relativeCwd?: string }, Promise<RunState>>({
       value: z.object({ args: z.array(z.string().default(".")), relativeCwd: z.string().optional() }),
       output: RunStateSchema,

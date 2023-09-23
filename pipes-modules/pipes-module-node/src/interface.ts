@@ -14,6 +14,7 @@ export interface IPipesNodeConfig {
 }
 
 export interface IPipesNodeContext {
+  nodeIsVersionGreaterOrEqual: (prop: { version: number }) => Promise<boolean>;
   nodeAddEnv: (prop: { container?: Container; env: [string, string][] }) => Promise<Container>;
   nodeGetVersion: () => Promise<string>;
   nodeGetContainer: () => Promise<Container>;

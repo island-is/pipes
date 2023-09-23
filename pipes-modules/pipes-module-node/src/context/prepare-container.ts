@@ -1,10 +1,10 @@
 import type { PipesNodeModule } from "../interface.js";
-import type { removeContextCommand } from "@island-is/pipes-core";
+import type { Container, removeContextCommand } from "@island-is/pipes-core";
 
 export const prepareContainer: removeContextCommand<PipesNodeModule["Context"]["Implement"]["nodePrepareContainer"]> =
   async function prepareContainer(context, config) {
     return (await context.imageStore).getOrSet(`node-${config.nodeImageKey}`, async () => {
-      const container = await context.nodeGetContainer();
+      const container = (await context.nodeGetContainer()).withWorkdir(config.nodeWorkDir);
       const sourceOptions = {
         ...(config.nodeSourceIncludeOrExclude === "include" ||
         config.nodeSourceIncludeOrExclude === "include-and-exclude"
@@ -21,12 +21,25 @@ export const prepareContainer: removeContextCommand<PipesNodeModule["Context"]["
       };
       // Currently we are just using yarn
       const source = context.client.host().directory(config.nodeSourceDir, sourceOptions);
-      const corepack = await container
-        .withDirectory(config.nodeWorkDir, source)
-        .withWorkdir(config.nodeWorkDir)
-        .withExec(["corepack", "enable"])
-        .sync();
-      const yarnInstall = await corepack.withExec(["yarn", "install"]).sync();
-      return yarnInstall;
+      if (config.nodePackageManager === "yarn") {
+        const isNode20 = await context.nodeIsVersionGreaterOrEqual({ version: 20 });
+        let yarnContainer: Container;
+        if (isNode20) {
+          yarnContainer = await container
+            .withDirectory(config.nodeWorkDir, source)
+            .withWorkdir(config.nodeWorkDir)
+            .withExec(["corepack", "enable"])
+            .sync();
+        } else {
+          yarnContainer = await container
+            .withDirectory(config.nodeWorkDir, source)
+            .withWorkdir(config.nodeWorkDir)
+            .withExec(["npm", "install", "-g", "yarn"])
+            .sync();
+        }
+        const install = await yarnContainer.withWorkdir(config.nodeWorkDir).withExec(["yarn", "install"]).sync();
+        return install.withWorkdir(config.nodeWorkDir);
+      }
+      throw new Error(`Package manager ${config.nodePackageManager} not implemented`);
     });
   };

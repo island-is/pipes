@@ -196,6 +196,7 @@ export class PipesCoreRunner {
         }
       })
       .finally(async () => {
+        console.log("OK");
         if (PipesConfig.isDev) {
           const value = pipesStream.getData();
           await PipesDOM.render(

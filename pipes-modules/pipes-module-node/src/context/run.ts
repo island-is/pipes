@@ -41,8 +41,9 @@ export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["
   config,
   { args, relativeCwd = "." },
 ) {
-  const container = await context.nodeGetContainer();
+  const container = await context.nodePrepareContainer();
   const path = join(config.nodeWorkDir, relativeCwd);
+
   try {
     const stdout = await container
       .withWorkdir(path)

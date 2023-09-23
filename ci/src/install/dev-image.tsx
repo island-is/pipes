@@ -10,6 +10,7 @@ import type { PipesNodeModule } from "@island-is/pipes-module-node";
  */
 export const devImageInstallContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);
 devImageInstallContext.config.nodeSourceDir = GlobalConfig.sourceDir;
+devImageInstallContext.config.nodeWorkDir = GlobalConfig.workDir;
 devImageInstallContext.config.appName = `Development install`;
 devImageInstallContext.config.nodeImageKey = `dev-image`;
 devImageInstallContext.config.nodeSourceIncludeOrExclude = "exclude";
@@ -24,7 +25,7 @@ devImageInstallContext.config.nodeSourceExclude = [
   "**/.devcontainer",
   "**/.husky",
 ];
-export const devImageKey = `${devImageInstallContext.config.nodeImageKey}`;
+export const devImageKey = devImageInstallContext.config.nodeImageKey;
 export const devWorkDir = devImageInstallContext.config.nodeWorkDir;
 
 devImageInstallContext.addScript(async (context) => {
