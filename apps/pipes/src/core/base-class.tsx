@@ -73,7 +73,10 @@ export class PipesCoreClass<
   get haltAll(): () => void {
     return this.#haltAll;
   }
-  addContext = (_props: { context: PipesCoreClass }): void => {
+  /**
+   * Base core should inject this one.
+   */
+  addContext = (_context: any, _config: any, _props: { context: PipesCoreClass }): void => {
     throw new Error("This should be overwritten");
   };
   /**

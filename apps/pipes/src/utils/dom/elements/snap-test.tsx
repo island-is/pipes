@@ -14,7 +14,6 @@ function toMatchSnapshot(actual: any, testFile: string, testTitle: string) {
   const root = join(fileURLToPath(dirname(testFile)), "__snapshots__");
   const fileName = `${basename(fileURLToPath(testFile))}.snap`;
   const snapshotFile = join(root, fileName);
-  console.log(snapshotFile);
   const snapshotState = new SnapshotState(snapshotFile, {
     updateSnapshot: process.env.SNAPSHOT_UPDATE ? "all" : "new",
   } as any);

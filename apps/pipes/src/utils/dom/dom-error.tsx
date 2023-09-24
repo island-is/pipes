@@ -29,7 +29,7 @@ export class DOMError extends Error {
     return this.#message;
   };
   toString = async (): Promise<string> => {
-    const value = await render(this.#message, true);
+    const value = await render(this.#message, {forceRenderNow: true});
     return value.value();
   };
 }

@@ -7,6 +7,15 @@ import { Text } from "../../ink/index.js";
 
 import type { ReactNode } from "react";
 
+const SpaceText = ({ children, ...props }: Parameters<typeof Text>[0]) => {
+  return (
+    <>
+      <Text>{" "}</Text>
+      <Text {...props}>{children}</Text>
+    </>
+  );
+};
+
 export type ITimestamp = {
   type: "Timestamp";
   time?: Date | string | number;
@@ -20,8 +29,8 @@ export const Timestamp = (props: Omit<ITimestamp, "type">): ReactNode => {
   });
 };
 
-const invalidTime = <Text color="red">Invalid date</Text>;
-const invalidDateFormat = <Text color="red">Invalid date format</Text>;
+const invalidTime = <SpaceText color="red">Invalid date</SpaceText>;
+const invalidDateFormat = <SpaceText color="red">Invalid date format</SpaceText>;
 
 export const renderTimestamp = {
   ansi: (component: ITimestamp): ReactNode => {
@@ -62,9 +71,9 @@ export const renderTimestamp = {
     }
 
     return (
-      <Text color="white" backgroundColor={"blue"}>
+      <SpaceText color="white" backgroundColor={"blue"}>
         {formattedDate}
-      </Text>
+      </SpaceText>
     );
   },
 

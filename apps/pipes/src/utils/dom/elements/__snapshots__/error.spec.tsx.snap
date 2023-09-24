@@ -6,42 +6,7 @@ exports[`render multi-line colored error-file:///var/home/lommi/Projects/island.
 
 exports[`render multi-line error-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/error.spec.tsx 1`] = `"                                                                                                                                                                                                                                    ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────[4m[1m=== ❌ ERROR ===[22m[24m                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.                   Vivamus lacinia odio vitae vestibulum. Donec in efficit                                                           ur leo. In hac habitasse platea dictumst. Proin dolor me                                                          tus, pharetra in ipsum a, facilisis posuere velit. Quisq                                                          ue sit amet eros eu urna dignissim pharetra non id liber                                                          o.                                                                                                                                                                                                                                  Phasellus bibendum, odio nec tincidunt venenatis, velit                                                           orci bibendum augue, a molestie mi est eget tellus. Ut a                                                          uctor aliquet felis a cursus. Vestibulum ante ipsum prim                                                          is in faucibus orci luctus et ultrices posuere cubilia c                                                          urae; Sed feugiat, velit nec gravida interdum, enim nequ                                                          e fringilla mi, at volutpat orci dui at metus. Aenean vi                                                          verra auctor orci, eu mattis odio egestas a.                                                                                                                                                                                        Maecenas eleifend, sem eu lacinia cursus, orci risus sem                                                          per urna, in feugiat metus nulla ac est. Duis eget risus                                                          in nunc sollicitudin facilisis at nec magna. Nam vel ti                                                           ncidunt mauris. Pellentesque habitant morbi tristique se                                                          nectus et netus et malesuada fames ac turpis egestas. Vi                                                          vamus convallis, diam ac porta tempus, justo libero aliq                                                          uet augue, a eleifend libero elit eu nisi.                                                                        ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────                                                                                                                                                                                                                                    "`;
 
-exports[`render multiple line-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/error.spec.tsx 1`] = `
-"  [1m[41m[37m[X][39m[49m[22m  [1m[41m[37m  ERROR  [39m[49m[22m
-                                         Lorem ipsum dolor sit amet,
-                                         consectetur adipiscing elit. Vivamus
-                                         lacinia odio vitae vestibulum. Donec
-                                         in efficitur leo. In hac habitasse
-                                         platea dictumst. Proin dolor metus,
-                                         pharetra in ipsum a, facilisis posuere
-                                          velit. Quisque sit amet eros eu urna
-                                         dignissim pharetra non id libero.
-
-                                         Phasellus bibendum, odio nec tincidunt
-                                          venenatis, velit orci bibendum augue,
-                                          a molestie mi est eget tellus. Ut
-                                         auctor aliquet felis a cursus.
-                                         Vestibulum ante ipsum primis in
-                                         faucibus orci luctus et ultrices
-                                         posuere cubilia curae; Sed feugiat,
-                                         velit nec gravida interdum, enim neque
-                                          fringilla mi, at volutpat orci dui at
-                                          metus. Aenean viverra auctor orci, eu
-                                          mattis odio egestas a.
-
-                                         Maecenas eleifend, sem eu lacinia
-                                         cursus, orci risus semper urna, in
-                                         feugiat metus nulla ac est. Duis eget
-                                         risus in nunc sollicitudin facilisis
-                                         at nec magna. Nam vel tincidunt
-                                         mauris. Pellentesque habitant morbi
-                                         tristique senectus et netus et
-                                         malesuada fames ac turpis egestas.
-                                         Vivamus convallis, diam ac porta
-                                         tempus, justo libero aliquet augue, a
-                                         eleifend libero elit eu nisi.
-"
-`;
+exports[`render multiple line-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/error.spec.tsx 1`] = `""`;
 
 exports[`render multiple line-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/error.spec.tsx 1`] = `
 "[31m╔══════════════════════════════════════════════════════════════════════════════╗[39m
@@ -73,7 +38,7 @@ exports[`render multiple line-file:///var/home/lommi/Projects/island.is-pipes/li
 
 exports[`render simple string error-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/error.spec.tsx 1`] = `"                                                                                                                                                                                                                                    ───────────────────────────────────────────────────────────────────────────────────────────────[4m[1m=== ❌ ERROR ===[22m[24m                        [1mError message                                           [22m───────────────────────────────────────────────────────────────────────────────────────────────                                                                                                                                                                                                                                    "`;
 
-exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/error.spec.tsx 1`] = `"  [1m[41m[37m[X][39m[49m[22m  [1m[41m[37m  ERROR  [39m[49m[22m                         Error mesage"`;
+exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/error.spec.tsx 1`] = `""`;
 
 exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/error.spec.tsx 1`] = `
 "[31m╔══════════════════════════════════════════════════════════════════════════════╗[39m

@@ -1,4 +1,5 @@
-import { createPipesCore, createTask } from "@island-is/pipes-core";
+import React from "react";
+import { PipesDOM, createPipesCore, createTask } from "@island-is/pipes-core";
 import { PipesGitHub } from "@island-is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
 
@@ -7,6 +8,7 @@ import { devImageInstallContext } from "../install/dev-image.js";
 
 import type { Simplify } from "@island-is/pipes-core";
 import type { PipesGitHubModule } from "@island-is/pipes-module-github";
+import render from "@island-is/pipes-core/src/utils/ink/render.js";
 
 type RemoveAllKeysStartingWithHash<T> = {
   [K in keyof T as string extends K ? never : K extends `${"#"}${infer _Rest}` ? never : K]: T[K];
@@ -33,8 +35,22 @@ const createBuildContext = (props: Props) => {
   }
 
   buildContext.addScript(async (context) => {
-    const fn = (value: string) => {
-      return context.nodeRun({ args: ["run", value], relativeCwd: props.relativeWorkDir });
+    const fn = async (value: string) => {
+      const stateValue = await context.nodeRun({ args: ["run", value], relativeCwd: props.relativeWorkDir });
+      if (stateValue.state === "Error" ) {
+        await PipesDOM.render(() => {
+        return (
+          <PipesDOM.Error>
+            <PipesDOM.Text color={"cyan"}>{value}:</PipesDOM.Text>
+            <PipesDOM.Text>Failed </PipesDOM.Text><PipesDOM.Text bold={true}>{value}</PipesDOM.Text> 
+          </PipesDOM.Error>
+        ); 
+        }, {
+          forceRenderNow: true,
+        });
+        context.haltAll();
+        throw new Error(`Failed ${value}`);
+      }
     };
     await createTask(
       async () => {
