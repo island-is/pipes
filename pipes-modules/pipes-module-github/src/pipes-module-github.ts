@@ -177,21 +177,30 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
     output: z.promise(z.void()),
     implement: async (context, _config, props) => {
       if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
-        await context.nodeRun({
+        let value = await context.nodeRun({
           args: ["config", "set", "registry", "https://npm.pkg.github.com"],
           packageManager: "npm",
           relativeCwd: props.relativeWorkDir,
         });
-        await context.nodeRun({
+        if (value.state === "Error") {
+          throw new Error(`Failled setting registry with error ${value.error}`);
+        }
+        value = await context.nodeRun({
           args: ["config", "set", `_authToken=${props.token}`],
           packageManager: "npm",
           relativeCwd: props.relativeWorkDir,
         });
-        await context.nodeRun({
+        if (value.state === "Error") {
+          throw new Error(`Failled setting token with error ${value.error}`);
+        }
+        value = await context.nodeRun({
           args: ["publish", "--registry", "https://npm.pkg.github.com"],
           packageManager: "npm",
           relativeCwd: props.relativeWorkDir,
         });
+        if (value.state === "Error") {
+          throw new Error(`Failled publishing with error ${value.error}`);
+        }
         return;
       }
       throw new Error("Node module not set in context");
