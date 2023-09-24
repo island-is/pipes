@@ -1,0 +1,28 @@
+{
+  "name": "@island-is/scripts",
+  "packageManager": "yarn@4.0.0-rc.47",
+  "type": "module",
+  "scripts": {
+    "lint": "yarn node ./src/lint.tsx"
+  },
+  "devDependencies": {
+    "@island-is/eslint-config": "workspace:*",
+    "@island-is/prettier-config": "workspace:*",
+    "@island-is/scripts": "workspace:*",
+    "@island-is/tsconfig": "workspace:*",
+    "@island-is/tsconfig-build": "workspace:*"
+  },
+  "version": "23.09.00",
+  "engines": {
+    "node": "20.5.1",
+    "yarn": "4.0.0-rc.47",
+    "npm": "please use yarn",
+    "pnpm": "please use yarn"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/island-is/pipes",
+    "directory": "base/scripts"
+  }
+}

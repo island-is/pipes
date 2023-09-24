@@ -32,7 +32,13 @@ module.exports = (path, type = "module") => {
         experimentalObjectRestSpread: true,
       },
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
+      "import/no-useless-path-segments": "off",
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
       "no-console": "off",

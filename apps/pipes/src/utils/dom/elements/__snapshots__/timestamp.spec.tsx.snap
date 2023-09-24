@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render simple timestamp-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37m2023-09-10T10:20:30.000Z[39m[49m"`;
+
+exports[`render simple timestamp-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34m2023-09-10T10:20:30.000Z[39m"`;
+
+exports[`render timestamp with american format-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37mSep 10, 2023, 10:20:30 AM[39m[49m"`;
+
+exports[`render timestamp with american format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34mSep 10, 2023, 10:20:30 AM[39m"`;
+
+exports[`render timestamp with custom format - only time-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37m01:00:00[39m[49m"`;
+
+exports[`render timestamp with custom format - only time-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34m01:00:00[39m"`;
+
+exports[`render timestamp with custom format-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37m1970-01-01 00:00[39m[49m"`;
+
+exports[`render timestamp with custom format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34m1970-01-01 00:00[39m"`;
+
+exports[`render timestamp with european format-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37m10 Sep 2023, 10:20:30[39m[49m"`;
+
+exports[`render timestamp with european format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34m10 Sep 2023, 10:20:30[39m"`;
+
+exports[`render timestamp with invalid format-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[31mInvalid date format[39m"`;
+
+exports[`render timestamp with invalid format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[31mInvalid date format[39m"`;
+
+exports[`render timestamp with invalid time-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[31mInvalid date[39m"`;
+
+exports[`render timestamp with invalid time-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[31mInvalid date[39m"`;
+
+exports[`render timestamp with iso format-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/timestamp.spec.tsx 1`] = `"[44m[37m2023-09-10T10:20:30.000Z[39m[49m"`;
+
+exports[`render timestamp with iso format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34m2023-09-10T10:20:30.000Z[39m"`;
+
+exports[`render timestamp with locale format-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/timestamp.spec.tsx 1`] = `"[34mSep 10, 2023, 10:20:30 AM[0m"`;
