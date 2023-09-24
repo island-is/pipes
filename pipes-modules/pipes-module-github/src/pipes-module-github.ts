@@ -174,6 +174,7 @@ const GitHubConfig = createConfig<PipesGitHubModule>(({ z }) => ({
 const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubModule["Context"]["Implement"] => ({
   githubNodePublish: fn<{ token: string; relativeWorkDir: string }, Promise<void>>({
     value: z.object({ token: z.string(), relativeWorkDir: z.string() }),
+    output: z.promise(z.void()),
     implement: async (context, _config, props) => {
       if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
         await context.nodeRun({
