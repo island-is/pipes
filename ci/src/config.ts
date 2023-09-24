@@ -1,9 +1,18 @@
 import { z } from "@island-is/pipes-core";
-import ciInfo from "ci-info";
 
 /** Base config */
 export const GlobalConfig = (() => {
-  const envConfig = {
+  return {
+    workDir: "/pipes-ci",
+    sourceDir: z
+      .string()
+      .default(undefined, {
+        env: "PIPES_PROJECT_ROOT",
+        arg: {
+          long: "sourcedir",
+        },
+      })
+      .parse(undefined),
     version: z
       .string()
       .optional()
@@ -33,32 +42,6 @@ export const GlobalConfig = (() => {
         },
       })
       .describe("Which action to run from the CI")
-      .parse(undefined),
-  };
-  if (ciInfo.isCI) {
-    return {
-      ...envConfig,
-      sourceDir: z
-        .string()
-        .default(undefined, {
-          arg: {
-            long: "sourceDirectory",
-          },
-          env: ciInfo.GITHUB_ACTIONS ? "GITHUB_WORKSPACE" : "PIPES_PROJECT_ROOT",
-        })
-        .parse(undefined),
-    };
-  }
-  return {
-    ...envConfig,
-    sourceDir: z
-      .string()
-      .default(undefined, {
-        arg: {
-          long: "sourceDirectory",
-        },
-        env: "PIPES_PROJECT_ROOT",
-      })
       .parse(undefined),
   };
 })();

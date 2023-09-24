@@ -2,30 +2,22 @@
   "name": "@island-is/pipes",
   "version": "23.09.00",
   "description": "Typescript utils for creating pipes using dagger.io",
-  "main": "./dist/index.js",
   "author": "Jon Arnarson <jonorn@andes.is>",
   "type": "commonjs",
   "packageManager": "yarn@4.0.0-rc.47",
   "private": true,
   "scripts": {
-    "postinstall": "NODE_OPTIONS=\"--no-warnings=ExperimentalWarning  --experimental-loader=./loader.mjs\" pipespostinstall",
-    "clean": "clean",
-    "check:packages": "check-packages"
+    "postinstall": "NODE_OPTIONS=\"--no-warnings=ExperimentalWarning  --experimental-loader=./loader.mjs\" yarn node base/scripts/src/post-install.ts"
   },
   "workspaces": [
     "apps/*",
     "ci",
-    "scripts",
-    "libs/*",
     "base/*",
-    "pipes-modules/*",
-    "executors",
-    "generators"
+    "pipes-modules/*"
   ],
   "devDependencies": {
     "@commitlint/config-conventional": "17.7.0",
     "@island-is/eslint-config": "workspace:*",
-    "@island-is/find-pnp-root": "workspace:*",
     "@island-is/prettier-config": "workspace:*",
     "@island-is/scripts": "workspace:*",
     "@island-is/tsconfig": "workspace:*",
@@ -50,8 +42,5 @@
   },
   "peerDependencies": {
     "@swc/core": "*"
-  },
-  "dependencies": {
-    "node-gyp": "^9.4.0"
   }
 }
