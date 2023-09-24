@@ -61,7 +61,7 @@ export class PipesCoreRunner {
         process.exit(1);
       }, 500);
     }
-  }
+  };
   #client: Client | null = null;
   async #processContext(value: PipesCoreClass): Promise<void> {
     if (!this.#client) {
