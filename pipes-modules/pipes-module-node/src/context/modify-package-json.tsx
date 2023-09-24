@@ -13,7 +13,7 @@ export const modifyPackageJSON: removeContextCommand<PipesNodeModule["Context"][
     const packageJSON = JSON.parse(await container.file(packageJSONPath).contents());
     const _value = await props.fn(packageJSON);
     const value = JSON.stringify(_value, null, 2);
-    const { path: tmpFilePath } = await tmpFile({ prefix: name, postfix: ".json" });
+    const { path: tmpFilePath } = await tmpFile({ prefix: "package", postfix: ".json" });
     await writeFile(tmpFilePath, value, "utf-8");
     const packageJSONNewFile = context.client.host().file(tmpFilePath);
     const newContainer = container.withFile(packageJSONPath, packageJSONNewFile);
