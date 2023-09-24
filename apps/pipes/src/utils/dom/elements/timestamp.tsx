@@ -10,7 +10,7 @@ import type { ReactNode } from "react";
 const SpaceText = ({ children, ...props }: Parameters<typeof Text>[0]) => {
   return (
     <>
-      <Text>{" "}</Text>
+      <Text> </Text>
       <Text {...props}>{children}</Text>
     </>
   );

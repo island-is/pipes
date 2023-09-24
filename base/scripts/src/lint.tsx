@@ -85,11 +85,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         const file = b["file"];
         a[file] = a[file] ?? [];
         const message = b.error.message;
-        a[file].push({ message: message });
+        const line = (b.error as any).line ?? undefined;
+        a[file].push({ message: message, line });
       }
       return a;
     },
-    {} as Record<string, { message: string }[]>,
+    {} as Record<string, { message: string, line?: number | undefined }[]>,
   );
   const errorMSG = Object.keys(errorFiles).map((a) => {
     const e = errorFiles[a];
@@ -98,7 +99,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const errorTable = e.map((e, index) => {
       return (
         <PipesDOM.Row key={index}>
-          <PipesDOM.Text>{e.message}</PipesDOM.Text>
+          <PipesDOM.Text>{e.line ? `${e.line} ` : ''}{e.message}</PipesDOM.Text>
         </PipesDOM.Row>
       );
     });
