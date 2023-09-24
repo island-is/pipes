@@ -5830,9 +5830,9 @@ __metadata:
   linkType: hard
 
 "graphql@npm:^16.7.1":
-  version: 16.8.0
-  resolution: "graphql@npm:16.8.0"
-  checksum: 1320c77481ae54da4fb897895f116632dd444fb7c13b2d499fd4f0d8195bdb5185873348f15a4235ad212f294eb731045a579cfbadc5ee010fbc90b3f16c3f66
+  version: 16.8.1
+  resolution: "graphql@npm:16.8.1"
+  checksum: 7a09d3ec5f75061afe2bd2421a2d53cf37273d2ecaad8f34febea1f1ac205dfec2834aec3419fa0a10fcc9fb345863b2f893562fb07ea825da2ae82f6392893c
   languageName: node
   linkType: hard
 
