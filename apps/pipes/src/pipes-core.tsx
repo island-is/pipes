@@ -52,7 +52,7 @@ export class PipesCoreRunner {
     this.#context.delete(value);
   }
   #_haltObj: { halt?: (value: string) => Promise<void> | void } = {};
-  #halt(e?: any) {
+  #halt = (e?: any) => {
     if (this.#_haltObj.halt) {
       void this.#_haltObj.halt(e ? JSON.stringify(e) : "Forced quit");
     } else {
