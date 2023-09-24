@@ -19,14 +19,14 @@ export type LintResult = Simplify<
   } & ({ status: STATUS_SUCCESS; file: string } | { status: STATUS_ERROR; file: string; error: LintError })
 >;
 
-export const runESLint = async (path: string): Promise<LintResult[]> => {
+export const runESLint = async (path: string, fixNow: boolean = false): Promise<LintResult[]> => {
   try {
     const eslintconfig = await import(join(path, ".eslintrc.cjs"));
     const eslint = new ESLint({
       baseConfig: eslintconfig.default,
       useEslintrc: false,
       cwd: path,
-      fix: false,
+      fix: fixNow,
     });
     const filesToLint = await listFilteredFiles(join(path, "src"), "ALL");
     const results = await eslint.lintFiles(filesToLint);
@@ -75,7 +75,7 @@ export const runESLint = async (path: string): Promise<LintResult[]> => {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   await PipesDOM.render(() => <PipesDOM.Info>Running linter</PipesDOM.Info>);
-  const value = await runESLint(process.cwd());
+  const value = await runESLint(process.cwd(), process.env.FIX_LINT === "true");
   const successFiles = value.filter((e) => e.status === "Success");
   const errorMessages = value.filter((e) => e.status === "Error");
   const unknownError = errorMessages.find((e) => e.status === "Error" && e.error.message === "Unknown error");

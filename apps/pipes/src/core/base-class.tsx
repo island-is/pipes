@@ -76,7 +76,7 @@ export class PipesCoreClass<
   /**
    * Base core should inject this one.
    */
-  addContext = (_context: any, _config: any, _props: { context: PipesCoreClass }): void => {
+  addContext = (_context: unknown, _config: unknown, _props: { context: PipesCoreClass }): void => {
     throw new Error("This should be overwritten");
   };
   /**
