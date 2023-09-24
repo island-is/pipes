@@ -50,6 +50,7 @@ const createBuildContext = (props: Props) => {
               relativeWorkDir: `${props.relativeWorkDir}/dist`,
             });
           });
+          context.addContextToCore({context: publishContext});
         }
         (props.dependendants ?? []).forEach((dep) => {
           const newContext = createBuildContext({ required: buildContext, ...dep });
