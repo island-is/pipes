@@ -351,7 +351,7 @@ export const ConfigHasModule = <T extends any, K extends keyof T, Config extends
 };
 
 // Helper types.
-type ModuleReturnType<NewModule extends AnyModule> = {
+export type ModuleReturnType<NewModule extends AnyModule> = {
   name: NewModule["ModuleName"];
   config: NewModule["Config"]["Implement"];
   context: NewModule["Context"]["Implement"];

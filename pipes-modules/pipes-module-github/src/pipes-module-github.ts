@@ -2,8 +2,8 @@ import fsSync from "node:fs";
 
 import {
   ContextHasModule,
+  type ModuleReturnType,
   type PipesCoreModule,
-  type Simplify,
   createConfig,
   createContext,
   createModule,
@@ -425,13 +425,7 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
   }),
 }));
 
-export const PipesGitHub: {
-  name: "PipesGitHub";
-  config: Simplify<PipesGitHubModule["Config"]["Implement"]>;
-  context: Simplify<PipesGitHubModule["Context"]["Implement"]>;
-  required: "PipesCore"[];
-  optional: "PipesNode"[];
-} = createModule<PipesGitHubModule>({
+export const PipesGitHub: ModuleReturnType<PipesGitHubModule> = createModule<PipesGitHubModule>({
   name: "PipesGitHub",
   config: GitHubConfig,
   context: GitHubContext,
