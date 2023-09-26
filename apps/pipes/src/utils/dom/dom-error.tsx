@@ -1,6 +1,7 @@
 import React from "react";
 
-import { render } from "./dom.js";
+import render from "../ink/render.js";
+
 import { Error as UIError } from "./elements/elements.js";
 
 import type { ReactNode } from "react";

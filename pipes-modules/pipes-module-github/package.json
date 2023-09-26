@@ -3,9 +3,9 @@
   "version": "23.09.00",
   "packageManager": "yarn@4.0.0-rc.47",
   "license": "MIT",
-  "types": "./src/pipes-module-github.ts",
+  "types": "./dist/pipes-module-github.d.ts",
   "source": "./src/pipes-module-github.ts",
-  "main": "./src/pipes-module-github.ts",
+  "main": "./dist/pipes-module-github.js",
   "scripts": {
     "test": "yarn node ../../base/scripts/src/test.tsx",
     "lint": "yarn node ../../base/scripts/src/lint.tsx",
@@ -53,8 +53,7 @@
     "ci-info": "*",
     "enquirer": "*",
     "mobx": "*",
-    "ts-toolbelt": "*",
-    "zod": "*"
+    "ts-toolbelt": "*"
   },
   "devDependencies": {
     "@dagger.io/dagger": "0.8.4",
@@ -73,8 +72,7 @@
     "prettier": "3.0.2",
     "tmp-promise": "3.0.3",
     "ts-toolbelt": "9.6.0",
-    "typescript": "5.1.6",
-    "zod": "3.22.2"
+    "typescript": "5.1.6"
   },
   "type": "module",
   "engines": {

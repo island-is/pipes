@@ -42,7 +42,7 @@ const mainConfig = (input: string, output: string) => {
 
 const dtsConfig = (input: string) => {
   const baseConfig = createConfig(input);
-  baseConfig.plugins = [...baseConfig.plugins, dts({ respectExternal: false })];
+  baseConfig.plugins = [...baseConfig.plugins, dts({ respectExternal: true })];
   return baseConfig;
 };
 

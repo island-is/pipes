@@ -28,7 +28,7 @@ export const runESLint = async (path: string, fixNow: boolean = false): Promise<
       cwd: path,
       fix: fixNow,
     });
-    const filesToLint = await listFilteredFiles(join(path, "src"), "ALL");
+    const filesToLint = (await listFilteredFiles(join(path, "src"), "ALL")).filter((e) => !e.includes("base-zod"));
     const results = await eslint.lintFiles(filesToLint);
 
     const lintResults = results.map((e) => {
@@ -90,7 +90,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
       return a;
     },
-    {} as Record<string, { message: string, line?: number | undefined }[]>,
+    {} as Record<string, { message: string; line?: number | undefined }[]>,
   );
   const errorMSG = Object.keys(errorFiles).map((a) => {
     const e = errorFiles[a];
@@ -99,7 +99,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const errorTable = e.map((e, index) => {
       return (
         <PipesDOM.Row key={index}>
-          <PipesDOM.Text>{e.line ? `${e.line} ` : ''}{e.message}</PipesDOM.Text>
+          <PipesDOM.Text>
+            {e.line ? `${e.line} ` : ""}
+            {e.message}
+          </PipesDOM.Text>
         </PipesDOM.Row>
       );
     });

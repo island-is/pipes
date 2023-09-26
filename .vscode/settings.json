@@ -5,9 +5,7 @@
     "**/node_modules": true
   },
 
-  "files.exclude": {
-    "**/node_modules": true
-  },
+  "files.exclude": {},
   "eslint.lintTask.enable": true,
   "eslint.run": "onSave",
   "eslint.codeActionsOnSave.mode": "problems",

@@ -15,7 +15,6 @@ export const PipesNode: {
   config: Simplify<PipesNodeModule["Config"]["Implement"]>;
   context: Simplify<PipesNodeModule["Context"]["Implement"]>;
   required: "PipesCore"[];
-  optional: [];
 } = createModule<PipesNodeModule>({
   name: "PipesNode",
   config: PipesNodeConfig,

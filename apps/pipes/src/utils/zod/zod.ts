@@ -1,27 +1,11 @@
 import { parseArgs } from "node:util";
 
-import { ZodType, z } from "zod";
+import { ZodType, z } from "./base-zod/index.js";
 
-import type { ZodDefault, ZodTypeAny, util } from "zod";
+import type { DefaultProps, ZodTypeAny } from "./base-zod/index.js";
 
-interface DefaultProps {
-  env?: string;
-  variables?: string;
-  arg?: {
-    short?: string | undefined;
-    long: string;
-    positional?: boolean;
-  };
-}
-declare module "zod" {
-  // We need to type augmented methods, so we leave them as they are.
-  // eslint-disable-next-line no-shadow, unused-imports/no-unused-vars
-  interface ZodType<Output = any, Def extends z.ZodTypeDef = z.ZodTypeDef, Input = Output> {
-    default(def?: util.noUndefined<Input>, options?: DefaultProps): ZodDefault<this>;
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
-    default(def?: () => util.noUndefined<Input>, options?: DefaultProps): ZodDefault<this>;
-  }
-}
+export * from "./base-zod/index.js";
+export * from "./observer.js";
 
 const ZodTypes = ["string", "number", "boolean", "literal"] as const;
 
@@ -179,12 +163,8 @@ const getEnv = (context: ZodType<any, any, any>, options: DefaultProps | undefin
   return null;
 };
 
-/** @ts-expect-error - Patching */
 ZodType.prototype.default = function (def, options) {
   const fn = oldDefault.bind(this);
 
   return getArgv(this, options) || getEnv(this, options) || fn(def);
 };
-
-export * from "zod";
-export * from "./observer.js";

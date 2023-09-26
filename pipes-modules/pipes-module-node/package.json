@@ -2,9 +2,9 @@
   "name": "@island-is/pipes-module-node",
   "packageManager": "yarn@4.0.0-rc.47",
   "license": "MIT",
-  "types": "./src/pipes-module-node.ts",
+  "types": "./dist/pipes-module-node.d.ts",
   "source": "./src/pipes-module-node.ts",
-  "main": "./src/pipes-module-node.ts",
+  "main": "./dist/pipes-module-node.js",
   "scripts": {
     "test": "yarn node ../../base/scripts/src/test.tsx",
     "lint": "yarn node ../../base/scripts/src/lint.tsx",
@@ -43,7 +43,9 @@
     "url": "https://github.com/island-is/pipes"
   },
   "peerDependencies": {
-    "@island-is/pipes-core": "*"
+    "@dagger.io/dagger": "0.8.4",
+    "@island-is/pipes-core": "*",
+    "mobx": "6.10.2"
   },
   "dependencies": {
     "rollup": "3.29.2",
@@ -62,12 +64,10 @@
     "@types/node": "20.5.8",
     "ci-info": "3.8.0",
     "eslint": "8.47.0",
-    "lodash.clonedeep": "",
     "mobx": "6.10.2",
     "prettier": "3.0.2",
     "ts-toolbelt": "9.6.0",
-    "typescript": "5.1.6",
-    "zod": "3.22.2"
+    "typescript": "5.1.6"
   },
   "type": "module",
   "engines": {
