@@ -1,7 +1,7 @@
 export interface DefaultProps {
     env?: string;
     variables?: string;
-    arg: {
+    arg?: {
         short?: string | undefined;
         long: string;
         positional?: boolean;

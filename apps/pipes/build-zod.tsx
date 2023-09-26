@@ -2,11 +2,9 @@ import React from "react";
 import fetch from "node-fetch";
 import { PipesDOM } from "./src/pipes-core.js";
 import typescript from "typescript";
-import ts from "rollup-plugin-ts";
-import { rollup } from "rollup";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { mkdirSync, rmSync, rmdirSync, writeFileSync } from "fs";
+import { mkdirSync, rmSync, writeFileSync } from "fs";
 import streamifier from "streamifier";
 import tar from "tar-stream";
 import { unzipSync } from "zlib";
@@ -128,7 +126,7 @@ function createInterfaceNode(): typescript.InterfaceDeclaration {
     typescript.factory.createPropertySignature(
       undefined,
       "arg",
-      undefined,
+      typescript.factory.createToken(typescript.SyntaxKind.QuestionToken),
       typescript.factory.createTypeLiteralNode([
         typescript.factory.createPropertySignature(
           undefined,

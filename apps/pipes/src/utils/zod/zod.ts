@@ -62,9 +62,11 @@ const getArgv = (context: ZodType<any, any, any>, options: DefaultProps | undefi
   }
   const { values, positionals } = parseArgs({
     args: process.argv.slice(2),
-    options: {
-      [options.arg.long]: argOptions,
-    },
+    options: options.arg?.long
+      ? {
+          [options.arg.long]: argOptions,
+        }
+      : {},
     allowPositionals: true,
     strict: false,
   });
@@ -73,7 +75,7 @@ const getArgv = (context: ZodType<any, any, any>, options: DefaultProps | undefi
     if (options.arg?.positional && positionals.length !== 0) {
       return positionals;
     }
-    return values[options.arg.long];
+    return options?.arg?.long ? values[options.arg.long] : undefined;
   })();
 
   if (value != undefined) {
