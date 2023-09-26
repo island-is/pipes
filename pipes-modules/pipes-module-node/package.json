@@ -43,9 +43,9 @@
     "url": "https://github.com/island-is/pipes"
   },
   "peerDependencies": {
-    "@dagger.io/dagger": "0.8.4",
+    "@dagger.io/dagger": "*",
     "@island-is/pipes-core": "*",
-    "mobx": "6.10.2"
+    "mobx": "*"
   },
   "dependencies": {
     "rollup": "3.29.2",
