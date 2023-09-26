@@ -1,7 +1,8 @@
 import React from "react";
-import { z } from "zod";
 
-import { PipesDOM, createZodStore } from "../pipes-core.js";
+import * as PipesDOM from "../utils/dom/dom.js";
+import { createZodStore } from "../utils/zod/observer.js";
+import { z } from "../utils/zod/zod.js";
 
 /**
  * This is for a basic task.

@@ -19,7 +19,7 @@ function toMatchSnapshot(actual: any, testFile: string, testTitle: string) {
   } as any);
 
   const matcher = snapshotState.match({
-    testName: `${testTitle}-${testFile}`,
+    testName: `${testTitle}`,
     received: actual,
     isInline: false,
   });

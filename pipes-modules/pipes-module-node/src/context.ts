@@ -12,7 +12,6 @@ import {
   prepareContainer,
   run,
 } from "./context/context.js";
-import {} from "./context/run.js";
 
 import type { RunState } from "./context/context.js";
 import type { PipesNodeModule } from "./interface.js";

@@ -2,7 +2,7 @@ import process from "node:process";
 
 import autoBind from "auto-bind";
 import ciinfo from "ci-info";
-import throttle from "lodash/throttle.js";
+import { default as throttle } from "lodash/throttle.js";
 import { type IReactionDisposer, autorun, observable, runInAction } from "mobx";
 import { type ReactNode } from "react";
 import React from "react";

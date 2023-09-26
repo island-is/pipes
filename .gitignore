@@ -1,3 +1,4 @@
+apps/pipes/zod
 .pipes-resolver
 .yarn/*
 !.yarn/releases

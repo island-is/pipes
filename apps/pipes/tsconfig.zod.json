@@ -1,0 +1,8 @@
+{
+  "include": ["./zod/**/*"],
+  "exclude": ["node_modules", "dist"],
+  "extends": "@island-is/tsconfig-build",
+  "compilerOptions": {
+    "declarationDir": "./src/utils/zod"
+  }
+}
