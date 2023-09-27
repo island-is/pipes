@@ -62,7 +62,7 @@
     "ansi-escapes": "6.2.0",
     "auto-bind": "5.0.1",
     "ava": "5.1.1",
-    "boxen": "7.0.1",
+    "boxen": "7.1.1",
     "chalk": "5.3.0",
     "ci-info": "3.8.0",
     "cli-boxes": "3.0.0",
