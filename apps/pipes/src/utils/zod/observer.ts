@@ -2,8 +2,8 @@ import { autorun, createAtom } from "mobx";
 
 import { generateRandomString } from "./random.js";
 
+import type { ZodAny, ZodType, z } from "./zod.js";
 import type { IAtom } from "mobx";
-import type { ZodAny, ZodType, z } from "zod";
 
 type StoreObj = Record<string, z.ZodType<any> | Function>;
 
@@ -21,7 +21,7 @@ class AtomMap {
 }
 const createAtomMap = () => new AtomMap();
 
-export function createBasicZodStore<T extends ZodType>(v: T): { value: z.infer<T> } {
+export function createBasicZodStore<T extends z.ZodType<any, any, any>>(v: T): { value: z.infer<T> } {
   let currentValue: z.infer<T> | undefined = undefined;
   const atom = createAtom(generateRandomString());
   return new Proxy(
@@ -104,6 +104,7 @@ export function createZodStore<T extends StoreObj = StoreObj, Output = DefaultOu
           set: (value) => {
             if (typeof obj[key] === "function") {
               observables.get(key).reportChanged();
+              // ANY forced - this can't be zod
               this.#values[key as keyof T] = (obj[key] as any)._wrapper(value);
               return true;
             }

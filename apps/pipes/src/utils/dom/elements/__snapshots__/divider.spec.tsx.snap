@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/divider.spec.tsx 1`] = `"────────────────────────────────────────────────────────────────────────────────"`;
-
-exports[`render-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/divider.spec.tsx 1`] = `"────────────────────────────────────────────────────────────────────────────────"`;
+exports[`render 1`] = `""`;

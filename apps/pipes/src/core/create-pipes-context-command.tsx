@@ -56,7 +56,7 @@ export const createPipesContextCommand = <
       throwJSXError(args[0], args[1], e);
     }
   };
-  const wrapper: ReturnType<typeof __fn> = (newFn: typeof implement) => _fn(newFn);
+  const wrapper: ReturnType<typeof __fn> = ((newFn: typeof implement) => _fn(newFn)) as any;
   (fn as unknown as PipesContextCommand<BaseModule, Value, Output>)._wrapper = wrapper;
   (fn as unknown as PipesContextCommand<BaseModule, Value, Output>)._implement = _fn;
   (fn as unknown as PipesContextCommand<BaseModule, Value, Output>)._fn = __fn;

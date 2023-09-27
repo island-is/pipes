@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render } from "../ink/index.js";
+import render from "../ink/render.js";
 
 import { Error as UIError } from "./elements/elements.js";
 
@@ -23,13 +23,12 @@ export class DOMError extends Error {
         <UIError>{this.stack}</UIError>
       </>
     );
-    void render(this.#message);
   }
   get = (): ReactNode => {
     return this.#message;
   };
   toString = async (): Promise<string> => {
-    const value = await render(this.#message, true);
+    const value = await render(this.#message, { renderAsString: true });
     return value.value();
   };
 }

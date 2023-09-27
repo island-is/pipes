@@ -19,16 +19,16 @@ export type LintResult = Simplify<
   } & ({ status: STATUS_SUCCESS; file: string } | { status: STATUS_ERROR; file: string; error: LintError })
 >;
 
-export const runESLint = async (path: string): Promise<LintResult[]> => {
+export const runESLint = async (path: string, fixNow: boolean = false): Promise<LintResult[]> => {
   try {
     const eslintconfig = await import(join(path, ".eslintrc.cjs"));
     const eslint = new ESLint({
       baseConfig: eslintconfig.default,
       useEslintrc: false,
       cwd: path,
-      fix: false,
+      fix: fixNow,
     });
-    const filesToLint = await listFilteredFiles(join(path, "src"), "ALL");
+    const filesToLint = (await listFilteredFiles(join(path, "src"), "ALL")).filter((e) => !e.includes("base-zod"));
     const results = await eslint.lintFiles(filesToLint);
 
     const lintResults = results.map((e) => {
@@ -75,7 +75,7 @@ export const runESLint = async (path: string): Promise<LintResult[]> => {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   await PipesDOM.render(() => <PipesDOM.Info>Running linter</PipesDOM.Info>);
-  const value = await runESLint(process.cwd());
+  const value = await runESLint(process.cwd(), process.env.FIX_LINT === "true");
   const successFiles = value.filter((e) => e.status === "Success");
   const errorMessages = value.filter((e) => e.status === "Error");
   const unknownError = errorMessages.find((e) => e.status === "Error" && e.error.message === "Unknown error");
@@ -85,11 +85,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         const file = b["file"];
         a[file] = a[file] ?? [];
         const message = b.error.message;
-        a[file].push({ message: message });
+        const line = (b.error as any).line ?? undefined;
+        a[file].push({ message: message, line });
       }
       return a;
     },
-    {} as Record<string, { message: string }[]>,
+    {} as Record<string, { message: string; line?: number | undefined }[]>,
   );
   const errorMSG = Object.keys(errorFiles).map((a) => {
     const e = errorFiles[a];
@@ -98,7 +99,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const errorTable = e.map((e, index) => {
       return (
         <PipesDOM.Row key={index}>
-          <PipesDOM.Text>{e.message}</PipesDOM.Text>
+          <PipesDOM.Text>
+            {e.line ? `${e.line} ` : ""}
+            {e.message}
+          </PipesDOM.Text>
         </PipesDOM.Row>
       );
     });

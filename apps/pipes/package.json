@@ -2,10 +2,12 @@
   "name": "@island-is/pipes-core",
   "version": "23.09.00",
   "packageManager": "yarn@4.0.0-rc.47",
+  "type": "module",
   "scripts": {
     "test": "yarn node ../../base/scripts/src/test.tsx",
     "lint": "yarn node ../../base/scripts/src/lint.tsx",
-    "build": "yarn node ./build.ts"
+    "build": "NODE_ENV=production yarn node ./build.ts",
+    "build:zod": "NODE_ENV=production yarn node ./build-zod.tsx"
   },
   "pipes": {
     "publishFields": [
@@ -39,7 +41,7 @@
     ],
     "buildWithRollup": true
   },
-  "main": "./src/pipes-core.tsx",
+  "main": "./dist/pipes-core.js",
   "types": "./src/pipes-core.tsx",
   "source": "./src/pipes-core.tsx",
   "engines": {
@@ -51,7 +53,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "type": "module",
   "dependencies": {
     "@actions/core": "1.10.0",
     "@alcalzone/ansi-tokenize": "0.1.3",
@@ -70,9 +71,7 @@
     "code-excerpt": "4.0.0",
     "date-fns": "2.30.0",
     "delay": "5.0.0",
-    "eslint": "8.47.0",
     "indent-string": "5.0.0",
-    "ink-link": "3.0.0",
     "is-lower-case": "2.0.2",
     "is-upper-case": "2.0.2",
     "jest-snapshot": "29.6.4",
@@ -81,7 +80,6 @@
     "ms": "2.1.3",
     "object-hash": "3.0.0",
     "p-queue": "7.3.4",
-    "prettier": "3.0.2",
     "react": "18.2.0",
     "react-reconciler": "0.29.0",
     "scheduler": "0.23.0",
@@ -99,8 +97,7 @@
     "wrap-ansi": "8.1.0",
     "ws": "8.12.0",
     "xo": "0.54.2",
-    "yoga-wasm-web": "0.3.3",
-    "zod": "3.22.2"
+    "yoga-wasm-web": "0.3.3"
   },
   "devDependencies": {
     "@island-is/eslint-config": "workspace:*",
@@ -108,8 +105,11 @@
     "@island-is/scripts": "workspace:*",
     "@island-is/tsconfig": "workspace:*",
     "@island-is/tsconfig-build": "workspace:*",
+    "@rollup/plugin-alias": "5.0.0",
+    "@rollup/plugin-commonjs": "25.0.4",
     "@rollup/plugin-node-resolve": "15.2.1",
     "@swc/core": "1.3.78",
+    "@swc/helpers": "0.5.2",
     "@types/lodash": "4.14.191",
     "@types/node": "20.5.8",
     "@types/object-hash": "3",
@@ -117,12 +117,18 @@
     "@types/react-reconciler": "0.28.2",
     "@types/slice-ansi": "4.0.0",
     "@types/stack-utils": "1.0.1",
+    "@types/tar-stream": "3",
     "@types/which": "3",
     "@types/wrap-ansi": "3.0.0",
     "@types/ws": "8.5.4",
     "eslint": "8.47.0",
+    "node-fetch": "3.3.2",
     "prettier": "3.0.2",
-    "rollup-plugin-dts": "6.0.2"
+    "rollup-plugin-dts": "6.0.2",
+    "rollup-plugin-ts": "3.4.5",
+    "streamifier": "0.1.1",
+    "tar-stream": "3.1.6",
+    "zod": "3.22.2"
   },
   "license": "MIT",
   "repository": {

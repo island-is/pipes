@@ -1,12 +1,13 @@
 import { join } from "path/posix";
 
-import { type removeContextCommand, z } from "@island-is/pipes-core";
+import { Container, PipesDOM, type removeContextCommand, z } from "@island-is/pipes-core";
+import React from "react";
 
 import type { PipesNodeModule } from "../interface.js";
 
 export interface RunStateMessage {
   state: "Success";
-  stdout: string;
+  container: Container;
 }
 export interface RunStateError {
   state: "Error";
@@ -18,10 +19,16 @@ export const RunStateSchema = z.promise(
     if (typeof value !== "object" || value === null) {
       throw new Error(`Invalid format`);
     }
-    if ("state" in value && value.state === "Success" && "stdout" in value && typeof value.stdout === "string") {
+    if (
+      "state" in value &&
+      value.state === "Success" &&
+      "container" in value &&
+      value.container &&
+      value.container instanceof Container
+    ) {
       return {
         state: value.state,
-        stdout: value.stdout,
+        container: value.container,
       };
     }
     if ("state" in value && value.state === "Error" && "error" in value) {
@@ -43,15 +50,24 @@ export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["
 ) {
   const container = await context.nodePrepareContainer();
   const path = join(config.nodeWorkDir, relativeCwd);
-
+  if (config.nodeDebug) {
+    void PipesDOM.render(
+      <PipesDOM.Info>
+        Running {config.nodePackageManager} with args: {args.join(" ")} in path: {path}
+      </PipesDOM.Info>,
+      {
+        forceRenderNow: true,
+      },
+    );
+  }
   try {
-    const stdout = await container
+    const newContainer = await container
       .withWorkdir(path)
       .withExec([packageManager ?? config.nodePackageManager, ...args])
-      .stdout();
+      .sync();
     return {
       state: "Success",
-      stdout,
+      container: newContainer,
     };
   } catch (error) {
     return {

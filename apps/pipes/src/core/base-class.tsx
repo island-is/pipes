@@ -73,7 +73,10 @@ export class PipesCoreClass<
   get haltAll(): () => void {
     return this.#haltAll;
   }
-  addContext = (_props: { context: PipesCoreClass }): void => {
+  /**
+   * Base core should inject this one.
+   */
+  addContext = (_context: unknown, _config: unknown, _props: { context: PipesCoreClass }): void => {
     throw new Error("This should be overwritten");
   };
   /**
@@ -348,7 +351,7 @@ export const ConfigHasModule = <T extends any, K extends keyof T, Config extends
 };
 
 // Helper types.
-type ModuleReturnType<NewModule extends AnyModule> = {
+export type ModuleReturnType<NewModule extends AnyModule> = {
   name: NewModule["ModuleName"];
   config: NewModule["Config"]["Implement"];
   context: NewModule["Context"]["Implement"];

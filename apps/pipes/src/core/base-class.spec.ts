@@ -385,6 +385,7 @@ describe("base class", () => {
         const shouldHave = [
           "startTime",
           "getDurationInMs",
+          "addContextToCore",
           "imageStore",
           "haltAll",
           "addEnv",

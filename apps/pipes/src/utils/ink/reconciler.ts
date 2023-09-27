@@ -1,5 +1,4 @@
 import createReconciler from "react-reconciler";
-import { DefaultEventPriority } from "react-reconciler/constants.js";
 import Yoga, { type Node as YogaNode } from "yoga-wasm-web/auto";
 
 import {
@@ -18,6 +17,8 @@ import {
 } from "./dom.js";
 import { type OutputTransformer } from "./render-node-to-output.js";
 import applyStyles, { type Styles } from "./styles.js";
+// FIX ROLLUP
+export const DefaultEventPriority = 0b0000000000000000000000000010000;
 
 type AnyObject = Record<string, unknown>;
 

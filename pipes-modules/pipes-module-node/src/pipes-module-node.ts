@@ -8,15 +8,9 @@ import { PipesNodeConfig } from "./config.js";
 import { PipesNodeContext } from "./context.js";
 
 import type { PipesNodeModule } from "./interface.js";
-import type { Simplify } from "@island-is/pipes-core";
+import type { ModuleReturnType } from "@island-is/pipes-core";
 
-export const PipesNode: {
-  name: "PipesNode";
-  config: Simplify<PipesNodeModule["Config"]["Implement"]>;
-  context: Simplify<PipesNodeModule["Context"]["Implement"]>;
-  required: "PipesCore"[];
-  optional: [];
-} = createModule<PipesNodeModule>({
+export const PipesNode: ModuleReturnType<PipesNodeModule> = createModule<PipesNodeModule>({
   name: "PipesNode",
   config: PipesNodeConfig,
   context: PipesNodeContext,

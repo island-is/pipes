@@ -2,8 +2,8 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import { autorun } from "mobx";
-import { z } from "zod";
 
+import { z } from "./base-zod/index.js";
 import { createLockStore, createZodKeyStore, createZodStore, createZodSymbolStore, wrapContext } from "./observer.js";
 
 const promiseWrap = (fn: (() => void) | (() => Promise<void>)) => {

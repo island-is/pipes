@@ -2,7 +2,7 @@ import process from "node:process";
 
 import autoBind from "auto-bind";
 import ciinfo from "ci-info";
-import throttle from "lodash/throttle.js";
+import { default as throttle } from "lodash/throttle.js";
 import { type IReactionDisposer, autorun, observable, runInAction } from "mobx";
 import { type ReactNode } from "react";
 import React from "react";
@@ -96,7 +96,7 @@ export default class Ink {
           this.prevValues = value;
           if (!this.toString) {
             await WriteTo.lock((write) => {
-              write(`\n${value}\n`, "stdout");
+              write(`\n${value}`, "stdout");
             });
           }
         }
@@ -134,6 +134,11 @@ export default class Ink {
     this.#rootNode.yogaNode!.calculateLayout(undefined, undefined, Yoga.DIRECTION_LTR);
   };
 
+  _nonAsyncRender(node: ReactNode): void {
+    this.#rec.updateContainer(node, this.#container, null, noop);
+    const value = this.#getRenderedOutput();
+    process.stdout.write(`\n${value}`);
+  }
   async render(node: RenderValueParam, now = false): Promise<void> {
     if (now) {
       const x = await (typeof node === "function" ? node() : node);
@@ -141,7 +146,7 @@ export default class Ink {
       const value = this.#getRenderedOutput();
       if (!this.toString) {
         await WriteTo.lock((write) => {
-          write(`\n${value}\n`, "stdout");
+          write(`\n${value}`, "stdout");
         });
       }
       return;

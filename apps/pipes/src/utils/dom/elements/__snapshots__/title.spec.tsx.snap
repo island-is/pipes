@@ -1,13 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/apps/pipes/src/utils/dom/elements/title.spec.tsx 1`] = `
-"
-Error mesage
-"
-`;
-
-exports[`render simple string-file:///var/home/lommi/Projects/island.is-pipes/libs/dom/src/elements/title.spec.tsx 1`] = `
-"
-Error mesage
-"
-`;
+exports[`render simple string 1`] = `""`;
