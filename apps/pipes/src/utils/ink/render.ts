@@ -32,4 +32,9 @@ const render = async (node: RenderValueParam, props: Partial<RenderProps> = {}):
   };
 };
 
+export const forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED = (node: ReactNode): void => {
+  const instance = new Ink(false);
+  instance._nonAsyncRender(node);
+};
+
 export default render;

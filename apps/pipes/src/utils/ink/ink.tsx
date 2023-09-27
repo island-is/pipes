@@ -134,6 +134,11 @@ export default class Ink {
     this.#rootNode.yogaNode!.calculateLayout(undefined, undefined, Yoga.DIRECTION_LTR);
   };
 
+  _nonAsyncRender(node: ReactNode): void {
+    this.#rec.updateContainer(node, this.#container, null, noop);
+    const value = this.#getRenderedOutput();
+    process.stdout.write(`\n${value}`);
+  }
   async render(node: RenderValueParam, now = false): Promise<void> {
     if (now) {
       const x = await (typeof node === "function" ? node() : node);

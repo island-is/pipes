@@ -17,7 +17,9 @@ import {
 } from "./core/index.js";
 import { DynamicPromiseAggregator } from "./dynamic.js";
 import { PipesStream } from "./stream.js";
+import { onCleanup } from "./utils/cleanup/cleanup.js";
 import * as PipesDOM from "./utils/dom/dom.js";
+import { forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED } from "./utils/ink/render.js";
 import {
   createBasicZodStore,
   createGlobalZodKeyStore,
@@ -190,19 +192,21 @@ export class PipesCoreRunner {
     });
   }
   #renderRawLog() {
+    if (!PipesConfig.isDev) {
+      return;
+    }
     const value = this.#pipesStream.getData();
-    return PipesDOM.render(
-      () => (
-        <PipesDOM.Group title="Raw Dagger log">
-          <PipesDOM.Text>{value}</PipesDOM.Text>
-        </PipesDOM.Group>
-      ),
-      {
-        forceRenderNow: true,
-      },
+    forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(
+      <PipesDOM.Group title="Raw Dagger log">
+        <PipesDOM.Text>{value}</PipesDOM.Text>
+      </PipesDOM.Group>,
     );
   }
   async run(): Promise<void> {
+    onCleanup(() => {
+      // If program quits for some reason print out the logs if needed
+      this.#renderRawLog();
+    });
     await this.#renderDaggerInfo();
     await connect(
       async (client: Client) => {
@@ -233,15 +237,13 @@ export class PipesCoreRunner {
           this.#daggerState.value = "Finished";
         }
       })
-      .finally(async () => {
-        if (PipesConfig.isDev) {
-          await this.#renderRawLog();
-        }
-        if (this.#daggerState.value === "Finished") {
-          process.exit(0);
-        }
+      .finally(() => {
         setTimeout(() => {
+          // TODO: fix this
           // Give time render and jobs to quit safely.
+          if (this.#daggerState.value === "Finished") {
+            process.exit(0);
+          }
           process.exit(1);
         }, 2000);
       });
