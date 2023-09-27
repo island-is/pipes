@@ -59,7 +59,7 @@
     "@dagger.io/dagger": "0.8.4",
     "@types/react": "18.2.0",
     "@types/react-reconciler": "0.28.2",
-    "ansi-escapes": "6.0.0",
+    "ansi-escapes": "6.2.0",
     "auto-bind": "5.0.1",
     "ava": "5.1.1",
     "boxen": "7.0.1",
