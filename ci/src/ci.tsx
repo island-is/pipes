@@ -1,4 +1,6 @@
-import { createPipe } from "@island-is/pipes-core";
+import { PipesDOM, createPipe } from "@island-is/pipes-core";
+import render from "@island-is/pipes-core/src/utils/ink/render.js";
+import React from "react";
 
 import { buildCoreContext } from "./build/build.js";
 import { GlobalConfig } from "./config.js";
@@ -7,11 +9,14 @@ import { devImageInstallContext } from "./install/dev-image.js";
 
 await createPipe(() => {
   const tasks = [devImageInstallContext, workspaceTestContext, buildCoreContext];
-  if (GlobalConfig.action === "Release") {
-    return [...tasks];
-  }
-  if (GlobalConfig.action === "Test") {
-    return [...tasks];
-  }
-  throw new Error("Not defined");
+  Object.keys(GlobalConfig).forEach((key) =>
+    render(
+      <PipesDOM.Info>
+        {key}:{GlobalConfig[key as keyof typeof GlobalConfig]}
+      </PipesDOM.Info>,
+      { forceRenderNow: true },
+    ),
+  );
+
+  return [...tasks];
 });

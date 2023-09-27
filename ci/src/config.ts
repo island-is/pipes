@@ -23,15 +23,6 @@ export const GlobalConfig = (() => {
         },
       })
       .parse(undefined),
-    releaseSHA: z
-      .string()
-      .optional()
-      .default(undefined, {
-        env: "RELEASE_SHA",
-        arg: {
-          long: "release-sha",
-        },
-      }),
     npmAuthToken: z.string().optional().default(undefined, { env: "NPM_TOKEN" }).parse(undefined),
     action: z
       .union([z.literal("Test"), z.literal("Release")])
