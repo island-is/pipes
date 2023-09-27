@@ -119,7 +119,7 @@
     "@types/stack-utils": "1.0.1",
     "@types/tar-stream": "3",
     "@types/which": "3",
-    "@types/wrap-ansi": "3.0.0",
+    "@types/wrap-ansi": "8.0.1",
     "@types/ws": "8.5.4",
     "eslint": "8.47.0",
     "node-fetch": "3.3.2",
