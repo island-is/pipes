@@ -32,7 +32,7 @@ export const PipesNodeContext = createContext<PipesNodeModule>(
       value: z.object({
         args: z.array(z.string().default(".")),
         relativeCwd: z.string().optional(),
-        packageManager: z.union([z.literal("yarn"), z.literal("npm")]),
+        packageManager: z.union([z.literal("yarn"), z.literal("npm")]).optional(),
       }),
       output: RunStateSchema,
       implement: run,

@@ -1,6 +1,7 @@
 import fsSync from "node:fs";
 
 import {
+  type Container,
   ContextHasModule,
   type ModuleReturnType,
   type PipesCoreModule,
@@ -48,7 +49,11 @@ interface IGitHubConfig {
 }
 
 interface IGitHubContext {
-  githubNodePublish: (prop: { token: string; relativeWorkDir: string }) => Promise<void>;
+  githubNodePublish: (prop: {
+    token: string;
+    relativeWorkDir: string;
+    container: Container | undefined;
+  }) => Promise<void>;
   githubGetTagsFromPR: (prop: { prNumber: number }) => Promise<string[]>;
   githubDeleteMergedBranch: (prop: { branchName: string }) => Promise<void>;
   githubDeleteCurrentMergedBranch: () => Promise<void>;
@@ -172,35 +177,35 @@ const GitHubConfig = createConfig<PipesGitHubModule>(({ z }) => ({
 }));
 
 const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubModule["Context"]["Implement"] => ({
-  githubNodePublish: fn<{ token: string; relativeWorkDir: string }, Promise<void>>({
-    value: z.object({ token: z.string(), relativeWorkDir: z.string() }),
+  githubNodePublish: fn<{ token: string; relativeWorkDir: string; container?: Container | undefined }, Promise<void>>({
+    value: z.object({ token: z.string(), relativeWorkDir: z.string(), container: z.custom<Container>().optional() }),
     output: z.promise(z.void()),
     implement: async (context, _config, props) => {
       if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
-        let value = await context.nodeRun({
-          args: ["config", "set", "registry", "https://npm.pkg.github.com"],
-          packageManager: "npm",
-          relativeCwd: props.relativeWorkDir,
-        });
-        if (value.state === "Error") {
-          throw new Error(`Failled setting registry with error ${value.error}`);
+        const oldContainer = props.container ?? (await context.nodePrepareContainer());
+        const value = await oldContainer.withExec(["ls"]).stdout();
+        console.log({ value });
+        const workDir = "/build";
+        const files = oldContainer.directory(props.relativeWorkDir);
+        const container = (await context.nodeGetContainer()).withDirectory(workDir, files);
+
+        const fn = async (cmd: string[]): Promise<boolean> => {
+          await container
+            .withWorkdir(workDir)
+            .withExec(["npm", ...cmd])
+            .sync();
+          return true;
+        };
+        if (!(await fn(["config", "set", "registry"]))) {
+          throw new Error(`Failled setting registry`);
         }
-        value = await context.nodeRun({
-          args: ["config", "set", `_authToken=${props.token}`],
-          packageManager: "npm",
-          relativeCwd: props.relativeWorkDir,
-        });
-        if (value.state === "Error") {
-          throw new Error(`Failled setting token with error ${value.error}`);
+        if (!(await fn(["config", "set", `_authToken=${props.token}`]))) {
+          throw new Error(`Failled setting token`);
         }
-        value = await context.nodeRun({
-          args: ["publish", "--registry", "https://npm.pkg.github.com"],
-          packageManager: "npm",
-          relativeCwd: props.relativeWorkDir,
-        });
-        if (value.state === "Error") {
-          throw new Error(`Failled publishing with error ${value.error}`);
+        if (!(await fn(["publish", "--registry", "https://npm.pkg.github.com"]))) {
+          throw new Error(`Failled publishing`);
         }
+
         return;
       }
       throw new Error("Node module not set in context");

@@ -64,26 +64,26 @@ const createBuildContext = (props: Props) => {
     };
     await createTask(
       async () => {
-        if (GlobalConfig.action === "Release" && GlobalConfig.npmAuthToken && GlobalConfig.version) {
-          const publishContext = createPipesCore()
-            .addModule<PipesNodeModule>(PipesNode)
-            .addModule<PipesGitHubModule>(PipesGitHub);
-          publishContext.config.nodeWorkDir = buildContext.config.nodeWorkDir;
-          publishContext.config.nodeImageKey = buildContext.config.nodeImageKey;
-          publishContext.addScript(async (context) => {
-            await context.githubNodePublish({
-              token: GlobalConfig.npmAuthToken,
-              relativeWorkDir: `${props.relativeWorkDir}/dist`,
-            });
-          });
-          context.addContextToCore({ context: publishContext });
-        }
         await Promise.all([fn("lint"), fn("test"), fn("build")]);
         if (!container) {
           throw new Error(`Container not set`);
         }
         await (await context.imageStore).setKey(`node-${newKey}`, container);
-
+        if (GlobalConfig.action === "Release" && GlobalConfig.npmAuthToken && GlobalConfig.version) {
+          const publishContext = createPipesCore()
+            .addModule<PipesNodeModule>(PipesNode)
+            .addModule<PipesGitHubModule>(PipesGitHub);
+          publishContext.config.nodeWorkDir = buildContext.config.nodeWorkDir;
+          publishContext.addDependency(buildContext.symbol);
+          publishContext.config.nodeImageKey = newKey;
+          publishContext.addScript(async (context) => {
+            await context.githubNodePublish({
+              token: GlobalConfig.npmAuthToken,
+              relativeWorkDir: "./dist",
+            });
+          });
+          context.addContextToCore({ context: publishContext });
+        }
         (props.dependendants ?? []).forEach((dep) => {
           const newContext = createBuildContext({ required: buildContext, ...dep, imageKey: newKey });
           context.addContextToCore({ context: newContext });

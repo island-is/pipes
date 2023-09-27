@@ -8,6 +8,7 @@ import { devImageInstallContext } from "./install/dev-image.js";
 
 await createPipe(() => {
   const tasks = [devImageInstallContext, workspaceTestContext, buildCoreContext];
+
   Object.keys(GlobalConfig).forEach((key) =>
     PipesDOM.render(
       <PipesDOM.Info>
