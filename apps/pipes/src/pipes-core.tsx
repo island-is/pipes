@@ -243,7 +243,7 @@ export class PipesCoreRunner {
         setTimeout(() => {
           // Give time render and jobs to quit safely.
           process.exit(1);
-        }, 500);
+        }, 2000);
       });
   }
 }

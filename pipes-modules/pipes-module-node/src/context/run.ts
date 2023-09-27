@@ -1,12 +1,13 @@
 import { join } from "path/posix";
 
-import { type removeContextCommand, z } from "@island-is/pipes-core";
+import { Container, type removeContextCommand, z } from "@island-is/pipes-core";
 
 import type { PipesNodeModule } from "../interface.js";
 
 export interface RunStateMessage {
   state: "Success";
   stdout: string;
+  container: Container;
 }
 export interface RunStateError {
   state: "Error";
@@ -18,10 +19,19 @@ export const RunStateSchema = z.promise(
     if (typeof value !== "object" || value === null) {
       throw new Error(`Invalid format`);
     }
-    if ("state" in value && value.state === "Success" && "stdout" in value && typeof value.stdout === "string") {
+    if (
+      "state" in value &&
+      value.state === "Success" &&
+      "stdout" in value &&
+      typeof value.stdout === "string" &&
+      "container" in value &&
+      value.container &&
+      value.container instanceof Container
+    ) {
       return {
         state: value.state,
         stdout: value.stdout,
+        container: value.container,
       };
     }
     if ("state" in value && value.state === "Error" && "error" in value) {
@@ -51,6 +61,7 @@ export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["
       .stdout();
     return {
       state: "Success",
+      container,
       stdout,
     };
   } catch (error) {

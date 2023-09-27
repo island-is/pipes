@@ -6,7 +6,7 @@ import React from "react";
 import { GlobalConfig } from "../config.js";
 import { devImageInstallContext } from "../install/dev-image.js";
 
-import type { Simplify } from "@island-is/pipes-core";
+import type { Container, Simplify } from "@island-is/pipes-core";
 import type { PipesGitHubModule } from "@island-is/pipes-module-github";
 
 type RemoveAllKeysStartingWithHash<T> = {
@@ -23,17 +23,22 @@ interface Dependentans {
 
 interface Props extends Dependentans {
   required?: Context;
+  imageKey?: string;
 }
 const createBuildContext = (props: Props) => {
   const buildContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);
   buildContext.config.appName = `Build ${props.relativeWorkDir}`;
   if (props.required) {
-    buildContext.config.nodeWorkDir = (props.required.config as any).nodeWorkDir;
+    buildContext.config.nodeWorkDir = devImageInstallContext.config.nodeWorkDir;
     buildContext.config.nodeImageKey = (props.required.config as any).nodeImageKey;
     buildContext.addDependency(props.required.symbol);
   }
-
-  buildContext.addScript(async (context) => {
+  if (props.imageKey) {
+    buildContext.config.nodeImageKey = props.imageKey;
+  }
+  buildContext.addScript(async (context, config) => {
+    let container: Container;
+    const newKey = `${config.nodeImageKey}-build-${props.relativeWorkDir}`;
     const fn = async (value: string) => {
       const stateValue = await context.nodeRun({ args: ["run", value], relativeCwd: props.relativeWorkDir });
       if (stateValue.state === "Error") {
@@ -52,7 +57,9 @@ const createBuildContext = (props: Props) => {
           },
         );
         context.haltAll();
-        throw new Error(`Failed ${value}`);
+        throw new Error(`Failed ${value} with error ${JSON.stringify(stateValue.error)}`);
+      } else if (stateValue.state === "Success" && value === "build") {
+        container = stateValue.container;
       }
     };
     await createTask(
@@ -71,20 +78,17 @@ const createBuildContext = (props: Props) => {
           });
           context.addContextToCore({ context: publishContext });
         }
+
+        await Promise.all([fn("lint"), fn("test"), fn("build")]);
+        if (!container) {
+          throw new Error(`Container not set`);
+        }
+        await (await context.imageStore).setKey(newKey, container);
+
         (props.dependendants ?? []).forEach((dep) => {
-          const newContext = createBuildContext({ required: buildContext, ...dep });
+          const newContext = createBuildContext({ required: buildContext, ...dep, imageKey: newKey });
           context.addContextToCore({ context: newContext });
         });
-        await Promise.all([fn("lint"), fn("test"), fn("build")]);
-        if (GlobalConfig.action === "Release") {
-          await context.nodeModifyPackageJSON({
-            relativeCwd: props.relativeWorkDir,
-            fn: (packageJSON) => {
-              packageJSON.version = GlobalConfig.version;
-              return packageJSON;
-            },
-          });
-        }
       },
       {
         inProgress: `Building ${props.relativeWorkDir}`,
