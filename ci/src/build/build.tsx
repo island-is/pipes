@@ -78,12 +78,11 @@ const createBuildContext = (props: Props) => {
           });
           context.addContextToCore({ context: publishContext });
         }
-
         await Promise.all([fn("lint"), fn("test"), fn("build")]);
         if (!container) {
           throw new Error(`Container not set`);
         }
-        await (await context.imageStore).setKey(newKey, container);
+        await (await context.imageStore).setKey(`node-${newKey}`, container);
 
         (props.dependendants ?? []).forEach((dep) => {
           const newContext = createBuildContext({ required: buildContext, ...dep, imageKey: newKey });
@@ -95,7 +94,7 @@ const createBuildContext = (props: Props) => {
         finished: `Built ${props.relativeWorkDir}`,
         error: `Building ${props.relativeWorkDir} failed`,
       },
-      context,
+      context as any,
     );
   });
   return buildContext;

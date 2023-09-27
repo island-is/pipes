@@ -3,6 +3,12 @@ import { createConfig } from "@island-is/pipes-core";
 import type { PipesNodeModule } from "./interface.js";
 
 export const PipesNodeConfig = createConfig<PipesNodeModule>(({ z }) => ({
+  nodeDebug: z.boolean().default(false, {
+    env: "NODE_DEBUG",
+    arg: {
+      long: "nodeDebug",
+    },
+  }),
   nodePackageManager: z.union([z.literal("yarn"), z.literal("npm")]).default("yarn"),
   nodeImageKey: z.string().default("node-dev"),
   nodeWorkDir: z.string().default("/apps"),

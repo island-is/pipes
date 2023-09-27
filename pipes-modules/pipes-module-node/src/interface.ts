@@ -4,6 +4,7 @@ import type { PipesCoreModule, createModuleDef } from "@island-is/pipes-core";
 
 export interface IPipesNodeConfig {
   nodePackageManager: "yarn" | "npm";
+  nodeDebug: boolean;
   nodeVersion: "AUTO" | string;
   nodeWorkDir: string;
   nodeSourceDir: string;
