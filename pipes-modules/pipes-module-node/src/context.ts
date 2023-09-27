@@ -29,7 +29,11 @@ export const PipesNodeContext = createContext<PipesNodeModule>(
       implement: isVersionGreaterOrEqual,
     }),
     nodeRun: fn<{ args: string[]; relativeCwd?: string }, Promise<RunState>>({
-      value: z.object({ args: z.array(z.string().default(".")), relativeCwd: z.string().optional() }),
+      value: z.object({
+        args: z.array(z.string().default(".")),
+        relativeCwd: z.string().optional(),
+        packageManager: z.union([z.literal("yarn"), z.literal("npm")]),
+      }),
       output: RunStateSchema,
       implement: run,
     }),
