@@ -56,7 +56,7 @@
     "ts-toolbelt": "*"
   },
   "devDependencies": {
-    "@dagger.io/dagger": "0.8.4",
+    "@dagger.io/dagger": "0.8.7",
     "@island-is/eslint-config": "workspace:*",
     "@island-is/pipes-core": "workspace:*",
     "@island-is/prettier-config": "workspace:*",
