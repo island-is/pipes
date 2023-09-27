@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  tests:
+  release:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
