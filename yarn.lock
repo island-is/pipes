@@ -1110,6 +1110,7 @@ __metadata:
     eslint: "npm:8.47.0"
     mobx: "npm:6.10.2"
     prettier: "npm:3.0.2"
+    react: "npm:18.2.0"
     rollup: "npm:3.29.2"
     rollup-plugin-node-resolve: "npm:5.2.0"
     rollup-plugin-swc3: "npm:0.10.1"
@@ -1120,6 +1121,7 @@ __metadata:
     "@dagger.io/dagger": "*"
     "@island-is/pipes-core": "*"
     mobx: "*"
+    react: "*"
   languageName: unknown
   linkType: soft
 
