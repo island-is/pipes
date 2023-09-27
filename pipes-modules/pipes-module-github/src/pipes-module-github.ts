@@ -1,4 +1,5 @@
 import fsSync from "node:fs";
+import fsPromises from "node:fs/promises";
 
 import {
   type Container,
@@ -9,9 +10,11 @@ import {
   createContext,
   createModule,
   type createModuleDef,
+  onCleanup,
   z,
 } from "@island-is/pipes-core";
 import { Octokit } from "@octokit/rest";
+import { file } from "tmp-promise";
 
 import type { IPipesNodeContext, PipesNodeModule } from "@island-is/pipes-module-node";
 
@@ -183,11 +186,18 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
     implement: async (context, _config, props) => {
       if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
         const oldContainer = props.container ?? (await context.nodePrepareContainer());
-        const value = await oldContainer.withExec(["ls"]).stdout();
-        console.log({ value });
         const workDir = "/build";
+        const workDirnpmrc = `${workDir}/.npmrc`;
+        const { path, cleanup } = await file();
+        const cleanTmp = onCleanup(() => {
+          void cleanup();
+        });
+        await fsPromises.writeFile(path, `//npm.pkg.github.com/:_authToken=${props.token}`, "utf8");
+
         const files = oldContainer.directory(props.relativeWorkDir);
-        const container = (await context.nodeGetContainer()).withDirectory(workDir, files);
+        const container = (await context.nodeGetContainer())
+          .withDirectory(workDir, files)
+          .withFile(workDirnpmrc, context.client.host().file(path));
 
         const fn = async (cmd: string[]): Promise<boolean> => {
           await container
@@ -205,7 +215,7 @@ const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubM
         if (!(await fn(["publish", "--registry", "https://npm.pkg.github.com"]))) {
           throw new Error(`Failled publishing`);
         }
-
+        cleanTmp();
         return;
       }
       throw new Error("Node module not set in context");
