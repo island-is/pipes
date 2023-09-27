@@ -1011,7 +1011,7 @@ __metadata:
     "@types/stack-utils": "npm:1.0.1"
     "@types/tar-stream": "npm:3"
     "@types/which": "npm:3"
-    "@types/wrap-ansi": "npm:3.0.0"
+    "@types/wrap-ansi": "npm:8.0.1"
     "@types/ws": "npm:8.5.4"
     ansi-escapes: "npm:6.0.0"
     auto-bind: "npm:5.0.1"
@@ -2234,10 +2234,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wrap-ansi@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@types/wrap-ansi@npm:3.0.0"
-  checksum: 8aa644946ca4e859668c36b8e2bcf2ac4bdee59dac760414730ea57be8a93ae9166ebd40a088f2ab714843aaea2a2a67f0e6e6ec11cfc9c8701b2466ca1c4089
+"@types/wrap-ansi@npm:8.0.1":
+  version: 8.0.1
+  resolution: "@types/wrap-ansi@npm:8.0.1"
+  checksum: 6848a9b59f8b07b1bade57509a398e7004151148a42b7c1aa97dfd05f98d3a48cd159def23726b3afc51a5711c5248ccce4b31f528d5827d76dfa139a1c7fe20
   languageName: node
   linkType: hard
 
