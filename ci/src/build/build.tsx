@@ -80,6 +80,7 @@ const createBuildContext = (props: Props) => {
             await context.githubNodePublish({
               token: GlobalConfig.npmAuthToken,
               relativeWorkDir: "./dist",
+              unpublish: "ifExists",
             });
           });
           context.addContextToCore({ context: publishContext });

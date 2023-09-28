@@ -56,6 +56,7 @@ interface IGitHubContext {
     token: string;
     relativeWorkDir: string;
     container: Container | undefined;
+    unpublish: "ifExists" | "always" | "never" | undefined;
   }) => Promise<void>;
   githubGetTagsFromPR: (prop: { prNumber: number }) => Promise<string[]>;
   githubDeleteMergedBranch: (prop: { branchName: string }) => Promise<void>;
@@ -180,41 +181,67 @@ const GitHubConfig = createConfig<PipesGitHubModule>(({ z }) => ({
 }));
 
 const GitHubContext = createContext<PipesGitHubModule>(({ z, fn }): PipesGitHubModule["Context"]["Implement"] => ({
-  githubNodePublish: fn<{ token: string; relativeWorkDir: string; container?: Container | undefined }, Promise<void>>({
-    value: z.object({ token: z.string(), relativeWorkDir: z.string(), container: z.custom<Container>().optional() }),
+  githubNodePublish: fn<
+    {
+      token: string;
+      relativeWorkDir: string;
+      container?: Container | undefined;
+      unpublish?: "ifExists" | "always" | "never";
+    },
+    Promise<void>
+  >({
+    value: z.object({
+      token: z.string(),
+      relativeWorkDir: z.string(),
+      container: z.custom<Container>().optional(),
+      unpublish: z.union([z.literal("ifExists"), z.literal("always"), z.literal("never")]).default("never"),
+    }),
     output: z.promise(z.void()),
     implement: async (context, _config, props) => {
       if (ContextHasModule<IPipesNodeContext, "nodeRun", typeof context>(context, "nodeRun")) {
         const oldContainer = props.container ?? (await context.nodePrepareContainer());
         const workDir = "/build";
-        const workDirnpmrc = `${workDir}/.npmrc`;
+        const workDirNpmrc = `${workDir}/.npmrc`;
+        const workDirPackageJSON = `${workDir}/package.json`;
         const { path, cleanup } = await file();
         const cleanTmp = onCleanup(() => {
           void cleanup();
         });
-        await fsPromises.writeFile(path, `//npm.pkg.github.com/:_authToken=${props.token}`, "utf8");
 
+        await fsPromises.writeFile(path, `//npm.pkg.github.com/:_authToken=${props.token}`, "utf8");
         const files = oldContainer.directory(props.relativeWorkDir);
         const container = (await context.nodeGetContainer())
           .withDirectory(workDir, files)
-          .withFile(workDirnpmrc, context.client.host().file(path));
-
-        const fn = async (cmd: string[]): Promise<boolean> => {
-          await container
-            .withWorkdir(workDir)
-            .withExec(["npm", ...cmd])
-            .sync();
+          .withFile(workDirNpmrc, context.client.host().file(path));
+        const packageJSON = JSON.parse(await container.file(workDirPackageJSON).contents());
+        const fn = async (cmd: string[], message: string): Promise<boolean> => {
+          try {
+            await container
+              .withWorkdir(workDir)
+              .withExec(["npm", ...cmd])
+              .sync();
+          } catch (e) {
+            throw new Error(message);
+          }
           return true;
         };
-        if (!(await fn(["config", "set", "registry"]))) {
-          throw new Error(`Failled setting registry`);
+        const name = packageJSON.name as string;
+        const version = packageJSON.version as string;
+        if (props.unpublish !== "never") {
+          try {
+            await fn(
+              ["unpublish", `${name}@${version}`, "--registry", "https://npm.pkg.github.com"],
+              "Failled removing package",
+            );
+          } catch (e) {
+            if (props.unpublish === "ifExists") {
+              return;
+            }
+            throw e;
+          }
         }
-        if (!(await fn(["config", "set", `_authToken=${props.token}`]))) {
-          throw new Error(`Failled setting token`);
-        }
-        if (!(await fn(["publish", "--registry", "https://npm.pkg.github.com"]))) {
-          throw new Error(`Failled publishing`);
-        }
+        await fn(["publish", "--registry", "https://npm.pkg.github.com"], "Failled publishing");
+
         cleanTmp();
         return;
       }
