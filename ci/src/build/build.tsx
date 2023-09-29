@@ -6,15 +6,8 @@ import React from "react";
 import { GlobalConfig } from "../config.js";
 import { devImageInstallContext } from "../install/dev-image.js";
 
-import type { Container, Simplify } from "@island-is/pipes-core";
+import type { Container, PipesCoreClass, PipesCoreModule } from "@island-is/pipes-core";
 import type { PipesGitHubModule } from "@island-is/pipes-module-github";
-
-type RemoveAllKeysStartingWithHash<T> = {
-  [K in keyof T as string extends K ? never : K extends `${"#"}${infer _Rest}` ? never : K]: T[K];
-};
-
-const _context = createPipesCore().addModule<PipesNodeModule>(PipesNode);
-type Context = Simplify<RemoveAllKeysStartingWithHash<typeof _context>>;
 
 interface Dependentans {
   relativeWorkDir: string;
@@ -22,7 +15,7 @@ interface Dependentans {
 }
 
 interface Props extends Dependentans {
-  required?: Context;
+  required?: PipesCoreClass<[PipesCoreModule, PipesNodeModule]>;
   imageKey?: string;
 }
 const createBuildContext = (props: Props) => {
@@ -30,7 +23,7 @@ const createBuildContext = (props: Props) => {
   buildContext.config.appName = `Build ${props.relativeWorkDir}`;
   if (props.required) {
     buildContext.config.nodeWorkDir = devImageInstallContext.config.nodeWorkDir;
-    buildContext.config.nodeImageKey = (props.required.config as any).nodeImageKey;
+    buildContext.config.nodeImageKey = props.required.config.nodeImageKey;
     buildContext.addDependency(props.required.symbol);
   }
   if (props.imageKey) {
@@ -77,6 +70,7 @@ const createBuildContext = (props: Props) => {
           publishContext.addDependency(buildContext.symbol);
           publishContext.config.nodeImageKey = newKey;
           publishContext.addScript(async (context) => {
+            await context.githubUploadArtifact({});
             await context.githubNodePublish({
               token: GlobalConfig.npmAuthToken,
               relativeWorkDir: "./dist",
