@@ -16,7 +16,7 @@ import {
 import type { RunState } from "./context/context.js";
 import type { PipesNodeModule } from "./interface.js";
 
-export const PipesNodeContext = createContext<PipesNodeModule>(
+export const PipesNodeContext: (prop: any) => PipesNodeModule["Context"]["Implement"] = createContext<PipesNodeModule>(
   ({ z, fn }): PipesNodeModule["Context"]["Implement"] => ({
     nodeModifyPackageJSON: fn<{ relativeCwd: string; fn: (value: any) => any | Promise<any> }, Promise<void>>({
       value: z.object({ relativeCwd: z.string(), fn: z.function(z.tuple([z.any()]), z.any()) }),

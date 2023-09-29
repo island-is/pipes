@@ -68,7 +68,7 @@ export type CreateModule<
   /** @ts-expect-error - Not gonna define this better since this should not be defined manually. */
   Implementation extends SubsetKeys<OutsideInterface, Implementation> = getImplementation<OutsideInterface, Definition>,
   NewContext = ModuleContext<Definition, MergedInterface, OutsideInterface, Implementation, MergedImplement>,
-> = Module<Name, Definition, NewConfig, NewContext, RequiredModules, OptionalModules>;
+> = Simplify<Module<Name, Definition, NewConfig, NewContext, RequiredModules, OptionalModules>>;
 
 export type newModuleName<T> = T;
 export type moduleNameToString<T> = T;

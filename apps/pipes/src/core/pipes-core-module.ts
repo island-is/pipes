@@ -14,7 +14,7 @@ import type { createModuleDef as _createModuleDef } from "./create-module.js";
 import type { AnyModule, ModuleName, moduleNameToString } from "./types/module.js";
 import type { createZodKeyStore, z } from "../utils/zod/zod.js";
 
-interface IPipesCoreContext {
+export interface IPipesCoreContext {
   startTime: Date;
   getDurationInMs: () => number;
   client: Client;
@@ -27,7 +27,7 @@ interface IPipesCoreContext {
   addContextToCore: (props: { context: { run: () => Promise<any> } }) => void;
 }
 
-interface IPipesCoreConfig {
+export interface IPipesCoreConfig {
   appName: string;
   isCI: boolean;
   isPR: boolean;
@@ -36,7 +36,7 @@ interface IPipesCoreConfig {
 
 export type PipesCoreModule = _createModuleDef<"PipesCore", IPipesCoreContext, IPipesCoreConfig>;
 
-const PipesCoreConfig = createConfig<PipesCoreModule>(({ z }) => ({
+export const PipesCoreConfig = createConfig<PipesCoreModule>(({ z }) => ({
   appName: z.string().default("pipes").describe("The name of the context"),
   env: z
     .union([z.literal("github"), z.literal("gitlab"), z.literal("local")])
@@ -66,61 +66,63 @@ const PipesCoreConfig = createConfig<PipesCoreModule>(({ z }) => ({
     .describe("Is the current environment a PR environment"),
 }));
 
-const PipesCoreContext = createContext<PipesCoreModule>(({ z, fn }): PipesCoreModule["Context"]["Implement"] => ({
-  startTime: z.date().default(new Date()),
-  getDurationInMs: fn<undefined, number>({
-    output: z.number(),
-    implement: (context) => {
-      const currentTime = new Date();
-      return currentTime.getTime() - context.startTime.getTime();
-    },
-  }),
-  addContextToCore: fn({
-    implement: () => {
-      throw new Error(`This should be overwritten`);
-    },
-  }),
-  haltAll: fn<undefined, undefined>({
-    implement: () => {},
-  }),
-  addEnv: fn<{ container: Container; env: [string, string][] }, Container>({
-    output: z.custom<Container>(),
-    value: z.object({ container: z.custom<Container>(), env: z.array(z.tuple([z.string(), z.string()])) }),
-    implement: (_context, _config, { container, env }) => {
-      let newContainer = container;
-      for (const [key, value] of env) {
-        newContainer = newContainer.withEnvVariable(key, value);
-      }
-      return newContainer;
-    },
-  }),
-  modules: z.array(z.string()).default([]).describe("The modules to load"),
-  stack: z.array(z.string()).default([]).describe("The caller stack"),
-  imageStore: z.custom<Promise<ReturnType<typeof createZodKeyStore<z.ZodType<Container>>>>>(() => {
-    return createGlobalZodKeyStore(
-      z.custom<Container>((val) => {
-        if (val instanceof Container) {
-          return val;
+export const PipesCoreContext: (prop: any) => PipesCoreModule["Context"]["Implement"] = createContext<PipesCoreModule>(
+  ({ z, fn }): PipesCoreModule["Context"]["Implement"] => ({
+    startTime: z.date().default(new Date()),
+    getDurationInMs: fn<undefined, number>({
+      output: z.number(),
+      implement: (context) => {
+        const currentTime = new Date();
+        return currentTime.getTime() - context.startTime.getTime();
+      },
+    }),
+    addContextToCore: fn({
+      implement: () => {
+        throw new Error(`This should be overwritten`);
+      },
+    }),
+    haltAll: fn<undefined, undefined>({
+      implement: () => {},
+    }),
+    addEnv: fn<{ container: Container; env: [string, string][] }, Container>({
+      output: z.custom<Container>(),
+      value: z.object({ container: z.custom<Container>(), env: z.array(z.tuple([z.string(), z.string()])) }),
+      implement: (_context, _config, { container, env }) => {
+        let newContainer = container;
+        for (const [key, value] of env) {
+          newContainer = newContainer.withEnvVariable(key, value);
         }
-        throw new Error("Invalid value");
-      }),
-      "PIPES-IMAGE-STORE",
-    );
+        return newContainer;
+      },
+    }),
+    modules: z.array(z.string()).default([]).describe("The modules to load"),
+    stack: z.array(z.string()).default([]).describe("The caller stack"),
+    imageStore: z.custom<Promise<ReturnType<typeof createZodKeyStore<z.ZodType<Container>>>>>(() => {
+      return createGlobalZodKeyStore(
+        z.custom<Container>((val) => {
+          if (val instanceof Container) {
+            return val;
+          }
+          throw new Error("Invalid value");
+        }),
+        "PIPES-IMAGE-STORE",
+      );
+    }),
+    client: z.custom<Client>((val) => {
+      if (val instanceof Client) {
+        return val;
+      }
+      throw new Error("Provided client is not an instance of the expected Client class.");
+    }),
+    hasModule: fn<string, boolean>({
+      output: z.boolean(),
+      value: z.string(),
+      implement: (context, _config, value) => {
+        return context.modules.includes(value as any);
+      },
+    }),
   }),
-  client: z.custom<Client>((val) => {
-    if (val instanceof Client) {
-      return val;
-    }
-    throw new Error("Provided client is not an instance of the expected Client class.");
-  }),
-  hasModule: fn<string, boolean>({
-    output: z.boolean(),
-    value: z.string(),
-    implement: (context, _config, value) => {
-      return context.modules.includes(value as any);
-    },
-  }),
-}));
+);
 
 export const PipesCore: {
   name: PipesCoreModule["ModuleName"];
