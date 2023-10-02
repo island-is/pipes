@@ -104,12 +104,7 @@ export class GithubRelease {
       await this.#setImage(release.data);
       return release.data;
     } catch (e) {
-      if (typeof e === "object" && e && e && "status" in e) {
-        if (e.status === 404) {
-          return { id: null };
-        }
-      }
-      throw e;
+      return { id: null };
     }
   }
 
