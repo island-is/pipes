@@ -9,7 +9,7 @@ import { devImageInstallContext } from "./install/dev-image.js";
 await createPipe(async () => {
   const tasks = [devImageInstallContext, workspaceTestContext, buildCoreContext];
   if (GlobalConfig.npmAuthToken) {
-    await PipesDOM.render(<PipesDOM.Mask values={["GlobalConfig.npmAuthToken"]} />, {
+    await PipesDOM.render(<PipesDOM.Mask values={[GlobalConfig.npmAuthToken]} />, {
       forceRenderNow: true,
     });
   }
