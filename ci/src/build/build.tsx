@@ -79,9 +79,7 @@ const createBuildContext = (props: Props) => {
             if (props.createRelease) {
               await context.githubRelease({ version: GlobalConfig.version });
             }
-            const files = (await context.nodePrepareContainer()).directory(
-              join(buildContext.config.nodeWorkDir, "./dist"),
-            );
+            const files = (await context.nodePrepareContainer()).directory("./dist");
             await context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.version });
             await context.githubNodePublish({
               token: GlobalConfig.npmAuthToken,

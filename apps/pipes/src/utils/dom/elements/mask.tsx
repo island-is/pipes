@@ -1,7 +1,6 @@
 import ciinfo from "ci-info";
 import React from "react";
 
-import { Transform } from "../../ink/index.js";
 import { Command } from "../github-command.js";
 
 import type { ReactNode } from "react";
@@ -12,13 +11,10 @@ export const Mask = (props: Omit<IMask, "type">): ReactNode => {
     return <></>;
   }
   const values = [props.values].flat();
-  return (
-    <Transform
-      transform={(line) => {
-        return `${new Command("add-mask", {}, line).toString()}\n`;
-      }}
-    >
-      {values.map((value) => value)}
-    </Transform>
-  );
+  values.forEach((value: string) => {
+    process.stdout.write(new Command("add-mask", {}, value).toString());
+    process.stdout.write("\n");
+  });
+
+  return <></>;
 };
