@@ -147,6 +147,7 @@ export class GithubRelease {
         release_id: this.#releaseId,
         repo: input.repo,
       });
+      console.log(value);
       if (value && Array.isArray(value)) {
         await AssetsStore.setKey(this.#getImageKey(), value);
         return value;
