@@ -1,8 +1,5 @@
 import { createGlobalZodKeyStore, z } from "@island-is/pipes-core";
 
-import { ArtifactsSchema } from "./artifact.js";
-
-import type { ArtifactSchema } from "./artifact.js";
 import type { Simplify } from "@island-is/pipes-core";
 import type { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods";
 import type { Octokit } from "@octokit/rest";
@@ -15,6 +12,16 @@ export type ReleaseByTagResponse = Simplify<RestEndpointMethodTypes["repos"]["ge
 export type ListReleaseAssetsResponseData = Simplify<
   RestEndpointMethodTypes["repos"]["listReleaseAssets"]["response"]["data"]
 >;
+
+export const ArtifactSchema = z.object({
+  name: z.string(),
+  data: z.custom<Buffer>((value) => {
+    if (value instanceof Buffer) {
+      return value;
+    }
+    throw new Error("Invalid value");
+  }),
+});
 export const ReleaseInput = z.object({
   state: z
     .union([
@@ -25,9 +32,10 @@ export const ReleaseInput = z.object({
     ])
     .default("create_or_update"),
   artifactState: z.union([z.literal("update"), z.literal("deleteAll"), z.literal("leaveAlone")]).default("update"),
-  artifacts: ArtifactsSchema.default([]),
+  artifacts: z.array(ArtifactSchema).default([]),
   owner: z.string(),
   repo: z.string(),
+  targetCommitish: z.string(),
   tag: z.string(),
   name: z.string().optional(),
   body: z.string().optional(),
@@ -55,7 +63,7 @@ export class GithubRelease {
   set #releaseId(value: null | number) {
     this.#_releaseId = value;
   }
-  #getProps(props: InputOptional = null) {
+  #getProps(props: InputOptional = null): z.infer<typeof ReleaseInput> {
     return ReleaseInput.parse({ ...props, ...this.#input });
   }
   async #init(props: InputOptional = null) {
@@ -177,21 +185,42 @@ export class GithubRelease {
     if (this.#input.artifactState === "leaveAlone") {
       return;
     }
-    if (!this.#_releaseId) {
+    if (!this.#_releaseId || !this.#repo) {
       // Release ID is null?!?!
       if (input.state !== "only_upload_artifacts") {
         throw new Error("Release empty");
       }
       await this.#waitForImage(newInput);
+      if (this.#_releaseId == null || !this.#repo) {
+        throw new Error(`Release is empty`);
+      }
     }
+    const url = this.#repo.upload_url;
     if (input.artifactState === "update") {
-      await this.#deleteArtifactByName(artifact.title, newInput);
+      await this.#deleteArtifactByName(artifact.name, newInput);
     }
-
+    const { owner, repo } = input;
+    const release_id = this.#_releaseId;
+    const { name, data } = artifact;
+    const contentType = "application/zip";
+    const contentLength = data.length;
+    await this.#git.rest.repos.uploadReleaseAsset({
+      headers: {
+        "content-type": contentType,
+        "content-length": contentLength,
+      },
+      owner,
+      repo,
+      url,
+      release_id,
+      name,
+      // expects string but buffer is valid: https://github.com/octokit/octokit.js/discussions/2087
+      data: data as unknown as string,
+    });
     // Upload artifact
   }
   async #update(newInput: InputOptional = null): Promise<void> {
-    const { body, name, owner, repo, tag, state } = this.#getProps(newInput);
+    const { body, name, owner, repo, tag, state, targetCommitish } = this.#getProps(newInput);
     if (state === "only_upload_artifacts") {
       return;
     }
@@ -207,16 +236,17 @@ export class GithubRelease {
         owner,
         repo,
         tag_name: tag,
+        target_commitish: targetCommitish,
       });
       this.#repo = value.data;
       this.#releaseId = value.data.id;
       return;
     }
-    // Updating release
+    // Updating release as keyof typeof newValues
     if (state === "create") {
       throw new Error(`Release already exists`);
     }
-    const newValues = { body, name, tag };
+    const newValues = { body, name, tag_name: tag, target_commitish: targetCommitish };
     const changedValues = (() => {
       const keys = ["body", "name", "tag_name"] as const;
       if (!this.#repo) {
@@ -229,12 +259,12 @@ export class GithubRelease {
           }
           // @ts-ignore - any is ok
           const currentValue = this.#repo && e in this.#repo ? (this.#repo[e as any] as any) : null;
-          if (currentValue === newValues[e as keyof typeof newValues]) {
+          if (currentValue === newValues[e]) {
             return false;
           }
           return true;
         })
-        .map((e) => newValues[e as keyof typeof newValues]);
+        .map((e) => newValues[e]);
       const oldKeys = keys.filter((e) => !changedKeys.includes(e));
       return keys.reduce(
         (a, b) => {
@@ -246,7 +276,7 @@ export class GithubRelease {
           }
           return {
             ...a,
-            [b]: newValues[b as keyof typeof newValues],
+            [b]: newValues[b],
           };
         },
         {} as unknown as { [key in (typeof keys)[number]]: any },
@@ -262,6 +292,7 @@ export class GithubRelease {
       name,
       owner,
       repo,
+      target_commitish: targetCommitish,
       tag_name: tag,
     });
     await this.#setImage(value.data, newInput);

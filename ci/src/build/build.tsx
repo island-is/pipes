@@ -1,3 +1,5 @@
+import { join } from "path/posix";
+
 import { PipesDOM, createPipesCore, createTask } from "@island-is/pipes-core";
 import { PipesGitHub } from "@island-is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
@@ -10,11 +12,14 @@ import type { Container, PipesCoreClass, PipesCoreModule } from "@island-is/pipe
 import type { PipesGitHubModule } from "@island-is/pipes-module-github";
 
 interface Dependentans {
+  name: string;
   relativeWorkDir: string;
   dependendants?: Dependentans[];
 }
 
 interface Props extends Dependentans {
+  createRelease?: boolean;
+  name: string;
   required?: PipesCoreClass<[PipesCoreModule, PipesNodeModule]>;
   imageKey?: string;
 }
@@ -70,7 +75,13 @@ const createBuildContext = (props: Props) => {
           publishContext.addDependency(buildContext.symbol);
           publishContext.config.nodeImageKey = newKey;
           publishContext.addScript(async (context) => {
-            await context.githubUploadArtifact({});
+            if (props.createRelease) {
+              await context.githubRelease({ version: GlobalConfig.version });
+            }
+            const files = (await context.nodePrepareContainer()).directory(
+              join(buildContext.config.nodeWorkDir, "./dist"),
+            );
+            await context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.version });
             await context.githubNodePublish({
               token: GlobalConfig.npmAuthToken,
               relativeWorkDir: "./dist",
@@ -96,16 +107,21 @@ const createBuildContext = (props: Props) => {
 };
 
 export const buildCoreContext = createBuildContext({
+  name: "pipes-core",
   required: devImageInstallContext,
   relativeWorkDir: "./apps/pipes",
+  createRelease: true,
   dependendants: [
     {
+      name: "create-pipes",
       relativeWorkDir: "./apps/create-pipes",
     },
     {
+      name: "pipes-module-node",
       relativeWorkDir: "./pipes-modules/pipes-module-node",
       dependendants: [
         {
+          name: "pipes-module-github",
           relativeWorkDir: "./pipes-modules/pipes-module-github",
         },
       ],

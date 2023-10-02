@@ -5,4 +5,5 @@ export interface IGitHubConfig {
   githubOwner: string;
   githubRepo: string;
   githubCurrentPr: GithubPR;
+  githubCommitSHA: string;
 }

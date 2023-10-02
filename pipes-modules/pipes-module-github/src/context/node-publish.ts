@@ -30,7 +30,7 @@ export const GithubNodePublish: removeContextCommand<
     const workDir = "/build";
     const workDirNpmrc = `${workDir}/.npmrc`;
     const workDirPackageJSON = `${workDir}/package.json`;
-    const { path, cleanup } = await file();
+    const { path, cleanup } = await file({ postfix: ".json" });
     const cleanTmp = onCleanup(() => {
       void cleanup();
     });

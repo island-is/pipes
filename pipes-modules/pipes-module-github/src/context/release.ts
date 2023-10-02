@@ -5,9 +5,23 @@ import type { removeContextCommand } from "@island-is/pipes-core";
 
 export const GithubRelease: removeContextCommand<PipesGitHubModule["Context"]["Implement"]["githubRelease"]> = async (
   context,
-  _config,
+  config,
   props,
 ) => {
+  const owner = config.githubOwner;
+  const repo = config.githubRepo;
   const octokit = context.githubGetOctokit();
-  await GithubReleaseAction.process(props, octokit);
+  const body: { body: string } | Record<string, never> = props.body ? { body: props.body } : {};
+  await GithubReleaseAction.process(
+    {
+      ...body,
+      owner,
+      repo,
+      artifactState: "leaveAlone",
+      tag: `v${props.version}`,
+      name: props.version,
+      targetCommitish: config.githubCommitSHA,
+    },
+    octokit,
+  );
 };

@@ -1,13 +1,10 @@
-import { createContext } from "@island-is/pipes-core";
-
-import { ArtifactUploadSchema } from "../interface.js";
-import { ReleaseInput } from "../release.js";
+import { type Directory, createContext } from "@island-is/pipes-core";
 
 import { GetOctokitParseOutput, GithubGetOctoKit } from "./get-octokit.js";
 import { GithubInitPr } from "./init-pr.js";
 import { GithubNodePublish, GithubNodePublishParseInput, GithubNodePublishParseOutput } from "./node-publish.js";
 import { GithubRelease } from "./release.js";
-import { GithubUploadArtifact } from "./upload-artifact.js";
+import { GithubUploadArtifact, UploadArtifactSchema } from "./upload-artifact.js";
 import {
   WriteComment,
   WriteCommentCurrentParseInput,
@@ -26,8 +23,6 @@ import type {
   WriteCommentOutput,
 } from "./write-comment.js";
 import type { PipesGitHubModule } from "../interface-module.js";
-import type { ArtifactUpload } from "../interface.js";
-import type { z } from "@island-is/pipes-core";
 import type { Octokit } from "@octokit/rest";
 
 export const GitHubContext: (prop: any) => PipesGitHubModule["Context"]["Implement"] = createContext<PipesGitHubModule>(
@@ -57,13 +52,13 @@ export const GitHubContext: (prop: any) => PipesGitHubModule["Context"]["Impleme
       output: WriteCommentParseOutput,
       implement: WriteComment,
     }),
-    githubUploadArtifact: fn<ArtifactUpload, Promise<void>>({
-      value: ArtifactUploadSchema,
+    githubUploadArtifact: fn<{ version: string; name: string; files: Directory }, Promise<void>>({
+      value: UploadArtifactSchema,
       output: z.custom<Promise<void>>(),
       implement: GithubUploadArtifact,
     }),
-    githubRelease: fn<z.input<typeof ReleaseInput>, Promise<void>>({
-      value: ReleaseInput,
+    githubRelease: fn<{ version: string; body?: string | undefined }, Promise<void>>({
+      value: z.object({ version: z.string(), body: z.string().optional() }),
       output: z.custom<Promise<void>>(),
       implement: GithubRelease,
     }),

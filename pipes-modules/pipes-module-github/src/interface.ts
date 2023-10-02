@@ -1,6 +1,3 @@
-import { z } from "@island-is/pipes-core";
-
-import { ArtifactSchema } from "./artifact.js";
 import { ReleaseInput } from "./release.js";
 
 export type GithubUser = {
@@ -29,11 +26,4 @@ export type GithubPR = {
   urls: GithubPRUrls;
 } | null;
 
-export type ReleaseInput = z.input<typeof ReleaseInput>;
-export type ReleaseBaseInput = Pick<z.input<typeof ReleaseInput>, "owner" | "repo" | "tag">;
-export type ArtifactInput = z.input<typeof ArtifactSchema>;
-export type ArtifactUpload = { release: ReleaseBaseInput; artifact: ArtifactInput };
-export const ArtifactUploadSchema = z.object({
-  release: ReleaseInput.pick({ owner: true, tag: true, repo: true }),
-  artifact: ArtifactSchema,
-});
+export type ReleaseInput = { version: string };

@@ -42,8 +42,18 @@
     "buildWithRollup": true
   },
   "main": "./dist/pipes-core.js",
-  "types": "./src/pipes-core.tsx",
+  "types": "./dist/pipes-core.d.ts",
   "source": "./src/pipes-core.tsx",
+  "exports": {
+    ".": {
+      "types": "./dist/pipes-core.d.ts",
+      "import": "./dist/pipes-core.js"
+    },
+    "./loader.mjs": {
+      "types": "./dist/loader.d.ts",
+      "import": "./dist/loader.mjs"
+    }
+  },
   "engines": {
     "node": "20.5.1",
     "yarn": "4.0.0-rc.47",

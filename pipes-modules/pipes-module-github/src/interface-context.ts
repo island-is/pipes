@@ -1,9 +1,8 @@
-import type { ArtifactUpload, ReleaseInput } from "./interface.js";
-import type { Container } from "@dagger.io/dagger";
+import type { Container, Directory } from "@dagger.io/dagger";
 import type { Octokit } from "@octokit/rest";
 
 export interface IGitHubContext {
-  githubUploadArtifact: (prop: ArtifactUpload) => Promise<void>;
+  githubUploadArtifact: (prop: { version: string; name: string; files: Directory }) => Promise<void>;
   githubNodePublish: (prop: {
     token: string;
     relativeWorkDir: string;
@@ -15,5 +14,5 @@ export interface IGitHubContext {
   githubGetOctokit: () => Octokit;
   githubWriteCommentToPR: (prop: { prNumber: number; comment: string }) => Promise<void>;
   githubWriteCommentToCurrentPr: (prop: { comment: string }) => Promise<void>;
-  githubRelease: (prop: ReleaseInput) => Promise<void>;
+  githubRelease: (prop: { version: string; body?: string | undefined }) => Promise<void>;
 }
