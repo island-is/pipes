@@ -7451,7 +7451,8 @@ class Shell {
         return new Promise((resolve, reject)=>{
             const child = spawn(cmd, args, {
                 env: options.env || undefined,
-                cwd: options.cwd || undefined
+                cwd: options.cwd || undefined,
+                shell: false
             });
             let stdout = "";
             let stderr = "";
