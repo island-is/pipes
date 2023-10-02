@@ -6310,11 +6310,11 @@ const Mask = (props)=>{
     const values = [
         props.values
     ].flat();
-    return /*#__PURE__*/ React.createElement(Transform, {
-        transform: (line)=>{
-            return `${new Command("add-mask", {}, line).toString()}\n`;
-        }
-    }, values.map((value)=>value));
+    values.forEach((value)=>{
+        process.stdout.write(new Command("add-mask", {}, value).toString());
+        process.stdout.write("\n");
+    });
+    return /*#__PURE__*/ React.createElement(React.Fragment, null);
 };
 
 const Success = (props)=>{

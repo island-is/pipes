@@ -16,7 +16,7 @@
   },
   "version": "23.09.00",
   "dependencies": {
-    "@dagger.io/dagger": "0.8.4",
+    "@dagger.io/dagger": "0.8.7",
     "@island-is/pipes-core": "23.09.00",
     "@swc/core": "1.3.78",
     "ansi-escapes": "6.2.0",

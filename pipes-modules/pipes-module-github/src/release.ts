@@ -141,14 +141,20 @@ export class GithubRelease {
       throw new Error("Release id not set");
     }
     const input = this.#getProps(newInput);
-
-    const value = await this.#git.paginate(this.#git.rest.repos.listReleaseAssets, {
-      owner: input.owner,
-      release_id: this.#releaseId,
-      repo: input.repo,
-    });
-    await AssetsStore.setKey(this.#getImageKey(), value);
-    return value;
+    try {
+      const value = await this.#git.paginate(this.#git.rest.repos.listReleaseAssets, {
+        owner: input.owner,
+        release_id: this.#releaseId,
+        repo: input.repo,
+      });
+      if (value && Array.isArray(value)) {
+        await AssetsStore.setKey(this.#getImageKey(), value);
+        return value;
+      }
+      return [];
+    } catch {
+      return [];
+    }
   }
 
   async #deleteArtifacts(newInput: InputOptional = null) {
