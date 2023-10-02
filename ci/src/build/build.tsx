@@ -74,6 +74,7 @@ const createBuildContext = (props: Props) => {
           publishContext.config.nodeWorkDir = buildContext.config.nodeWorkDir;
           publishContext.addDependency(buildContext.symbol);
           publishContext.config.nodeImageKey = newKey;
+          publishContext.config.githubToken = GlobalConfig.npmAuthToken;
           publishContext.addScript(async (context) => {
             if (props.createRelease) {
               await context.githubRelease({ version: GlobalConfig.version });
