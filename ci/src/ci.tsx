@@ -6,14 +6,20 @@ import { GlobalConfig } from "./config.js";
 import { workspaceTestContext } from "./constraints/workspace-test.js";
 import { devImageInstallContext } from "./install/dev-image.js";
 
-await createPipe(() => {
+await createPipe(async () => {
   const tasks = [devImageInstallContext, workspaceTestContext, buildCoreContext];
-
+  if (GlobalConfig.npmAuthToken) {
+    await PipesDOM.render(<PipesDOM.Mask values={["GlobalConfig.npmAuthToken"]} />, {
+      forceRenderNow: true,
+    });
+  }
   Object.keys(GlobalConfig).forEach((key) =>
     PipesDOM.render(
-      <PipesDOM.Info>
-        {key}:{GlobalConfig[key as keyof typeof GlobalConfig]}
-      </PipesDOM.Info>,
+      <>
+        <PipesDOM.Info>
+          {key}:{GlobalConfig[key as keyof typeof GlobalConfig]}
+        </PipesDOM.Info>
+      </>,
       { forceRenderNow: true },
     ),
   );
