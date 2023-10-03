@@ -287,10 +287,14 @@ let GithubRelease$1 = class GithubRelease {
                 tag
             });
             await this.#setImage(release.data);
-            console.log(release.data);
+            console.log({
+                data: release.data
+            });
             return release.data;
         } catch (e) {
-            console.log(e);
+            console.log({
+                e
+            });
             return {
                 id: null
             };
