@@ -6178,6 +6178,199 @@ const Log = (props)=>{
     }, /*#__PURE__*/ React.createElement(Text, null, props.children));
 };
 
+class DOMError extends Error {
+    #message;
+    constructor(pipeComponent){
+        super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, DOMError);
+        }
+        this.name = this.constructor.name;
+        this.#message = /*#__PURE__*/ React.createElement(React.Fragment, null, pipeComponent, this.stack);
+    }
+    get = ()=>{
+        return this.#message;
+    };
+    toString = async ()=>{
+        const value = await render$1(this.#message, {
+            renderAsString: true
+        });
+        return value.value();
+    };
+}
+
+const PipesObject = (props)=>{
+    const padding = props.padding ?? 1;
+    const seen = props.seen ?? new Set();
+    const input = props.value;
+    if (typeof input === "number") {
+        const isNan = Number.isNaN(input);
+        return /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(Text, {
+            color: "gray"
+        }, "[number]"), /*#__PURE__*/ React.createElement(Text, {
+            color: isNan ? "red" : undefined
+        }, isNan ? "[invalid]" : maskString(input)));
+    }
+    if (typeof input === "string") {
+        const isEmpty = input.trim().length === 0;
+        return /*#__PURE__*/ React.createElement(React.Fragment, null, " ", /*#__PURE__*/ React.createElement(Text, {
+            color: "gray"
+        }, "[string]"), /*#__PURE__*/ React.createElement(Text, {
+            color: isEmpty === true ? "red" : undefined
+        }, isEmpty ? "[empty]" : maskString(input)));
+    }
+    if (typeof input === "boolean") {
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true,
+            color: input ? "green" : "red"
+        }, input.toString());
+    }
+    if (typeof input === "symbol") {
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, "Symbol");
+    }
+    if (typeof input === "function") {
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, "Function");
+    }
+    if (typeof input === null) {
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, "null");
+    }
+    if (typeof input === undefined) {
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, "undefined");
+    }
+    if (typeof input === "object" && input !== null) {
+        if (seen.has(input)) {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "[[Circular Reference]]");
+        }
+        if (input instanceof DOMError) {
+            return input.get();
+        }
+        if (input instanceof Error) {
+            return /*#__PURE__*/ React.createElement(ErrorOverview, {
+                error: input
+            });
+        }
+        seen.add(input);
+        const noKeys = Object.keys(input).length === 0;
+        return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, Array.isArray(input) ? "Array" : "Object"), noKeys ? /*#__PURE__*/ React.createElement(Text, null, "[value]", JSON.stringify(input)) : /*#__PURE__*/ React.createElement(React.Fragment, null), Object.keys(input).map((key, index)=>{
+            return /*#__PURE__*/ React.createElement(Fragment, {
+                key: index
+            }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":"), /*#__PURE__*/ React.createElement(PipesObject, {
+                value: input[key],
+                padding: padding + 1,
+                seen: seen
+            }));
+        }));
+    }
+    return /*#__PURE__*/ React.createElement(Text, {
+        bold: true
+    }, typeof input);
+};
+
+/** Console.log monkey patch */ (function() {
+    const sanitize = (input)=>{
+        return /*#__PURE__*/ React.createElement(PipesObject, {
+            value: input
+        });
+    };
+    const render = (Element)=>{
+        forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(Element);
+    };
+    console.log = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Log, null, args));
+    };
+    console.error = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
+    };
+    console.info = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.trace = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.warn = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
+    };
+    console.assert = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
+    };
+})();
+(function() {
+    const OriginalError = Error;
+    class PipesError extends OriginalError {
+        #name;
+        constructor(message, options){
+            super(message, options);
+            if (Error.captureStackTrace) {
+                Error.captureStackTrace(this, PipesError);
+            }
+            this.#name = "Error";
+        }
+        toString() {
+            const message = super.toString();
+            return maskString(message);
+        }
+    }
+    Error = PipesError;
+})();
+
+/**
+ * Mount a component and render the output.
+ */ const render = async (node, props = {})=>{
+    const instance = new Ink(props.renderAsString ?? false);
+    await instance.render(node, props.forceRenderNow ?? false);
+    return {
+        stop: async ()=>{
+            await instance.render(node);
+            instance.unmount();
+        },
+        value: ()=>instance.prevValues
+    };
+};
+const forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED = (node)=>{
+    const instance = new Ink(false);
+    instance._nonAsyncRender(node);
+};
+var render$1 = render;
+
+/// <reference path="../global.d.ts" />
+/**
+ * Transform a string representation of React components before they are written to output.
+ * For example, you might want to apply a gradient to text, add a clickable link or create some text effects.
+ * These use cases can't accept React nodes as input, they are expecting a string.
+ * That's what <Transform> component does,
+ * it gives you an output string of its child components and lets you transform it in any way.
+ */ function Transform({ children, transform }) {
+    if (children === undefined || children === null) {
+        return null;
+    }
+    return /*#__PURE__*/ React.createElement("ink-text", {
+        style: {
+            flexGrow: 0,
+            flexShrink: 1,
+            flexDirection: "row"
+        },
+        internal_transform: transform
+    }, children);
+}
+
 const Divider = (_props)=>{
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return RenderDivider();
@@ -6647,199 +6840,6 @@ const Title = (props)=>{
         ];
     }, []);
     return interspersed;
-}
-
-class DOMError extends Error {
-    #message;
-    constructor(pipeComponent){
-        super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, DOMError);
-        }
-        this.name = this.constructor.name;
-        this.#message = /*#__PURE__*/ React.createElement(React.Fragment, null, pipeComponent, /*#__PURE__*/ React.createElement(Error$1, null, this.stack));
-    }
-    get = ()=>{
-        return this.#message;
-    };
-    toString = async ()=>{
-        const value = await render$1(this.#message, {
-            renderAsString: true
-        });
-        return value.value();
-    };
-}
-
-const PipesObject = (props)=>{
-    const padding = props.padding ?? 1;
-    const seen = props.seen ?? new Set();
-    const input = props.value;
-    if (typeof input === "number") {
-        const isNan = Number.isNaN(input);
-        return /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(Text, {
-            color: "gray"
-        }, "[number]"), /*#__PURE__*/ React.createElement(Text, {
-            color: isNan ? "red" : undefined
-        }, isNan ? "[invalid]" : maskString(input)));
-    }
-    if (typeof input === "string") {
-        const isEmpty = input.trim().length === 0;
-        return /*#__PURE__*/ React.createElement(React.Fragment, null, " ", /*#__PURE__*/ React.createElement(Text, {
-            color: "gray"
-        }, "[string]"), /*#__PURE__*/ React.createElement(Text, {
-            color: isEmpty === true ? "red" : undefined
-        }, isEmpty ? "[empty]" : maskString(input)));
-    }
-    if (typeof input === "boolean") {
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true,
-            color: input ? "green" : "red"
-        }, input.toString());
-    }
-    if (typeof input === "symbol") {
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, "Symbol");
-    }
-    if (typeof input === "function") {
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, "Function");
-    }
-    if (typeof input === null) {
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, "null");
-    }
-    if (typeof input === undefined) {
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, "undefined");
-    }
-    if (typeof input === "object" && input !== null) {
-        if (seen.has(input)) {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "[[Circular Reference]]");
-        }
-        if (input instanceof DOMError) {
-            return input.get();
-        }
-        if (input instanceof Error) {
-            return /*#__PURE__*/ React.createElement(ErrorOverview, {
-                error: input
-            });
-        }
-        seen.add(input);
-        const noKeys = Object.keys(input).length === 0;
-        return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, Array.isArray(input) ? "Array" : "Object"), noKeys ? /*#__PURE__*/ React.createElement(Text, null, "[value]", JSON.stringify(input)) : /*#__PURE__*/ React.createElement(React.Fragment, null), Object.keys(input).map((key, index)=>{
-            return /*#__PURE__*/ React.createElement(Fragment, {
-                key: index
-            }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":"), /*#__PURE__*/ React.createElement(PipesObject, {
-                value: input[key],
-                padding: padding + 1,
-                seen: seen
-            }));
-        }));
-    }
-    return /*#__PURE__*/ React.createElement(Text, {
-        bold: true
-    }, typeof input);
-};
-
-/** Console.log monkey patch */ (function() {
-    const sanitize = (input)=>{
-        return /*#__PURE__*/ React.createElement(PipesObject, {
-            value: input
-        });
-    };
-    const render = (Element)=>{
-        forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(Element);
-    };
-    console.log = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Log, null, args));
-    };
-    console.error = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
-    };
-    console.info = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-    console.trace = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-    console.warn = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
-    };
-    console.assert = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
-    };
-})();
-(function() {
-    const OriginalError = Error;
-    class PipesError extends OriginalError {
-        #name;
-        constructor(message, options){
-            super(message, options);
-            if (Error.captureStackTrace) {
-                Error.captureStackTrace(this, PipesError);
-            }
-            this.#name = "Error";
-        }
-        toString() {
-            const message = super.toString();
-            return maskString(message);
-        }
-    }
-    Error = PipesError;
-})();
-
-/**
- * Mount a component and render the output.
- */ const render = async (node, props = {})=>{
-    const instance = new Ink(props.renderAsString ?? false);
-    await instance.render(node, props.forceRenderNow ?? false);
-    return {
-        stop: async ()=>{
-            await instance.render(node);
-            instance.unmount();
-        },
-        value: ()=>instance.prevValues
-    };
-};
-const forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED = (node)=>{
-    const instance = new Ink(false);
-    instance._nonAsyncRender(node);
-};
-var render$1 = render;
-
-/// <reference path="../global.d.ts" />
-/**
- * Transform a string representation of React components before they are written to output.
- * For example, you might want to apply a gradient to text, add a clickable link or create some text effects.
- * These use cases can't accept React nodes as input, they are expecting a string.
- * That's what <Transform> component does,
- * it gives you an output string of its child components and lets you transform it in any way.
- */ function Transform({ children, transform }) {
-    if (children === undefined || children === null) {
-        return null;
-    }
-    return /*#__PURE__*/ React.createElement("ink-text", {
-        style: {
-            flexGrow: 0,
-            flexShrink: 1,
-            flexDirection: "row"
-        },
-        internal_transform: transform
-    }, children);
 }
 
 var dom = /*#__PURE__*/Object.freeze({

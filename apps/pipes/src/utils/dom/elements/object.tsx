@@ -1,13 +1,11 @@
 import React, { Fragment } from "react";
 
+import ErrorOverview from "../../ink/components/error-overview.js";
 import Text from "../../ink/components/text.js";
 import { maskString } from "../../ink/mask.js";
 import { DOMError } from "../dom-error.js";
 
-import { Error as PipesError } from "./error.js";
-
 import type { ReactElement } from "react";
-import ErrorOverview from "../../ink/components/error-overview.js";
 
 interface Props {
   value: unknown;

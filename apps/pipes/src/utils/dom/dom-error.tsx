@@ -2,8 +2,6 @@ import React from "react";
 
 import render from "../ink/render.js";
 
-import { Error as UIError } from "./elements/elements.js";
-
 import type { ReactElement } from "react";
 
 export class DOMError extends Error {
@@ -20,7 +18,7 @@ export class DOMError extends Error {
     this.#message = (
       <>
         {pipeComponent}
-        <UIError>{this.stack}</UIError>
+        {this.stack}
       </>
     );
   }
