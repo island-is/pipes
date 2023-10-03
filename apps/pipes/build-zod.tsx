@@ -1,48 +1,26 @@
 import React from "react";
 import fetch from "node-fetch";
-import { PipesDOM } from "./src/pipes-core.js";
 import typescript from "typescript";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { mkdirSync, rmSync, writeFileSync } from "fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 import streamifier from "streamifier";
 import tar from "tar-stream";
 import { unzipSync } from "zlib";
 
-const URL = "https://github.com/colinhacks/zod/archive/refs/tags/v3.22.2.tar.gz";
+const newVersion = JSON.parse(readFileSync("./package.json", "utf-8")).devDependencies["zod"].trim();
+const zodVERSION = readFileSync("./zod-version");
+if (newVersion == zodVERSION) {
+  process.exit(0);
+}
+if (process.env.CI) {
+  throw new Error("Zod needs to be updated");
+}
+const URL = `https://github.com/colinhacks/zod/archive/refs/tags/v${newVersion}.tar.gz`;
 const OUTPUT_FOLDER = join(fileURLToPath(import.meta.url), "..", "src", "utils", "zod", "base-zod");
-
-const values = [
-  {
-    _: "Zod URL",
-    __: URL,
-  },
-  {
-    _: "Output",
-    __: OUTPUT_FOLDER,
-  },
-];
-
-PipesDOM.render(
-  <>
-    {values.map((value) => (
-      <PipesDOM.Log>
-        <PipesDOM.Text bold={true}>{value._} </PipesDOM.Text>
-        <PipesDOM.Text>{value.__}</PipesDOM.Text>
-      </PipesDOM.Log>
-    ))}
-  </>,
-  {
-    forceRenderNow: true,
-  },
-);
 
 // Step 1. remove old zod folder if it exists
 rmSync(OUTPUT_FOLDER, { recursive: true, force: true });
-
-PipesDOM.render(<PipesDOM.Info>Downloading…</PipesDOM.Info>, {
-  forceRenderNow: true,
-});
 
 /// Step 2. Download zod and unzip it
 const response = await fetch(URL);
@@ -94,9 +72,6 @@ for (const [file, entry] of Object.entries(files)) {
   mkdirSync(path, { recursive: true });
   writeFileSync(filePath, entry, "utf8");
 }
-PipesDOM.render(<PipesDOM.Success>Downloaded!</PipesDOM.Success>, {
-  forceRenderNow: true,
-});
 
 /// Step 3. Walk hack!
 /*
@@ -313,10 +288,4 @@ function addExportModifiersToNamespace(file: string) {
   const updatedContent = printer.printFile(updatedSourceFile);
   return updatedContent;
 }
-
-PipesDOM.render(<PipesDOM.Success>Patched!</PipesDOM.Success>, {
-  forceRenderNow: true,
-});
-PipesDOM.render(<PipesDOM.Success>Zod ready!</PipesDOM.Success>, {
-  forceRenderNow: true,
-});
+writeFileSync("./zod-version", newVersion);
