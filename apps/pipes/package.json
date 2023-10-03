@@ -80,7 +80,7 @@
     "cli-truncate": "3.1.0",
     "code-excerpt": "4.0.0",
     "date-fns": "2.30.0",
-    "delay": "5.0.0",
+    "delay": "6.0.0",
     "indent-string": "5.0.0",
     "is-inside-container": "1.0.0",
     "is-lower-case": "2.0.2",
