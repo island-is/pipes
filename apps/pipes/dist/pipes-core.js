@@ -6726,12 +6726,15 @@ const PipesObject = (props)=>{
             return input.get();
         }
         if (input instanceof Error) {
-            return /*#__PURE__*/ React.createElement(Error$1, null, input.message);
+            return /*#__PURE__*/ React.createElement(ErrorOverview, {
+                error: input
+            });
         }
         seen.add(input);
+        const noKeys = Object.keys(input).length === 0;
         return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
             bold: true
-        }, Array.isArray(input) ? "Array" : "Object"), Object.keys(input).map((key, index)=>{
+        }, Array.isArray(input) ? "Array" : "Object"), noKeys ? /*#__PURE__*/ React.createElement(Text, null, "[value]", JSON.stringify(input)) : /*#__PURE__*/ React.createElement(React.Fragment, null), Object.keys(input).map((key, index)=>{
             return /*#__PURE__*/ React.createElement(Fragment, {
                 key: index
             }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":"), /*#__PURE__*/ React.createElement(PipesObject, {

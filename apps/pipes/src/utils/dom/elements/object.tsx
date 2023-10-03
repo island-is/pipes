@@ -7,6 +7,7 @@ import { DOMError } from "../dom-error.js";
 import { Error as PipesError } from "./error.js";
 
 import type { ReactElement } from "react";
+import ErrorOverview from "../../ink/components/error-overview.js";
 
 interface Props {
   value: unknown;
@@ -63,12 +64,14 @@ export const PipesObject = (props: Props): ReactElement => {
       return input.get();
     }
     if (input instanceof Error) {
-      return <PipesError>{input.message}</PipesError>;
+      return <ErrorOverview error={input} />;
     }
     seen.add(input);
+    const noKeys = Object.keys(input).length === 0;
     return (
       <Fragment>
         <Text bold={true}>{Array.isArray(input) ? "Array" : "Object"}</Text>
+        {noKeys ? <Text>[value]{JSON.stringify(input)}</Text> : <></>}
         {Object.keys(input).map((key, index) => {
           return (
             <Fragment key={index}>
