@@ -1008,7 +1008,7 @@ __metadata:
     "@types/react": "npm:18.2.24"
     "@types/react-reconciler": "npm:0.28.2"
     "@types/slice-ansi": "npm:4.0.0"
-    "@types/stack-utils": "npm:1.0.1"
+    "@types/stack-utils": "npm:2.0.1"
     "@types/tar-stream": "npm:3"
     "@types/which": "npm:3"
     "@types/wrap-ansi": "npm:8.0.1"
@@ -2198,14 +2198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/stack-utils@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@types/stack-utils@npm:1.0.1"
-  checksum: a801bc88bb3611527cda33289099104ceb935f16699b72408066781c6b33af2244797edf3fe28ef390df2c9d0c056a2b4f9cb2511ac556721d5eed70cc3b4713
-  languageName: node
-  linkType: hard
-
-"@types/stack-utils@npm:^2.0.0":
+"@types/stack-utils@npm:2.0.1, @types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019

@@ -127,7 +127,7 @@
     "@types/react": "18.2.24",
     "@types/react-reconciler": "0.28.2",
     "@types/slice-ansi": "4.0.0",
-    "@types/stack-utils": "1.0.1",
+    "@types/stack-utils": "2.0.1",
     "@types/tar-stream": "3",
     "@types/which": "3",
     "@types/wrap-ansi": "8.0.1",
