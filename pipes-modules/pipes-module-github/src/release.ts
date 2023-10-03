@@ -42,7 +42,10 @@ export const ReleaseInput = z.object({
 });
 
 const ImageStore = await createGlobalZodKeyStore<z.ZodType<ReleaseByTagResponse>>(z.custom(), "_RELEASES");
-const AssetsStore = await createGlobalZodKeyStore<z.ZodType<ListReleaseAssetsResponseData>>(z.custom(), "_RELEASES");
+const AssetsStore = await createGlobalZodKeyStore<z.ZodType<ListReleaseAssetsResponseData>>(
+  z.custom(),
+  "_RELEASES_ARTIFACTS",
+);
 
 type Inputs = z.input<typeof ReleaseInput>;
 type Input = Partial<z.infer<typeof ReleaseInput>>;
