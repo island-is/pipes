@@ -230,7 +230,7 @@ const ReleaseInput = z.object({
     body: z.string().optional()
 });
 const ImageStore = await createGlobalZodKeyStore(z.custom(), "_RELEASES");
-const AssetsStore = await createGlobalZodKeyStore(z.custom(), "_RELEASES");
+const AssetsStore = await createGlobalZodKeyStore(z.custom(), "_RELEASES_ARTIFACTS");
 let GithubRelease$1 = class GithubRelease {
     constructor(input, git){
         this.#input = ReleaseInput.parse(input);
