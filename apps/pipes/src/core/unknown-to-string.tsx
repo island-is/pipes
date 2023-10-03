@@ -1,53 +1,44 @@
 import React from "react";
 
 import * as PipesDOM from "../utils/dom/dom.js";
-
-import type { ReactNode } from "react";
-
-function isErr(e: unknown): e is Error {
-  return !!(typeof e === "object" && e instanceof Error);
-}
-
-function unknownToString(e: unknown): ReactNode {
-  if (e instanceof PipesDOM.DOMError) {
-    return e.get();
-  }
-  if (isErr(e)) {
-    return `${e.message}\n${e.stack || ""}`;
-  } else if (typeof e === "string") {
-    return e;
-  } else if (typeof e === "number" || typeof e === "boolean" || e === null) {
-    return String(e);
-  } else if (typeof e === "undefined") {
-    return "Unknown Error";
-  } else if (typeof e === "object") {
-    if ("message" in e) {
-      return JSON.stringify(e.message);
-    }
-    return JSON.stringify(e);
-  } else if (e == null) {
-    return "Unknown error";
-  }
-  return JSON.stringify(e);
-}
+import { PipesObject } from "../utils/dom/elements/object.js";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const throwJSXError = (context: any, config: any, errorMSG: unknown, shouldRender: boolean = true) => {
+export const throwJSXError = (context: any, config: any, errorMSG: unknown): never => {
   const { stack } = context as unknown as { stack: string[] };
   const { appName } = config as unknown as { appName: string };
-  const jsxSTACK = stack.map((e, index) => <PipesDOM.Error key={index}>{e}</PipesDOM.Error>);
-
+  const jsxSTACK = stack.map((e, index) => (
+    <PipesDOM.Error key={index}>
+      <PipesDOM.Text>{e}</PipesDOM.Text>
+    </PipesDOM.Error>
+  ));
+  const contextError = context ? (
+    <PipesDOM.Info>
+      <PipesDOM.Text bold={true}>Context</PipesDOM.Text>
+      <PipesObject value={context} />
+    </PipesDOM.Info>
+  ) : (
+    <></>
+  );
+  const configError = config ? (
+    <PipesDOM.Info>
+      <PipesDOM.Text bold={true}>Config</PipesDOM.Text>
+      <PipesObject value={config} />
+    </PipesDOM.Info>
+  ) : (
+    <></>
+  );
   const jsx = (
     <PipesDOM.Container>
       <PipesDOM.Error>Error in context: {appName}</PipesDOM.Error>
+      {contextError}
+      {configError}
       {jsxSTACK}
-      <PipesDOM.Error>{unknownToString(errorMSG)}</PipesDOM.Error>
+      <PipesDOM.Error>
+        <PipesObject value={errorMSG} />
+      </PipesDOM.Error>
     </PipesDOM.Container>
   );
-  if (shouldRender) {
-    void PipesDOM.render(() => jsx, {
-      forceRenderNow: true,
-    });
-  }
+
   throw new PipesDOM.DOMError(jsx);
 };

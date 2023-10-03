@@ -2356,6 +2356,8 @@ declare class DOMError extends Error {
     toString: () => Promise<string>;
 }
 
+declare const maskValue = "****";
+declare const maskString: (value: string | number) => string;
 declare const setMask: (value: (string | number) | (string | number)[]) => void;
 
 declare const dom_Badge: typeof Badge;
@@ -2380,10 +2382,12 @@ declare const dom_Text: typeof Text;
 declare const dom_Timestamp: typeof Timestamp;
 declare const dom_Title: typeof Title;
 declare const dom_haltAllRender: typeof haltAllRender;
+declare const dom_maskString: typeof maskString;
+declare const dom_maskValue: typeof maskValue;
 declare const dom_render: typeof render;
 declare const dom_setMask: typeof setMask;
 declare namespace dom {
-  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_render as render, dom_setMask as setMask };
+  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_maskString as maskString, dom_maskValue as maskValue, dom_render as render, dom_setMask as setMask };
 }
 
 declare const findPnpRoot: (path: string) => string;

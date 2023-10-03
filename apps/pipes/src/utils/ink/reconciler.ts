@@ -168,7 +168,13 @@ function createInkReconciler(
     },
     createTextInstance(text, _root, hostContext) {
       if (!hostContext.isInsideText) {
-        throw new Error(`Text string "${text}" must be rendered inside <Text> component`);
+        if (text.trim().length === 0) {
+          // Sometimes empty space gets in the code and it is boring to debug.
+          return {} as TextNode;
+        }
+        throw new Error(
+          `Text string "${text}" must be rendered inside <Text> component but got ${JSON.stringify(_root)}`,
+        );
       }
 
       return createTextNode(text);
