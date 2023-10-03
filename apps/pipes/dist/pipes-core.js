@@ -5933,6 +5933,7 @@ class WriteTo {
     }
 }
 process.stdout.write = WriteTo.write;
+process.stderr.write = WriteTo.write;
 
 const isCi = ciinfo.isCI;
 const noop = ()=>{};
