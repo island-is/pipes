@@ -1,3 +1,4 @@
+import { rmSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 
 import { Directory, onCleanup, type removeContextCommand, z } from "@island-is/pipes-core";
@@ -23,11 +24,10 @@ export const GithubUploadArtifact: removeContextCommand<
   PipesGitHubModule["Context"]["Implement"]["githubUploadArtifact"]
 > = async (context, config, props) => {
   const octokit = context.githubGetOctokit();
-  const { path, cleanup: dirClean } = await dir();
-  const { path: zipPath, cleanup: zipCleanup } = await file({ postfix: ".zip", prefix: `artifact-${props.version}-` });
+  const { path } = await dir();
+  const { path: zipPath } = await file({ postfix: ".zip", prefix: `artifact-${props.version}-` });
   const cleanup = onCleanup(() => {
-    void zipCleanup();
-    void dirClean();
+    rmSync(path, { recursive: true, force: true });
   });
   const owner = config.githubOwner;
   const repo = config.githubRepo;
@@ -40,7 +40,7 @@ export const GithubUploadArtifact: removeContextCommand<
       repo,
       state: "only_upload_artifacts",
       artifactState: "update",
-      artifacts: [{ name: props.name, data: buffer }],
+      artifacts: [{ name: `${props.name}.zip`, data: buffer }],
       tag: `v${props.version}`,
       name: props.version,
       targetCommitish: config.githubCommitSHA,
