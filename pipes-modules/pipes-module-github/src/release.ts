@@ -105,10 +105,8 @@ export class GithubRelease {
         tag,
       });
       await this.#setImage(release.data);
-      console.log({ data: release.data });
       return release.data;
     } catch (e) {
-      console.log({ e });
       return { id: null };
     }
   }
@@ -152,7 +150,6 @@ export class GithubRelease {
         release_id: this.#releaseId,
         repo: input.repo,
       });
-      console.log(value);
       if (value && Array.isArray(value)) {
         await AssetsStore.setKey(this.#getImageKey(), value);
         return value;
@@ -177,7 +174,6 @@ export class GithubRelease {
 
   async #deleteArtifactByName(name: string, newInput: InputOptional = null) {
     const artifacts = await this.#listArtifactsForRelease(newInput);
-    console.log({ artifacts });
     const id = artifacts.find((e) => e.name === name);
     if (!id) {
       // No need to update
