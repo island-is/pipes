@@ -2,7 +2,7 @@ import { Container as Container$1, Client, connect } from '@dagger.io/dagger';
 export * from '@dagger.io/dagger';
 import isInsideContainer from 'is-inside-container';
 import { autorun, createAtom, observable, runInAction, when, reaction } from 'mobx';
-import React, { forwardRef, PureComponent, Fragment } from 'react';
+import React, { forwardRef, Fragment, PureComponent } from 'react';
 import ciinfo from 'ci-info';
 import { parseArgs } from 'node:util';
 import process$1, { cwd } from 'node:process';
@@ -15,15 +15,6 @@ import { existsSync, readFileSync } from 'node:fs';
 import codeExcerpt from 'code-excerpt';
 import StackUtils from 'stack-utils';
 import chalk from 'chalk';
-import widestLine from 'widest-line';
-import cliTruncate from 'cli-truncate';
-import wrapAnsi from 'wrap-ansi';
-import createReconciler from 'react-reconciler';
-import { styledCharsFromTokens, tokenize, styledCharsToString } from '@alcalzone/ansi-tokenize';
-import sliceAnsi from 'slice-ansi';
-import stringWidth from 'string-width';
-import indentString from 'indent-string';
-import cliBoxes from 'cli-boxes';
 import terminalLink from 'terminal-link';
 import formatDate from 'date-fns/format/index.js';
 import enGB from 'date-fns/locale/en-GB/index.js';
@@ -33,6 +24,15 @@ import { Writable } from 'node:stream';
 import { join } from 'node:path';
 import { readdir } from 'node:fs/promises';
 import { spawn } from 'child_process';
+import widestLine from 'widest-line';
+import cliTruncate from 'cli-truncate';
+import wrapAnsi from 'wrap-ansi';
+import createReconciler from 'react-reconciler';
+import { styledCharsFromTokens, tokenize, styledCharsToString } from '@alcalzone/ansi-tokenize';
+import sliceAnsi from 'slice-ansi';
+import stringWidth from 'string-width';
+import indentString from 'indent-string';
+import cliBoxes from 'cli-boxes';
 
 var util;
 (function(util) {
@@ -4648,6 +4648,121 @@ const colorize = (str, color, type)=>{
     return str;
 };
 
+const masks = new Set();
+const getMasks = ()=>Array.from(masks);
+const maskValue = "****";
+const maskString = (value)=>{
+    let str = `${value}`;
+    getMasks().forEach((item)=>{
+        str = str.replaceAll(`${item}`, maskValue);
+    });
+    return str;
+};
+const setMask = (value)=>{
+    if (Array.isArray(value)) {
+        value.filter(Boolean).forEach((item)=>setMask(item));
+        return;
+    }
+    masks.add(value);
+};
+/** Console.log monkey patch */ (function() {
+    function sanitize(input, padding = 0, seen = new Set()) {
+        if (typeof input === "string" || typeof input === "number") {
+            return /*#__PURE__*/ React.createElement(Text, null, maskString(input));
+        }
+        if (typeof input === "boolean") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true,
+                color: input ? "green" : "red"
+            }, input.toString());
+        }
+        if (typeof input === "symbol") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Symbol");
+        }
+        if (typeof input === "function") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Function");
+        }
+        if (typeof input === null) {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "null");
+        }
+        if (typeof input === undefined) {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "undefined");
+        }
+        if (typeof input === "object" && input !== null) {
+            if (seen.has(input)) {
+                return /*#__PURE__*/ React.createElement(Text, {
+                    bold: true
+                }, "[[Circular Reference]]");
+            }
+            seen.add(input);
+            return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Object", JSON.stringify(input)), Object.keys(input).map((key, index)=>{
+                return /*#__PURE__*/ React.createElement(Fragment, {
+                    key: index
+                }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":", " "), sanitize(input[key], padding + 1, seen));
+            }));
+        }
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, typeof input);
+    }
+    const render = (Element)=>{
+        forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(Element);
+    };
+    console.log = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Log, null, args));
+    // Additional logic or modification here...
+    };
+    console.error = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
+    };
+    console.info = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.trace = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.warn = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.assert = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+})();
+(function() {
+    const OriginalError = Error;
+    class PipesError extends OriginalError {
+        #name;
+        constructor(message, options){
+            super(message, options);
+            if (Error.captureStackTrace) {
+                Error.captureStackTrace(this, PipesError);
+            }
+            this.#name = "Error";
+        }
+        toString() {
+            const message = super.toString();
+            return maskString(message);
+        }
+    }
+    Error = PipesError;
+})();
+
 /// <reference path="../global.d.ts" />
 /**
  * This component can display text, and change its style to make it colorful, bold, underline, italic or strikethrough.
@@ -4655,7 +4770,8 @@ const colorize = (str, color, type)=>{
     if (children === undefined || children === null) {
         return null;
     }
-    const transform = (children)=>{
+    const transform = (_children)=>{
+        let children = maskString(_children);
         if (dimColor) {
             children = chalk.dim(children);
         }
@@ -5748,121 +5864,6 @@ const renderer = (node)=>{
     }
     return "";
 };
-
-const masks = new Set();
-const getMasks = ()=>Array.from(masks);
-const maskValue = "****";
-const maskString = (value)=>{
-    let str = `${value}`;
-    getMasks().forEach((item)=>{
-        str = str.replaceAll(`${item}`, maskValue);
-    });
-    return str;
-};
-const setMask = (value)=>{
-    if (Array.isArray(value)) {
-        value.filter(Boolean).forEach((item)=>setMask(item));
-        return;
-    }
-    masks.add(value);
-};
-/** Console.log monkey patch */ (function() {
-    function sanitize(input, padding = 0, seen = new Set()) {
-        if (typeof input === "string" || typeof input === "number") {
-            return /*#__PURE__*/ React.createElement(Text, null, maskString(input));
-        }
-        if (typeof input === "boolean") {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true,
-                color: input ? "green" : "red"
-            }, input.toString());
-        }
-        if (typeof input === "symbol") {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "Symbol");
-        }
-        if (typeof input === "function") {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "Function");
-        }
-        if (typeof input === null) {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "null");
-        }
-        if (typeof input === undefined) {
-            return /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "undefined");
-        }
-        if (typeof input === "object" && input !== null) {
-            if (seen.has(input)) {
-                return /*#__PURE__*/ React.createElement(Text, {
-                    bold: true
-                }, "[[Circular Reference]]");
-            }
-            seen.add(input);
-            return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
-                bold: true
-            }, "Object", JSON.stringify(input)), Object.keys(input).map((key, index)=>{
-                return /*#__PURE__*/ React.createElement(Fragment, {
-                    key: index
-                }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":", " "), sanitize(input[key], padding + 1, seen));
-            }));
-        }
-        return /*#__PURE__*/ React.createElement(Text, {
-            bold: true
-        }, typeof input);
-    }
-    const render = (Element)=>{
-        forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(Element);
-    };
-    console.log = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Log, null, args));
-    // Additional logic or modification here...
-    };
-    console.error = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
-    };
-    console.info = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-    console.trace = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-    console.warn = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-    console.assert = function() {
-        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
-        render(/*#__PURE__*/ React.createElement(Info, null, args));
-    };
-})();
-(function() {
-    const OriginalError = Error;
-    class PipesError extends OriginalError {
-        #name;
-        constructor(message, options){
-            super(message, options);
-            if (Error.captureStackTrace) {
-                Error.captureStackTrace(this, PipesError);
-            }
-            this.#name = "Error";
-        }
-        toString() {
-            const message = super.toString();
-            return maskString(message);
-        }
-    }
-    Error = PipesError;
-})();
 
 const _RENDER_STATE = {
     force_stop: false

@@ -4,6 +4,7 @@ import React, { type ReactNode } from "react";
 import { type LiteralUnion } from "type-fest";
 
 import colorize from "../colorize.js";
+import { maskString } from "../mask.js";
 import { type Styles } from "../styles.js";
 
 export type Props = {
@@ -77,7 +78,8 @@ export default function Text({
     return null;
   }
 
-  const transform = (children: string): string => {
+  const transform = (_children: string): string => {
+    let children = maskString(_children);
     if (dimColor) {
       children = chalk.dim(children);
     }
