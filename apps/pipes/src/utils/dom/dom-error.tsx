@@ -4,11 +4,11 @@ import render from "../ink/render.js";
 
 import { Error as UIError } from "./elements/elements.js";
 
-import type { ReactNode } from "react";
+import type { ReactElement } from "react";
 
 export class DOMError extends Error {
-  #message: ReactNode;
-  constructor(pipeComponent: ReactNode) {
+  #message: ReactElement;
+  constructor(pipeComponent: ReactElement) {
     super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
 
     if (Error.captureStackTrace) {
@@ -24,7 +24,7 @@ export class DOMError extends Error {
       </>
     );
   }
-  get = (): ReactNode => {
+  get = (): ReactElement => {
     return this.#message;
   };
   toString = async (): Promise<string> => {

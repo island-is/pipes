@@ -7,7 +7,7 @@ import { List as List$1 } from 'ts-toolbelt/out/List/List.js';
 import { Exclude as Exclude$1 } from 'ts-toolbelt/out/Union/Exclude.js';
 import { ListOf } from 'ts-toolbelt/out/Union/ListOf.js';
 import { IsLiteral } from 'ts-toolbelt/out/Community/IsLiteral.js';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ReactElement } from 'react';
 import { ForegroundColorName } from 'chalk';
 import { LiteralUnion, Except } from 'type-fest';
 import { Boxes, BoxStyle } from 'cli-boxes';
@@ -2351,8 +2351,8 @@ type Column<T> = {
 
 declare class DOMError extends Error {
     #private;
-    constructor(pipeComponent: ReactNode);
-    get: () => ReactNode;
+    constructor(pipeComponent: ReactElement);
+    get: () => ReactElement;
     toString: () => Promise<string>;
 }
 

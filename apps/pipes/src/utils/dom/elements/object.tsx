@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 
 import Text from "../../ink/components/text.js";
 import { maskString } from "../../ink/mask.js";
+import { DOMError } from "../dom-error.js";
+
+import { Error as PipesError } from "./error.js";
 
 import type { ReactElement } from "react";
 
@@ -55,6 +58,12 @@ export const PipesObject = (props: Props): ReactElement => {
   if (typeof input === "object" && input !== null) {
     if (seen.has(input)) {
       return <Text bold={true}>[[Circular Reference]]</Text>;
+    }
+    if (input instanceof DOMError) {
+      return input.get();
+    }
+    if (input instanceof Error) {
+      return <PipesError>{input.message}</PipesError>;
     }
     seen.add(input);
     return (
