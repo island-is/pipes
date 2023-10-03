@@ -927,7 +927,7 @@ __metadata:
     typescript: "npm:5.1.6"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
-    ws: "npm:8.12.0"
+    ws: "npm:8.14.2"
     xo: "npm:0.54.2"
     yoga-wasm-web: "npm:0.3.3"
   bin:
@@ -1001,7 +1001,7 @@ __metadata:
     "@types/tar-stream": "npm:3"
     "@types/which": "npm:3"
     "@types/wrap-ansi": "npm:8.0.1"
-    "@types/ws": "npm:8.5.4"
+    "@types/ws": "npm:8.5.6"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
     ava: "npm:5.3.1"
@@ -1046,7 +1046,7 @@ __metadata:
     typescript: "npm:5.1.6"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
-    ws: "npm:8.12.0"
+    ws: "npm:8.14.2"
     xo: "npm:0.54.2"
     yoga-wasm-web: "npm:0.3.3"
     zod: "npm:3.22.2"
@@ -2234,12 +2234,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ws@npm:8.5.4":
-  version: 8.5.4
-  resolution: "@types/ws@npm:8.5.4"
+"@types/ws@npm:8.5.6":
+  version: 8.5.6
+  resolution: "@types/ws@npm:8.5.6"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 8ad37f8ec1f7a1e2b8c0d53353ac30d182277c0bce4d877a497a0b7bcfbeee1838270eb6247a6978da66cc2891106d3c77511ebc827c58967ede8e756446422f
+  checksum: 1c3ce7fe65569dc85314981622bdbccd8bab671cff74367f9bfba8390ddd0f241f29cdcf67b14163a2c832a0a08bfc0e8f60912b9c143648e25a5a05e016b892
   languageName: node
   linkType: hard
 
@@ -10877,9 +10877,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:8.12.0":
-  version: 8.12.0
-  resolution: "ws@npm:8.12.0"
+"ws@npm:8.14.2":
+  version: 8.14.2
+  resolution: "ws@npm:8.14.2"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -10888,7 +10888,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 325fbcf6bbed07350b82d7a5bdb43e8a4e81512973241c656c2119a37883a74fe49e7cac09646f9bfc28c517cd63f4111c78f5898bcdd25a3ec2cc4e59375331
+  checksum: 815ff01d9bc20a249b2228825d9739268a03a4408c2e0b14d49b0e2ae89d7f10847e813b587ba26992bdc33e9d03bed131e4cae73ff996baf789d53e99c31186
   languageName: node
   linkType: hard
 
