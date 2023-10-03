@@ -287,8 +287,10 @@ let GithubRelease$1 = class GithubRelease {
                 tag
             });
             await this.#setImage(release.data);
+            console.log(release.data);
             return release.data;
         } catch (e) {
+            console.log(e);
             return {
                 id: null
             };
@@ -333,6 +335,7 @@ let GithubRelease$1 = class GithubRelease {
                 release_id: this.#releaseId,
                 repo: input.repo
             });
+            console.log(value);
             if (value && Array.isArray(value)) {
                 await AssetsStore.setKey(this.#getImageKey(), value);
                 return value;

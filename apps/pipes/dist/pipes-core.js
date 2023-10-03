@@ -6311,8 +6311,7 @@ const Mask = (props)=>{
         props.values
     ].flat();
     values.forEach((value)=>{
-        process.stdout.write(new Command("add-mask", {}, value).toString());
-        process.stdout.write("\n");
+        process.stdout.write(`\n::add-mask::${value}\n`);
     });
     return /*#__PURE__*/ React.createElement(React.Fragment, null);
 };
