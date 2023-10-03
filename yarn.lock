@@ -991,7 +991,7 @@ __metadata:
     "@rollup/plugin-node-resolve": "npm:15.2.1"
     "@swc/core": "npm:1.3.78"
     "@swc/helpers": "npm:0.5.2"
-    "@types/lodash": "npm:4.14.191"
+    "@types/lodash": "npm:4.14.199"
     "@types/node": "npm:20.5.8"
     "@types/object-hash": "npm:3"
     "@types/react": "npm:18.2.24"
@@ -2042,10 +2042,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.14.191":
-  version: 4.14.191
-  resolution: "@types/lodash@npm:4.14.191"
-  checksum: ab8cd8eeb941f0fb89248cd5d520b942b841e936e4fcb093370f76d137a8b6f6be0de7f38fc259d56d3cc45b1b50ed69d15c9b94922545166e3ef1f0218be2f2
+"@types/lodash@npm:4.14.199":
+  version: 4.14.199
+  resolution: "@types/lodash@npm:4.14.199"
+  checksum: 340aabe9b023553d64e47f2af7f2010814c1178ce3a2b256e8dd54c444578d5e6e937d70c7117ee1fac5c0fc429b592ab9f6d69a966f0a1222ebcbbe6d516c4a
   languageName: node
   linkType: hard
 
