@@ -16,16 +16,11 @@ export const testRunner = async (path: string): Promise<TestResult[]> => {
   const files = await listFilteredFiles(join(process.cwd(), "src"));
   let results: TestResult[] = [];
   for (const file of files) {
-    const { stdout, code, stderr } = await Shell.execute(
-      process.execPath,
-      ["--test-reporter", TEST_REPORTER, "--test", file],
-      {
-        cwd: path,
-        env: process.env,
-      },
-    );
+    const { stdout, code } = await Shell.execute(process.execPath, ["--test-reporter", TEST_REPORTER, "--test", file], {
+      cwd: path,
+      env: process.env,
+    });
     if (code !== 0) {
-      console.log({ stdout, stderr });
       results = [
         ...results,
         {
@@ -33,7 +28,7 @@ export const testRunner = async (path: string): Promise<TestResult[]> => {
           status: "Error",
           name: "Error",
           file: file,
-          message: stderr,
+          message: "Unknown error",
         } as TestResult,
       ];
     }
@@ -92,7 +87,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       return (
         <PipesDOM.Row key={e.name}>
           <PipesDOM.Text>{e.name}</PipesDOM.Text>
-          {e.message ? <PipesDOM.Text>{e.message}</PipesDOM.Text> : null}
+          {e.message ? <PipesDOM.Text>RRR{e.message}</PipesDOM.Text> : null}
         </PipesDOM.Row>
       );
     });

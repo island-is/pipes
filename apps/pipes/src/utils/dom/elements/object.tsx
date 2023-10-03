@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
-import ErrorOverview from "../../ink/components/error-overview.js";
 import Text from "../../ink/components/text.js";
+import { Box } from "../../ink/index.js";
 import { maskString } from "../../ink/mask.js";
 import { DOMError } from "../dom-error.js";
 
@@ -27,13 +27,7 @@ export const PipesObject = (props: Props): ReactElement => {
   }
   if (typeof input === "string") {
     const isEmpty = input.trim().length === 0;
-    return (
-      <>
-        {" "}
-        <Text color={"gray"}>[string]</Text>
-        <Text color={isEmpty === true ? "red" : undefined}>{isEmpty ? "[empty]" : maskString(input)}</Text>
-      </>
-    );
+    return <Text color={isEmpty === true ? "red" : undefined}>{isEmpty ? "[empty]" : maskString(input)}</Text>;
   }
   if (typeof input === "boolean") {
     return (
@@ -56,34 +50,43 @@ export const PipesObject = (props: Props): ReactElement => {
   }
   if (typeof input === "object" && input !== null) {
     if (seen.has(input)) {
-      return <Text bold={true}>[[Circular Reference]]</Text>;
+      return (
+        <Box width={"100%"}>
+          <Text bold={true}>[[Circular Reference]]</Text>
+        </Box>
+      );
     }
     if (input instanceof DOMError) {
       return input.get();
     }
-    if (input instanceof Error) {
-      return <ErrorOverview error={input} />;
-    }
+
     seen.add(input);
     const noKeys = Object.keys(input).length === 0;
     return (
-      <Fragment>
+      <>
         <Text bold={true}>{Array.isArray(input) ? "Array" : "Object"}</Text>
-        {noKeys ? <Text>[value]{JSON.stringify(input)}</Text> : <></>}
-        {Object.keys(input).map((key, index) => {
-          return (
-            <Fragment key={index}>
-              <Text>
-                {"\n"}
-                {"  ".repeat(padding + 1)}
-                {maskString(key)}:
-              </Text>
-              <PipesObject value={input[key as keyof typeof input]} padding={padding + 1} seen={seen} />
-            </Fragment>
-          );
-        })}
-      </Fragment>
+        <Box marginTop={1} width="100%" flexDirection={"column"}>
+          {noKeys ? (
+            <Box>
+              <Text>[value]{JSON.stringify(input)}</Text>
+            </Box>
+          ) : (
+            Object.keys(input).map((key, index) => {
+              return (
+                <Box key={index} flexDirection={"row"}>
+                  <Text color="green">{maskString(key)}: </Text>
+                  <PipesObject value={input[key as keyof typeof input]} padding={padding + 1} seen={seen} />
+                </Box>
+              );
+            })
+          )}
+        </Box>
+      </>
     );
   }
-  return <Text bold={true}>{typeof input}</Text>;
+  return (
+    <Box width={"100%"}>
+      <Text bold={true}>{typeof input}</Text>
+    </Box>
+  );
 };

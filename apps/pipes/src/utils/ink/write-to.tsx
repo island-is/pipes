@@ -9,25 +9,30 @@ export const haltAllRender = (): void => {
 };
 
 const originalStdoutWrite = process.stdout.write.bind(process.stdout);
-const _originalStderrWrite = process.stderr.write.bind(process.stderr);
+const originalStderrWrite = process.stderr.write.bind(process.stderr);
 
-export class WriteTo {
-  static #locked: boolean = false;
-  static #lockPromises: Array<() => void> = [];
+class WriteToGeneric {
+  #locked: boolean = false;
+  #lockPromises: Array<() => void> = [];
+  #streamWrite: typeof process.stdout.write | typeof process.stderr.write;
 
-  static #newLockPromise = () => {
-    const value = new Promise<void>((resolve) => {
+  constructor(stream: typeof process.stdout.write | typeof process.stderr.write) {
+    this.#streamWrite = stream;
+    this.write = this.write.bind(this);
+    this.lock = this.lock.bind(this);
+  }
+
+  #newLockPromise = () => {
+    return new Promise<void>((resolve) => {
       this.#lockPromises.push(resolve);
     });
-    return value;
   };
 
-  static #getFirstResolve = (): (() => void) | undefined => {
-    const val = this.#lockPromises.shift();
-    return val;
+  #getFirstResolve = (): (() => void) | undefined => {
+    return this.#lockPromises.shift();
   };
 
-  static async lock(
+  async lock(
     fn: (
       write: (msg: string | Uint8Array, encoding?: BufferEncoding | undefined) => Promise<void>,
     ) => Promise<void> | void,
@@ -37,7 +42,7 @@ export class WriteTo {
     }
     this.#locked = true;
     try {
-      await fn(this.#write);
+      await fn(this.#write.bind(this));
     } finally {
       const val = this.#getFirstResolve();
       if (val) {
@@ -47,16 +52,16 @@ export class WriteTo {
       }
     }
   }
-  static write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-  static write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
-  static write(
+
+  write(
     value: Uint8Array | string,
     encodingOrCb?: BufferEncoding | ((err?: Error) => void),
     _cb?: (err?: Error) => void,
   ): boolean {
     const cb = typeof encodingOrCb === "function" ? encodingOrCb : _cb;
     const encoding = typeof encodingOrCb !== "function" ? encodingOrCb : undefined;
-    void WriteTo.lock((write) => {
+
+    void this.lock((write) => {
       return write(value, encoding);
     })
       .then(() => {
@@ -71,20 +76,23 @@ export class WriteTo {
       });
     return true;
   }
-  static #write(msg: string | Uint8Array, encoding?: BufferEncoding | undefined) {
+
+  #write(msg: string | Uint8Array, encoding?: BufferEncoding | undefined) {
     return new Promise<void>((resolve) => {
       if (_RENDER_STATE.force_stop) {
         resolve();
         return;
       }
       const _msg = typeof msg === "string" ? msg : Buffer.from(msg).toString(encoding);
-      originalStdoutWrite(maskString(_msg), () => {
+      this.#streamWrite(maskString(_msg), () => {
         resolve();
-        return;
       });
     });
   }
 }
 
+export const WriteTo = new WriteToGeneric(originalStdoutWrite);
+export const WriteToError = new WriteToGeneric(originalStderrWrite);
+
 process.stdout.write = WriteTo.write;
-process.stderr.write = WriteTo.write;
+process.stderr.write = WriteToError.write;

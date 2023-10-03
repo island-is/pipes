@@ -34,6 +34,9 @@ export const renderRow = {
     return (
       <Box
         flexDirection="row"
+        flexGrow={1}
+        flexShrink={0}
+        flexWrap={"wrap"}
         width="100%"
         borderTop={false}
         borderBottom={false}
@@ -45,6 +48,9 @@ export const renderRow = {
       >
         {children.map((e, index) => {
           const child = typeof e === "string" ? <Text>{e}</Text> : e;
+          if (widths[index] === 0) {
+            return <></>;
+          }
           return (
             <Box key={index} alignSelf="flex-start" paddingLeft={1} paddingRight={1} width={widths[index]}>
               {child}

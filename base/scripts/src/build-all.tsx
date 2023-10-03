@@ -19,7 +19,7 @@ export const build = async (path: string, name: string): Promise<void> => {
     </PipesDOM.Info>,
     { forceRenderNow: true },
   );
-  const { code, stderr, stdout } = await Shell.execute("yarn", [action], {
+  const { code, stderr } = await Shell.execute("yarn", [action], {
     cwd: path,
     env: process.env,
   });
@@ -35,7 +35,7 @@ export const build = async (path: string, name: string): Promise<void> => {
 
   await PipesDOM.render(
     <PipesDOM.Failure>
-      {action} failed for {name} with message: {action === "lint" ? stdout : stderr}
+      {action} failed for {name} with message: {stderr}
     </PipesDOM.Failure>,
     { forceRenderNow: true },
   );
