@@ -913,7 +913,7 @@ __metadata:
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
     react-reconciler: "npm:0.29.0"
-    rollup: "npm:3.29.2"
+    rollup: "npm:3.29.4"
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.1"
     scheduler: "npm:0.23.0"
@@ -1103,7 +1103,7 @@ __metadata:
     mobx: "npm:6.10.2"
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
-    rollup: "npm:3.29.2"
+    rollup: "npm:3.29.4"
     rollup-plugin-node-resolve: "npm:5.2.0"
     rollup-plugin-swc3: "npm:0.10.1"
     tmp-promise: "npm:3.0.3"
@@ -9428,9 +9428,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:3.29.2":
-  version: 3.29.2
-  resolution: "rollup@npm:3.29.2"
+"rollup@npm:3.29.4":
+  version: 3.29.4
+  resolution: "rollup@npm:3.29.4"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -9438,7 +9438,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 22fc3f4ab416716624aa10064ab59c5e8c00907d098475c9036ef65e111042a8a7a873f7430334ae554e04ccc084c8d1dac2459a235f3b30ce969042a4f3b8d5
+  checksum: 9e39d54e23731a4c4067e9c02910cdf7479a0f9a7584796e2dc6efaa34bb1e5e015c062c87d1e64d96038baca76cefd47681ff22604fae5827147f54123dc6d0
   languageName: node
   linkType: hard
 
