@@ -995,7 +995,7 @@ __metadata:
     "@types/node": "npm:20.5.8"
     "@types/object-hash": "npm:3"
     "@types/react": "npm:18.2.24"
-    "@types/react-reconciler": "npm:0.28.2"
+    "@types/react-reconciler": "npm:0.28.5"
     "@types/slice-ansi": "npm:4.0.0"
     "@types/stack-utils": "npm:2.0.1"
     "@types/tar-stream": "npm:3"
@@ -2122,12 +2122,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.28.2":
-  version: 0.28.2
-  resolution: "@types/react-reconciler@npm:0.28.2"
+"@types/react-reconciler@npm:0.28.5":
+  version: 0.28.5
+  resolution: "@types/react-reconciler@npm:0.28.5"
   dependencies:
     "@types/react": "npm:*"
-  checksum: de2a98cd1381363f69435c73d25192a977410c2d219cca2de44f85a850d7541dc37e7fba89045b1072d97168926644cd5db66c37124721d43e0f2921027d6fec
+  checksum: 4a89204c870129995f3374e130bf2f9f8f991e9814a4fc6659e7f3efd82a4e12f18aad8f86ce5b4fe12e1ee0ed3ee1f64f0a5e4457ac9ce33ea4af94ce1f8115
   languageName: node
   linkType: hard
 
