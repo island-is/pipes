@@ -8,7 +8,6 @@ import type { IGroup } from "./group.js";
 import type { IInfo } from "./info.js";
 import type { IList, IListItem } from "./list.js";
 import type { ILog } from "./log.js";
-import type { IMask } from "./mask.js";
 import type { IRow } from "./row.js";
 import type { ISubtitle } from "./subtitle.js";
 import type { ISuccess } from "./success.js";
@@ -16,7 +15,6 @@ import type { ITimestamp } from "./timestamp.js";
 import type { ITitle } from "./title.js";
 
 export type IPipeComponents =
-  | IMask
   | IGroup
   | IDialog
   | IContainer
@@ -39,7 +37,6 @@ export type PipeComponents =
   | string
   | number
   | null
-  | IMask
   | IGroup
   | IDialog
   | IContainer

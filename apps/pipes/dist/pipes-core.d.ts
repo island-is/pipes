@@ -2279,12 +2279,6 @@ declare const ListItem: (props: Omit<IListItem, "type">) => ReactNode;
 type ILog = SpecifixJSX<"Log", null, any>;
 declare const Log: (props: Omit<ILog, "type">) => ReactNode;
 
-type IMask = {
-    type: "Mask";
-    values: string[] | string;
-};
-declare const Mask: (props: Omit<IMask, "type">) => ReactNode;
-
 type Color$1 = Parameters<typeof Box>[0]["borderColor"];
 type Width = Parameters<typeof Box>[0]["width"];
 type IRow = SpecifixJSX<"Row", {
@@ -2362,6 +2356,8 @@ declare class DOMError extends Error {
     toString: () => Promise<string>;
 }
 
+declare const setMask: (value: (string | number) | (string | number)[]) => void;
+
 declare const dom_Badge: typeof Badge;
 declare const dom_Container: typeof Container;
 type dom_DOMError = DOMError;
@@ -2375,7 +2371,6 @@ declare const dom_Link: typeof Link;
 declare const dom_List: typeof List;
 declare const dom_ListItem: typeof ListItem;
 declare const dom_Log: typeof Log;
-declare const dom_Mask: typeof Mask;
 declare const dom_Row: typeof Row;
 declare const dom_Subtitle: typeof Subtitle;
 declare const dom_Success: typeof Success;
@@ -2386,8 +2381,9 @@ declare const dom_Timestamp: typeof Timestamp;
 declare const dom_Title: typeof Title;
 declare const dom_haltAllRender: typeof haltAllRender;
 declare const dom_render: typeof render;
+declare const dom_setMask: typeof setMask;
 declare namespace dom {
-  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_Mask as Mask, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_render as render };
+  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_render as render, dom_setMask as setMask };
 }
 
 declare const findPnpRoot: (path: string) => string;

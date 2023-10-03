@@ -4,6 +4,7 @@ import { autorun, createAtom, observable, runInAction, when, reaction } from 'mo
 import React, { forwardRef, PureComponent } from 'react';
 import ciinfo from 'ci-info';
 import { parseArgs } from 'node:util';
+import { setSecret } from '@actions/core';
 import process$1, { cwd } from 'node:process';
 import autoBind from 'auto-bind';
 import throttle from 'lodash/throttle.js';
@@ -6303,19 +6304,6 @@ const Log = (props)=>{
     }, /*#__PURE__*/ React.createElement(Text, null, props.children));
 };
 
-const Mask = (props)=>{
-    if (!ciinfo.GITHUB_ACTIONS) {
-        return /*#__PURE__*/ React.createElement(React.Fragment, null);
-    }
-    const values = [
-        props.values
-    ].flat();
-    values.forEach((value)=>{
-        process.stdout.write(`\n::add-mask::${value}\n`);
-    });
-    return /*#__PURE__*/ React.createElement(React.Fragment, null);
-};
-
 const Success = (props)=>{
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return renderSuccess.ansi({
@@ -6665,6 +6653,14 @@ class DOMError extends Error {
     };
 }
 
+const setMask = (value)=>{
+    if (Array.isArray(value)) {
+        value.filter(Boolean).forEach((item)=>setMask(item));
+        return;
+    }
+    setSecret(`${value}`);
+};
+
 var dom = /*#__PURE__*/Object.freeze({
     __proto__: null,
     Badge: Badge,
@@ -6680,7 +6676,6 @@ var dom = /*#__PURE__*/Object.freeze({
     List: List,
     ListItem: ListItem,
     Log: Log,
-    Mask: Mask,
     Row: Row,
     Subtitle: Subtitle,
     Success: Success,
@@ -6689,7 +6684,8 @@ var dom = /*#__PURE__*/Object.freeze({
     Timestamp: Timestamp,
     Title: Title,
     haltAllRender: haltAllRender,
-    render: render
+    render: render,
+    setMask: setMask
 });
 
 function isErr(e) {
