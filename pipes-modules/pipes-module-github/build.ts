@@ -1,6 +1,6 @@
 import { rollup } from "rollup";
 import { builtinModules } from "node:module";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
@@ -62,9 +62,12 @@ const build = async (input: string, output: string, type: string) => {
     })(),
   ]);
 };
+const mainPath = join(dirname(dirname(packageJSON.source)), "dist");
+const mainFile = basename(mainPath).replace(".tsx", ".js").replace(".ts", ".js");
+const mainFilePath = join(mainPath, mainFile);
+const typeFilePath = join(mainPath, mainFile).replace(".js", ".d.ts");
 
-const promises = [build(packageJSON.source, packageJSON.main, packageJSON.types)];
-
+const promises = [build(packageJSON.source, mainFilePath, typeFilePath)];
 const version = z
   .string()
   .default(packageJSON.version, {

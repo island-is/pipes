@@ -41,8 +41,8 @@
     ],
     "buildWithRollup": true
   },
-  "main": "./src/pipes-core.tsx",
-  "types": "./src/pipes-core.tsx",
+  "main": "./dist/pipes-core.js",
+  "types": "./dist/pipes-core.d.ts",
   "source": "./src/pipes-core.tsx",
   "exports": {
     ".": {
