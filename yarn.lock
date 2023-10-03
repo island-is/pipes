@@ -957,7 +957,7 @@ __metadata:
     eslint-plugin-filenames-simple: "npm:0.8.0"
     eslint-plugin-import: "npm:2.28.1"
     eslint-plugin-import-order: "npm:2.1.4"
-    eslint-plugin-jsdoc: "npm:46.5.1"
+    eslint-plugin-jsdoc: "npm:46.8.2"
     eslint-plugin-jsx-a11y: "npm:6.7.1"
     eslint-plugin-node: "npm:11.1.0"
     eslint-plugin-prefer-arrow: "npm:1.2.3"
@@ -4811,9 +4811,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:46.5.1":
-  version: 46.5.1
-  resolution: "eslint-plugin-jsdoc@npm:46.5.1"
+"eslint-plugin-jsdoc@npm:46.8.2":
+  version: 46.8.2
+  resolution: "eslint-plugin-jsdoc@npm:46.8.2"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.40.1"
     are-docs-informative: "npm:^0.0.2"
@@ -4826,7 +4826,7 @@ __metadata:
     spdx-expression-parse: "npm:^3.0.1"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0
-  checksum: 7456991b615ded2508e606aa2b2397d524a0a72f4e51ae2080675b3ef14d4ac21399ef601bcb57a59400189f94ab5a8d3d0df4e211db2814872df88f5dcb93ab
+  checksum: 240c92f4ca3dccabf9606e5df53fe08b1c5ad99a72ec3f9fd4a166bb3ca00505f8989745cca99e95e75e7d040998e94d3100b5b42dc57a69ee9135f7cd54ae55
   languageName: node
   linkType: hard
 
