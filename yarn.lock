@@ -917,7 +917,7 @@ __metadata:
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.1"
     scheduler: "npm:0.23.0"
-    signal-exit: "npm:3.0.7"
+    signal-exit: "npm:4.1.0"
     sinon: "npm:16.0.0"
     slice-ansi: "npm:6.0.0"
     stack-utils: "npm:2.0.6"
@@ -1032,7 +1032,7 @@ __metadata:
     rollup-plugin-dts: "npm:6.0.2"
     rollup-plugin-ts: "npm:3.4.5"
     scheduler: "npm:0.23.0"
-    signal-exit: "npm:3.0.7"
+    signal-exit: "npm:4.1.0"
     sinon: "npm:16.0.0"
     slice-ansi: "npm:6.0.0"
     stack-utils: "npm:2.0.6"
@@ -9691,7 +9691,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:3.0.7, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
+"signal-exit@npm:4.1.0, signal-exit@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "signal-exit@npm:4.1.0"
+  checksum: c9fa63bbbd7431066174a48ba2dd9986dfd930c3a8b59de9c29d7b6854ec1c12a80d15310869ea5166d413b99f041bfa3dd80a7947bcd44ea8e6eb3ffeabfa1f
+  languageName: node
+  linkType: hard
+
+"signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
@@ -9702,13 +9709,6 @@ __metadata:
   version: 4.0.2
   resolution: "signal-exit@npm:4.0.2"
   checksum: 99d49eab7f24aeed79e44999500d5ff4b9fbb560b0e1f8d47096c54d625b995aeaec3032cce44527adf2de0c303731a8356e234a348d6801214a8a3385a1ff8e
-  languageName: node
-  linkType: hard
-
-"signal-exit@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "signal-exit@npm:4.1.0"
-  checksum: c9fa63bbbd7431066174a48ba2dd9986dfd930c3a8b59de9c29d7b6854ec1c12a80d15310869ea5166d413b99f041bfa3dd80a7947bcd44ea8e6eb3ffeabfa1f
   languageName: node
   linkType: hard
 
