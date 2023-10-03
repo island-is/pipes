@@ -1,6 +1,5 @@
 import { connect } from "@dagger.io/dagger";
-import isDocker from "is-docker";
-import isPodman from "is-podman";
+import isInsideContainer from "is-inside-container";
 import { reaction, when } from "mobx";
 import React from "react";
 
@@ -36,7 +35,7 @@ import type { InternalStateStore, PipesCoreClass, PipesCoreModule, Simplify, cre
 import type { Client } from "@dagger.io/dagger";
 
 const isRunningInsideContainer = async () => {
-  const isContainarised = isPodman() || isDocker();
+  const isContainarised = isInsideContainer();
   if (!isContainarised) {
     await PipesDOM.render(<PipesDOM.Error>This should run inside container for best usage.</PipesDOM.Error>, {
       forceRenderNow: true,

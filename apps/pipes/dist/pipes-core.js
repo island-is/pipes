@@ -1,7 +1,6 @@
 import { Container as Container$1, Client, connect } from '@dagger.io/dagger';
 export * from '@dagger.io/dagger';
-import isDocker from 'is-docker';
-import isPodman from 'is-podman';
+import isInsideContainer from 'is-inside-container';
 import { autorun, createAtom, observable, runInAction, when, reaction } from 'mobx';
 import React, { forwardRef, PureComponent, Fragment } from 'react';
 import ciinfo from 'ci-info';
@@ -7610,7 +7609,7 @@ class Shell {
 }
 
 const isRunningInsideContainer = async ()=>{
-    const isContainarised = isPodman() || isDocker();
+    const isContainarised = isInsideContainer();
     if (!isContainarised) {
         await render(/*#__PURE__*/ React.createElement(Error$1, null, "This should run inside container for best usage."), {
             forceRenderNow: true
