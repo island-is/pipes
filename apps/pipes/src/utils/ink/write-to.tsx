@@ -1,4 +1,4 @@
-import process from "node:process";
+import { maskString } from "./mask.js";
 
 const _RENDER_STATE = {
   force_stop: false,
@@ -7,6 +7,9 @@ const _RENDER_STATE = {
 export const haltAllRender = (): void => {
   _RENDER_STATE.force_stop = true;
 };
+
+const originalStdoutWrite = process.stdout.write.bind(process.stdout);
+const _originalStderrWrite = process.stderr.write.bind(process.stderr);
 
 export class WriteTo {
   static #locked: boolean = false;
@@ -24,9 +27,11 @@ export class WriteTo {
     return val;
   };
 
-  static lock = async (
-    fn: (write: (msg: string, output?: "stdout" | "stderr") => void) => Promise<void> | void,
-  ): Promise<void> => {
+  static async lock(
+    fn: (
+      write: (msg: string | Uint8Array, encoding?: BufferEncoding | undefined) => Promise<void>,
+    ) => Promise<void> | void,
+  ): Promise<void> {
     if (this.#locked) {
       await this.#newLockPromise();
     }
@@ -41,12 +46,45 @@ export class WriteTo {
         this.#locked = false;
       }
     }
-  };
-
-  static #write(msg: string, output: "stdout" | "stderr" = "stdout") {
-    if (_RENDER_STATE.force_stop) {
-      return;
-    }
-    process[output].write(msg);
+  }
+  static write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
+  static write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
+  static write(
+    value: Uint8Array | string,
+    encodingOrCb?: BufferEncoding | ((err?: Error) => void),
+    _cb?: (err?: Error) => void,
+  ): boolean {
+    const cb = typeof encodingOrCb === "function" ? encodingOrCb : _cb;
+    const encoding = typeof encodingOrCb !== "function" ? encodingOrCb : undefined;
+    void WriteTo.lock((write) => {
+      return write(value, encoding);
+    })
+      .then(() => {
+        if (cb) {
+          cb();
+        }
+      })
+      .catch((e) => {
+        if (cb) {
+          cb(e);
+        }
+      });
+    return true;
+  }
+  static #write(msg: string | Uint8Array, encoding?: BufferEncoding | undefined) {
+    return new Promise<void>((resolve) => {
+      if (_RENDER_STATE.force_stop) {
+        resolve();
+        return;
+      }
+      const _msg = typeof msg === "string" ? msg : Buffer.from(msg).toString(encoding);
+      originalStdoutWrite(maskString(_msg), () => {
+        resolve();
+        return;
+      });
+    });
   }
 }
+
+process.stdout.write = WriteTo.write;
+process.stderr.write = WriteTo.write;

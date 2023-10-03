@@ -1,5 +1,3 @@
-import { join } from "path/posix";
-
 import { PipesDOM, createPipesCore, createTask } from "@island-is/pipes-core";
 import { PipesGitHub } from "@island-is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
@@ -87,6 +85,7 @@ const createBuildContext = (props: Props) => {
               unpublish: "ifExists",
             });
           });
+
           context.addContextToCore({ context: publishContext });
         }
         (props.dependendants ?? []).forEach((dep) => {

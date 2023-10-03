@@ -1027,7 +1027,9 @@ __metadata:
     delay: "npm:5.0.0"
     eslint: "npm:8.47.0"
     indent-string: "npm:5.0.0"
+    is-docker: "npm:^3.0.0"
     is-lower-case: "npm:2.0.2"
+    is-podman: "npm:^1.0.1"
     is-upper-case: "npm:2.0.2"
     jest-snapshot: "npm:29.6.4"
     lodash: "npm:4.17.21"
@@ -6719,6 +6721,15 @@ __metadata:
   version: 5.0.0
   resolution: "is-plain-object@npm:5.0.0"
   checksum: e32d27061eef62c0847d303125440a38660517e586f2f3db7c9d179ae5b6674ab0f469d519b2e25c147a1a3bc87156d0d5f4d8821e0ce4a9ee7fe1fcf11ce45c
+  languageName: node
+  linkType: hard
+
+"is-podman@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "is-podman@npm:1.0.1"
+  bin:
+    is-podman: cli.js
+  checksum: 9a72f5fced41c49d4ba6b11ef4d134b557b1773de7c5ecee8f875a2ce056d54e965a795a76d8fb5fd47889ff296093cce6063ad3ca83bd26bf4278828cec68e4
   languageName: node
   linkType: hard
 

@@ -1,10 +1,11 @@
 import { Container as Container$1, Client, connect } from '@dagger.io/dagger';
 export * from '@dagger.io/dagger';
+import isDocker from 'is-docker';
+import isPodman from 'is-podman';
 import { autorun, createAtom, observable, runInAction, when, reaction } from 'mobx';
-import React, { forwardRef, PureComponent } from 'react';
+import React, { forwardRef, PureComponent, Fragment } from 'react';
 import ciinfo from 'ci-info';
 import { parseArgs } from 'node:util';
-import { setSecret } from '@actions/core';
 import process$1, { cwd } from 'node:process';
 import autoBind from 'auto-bind';
 import throttle from 'lodash/throttle.js';
@@ -5749,12 +5750,129 @@ const renderer = (node)=>{
     return "";
 };
 
+const masks = new Set();
+const getMasks = ()=>Array.from(masks);
+const maskValue = "****";
+const maskString = (value)=>{
+    let str = `${value}`;
+    getMasks().forEach((item)=>{
+        str = str.replaceAll(`${item}`, maskValue);
+    });
+    return str;
+};
+const setMask = (value)=>{
+    if (Array.isArray(value)) {
+        value.filter(Boolean).forEach((item)=>setMask(item));
+        return;
+    }
+    masks.add(value);
+};
+/** Console.log monkey patch */ (function() {
+    function sanitize(input, padding = 0, seen = new Set()) {
+        if (typeof input === "string" || typeof input === "number") {
+            return /*#__PURE__*/ React.createElement(Text, null, maskString(input));
+        }
+        if (typeof input === "boolean") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true,
+                color: input ? "green" : "red"
+            }, input.toString());
+        }
+        if (typeof input === "symbol") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Symbol");
+        }
+        if (typeof input === "function") {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Function");
+        }
+        if (typeof input === null) {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "null");
+        }
+        if (typeof input === undefined) {
+            return /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "undefined");
+        }
+        if (typeof input === "object" && input !== null) {
+            if (seen.has(input)) {
+                return /*#__PURE__*/ React.createElement(Text, {
+                    bold: true
+                }, "[[Circular Reference]]");
+            }
+            seen.add(input);
+            return /*#__PURE__*/ React.createElement(Fragment, null, /*#__PURE__*/ React.createElement(Text, {
+                bold: true
+            }, "Object", JSON.stringify(input)), Object.keys(input).map((key, index)=>{
+                return /*#__PURE__*/ React.createElement(Fragment, {
+                    key: index
+                }, /*#__PURE__*/ React.createElement(Text, null, "\n", "  ".repeat(padding + 1), maskString(key), ":", " "), sanitize(input[key], padding + 1, seen));
+            }));
+        }
+        return /*#__PURE__*/ React.createElement(Text, {
+            bold: true
+        }, typeof input);
+    }
+    const render = (Element)=>{
+        forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(Element);
+    };
+    console.log = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Log, null, args));
+    // Additional logic or modification here...
+    };
+    console.error = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Error$1, null, args));
+    };
+    console.info = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.trace = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.warn = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+    console.assert = function() {
+        const args = Array.prototype.slice.call(arguments).map((input)=>sanitize(input));
+        render(/*#__PURE__*/ React.createElement(Info, null, args));
+    };
+})();
+(function() {
+    const OriginalError = Error;
+    class PipesError extends OriginalError {
+        #name;
+        constructor(message, options){
+            super(message, options);
+            if (Error.captureStackTrace) {
+                Error.captureStackTrace(this, PipesError);
+            }
+            this.#name = "Error";
+        }
+        toString() {
+            const message = super.toString();
+            return maskString(message);
+        }
+    }
+    Error = PipesError;
+})();
+
 const _RENDER_STATE = {
     force_stop: false
 };
 const haltAllRender = ()=>{
     _RENDER_STATE.force_stop = true;
 };
+const originalStdoutWrite = process.stdout.write.bind(process.stdout);
+process.stderr.write.bind(process.stderr);
 class WriteTo {
     static #locked = false;
     static #lockPromises = [];
@@ -5768,7 +5886,7 @@ class WriteTo {
         const val = this.#lockPromises.shift();
         return val;
     };
-    static lock = async (fn)=>{
+    static async lock(fn) {
         if (this.#locked) {
             await this.#newLockPromise();
         }
@@ -5783,14 +5901,38 @@ class WriteTo {
                 this.#locked = false;
             }
         }
-    };
-    static #write(msg, output = "stdout") {
-        if (_RENDER_STATE.force_stop) {
-            return;
-        }
-        process$1[output].write(msg);
+    }
+    static write(value, encodingOrCb, _cb) {
+        const cb = typeof encodingOrCb === "function" ? encodingOrCb : _cb;
+        const encoding = typeof encodingOrCb !== "function" ? encodingOrCb : undefined;
+        void WriteTo.lock((write)=>{
+            return write(value, encoding);
+        }).then(()=>{
+            if (cb) {
+                cb();
+            }
+        }).catch((e)=>{
+            if (cb) {
+                cb(e);
+            }
+        });
+        return true;
+    }
+    static #write(msg, encoding) {
+        return new Promise((resolve)=>{
+            if (_RENDER_STATE.force_stop) {
+                resolve();
+                return;
+            }
+            const _msg = typeof msg === "string" ? msg : Buffer.from(msg).toString(encoding);
+            originalStdoutWrite(maskString(_msg), ()=>{
+                resolve();
+                return;
+            });
+        });
     }
 }
+process.stdout.write = WriteTo.write;
 
 const isCi = ciinfo.isCI;
 const noop = ()=>{};
@@ -5864,7 +6006,7 @@ class Ink {
                 this.prevValues = value;
                 if (!this.toString) {
                     await WriteTo.lock((write)=>{
-                        write(`\n${value}`, "stdout");
+                        return write(`\n${value}`);
                     });
                 }
             }
@@ -5899,7 +6041,7 @@ class Ink {
             const value = this.#getRenderedOutput();
             if (!this.toString) {
                 await WriteTo.lock((write)=>{
-                    write(`\n${value}`, "stdout");
+                    return write(`\n${value}`);
                 });
             }
             return;
@@ -6652,14 +6794,6 @@ class DOMError extends Error {
         return value.value();
     };
 }
-
-const setMask = (value)=>{
-    if (Array.isArray(value)) {
-        value.filter(Boolean).forEach((item)=>setMask(item));
-        return;
-    }
-    setSecret(`${value}`);
-};
 
 var dom = /*#__PURE__*/Object.freeze({
     __proto__: null,
@@ -7474,6 +7608,15 @@ class Shell {
     }
 }
 
+const isRunningInsideContainer = async ()=>{
+    const isContainarised = isPodman() || isDocker();
+    if (!isContainarised) {
+        await render(/*#__PURE__*/ React.createElement(Error$1, null, "This should run inside container for best usage."), {
+            forceRenderNow: true
+        });
+    }
+};
+await isRunningInsideContainer();
 class PipesCoreRunner {
     #context = new Set();
     addContext(value) {

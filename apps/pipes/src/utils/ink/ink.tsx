@@ -96,7 +96,7 @@ export default class Ink {
           this.prevValues = value;
           if (!this.toString) {
             await WriteTo.lock((write) => {
-              write(`\n${value}`, "stdout");
+              return write(`\n${value}`);
             });
           }
         }
@@ -146,7 +146,7 @@ export default class Ink {
       const value = this.#getRenderedOutput();
       if (!this.toString) {
         await WriteTo.lock((write) => {
-          write(`\n${value}`, "stdout");
+          return write(`\n${value}`);
         });
       }
       return;
