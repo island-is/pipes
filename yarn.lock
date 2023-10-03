@@ -1016,7 +1016,7 @@ __metadata:
     ws: "npm:8.14.2"
     xo: "npm:0.56.0"
     yoga-wasm-web: "npm:0.3.3"
-    zod: "npm:3.22.2"
+    zod: "npm:3.22.3"
   languageName: unknown
   linkType: soft
 
@@ -1104,7 +1104,7 @@ __metadata:
     prettier: "npm:3.0.3"
     semver: "npm:7.5.4"
     typescript: "npm:5.1.6"
-    zod: "npm:3.22.2"
+    zod: "npm:3.22.3"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -10721,9 +10721,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.22.2":
-  version: 3.22.2
-  resolution: "zod@npm:3.22.2"
-  checksum: bb39da97974b78c975bd1cbeb1a04ddc8ce69ac3100151e6ad1ee4763a8b3322fdbbcd98cd4b6bc2b40fb4d5bb86920f7c33515f430ca6aa439ce524a9c315c2
+"zod@npm:3.22.3":
+  version: 3.22.3
+  resolution: "zod@npm:3.22.3"
+  checksum: 3aad6e6b61ddceaeb887dccc5f747903e619b09dfd208f6dc30eef15edf3942b8e6cd97a08e080c9c8723575446941edb823a8881c512e00e8dd3085f20659cc
   languageName: node
   linkType: hard
