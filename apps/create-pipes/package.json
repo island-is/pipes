@@ -30,7 +30,7 @@
     "indent-string": "5.0.0",
     "is-ci": "3.0.1",
     "is-lower-case": "2.0.2",
-    "is-upper-case": "2.0.2",
+    "is-upper-case": "3.0.0",
     "lodash": "4.17.21",
     "mobx": "6.10.2",
     "ms": "2.1.3",
