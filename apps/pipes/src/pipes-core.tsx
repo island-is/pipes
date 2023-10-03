@@ -103,7 +103,13 @@ export class PipesCoreRunner {
     await value.run(this.#store, internalState).catch(async (e) => {
       internalState.state = "failed";
       if (e instanceof PipesDOM.DOMError) {
-        await PipesDOM.render(e.get);
+        await PipesDOM.render(<PipesDOM.PipesObject value={e} />);
+      } else {
+        await PipesDOM.render(
+          <PipesDOM.Error>
+            <PipesDOM.PipesObject value={e} />
+          </PipesDOM.Error>,
+        );
       }
       this.#halt();
     });

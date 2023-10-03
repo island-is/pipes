@@ -2176,12 +2176,12 @@ type DOMNode<T = {
 } ? U extends "#text" ? TextNode : DOMElement : never;
 type DOMNodeAttribute = boolean | string | number;
 
-type Props$1 = Except<Styles, "textWrap">;
-declare const Box: React.ForwardRefExoticComponent<Props$1 & {
+type Props$2 = Except<Styles, "textWrap">;
+declare const Box: React.ForwardRefExoticComponent<Props$2 & {
     children?: React.ReactNode;
 } & React.RefAttributes<DOMElement>>;
 
-type Props = {
+type Props$1 = {
     readonly color?: LiteralUnion<ForegroundColorName, string>;
     readonly backgroundColor?: LiteralUnion<ForegroundColorName, string>;
     readonly dimColor?: boolean;
@@ -2193,7 +2193,7 @@ type Props = {
     readonly wrap?: Styles["textWrap"];
     readonly children?: ReactNode;
 };
-declare function Text({ color, backgroundColor, dimColor, bold, italic, underline, strikethrough, inverse, wrap, children, }: Props): JSX.Element | null;
+declare function Text({ color, backgroundColor, dimColor, bold, italic, underline, strikethrough, inverse, wrap, children, }: Props$1): JSX.Element | null;
 
 declare const haltAllRender: () => void;
 
@@ -2349,6 +2349,13 @@ type Column<T> = {
     width: number;
 };
 
+interface Props {
+    value: unknown;
+    seen?: Set<unknown>;
+    padding?: number;
+}
+declare const PipesObject: (props: Props) => ReactElement;
+
 declare class DOMError extends Error {
     #private;
     constructor(pipeComponent: ReactElement);
@@ -2373,6 +2380,7 @@ declare const dom_Link: typeof Link;
 declare const dom_List: typeof List;
 declare const dom_ListItem: typeof ListItem;
 declare const dom_Log: typeof Log;
+declare const dom_PipesObject: typeof PipesObject;
 declare const dom_Row: typeof Row;
 declare const dom_Subtitle: typeof Subtitle;
 declare const dom_Success: typeof Success;
@@ -2387,7 +2395,7 @@ declare const dom_maskValue: typeof maskValue;
 declare const dom_render: typeof render;
 declare const dom_setMask: typeof setMask;
 declare namespace dom {
-  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_maskString as maskString, dom_maskValue as maskValue, dom_render as render, dom_setMask as setMask };
+  export { dom_Badge as Badge, dom_Container as Container, dom_DOMError as DOMError, dom_Dialog as Dialog, dom_Divider as Divider, Error$1 as Error, dom_Failure as Failure, dom_Group as Group, dom_Info as Info, dom_Link as Link, dom_List as List, dom_ListItem as ListItem, dom_Log as Log, dom_PipesObject as PipesObject, dom_Row as Row, dom_Subtitle as Subtitle, dom_Success as Success, dom_Table as Table, dom_Text as Text, dom_Timestamp as Timestamp, dom_Title as Title, dom_haltAllRender as haltAllRender, dom_maskString as maskString, dom_maskValue as maskValue, dom_render as render, dom_setMask as setMask };
 }
 
 declare const findPnpRoot: (path: string) => string;

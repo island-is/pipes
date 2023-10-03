@@ -16,3 +16,4 @@ export { Text } from "../../ink/index.js";
 export { Timestamp } from "./timestamp.js";
 export { Title } from "./title.js";
 export { Table } from "./table.js";
+export { PipesObject } from "./object.js";

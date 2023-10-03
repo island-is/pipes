@@ -2,6 +2,8 @@ import React from "react";
 
 import render from "../ink/render.js";
 
+import { PipesObject } from "./dom.js";
+
 import type { ReactElement } from "react";
 
 export class DOMError extends Error {
@@ -18,7 +20,7 @@ export class DOMError extends Error {
     this.#message = (
       <>
         {pipeComponent}
-        {this.stack}
+        <PipesObject value={{ stack: this.stack }} />
       </>
     );
   }

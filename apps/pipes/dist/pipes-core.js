@@ -6715,7 +6715,11 @@ class DOMError extends Error {
             Error.captureStackTrace(this, DOMError);
         }
         this.name = this.constructor.name;
-        this.#message = /*#__PURE__*/ React.createElement(React.Fragment, null, pipeComponent, this.stack);
+        this.#message = /*#__PURE__*/ React.createElement(React.Fragment, null, pipeComponent, /*#__PURE__*/ React.createElement(PipesObject, {
+            value: {
+                stack: this.stack
+            }
+        }));
     }
     get = ()=>{
         return this.#message;
@@ -6879,6 +6883,7 @@ var dom = /*#__PURE__*/Object.freeze({
     List: List,
     ListItem: ListItem,
     Log: Log,
+    PipesObject: PipesObject,
     Row: Row,
     Subtitle: Subtitle,
     Success: Success,
@@ -7739,7 +7744,13 @@ class PipesCoreRunner {
         await value.run(this.#store, internalState).catch(async (e)=>{
             internalState.state = "failed";
             if (e instanceof DOMError) {
-                await render(e.get);
+                await render(/*#__PURE__*/ React.createElement(PipesObject, {
+                    value: e
+                }));
+            } else {
+                await render(/*#__PURE__*/ React.createElement(Error$1, null, /*#__PURE__*/ React.createElement(PipesObject, {
+                    value: e
+                })));
             }
             this.#halt();
         });
