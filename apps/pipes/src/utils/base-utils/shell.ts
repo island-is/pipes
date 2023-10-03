@@ -27,6 +27,7 @@ class Shell {
       const child = spawn(cmd, args, {
         env: options.env || undefined,
         cwd: options.cwd || undefined,
+        shell: false,
       });
       let stdout = "";
       let stderr = "";

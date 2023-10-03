@@ -16,4 +16,8 @@ export const PipesNode: ModuleReturnType<PipesNodeModule> = createModule<PipesNo
   context: PipesNodeContext,
   required: ["PipesCore"],
 });
+export * from "./interface.js";
+export * from "./context/run.js";
+export * from "./context.js";
+export * from "./config.js";
 export type { PipesNodeModule, IPipesNodeContext, IPipesNodeConfig } from "./interface.js";

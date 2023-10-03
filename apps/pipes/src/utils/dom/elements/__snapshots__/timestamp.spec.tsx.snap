@@ -1,17 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render simple timestamp 1`] = `""`;
+exports[`render simple timestamp 1`] = `
+"
+[44m[37m2023-09-10T10:20:30.000Z[39m[49m"
+`;
 
-exports[`render timestamp with american format 1`] = `""`;
+exports[`render timestamp with american format 1`] = `
+"
+[44m[37mSep 10, 2023, 10:20:30 AM[39m[49m"
+`;
 
-exports[`render timestamp with custom format - only time 1`] = `""`;
+exports[`render timestamp with custom format - only time 1`] = `
+"
+[44m[37m01:00:00[39m[49m"
+`;
 
-exports[`render timestamp with custom format 1`] = `""`;
+exports[`render timestamp with custom format 1`] = `
+"
+[44m[37m1970-01-01 00:00[39m[49m"
+`;
 
-exports[`render timestamp with european format 1`] = `""`;
+exports[`render timestamp with european format 1`] = `
+"
+[44m[37m10 Sep 2023, 10:20:30[39m[49m"
+`;
 
-exports[`render timestamp with invalid format 1`] = `""`;
+exports[`render timestamp with invalid format 1`] = `
+"
+[31mInvalid date format[39m"
+`;
 
-exports[`render timestamp with invalid time 1`] = `""`;
+exports[`render timestamp with invalid time 1`] = `
+"
+[31mInvalid date[39m"
+`;
 
-exports[`render timestamp with iso format 1`] = `""`;
+exports[`render timestamp with iso format 1`] = `
+"
+[44m[37m2023-09-10T10:20:30.000Z[39m[49m"
+`;

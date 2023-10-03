@@ -1,0 +1,22 @@
+{
+  "name": "@island-is/pipes-module-node",
+  "version": "23.09.00",
+  "type": "module",
+  "main": "./dist/pipes-module-node.js",
+  "repository": {
+    "directory": "pipes-modules/pipes-module-node",
+    "type": "git",
+    "url": "https://github.com/island-is/pipes"
+  },
+  "types": "./dist/pipes-module-node.d.ts",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "rollup": "3.29.2",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-swc3": "0.10.1",
+    "tmp-promise": "3.0.3"
+  }
+}

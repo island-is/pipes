@@ -14,24 +14,41 @@ const TEST_REPORTER = join(TEST_PATH, "utils", "test-reporter.ts");
 
 export const testRunner = async (path: string): Promise<TestResult[]> => {
   const files = await listFilteredFiles(join(process.cwd(), "src"));
-  const { stdout } = await Shell.execute(process.execPath, ["--test-reporter", TEST_REPORTER, "--test", ...files], {
-    cwd: path,
-    env: process.env,
-  });
-  try {
-    const data = (JSON.parse(stdout) as TestResult[]).map((e) => ({
-      ...e,
-    }));
-    return data;
-  } catch (e) {
-    return [
-      {
-        type: "Test",
-        status: "Error",
-        message: JSON.stringify(e),
-      } as TestResult,
-    ];
+  let results: TestResult[] = [];
+  for (const file of files) {
+    const { stdout, code } = await Shell.execute(process.execPath, ["--test-reporter", TEST_REPORTER, "--test", file], {
+      cwd: path,
+      env: process.env,
+    });
+    if (code !== 0) {
+      results = [
+        ...results,
+        {
+          type: "Test",
+          status: "Error",
+          name: "Error",
+          file: file,
+          message: "Unknown error",
+        } as TestResult,
+      ];
+    }
+    try {
+      const data = (JSON.parse(stdout) as TestResult[]).map((e) => ({
+        ...e,
+      }));
+      results = [...results, ...data];
+    } catch (e) {
+      results = [
+        ...results,
+        {
+          type: "Test",
+          status: "Error",
+          message: JSON.stringify(e),
+        } as TestResult,
+      ];
+    }
   }
+  return results;
 };
 
 export const typecheckTest = (path: string): Promise<TypescriptResult[]> => {
@@ -70,7 +87,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       return (
         <PipesDOM.Row key={e.name}>
           <PipesDOM.Text>{e.name}</PipesDOM.Text>
-          {e.message ? <PipesDOM.Text>{e.message}</PipesDOM.Text> : null}
+          {e.message ? <PipesDOM.Text>RRR{e.message}</PipesDOM.Text> : null}
         </PipesDOM.Row>
       );
     });

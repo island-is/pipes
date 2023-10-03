@@ -1,4 +1,5 @@
 import { connect } from "@dagger.io/dagger";
+import isInsideContainer from "is-inside-container";
 import { reaction, when } from "mobx";
 import React from "react";
 
@@ -102,7 +103,13 @@ export class PipesCoreRunner {
     await value.run(this.#store, internalState).catch(async (e) => {
       internalState.state = "failed";
       if (e instanceof PipesDOM.DOMError) {
-        await PipesDOM.render(e.get);
+        await PipesDOM.render(<PipesDOM.PipesObject value={e} />);
+      } else {
+        await PipesDOM.render(
+          <PipesDOM.Error>
+            <PipesDOM.PipesObject value={e} />
+          </PipesDOM.Error>,
+        );
       }
       this.#halt();
     });
@@ -203,6 +210,16 @@ export class PipesCoreRunner {
     );
   }
   async run(): Promise<void> {
+    const isRunningInsideContainer = async () => {
+      const isContainarised = isInsideContainer();
+      if (!isContainarised) {
+        await PipesDOM.render(<PipesDOM.Info>This should run inside container for best usage.</PipesDOM.Info>, {
+          forceRenderNow: true,
+        });
+      }
+    };
+
+    await isRunningInsideContainer();
     onCleanup(() => {
       // If program quits for some reason print out the logs if needed
       this.#renderRawLog();
@@ -298,7 +315,7 @@ export {
   createGlobalZodKeyStore,
   createGlobalZodStore,
 };
-
+export * from "./utils/zod/base-zod/index.js";
 export type { createModuleDef, PipesCoreModule, Simplify };
 export * from "./core/index.js";
 export * from "@dagger.io/dagger";

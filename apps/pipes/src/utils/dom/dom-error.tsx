@@ -2,13 +2,13 @@ import React from "react";
 
 import render from "../ink/render.js";
 
-import { Error as UIError } from "./elements/elements.js";
+import { PipesObject } from "./dom.js";
 
-import type { ReactNode } from "react";
+import type { ReactElement } from "react";
 
 export class DOMError extends Error {
-  #message: ReactNode;
-  constructor(pipeComponent: ReactNode) {
+  #message: ReactElement;
+  constructor(pipeComponent: ReactElement) {
     super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
 
     if (Error.captureStackTrace) {
@@ -20,11 +20,11 @@ export class DOMError extends Error {
     this.#message = (
       <>
         {pipeComponent}
-        <UIError>{this.stack}</UIError>
+        <PipesObject value={{ stack: this.stack }} />
       </>
     );
   }
-  get = (): ReactNode => {
+  get = (): ReactElement => {
     return this.#message;
   };
   toString = async (): Promise<string> => {

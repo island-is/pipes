@@ -7,6 +7,9 @@
   "packageManager": "yarn@4.0.0-rc.47",
   "private": true,
   "scripts": {
+    "build": "node base/scripts/src/build-all.ts",
+    "lint": "node base/scripts/src/build-all.ts --action lint",
+    "test": "node base/scripts/src/build-all.ts --action test",
     "postinstall": "NODE_OPTIONS=\"--no-warnings=ExperimentalWarning  --experimental-loader=./loader.mjs\" yarn node base/scripts/src/post-install.ts"
   },
   "workspaces": [
