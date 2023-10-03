@@ -891,7 +891,7 @@ __metadata:
     "@types/node": "npm:20.5.8"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
-    ava: "npm:5.1.1"
+    ava: "npm:5.3.1"
     boxen: "npm:7.1.1"
     chalk: "npm:5.3.0"
     cli-boxes: "npm:3.0.0"
@@ -1004,7 +1004,7 @@ __metadata:
     "@types/ws": "npm:8.5.4"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
-    ava: "npm:5.1.1"
+    ava: "npm:5.3.1"
     boxen: "npm:7.1.1"
     chalk: "npm:5.3.0"
     ci-info: "npm:3.8.0"
@@ -2608,7 +2608,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.4.1, acorn@npm:^8.8.1, acorn@npm:^8.9.0":
+"acorn@npm:^8.4.1, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
   version: 8.10.0
   resolution: "acorn@npm:8.10.0"
   bin:
@@ -3057,11 +3057,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:5.1.1":
-  version: 5.1.1
-  resolution: "ava@npm:5.1.1"
+"ava@npm:5.3.1":
+  version: 5.3.1
+  resolution: "ava@npm:5.3.1"
   dependencies:
-    acorn: "npm:^8.8.1"
+    acorn: "npm:^8.8.2"
     acorn-walk: "npm:^8.2.0"
     ansi-styles: "npm:^6.2.1"
     arrgv: "npm:^1.0.2"
@@ -3071,7 +3071,7 @@ __metadata:
     chalk: "npm:^5.2.0"
     chokidar: "npm:^3.5.3"
     chunkd: "npm:^2.0.1"
-    ci-info: "npm:^3.7.1"
+    ci-info: "npm:^3.8.0"
     ci-parallel-vars: "npm:^1.0.1"
     clean-yaml-object: "npm:^0.1.0"
     cli-truncate: "npm:^3.1.0"
@@ -3080,10 +3080,9 @@ __metadata:
     concordance: "npm:^5.0.4"
     currently-unhandled: "npm:^0.4.1"
     debug: "npm:^4.3.4"
-    del: "npm:^7.0.0"
     emittery: "npm:^1.0.1"
     figures: "npm:^5.0.0"
-    globby: "npm:^13.1.3"
+    globby: "npm:^13.1.4"
     ignore-by-default: "npm:^2.1.0"
     indent-string: "npm:^5.0.0"
     is-error: "npm:^2.2.2"
@@ -3099,13 +3098,12 @@ __metadata:
     plur: "npm:^5.1.0"
     pretty-ms: "npm:^8.0.0"
     resolve-cwd: "npm:^3.0.0"
-    slash: "npm:^3.0.0"
     stack-utils: "npm:^2.0.6"
     strip-ansi: "npm:^7.0.1"
     supertap: "npm:^3.0.1"
     temp-dir: "npm:^3.0.0"
-    write-file-atomic: "npm:^5.0.0"
-    yargs: "npm:^17.6.2"
+    write-file-atomic: "npm:^5.0.1"
+    yargs: "npm:^17.7.2"
   peerDependencies:
     "@ava/typescript": "*"
   peerDependenciesMeta:
@@ -3113,7 +3111,7 @@ __metadata:
       optional: true
   bin:
     ava: entrypoints/cli.mjs
-  checksum: 343739084eff4cc54cdfa558bd2bdfb37e52cffa94a0a2d9c5444a2f777d07d408627f50cd9bd61a571e910cb938b15844c45f479d6b06132018e9eb9a4a70bc
+  checksum: 4b59259471b5c9b5e8952db65c5231ce0d906f339d4afa9c9f19927a2e9db1e1b7d4e414082381a3554e6607c36df60762f7cc26ff501a215bc6bac939dc9e77
   languageName: node
   linkType: hard
 
@@ -3556,7 +3554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:3.8.0, ci-info@npm:^3.2.0, ci-info@npm:^3.6.1, ci-info@npm:^3.7.1":
+"ci-info@npm:3.8.0, ci-info@npm:^3.2.0, ci-info@npm:^3.6.1, ci-info@npm:^3.8.0":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: b00e9313c1f7042ca8b1297c157c920d6d69f0fbad7b867910235676df228c4b4f4df33d06cacae37f9efba7a160b0a167c6be85492b419ef71d85660e60606b
@@ -4175,22 +4173,6 @@ __metadata:
     has-property-descriptors: "npm:^1.0.0"
     object-keys: "npm:^1.1.1"
   checksum: b4ccd00597dd46cb2d4a379398f5b19fca84a16f3374e2249201992f36b30f6835949a9429669ee6b41b6e837205a163eadd745e472069e70dfc10f03e5fcc12
-  languageName: node
-  linkType: hard
-
-"del@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "del@npm:7.1.0"
-  dependencies:
-    globby: "npm:^13.1.2"
-    graceful-fs: "npm:^4.2.10"
-    is-glob: "npm:^4.0.3"
-    is-path-cwd: "npm:^3.0.0"
-    is-path-inside: "npm:^4.0.0"
-    p-map: "npm:^5.5.0"
-    rimraf: "npm:^3.0.2"
-    slash: "npm:^4.0.0"
-  checksum: 93527e78e95125809ff20a112814b00648ed64af204be1a565862698060c9ec8f5c5fe1a4866725acfde9b0da6423f4b7a7642c1d38cd4b05cbeb643a7b089e3
   languageName: node
   linkType: hard
 
@@ -6080,7 +6062,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^13.1.2, globby@npm:^13.1.3":
+"globby@npm:^13.1.2, globby@npm:^13.1.4":
   version: 13.2.2
   resolution: "globby@npm:13.2.2"
   dependencies:
@@ -6102,7 +6084,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.10, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
+"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: bf152d0ed1dc159239db1ba1f74fdbc40cb02f626770dcd5815c427ce0688c2635a06ed69af364396da4636d0408fcf7d4afdf7881724c3307e46aff30ca49e2
@@ -6773,24 +6755,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-path-cwd@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "is-path-cwd@npm:3.0.0"
-  checksum: bc34d13b6a03dfca4a3ab6a8a5ba78ae4b24f4f1db4b2b031d2760c60d0913bd16a4b980dcb4e590adfc906649d5f5132684079a3972bd219da49deebb9adea8
-  languageName: node
-  linkType: hard
-
 "is-path-inside@npm:^3.0.3":
   version: 3.0.3
   resolution: "is-path-inside@npm:3.0.3"
   checksum: abd50f06186a052b349c15e55b182326f1936c89a78bf6c8f2b707412517c097ce04bc49a0ca221787bc44e1049f51f09a2ffb63d22899051988d3a618ba13e9
-  languageName: node
-  linkType: hard
-
-"is-path-inside@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "is-path-inside@npm:4.0.0"
-  checksum: 8810fa11c58e6360b82c3e0d6cd7d9c7d0392d3ac9eb10f980b81f9839f40ac6d1d6d6f05d069db0d227759801228f0b072e1b6c343e4469b065ab5fe0b68fe5
   languageName: node
   linkType: hard
 
@@ -10944,7 +10912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^5.0.0":
+"write-file-atomic@npm:^5.0.1":
   version: 5.0.1
   resolution: "write-file-atomic@npm:5.0.1"
   dependencies:
@@ -11057,7 +11025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.0.0, yargs@npm:^17.6.2":
+"yargs@npm:^17.0.0, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
