@@ -102,8 +102,10 @@ export class GithubRelease {
         tag,
       });
       await this.#setImage(release.data);
+      console.log(release.data);
       return release.data;
     } catch (e) {
+      console.log(e);
       return { id: null };
     }
   }
