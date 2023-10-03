@@ -23,6 +23,6 @@
     "zip-a-folder": "*"
   },
   "dependencies": {
-    "@octokit/rest": "20.0.1"
+    "@octokit/rest": "20.0.2"
   }
 }
