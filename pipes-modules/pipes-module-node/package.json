@@ -49,7 +49,7 @@
     "react": "*"
   },
   "dependencies": {
-    "rollup": "3.29.2",
+    "rollup": "3.29.4",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-swc3": "0.10.1",
     "tmp-promise": "3.0.3"
