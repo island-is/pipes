@@ -13,6 +13,7 @@ export type TestResult = Simplify<
     | { status: STATUS_SUCCESS; name: string }
     | { status: STATUS_ERROR; name: string; file: string; error: string }
     | { status: STATUS_ERROR; message: UNKNOWN_ERROR }
+    | { status: STATUS_ERROR; message: string }
   )
 >;
 

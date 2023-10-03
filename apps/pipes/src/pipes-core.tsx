@@ -34,17 +34,6 @@ import {
 import type { InternalStateStore, PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "./core/index.js";
 import type { Client } from "@dagger.io/dagger";
 
-const isRunningInsideContainer = async () => {
-  const isContainarised = isInsideContainer();
-  if (!isContainarised) {
-    await PipesDOM.render(<PipesDOM.Error>This should run inside container for best usage.</PipesDOM.Error>, {
-      forceRenderNow: true,
-    });
-  }
-};
-
-await isRunningInsideContainer();
-
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
 
@@ -215,6 +204,16 @@ export class PipesCoreRunner {
     );
   }
   async run(): Promise<void> {
+    const isRunningInsideContainer = async () => {
+      const isContainarised = isInsideContainer();
+      if (!isContainarised) {
+        await PipesDOM.render(<PipesDOM.Info>This should run inside container for best usage.</PipesDOM.Info>, {
+          forceRenderNow: true,
+        });
+      }
+    };
+
+    await isRunningInsideContainer();
     onCleanup(() => {
       // If program quits for some reason print out the logs if needed
       this.#renderRawLog();

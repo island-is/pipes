@@ -4,4 +4,5 @@ export * from "./elements/elements.js";
 
 export { DOMError } from "./dom-error.js";
 
-export { setMask } from "../ink/mask.js";
+export * from "./console-patch.js";
+export * from "../ink/mask.js";

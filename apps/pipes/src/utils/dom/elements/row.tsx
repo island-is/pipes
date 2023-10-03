@@ -28,10 +28,9 @@ export const renderRow = {
     const children = Array.isArray(component.children) ? component.children : [component.children];
     const widths = Array(children.length)
       .fill(0)
-      .map((_e) => {
-        return `${Math.floor(100 / children.length)}%`;
+      .map((_e, index) => {
+        return component.width?.[index] ?? undefined;
       });
-
     return (
       <Box
         flexDirection="row"

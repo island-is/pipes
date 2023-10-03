@@ -18,15 +18,14 @@ export const listFilteredFiles = async (dir: string, type: FileType = "TEST_FILE
         files.push(...subFiles);
         continue;
       }
-
       if (entry.isFile() && /\.(js|mjs|cjs|ts|tsx)$/.test(entry.name)) {
         if (/\.spec\./.test(entry.name) || /\.typespec\./.test(entry.name)) {
-          if (type === "TEST_FILES" || "ALL") {
+          if (type === "TEST_FILES" || type === "ALL") {
             files.push(entryPath);
           }
           continue;
         }
-        if (type === "MAIN_FILES" || "ALL") {
+        if (type === "MAIN_FILES" || type === "ALL") {
           files.push(entryPath);
         }
       }

@@ -40,9 +40,9 @@ export const testJSX = async (jsx: ReactNode, name: string, filename: string): P
   await it(name, async () => {
     const rendered = await render(jsx, {
       forceRenderNow: true,
+      renderAsString: false,
     });
     const value = rendered.value();
-    console.log(`${name}\n${value}`);
     snapTest(value, filename, name);
   });
 };

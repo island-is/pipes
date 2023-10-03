@@ -54,7 +54,7 @@ export const Dialog = (props: Omit<IDialog, "type">): ReactNode => {
     return <></>;
   }
   return (
-    <Row>
+    <Row width={[18, undefined]}>
       {typeof props.dialogType === "string" && props.dialogType !== "default" ? (
         <Subtitle color={borderColor} emoji={emojiType}>
           {props.title}

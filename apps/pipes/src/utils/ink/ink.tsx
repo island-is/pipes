@@ -144,6 +144,7 @@ export default class Ink {
       const x = await (typeof node === "function" ? node() : node);
       this.#rec.updateContainer(x, this.#container, null, noop);
       const value = this.#getRenderedOutput();
+      this.prevValues = value;
       if (!this.toString) {
         await WriteTo.lock((write) => {
           return write(`\n${value}`);
