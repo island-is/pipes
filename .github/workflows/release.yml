@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches:
+    tags:
       - "release-*"
 concurrency:
   group: ${{ github.ref }}
@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Extract release version from branch name
-        run: echo "RELEASE_VERSION=$(echo ${{ github.ref }} | sed 's/refs\/heads\/release-//')" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/release-//')" >> $GITHUB_ENV
       - name: Run script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
