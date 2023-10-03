@@ -358,6 +358,9 @@ let GithubRelease$1 = class GithubRelease {
     }
     async #deleteArtifactByName(name, newInput = null) {
         const artifacts = await this.#listArtifactsForRelease(newInput);
+        console.log({
+            artifacts
+        });
         const id = artifacts.find((e)=>e.name === name);
         if (!id) {
             // No need to update
