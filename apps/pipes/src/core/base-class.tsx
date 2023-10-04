@@ -5,7 +5,7 @@ import { createGlobalZodKeyStore, createZodStore, wrapContext, z } from "../util
 
 import { createInternalState, createState } from "./internal-schema.js";
 import { PipesCore, type PipesCoreModule } from "./pipes-core-module.js";
-import { throwJSXError } from "./unknown-to-string.js";
+import { throwJSXError } from "./throw-jsx-error.js";
 
 import type { InternalStateStore, LoaderStateStore } from "./types/internal-schema-types.js";
 import type { AnyModule, MergeModules, ModuleName } from "./types/module.js";

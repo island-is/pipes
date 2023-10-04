@@ -4,7 +4,7 @@
 
 import { z } from "../utils/zod/zod.js";
 
-import { throwJSXError } from "./unknown-to-string.js";
+import { throwJSXError } from "./throw-jsx-error.js";
 
 import type { Module, ModuleConfig, ModuleConfigValue, ModuleContext, ModuleContextInterface } from "./types/module.js";
 import type { PipesContextCommand } from "./types/pipes-command.js";

@@ -59,6 +59,9 @@ export const PipesObject = (props: Props): ReactElement => {
     if (input instanceof DOMError) {
       return input.get();
     }
+    if (input instanceof Error) {
+      return <Text color="red">{input.toString()}</Text>;
+    }
 
     seen.add(input);
     const noKeys = Object.keys(input).length === 0;

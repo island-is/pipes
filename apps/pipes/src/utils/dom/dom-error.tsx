@@ -9,7 +9,7 @@ import type { ReactElement } from "react";
 export class DOMError extends Error {
   #message: ReactElement;
   constructor(pipeComponent: ReactElement) {
-    super("Pipes Error"); // Ensure that pipeComponent can be converted to a string
+    super("Pipes Error");
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, DOMError);
@@ -17,12 +17,9 @@ export class DOMError extends Error {
 
     this.name = this.constructor.name;
 
-    this.#message = (
-      <>
-        {pipeComponent}
-        <PipesObject value={{ stack: this.stack }} />
-      </>
-    );
+    this.#message = pipeComponent;
+    console.log(this.#message);
+    console.log("we got here");
   }
   get = (): ReactElement => {
     return this.#message;
