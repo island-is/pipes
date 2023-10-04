@@ -15,7 +15,7 @@ interface Props {
 }
 export const PipesObject = (props: Props): ReactElement => {
   const padding = props.padding ?? 1;
-  const key = props.key ?? "";
+  const preKey = props.key ?? "";
   const seen = props.seen ?? new Set();
   const input = props.value;
   if (typeof input === "number") {
@@ -77,8 +77,16 @@ export const PipesObject = (props: Props): ReactElement => {
           Object.keys(input).map((key, index) => {
             return (
               <Box key={index} flexDirection={"row"} width="100%" marginTop={1}>
-                <Text color="green">{maskString(key)}: </Text>
-                <PipesObject value={input[key as keyof typeof input]} padding={padding + 1} seen={seen} />
+                <Text color="green">
+                  {preKey}
+                  {maskString(key)}:{" "}
+                </Text>
+                <PipesObject
+                  value={input[key as keyof typeof input]}
+                  key={`${preKey}${key}.`}
+                  padding={padding + 1}
+                  seen={seen}
+                />
               </Box>
             );
           })
