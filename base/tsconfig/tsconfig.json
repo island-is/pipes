@@ -1,8 +1,8 @@
 {
   "include": ["../../libs/dom/typing.d.ts"],
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ESNext",
     "noErrorTruncation": false,
     "disableSizeLimit": true,
