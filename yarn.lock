@@ -1095,7 +1095,7 @@ __metadata:
     "@island-is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/semver": "npm:7.5.3"
-    "@yarnpkg/types": "npm:4.0.0-rc.52"
+    "@yarnpkg/types": "npm:4.0.0-rc.53"
     commitlint: "npm:17.7.2"
     eslint: "npm:8.50.0"
     express: "npm:4.18.2"
@@ -2355,12 +2355,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/types@npm:4.0.0-rc.52":
-  version: 4.0.0-rc.52
-  resolution: "@yarnpkg/types@npm:4.0.0-rc.52"
+"@yarnpkg/types@npm:4.0.0-rc.53":
+  version: 4.0.0-rc.53
+  resolution: "@yarnpkg/types@npm:4.0.0-rc.53"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 858c2b2848a6449004e9cb7bf847b8aabdc6b4bd0c73e8aedae1a1ff8fab7cc8e4ee18a054076e9bb374c59435439715f7844d7993ca0b252f244ead06bcd87d
+  checksum: 92db55833089988a36661311cd2a16db7fe672e8cb4e68f36f16d074be7a0116c00f48c00c5350553a3e76565b0eb91ca6dd108afa7321c45f9e5da894119b4c
   languageName: node
   linkType: hard
 
