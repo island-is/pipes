@@ -11,9 +11,11 @@ interface Props {
   value: unknown;
   seen?: Set<unknown>;
   padding?: number;
+  key?: string;
 }
 export const PipesObject = (props: Props): ReactElement => {
   const padding = props.padding ?? 1;
+  const key = props.key ?? "";
   const seen = props.seen ?? new Set();
   const input = props.value;
   if (typeof input === "number") {
@@ -68,22 +70,19 @@ export const PipesObject = (props: Props): ReactElement => {
     return (
       <>
         <Text bold={true}>{Array.isArray(input) ? "Array" : "Object"}</Text>
-        <Box marginTop={1} width="100%" flexDirection={"column"}>
-          {noKeys ? (
-            <Box>
-              <Text>[value]{JSON.stringify(input)}</Text>
-            </Box>
-          ) : (
-            Object.keys(input).map((key, index) => {
-              return (
-                <Box key={index} flexDirection={"row"}>
-                  <Text color="green">{maskString(key)}: </Text>
-                  <PipesObject value={input[key as keyof typeof input]} padding={padding + 1} seen={seen} />
-                </Box>
-              );
-            })
-          )}
-        </Box>
+        {noKeys ? <Text>[value]{JSON.stringify(input)}</Text> : <></>}
+        {noKeys ? (
+          <></>
+        ) : (
+          Object.keys(input).map((key, index) => {
+            return (
+              <Box key={index} flexDirection={"row"} width="100%" marginTop={1}>
+                <Text color="green">{maskString(key)}: </Text>
+                <PipesObject value={input[key as keyof typeof input]} padding={padding + 1} seen={seen} />
+              </Box>
+            );
+          })
+        )}
       </>
     );
   }
