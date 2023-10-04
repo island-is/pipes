@@ -835,7 +835,7 @@ __metadata:
     "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.8.2"
-    ci-info: "npm:3.8.0"
+    ci-info: "npm:3.9.0"
     eslint: "npm:8.50.0"
     prettier: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
@@ -975,7 +975,7 @@ __metadata:
     ava: "npm:5.3.1"
     boxen: "npm:7.1.1"
     chalk: "npm:5.3.0"
-    ci-info: "npm:3.8.0"
+    ci-info: "npm:3.9.0"
     cli-boxes: "npm:3.0.0"
     cli-cursor: "npm:4.0.0"
     cli-truncate: "npm:3.1.0"
@@ -1033,7 +1033,7 @@ __metadata:
     "@octokit/rest": "npm:20.0.2"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.8.2"
-    ci-info: "npm:3.8.0"
+    ci-info: "npm:3.9.0"
     enquirer: "npm:2.4.1"
     eslint: "npm:8.50.0"
     mobx: "npm:6.10.2"
@@ -1065,7 +1065,7 @@ __metadata:
     "@island-is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.78"
     "@types/node": "npm:20.8.2"
-    ci-info: "npm:3.8.0"
+    ci-info: "npm:3.9.0"
     eslint: "npm:8.50.0"
     mobx: "npm:6.10.2"
     prettier: "npm:3.0.3"
@@ -3343,7 +3343,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:3.8.0, ci-info@npm:^3.2.0, ci-info@npm:^3.8.0":
+"ci-info@npm:3.9.0":
+  version: 3.9.0
+  resolution: "ci-info@npm:3.9.0"
+  checksum: 75bc67902b4d1c7b435497adeb91598f6d52a3389398e44294f6601b20cfef32cf2176f7be0eb961d9e085bb333a8a5cae121cb22f81cf238ae7f58eb80e9397
+  languageName: node
+  linkType: hard
+
+"ci-info@npm:^3.2.0, ci-info@npm:^3.8.0":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: b00e9313c1f7042ca8b1297c157c920d6d69f0fbad7b867910235676df228c4b4f4df33d06cacae37f9efba7a160b0a167c6be85492b419ef71d85660e60606b
