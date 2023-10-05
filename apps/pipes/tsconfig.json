@@ -4,6 +4,6 @@
   "extends": "@island-is/tsconfig/tsconfig.json",
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext"
+    "module": "NodeNext"
   }
 }

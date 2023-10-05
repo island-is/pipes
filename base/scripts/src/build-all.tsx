@@ -13,7 +13,7 @@ const action = z
   })
   .parse();
 export const build = async (path: string, name: string): Promise<void> => {
-  await PipesDOM.render(
+  await using _buildRender = await PipesDOM.render(
     <PipesDOM.Info>
       {action} {name}
     </PipesDOM.Info>,

@@ -1,8 +1,6 @@
-import { rmSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 
-import { Directory, onCleanup, type removeContextCommand, z } from "@island-is/pipes-core";
-import { dir, file } from "tmp-promise";
+import { Directory, type removeContextCommand, tmpDir, tmpFile, z } from "@island-is/pipes-core";
 import { zip } from "zip-a-folder";
 
 import { GithubRelease } from "../release.js";
@@ -24,11 +22,11 @@ export const GithubUploadArtifact: removeContextCommand<
   PipesGitHubModule["Context"]["Implement"]["githubUploadArtifact"]
 > = async (context, config, props) => {
   const octokit = context.githubGetOctokit();
-  const { path } = await dir();
-  const { path: zipPath } = await file({ postfix: ".zip", prefix: `artifact-${props.version}-` });
-  const cleanup = onCleanup(() => {
-    rmSync(path, { recursive: true, force: true });
-  });
+  await using _tmpDir = await tmpDir({ unsafeCleanup: true });
+  const path = _tmpDir.path;
+  await using _tmpZip = await tmpFile({ postfix: ".zip", prefix: `artifact-${props.version}-` });
+  const zipPath = _tmpZip.path;
+
   const owner = config.githubOwner;
   const repo = config.githubRepo;
   await props.files.export(path);
@@ -47,5 +45,4 @@ export const GithubUploadArtifact: removeContextCommand<
     },
     octokit,
   );
-  cleanup();
 };
