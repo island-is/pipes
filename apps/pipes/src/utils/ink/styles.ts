@@ -1,8 +1,27 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { type ForegroundColorName } from "chalk";
 import { type BoxStyle, type Boxes } from "cli-boxes";
 import { type LiteralUnion } from "type-fest";
 import Yoga, { type Node as YogaNode } from "yoga-wasm-web/auto";
+
+export type ForegroundColorName =
+  | "black"
+  | "red"
+  | "green"
+  | "yellow"
+  | "blue"
+  | "cyan"
+  | "magenta"
+  | "white"
+  | "gray" // Alias for `blackBright`
+  | "grey" // Alias for `blackBright`
+  | "blackBright"
+  | "redBright"
+  | "greenBright"
+  | "yellowBright"
+  | "blueBright"
+  | "cyanBright"
+  | "magentaBright"
+  | "whiteBright";
 
 export type Styles = {
   readonly textWrap?: "wrap" | "end" | "middle" | "truncate-end" | "truncate" | "truncate-middle" | "truncate-start";
