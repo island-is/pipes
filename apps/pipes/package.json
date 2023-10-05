@@ -134,7 +134,7 @@
     "eslint": "8.50.0",
     "node-fetch": "3.3.2",
     "prettier": "3.0.3",
-    "rollup-plugin-dts": "6.0.2",
+    "rollup-plugin-dts": "patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch",
     "rollup-plugin-ts": "3.4.5",
     "streamifier": "0.1.1",
     "tar-stream": "3.1.6",

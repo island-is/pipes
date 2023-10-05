@@ -996,7 +996,7 @@ __metadata:
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
     react-reconciler: "npm:0.29.0"
-    rollup-plugin-dts: "npm:6.0.2"
+    rollup-plugin-dts: "patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch"
     rollup-plugin-ts: "npm:3.4.5"
     scheduler: "npm:0.23.0"
     signal-exit: "npm:4.1.0"
@@ -8987,6 +8987,22 @@ __metadata:
     "@babel/code-frame":
       optional: true
   checksum: d9a73b00798d96f707562f104a3f490c05986dd1e23ea8b6c0999c0e4dbb3dc1fa919465f8240ca40a17a1ec222114f2a0808ab3e8cedc9fe4d0b0ca182d5dee
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch":
+  version: 6.0.2
+  resolution: "rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch::version=6.0.2&hash=78fc91"
+  dependencies:
+    "@babel/code-frame": "npm:^7.22.13"
+    magic-string: "npm:^0.30.3"
+  peerDependencies:
+    rollup: ^3.25
+    typescript: ^4.5 || ^5.0
+  dependenciesMeta:
+    "@babel/code-frame":
+      optional: true
+  checksum: 45b2be3be1b4ac058a1b393741a10bcc56e29a4032c3f1106236e701aec1d6b987243f2fa0079d920bfbf1594f901813686098ade1a4e91a66a1846418649881
   languageName: node
   linkType: hard
 
