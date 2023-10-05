@@ -13,6 +13,6 @@ describe("throw jsx error", async () => {
     } catch (_e) {
       e = _e;
     }
-    await PipesDOM.render(e.get, { forceRenderNow: true });
+    await using _testRender = await PipesDOM.render(e.get, { forceRenderNow: true });
   });
 });

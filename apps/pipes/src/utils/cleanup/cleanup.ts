@@ -1,4 +1,8 @@
-export function onCleanup(callback: () => void): (call?: boolean) => void {
+interface CleanFn {
+  stop: (call?: boolean) => void;
+  [Symbol.dispose]: () => void;
+}
+export function onCleanup(callback: () => void): CleanFn {
   let called = false;
 
   const executeCallback = () => {
@@ -32,7 +36,7 @@ export function onCleanup(callback: () => void): (call?: boolean) => void {
   process.on("SIGUSR2", sigusr2Handler);
   process.on("uncaughtException", uncaughtExceptionHandler);
 
-  return (call: boolean = true) => {
+  const stop = (call: boolean = true) => {
     if (call) {
       callback();
     }
@@ -41,5 +45,16 @@ export function onCleanup(callback: () => void): (call?: boolean) => void {
     process.removeListener("SIGUSR1", sigusr1Handler);
     process.removeListener("SIGUSR2", sigusr2Handler);
     process.removeListener("uncaughtException", uncaughtExceptionHandler);
+  };
+  return {
+    stop,
+    [Symbol.dispose]: () => {
+      callback();
+      process.removeListener("exit", executeCallback);
+      process.removeListener("SIGINT", sigintHandler);
+      process.removeListener("SIGUSR1", sigusr1Handler);
+      process.removeListener("SIGUSR2", sigusr2Handler);
+      process.removeListener("uncaughtException", uncaughtExceptionHandler);
+    },
   };
 }
