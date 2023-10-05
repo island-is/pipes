@@ -24,7 +24,7 @@
     "@island-is/prettier-config": "workspace:*",
     "@island-is/scripts": "workspace:*",
     "@island-is/tsconfig": "workspace:*",
-    "@swc/core": "1.3.78",
+    "@swc/core": "1.3.92",
     "@types/semver": "7.5.3",
     "@yarnpkg/types": "4.0.0-rc.53",
     "commitlint": "17.7.2",
