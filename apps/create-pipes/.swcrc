@@ -16,7 +16,6 @@
     }
   },
   "module": {
-    "type": "nodenext",
-    "strict": true
+    "type": "nodenext"
   }
 }
