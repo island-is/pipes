@@ -839,7 +839,7 @@ __metadata:
     eslint: "npm:8.50.0"
     prettier: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -892,7 +892,7 @@ __metadata:
     string-width: "npm:6.1.0"
     ts-node: "npm:10.9.1"
     type-fest: "npm:4.3.3"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
     ws: "npm:8.14.2"
@@ -936,7 +936,7 @@ __metadata:
     eslint-plugin-workspaces: "npm:0.9.0"
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -1010,7 +1010,7 @@ __metadata:
     ts-node: "npm:10.9.1"
     ts-toolbelt: "npm:9.6.0"
     type-fest: "npm:4.3.3"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
     ws: "npm:8.14.2"
@@ -1040,7 +1040,7 @@ __metadata:
     prettier: "npm:3.0.3"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
     zip-a-folder: "npm:3.1.3"
   peerDependencies:
     "@dagger.io/dagger": "*"
@@ -1075,7 +1075,7 @@ __metadata:
     rollup-plugin-swc3: "npm:0.10.1"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
   peerDependencies:
     "@dagger.io/dagger": "*"
     "@island-is/pipes-core": "*"
@@ -1103,7 +1103,7 @@ __metadata:
     husky: "npm:8.0.3"
     prettier: "npm:3.0.3"
     semver: "npm:7.5.4"
-    typescript: "npm:5.1.6"
+    typescript: "npm:5.2.2"
     zod: "npm:3.22.4"
   peerDependencies:
     "@swc/core": "*"
@@ -8990,6 +8990,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch":
+  version: 6.0.2
+  resolution: "rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch::version=6.0.2&hash=78fc91"
+  dependencies:
+    "@babel/code-frame": "npm:^7.22.13"
+    magic-string: "npm:^0.30.3"
+  peerDependencies:
+    rollup: ^3.25
+    typescript: ^4.5 || ^5.0
+  dependenciesMeta:
+    "@babel/code-frame":
+      optional: true
+  checksum: 45b2be3be1b4ac058a1b393741a10bcc56e29a4032c3f1106236e701aec1d6b987243f2fa0079d920bfbf1594f901813686098ade1a4e91a66a1846418649881
+  languageName: node
+  linkType: hard
+
 "rollup-plugin-node-resolve@npm:5.2.0":
   version: 5.2.0
   resolution: "rollup-plugin-node-resolve@npm:5.2.0"
@@ -10158,17 +10174,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.1.6, typescript@npm:^4.6.4 || ^5.0.0":
-  version: 5.1.6
-  resolution: "typescript@npm:5.1.6"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: f347cde665cf43dc4c1c7d9821c7d9bbec3c3914f4bdd82ee490e9fb9f6d99036ed8666463b6a192dd005eeef333c5087d5931bdd51ec853436ff9a670a7417e
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^5.1.6":
+"typescript@npm:5.2.2, typescript@npm:^5.1.6":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
   bin:
@@ -10178,23 +10184,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.6.4 || ^5.0.0#optional!builtin<compat/typescript>":
+"typescript@npm:^4.6.4 || ^5.0.0":
   version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"
+  resolution: "typescript@npm:5.1.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f5481fa3ba0eee8970f46708d13c05650a865ad093b586fc9573f425c64c57ca97e3308e110bb528deb3ccebe83f6fd7b5a8ac90018038da96326a9ccdf8e77c
+  checksum: f347cde665cf43dc4c1c7d9821c7d9bbec3c3914f4bdd82ee490e9fb9f6d99036ed8666463b6a192dd005eeef333c5087d5931bdd51ec853436ff9a670a7417e
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.1.6#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.1.6#optional!builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=5da071"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 1f0e3f341f0d8b8351b2367470ac58de9c63ea676ea00570fd142ec3b2020413d950d9424ab61c599d3579bb0c43a05d07123ba12a2eec16078d3be4b5226b09
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^4.6.4 || ^5.0.0#optional!builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: f5481fa3ba0eee8970f46708d13c05650a865ad093b586fc9573f425c64c57ca97e3308e110bb528deb3ccebe83f6fd7b5a8ac90018038da96326a9ccdf8e77c
   languageName: node
   linkType: hard
 

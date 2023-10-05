@@ -349,7 +349,7 @@ export const createGlobalZodKeyStore = <T extends z.ZodType<any>>(
   });
 };
 
-type FunctionWithSymbolArg<T extends (...args: any[]) => any> = T extends () => infer Return
+type FunctionWithSymbolArg<T extends unknown> = T extends () => infer Return
   ? Return extends Promise<Record<string, infer X extends any>>
     ? () => Promise<Record<symbol, X>>
     : never

@@ -1,0 +1,21 @@
+diff --git a/dist/rollup-plugin-dts.mjs b/dist/rollup-plugin-dts.mjs
+index 5427d7d849a724ec27ba66c36290734b4dcff6e1..e189911b384f0689722ce23dcbd38ca29887af3c 100644
+--- a/dist/rollup-plugin-dts.mjs
++++ b/dist/rollup-plugin-dts.mjs
+@@ -97,13 +97,12 @@ function getCompilerOptions(input, overrideOptions, overrideConfigPath) {
+         console.error(ts.formatDiagnostics(errors, formatHost));
+         return { dtsFiles, dirName, compilerOptions };
+     }
++    const newcompilerOptions = { ...options, ...compilerOptions };
++    newcompilerOptions.module = 199;
+     return {
+         dtsFiles,
+         dirName,
+-        compilerOptions: {
+-            ...options,
+-            ...compilerOptions,
+-        },
++        compilerOptions: newcompilerOptions
+     };
+ }
+ function createProgram$1(fileName, overrideOptions, tsconfig) {
