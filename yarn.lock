@@ -996,7 +996,7 @@ __metadata:
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
     react-reconciler: "npm:0.29.0"
-    rollup-plugin-dts: "patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch"
+    rollup-plugin-dts: "npm:3.6.0.2"
     rollup-plugin-ts: "npm:3.4.5"
     scheduler: "npm:0.23.0"
     signal-exit: "npm:4.1.0"

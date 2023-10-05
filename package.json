@@ -43,6 +43,9 @@
     "npm": "please use yarn",
     "pnpm": "please use yarn"
   },
+  "resolutions": {
+    "rollup-plugin-dts@3.6.0.2": "patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch"
+  },
   "peerDependencies": {
     "@swc/core": "*"
   }
