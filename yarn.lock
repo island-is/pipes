@@ -891,7 +891,7 @@ __metadata:
     stack-utils: "npm:2.0.6"
     string-width: "npm:6.1.0"
     ts-node: "npm:10.9.1"
-    type-fest: "npm:0.12.0"
+    type-fest: "npm:4.3.3"
     typescript: "npm:5.1.6"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
@@ -1009,7 +1009,7 @@ __metadata:
     terminal-link: "npm:3.0.0"
     ts-node: "npm:10.9.1"
     ts-toolbelt: "npm:9.6.0"
-    type-fest: "npm:0.12.0"
+    type-fest: "npm:4.3.3"
     typescript: "npm:5.1.6"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
@@ -10031,10 +10031,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:0.12.0":
-  version: 0.12.0
-  resolution: "type-fest@npm:0.12.0"
-  checksum: 828dd234a0497721622de2907147aff3290a42f86ca01b3d1c1273b4f50bcd00eadcb71c7fad9b34125c7796b8d3a554415f9dda4875993ed51636431488f712
+"type-fest@npm:4.3.3":
+  version: 4.3.3
+  resolution: "type-fest@npm:4.3.3"
+  checksum: 7c146466676d251067118e1b97d8b5be788a4aa6f5d1531e5ab2a6701e43acc9c21f678a2f04ab7bba0def30fd3b66dad0a89e6ec4d75f6cc11102b9efe3aadf
   languageName: node
   linkType: hard
 
