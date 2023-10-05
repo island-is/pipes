@@ -18,8 +18,6 @@ export class DOMError extends Error {
     this.name = this.constructor.name;
 
     this.#message = pipeComponent;
-    console.log(this.#message);
-    console.log("we got here");
   }
   get = (): ReactElement => {
     return this.#message;

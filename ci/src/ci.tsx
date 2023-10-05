@@ -7,7 +7,6 @@ import { workspaceTestContext } from "./constraints/workspace-test.js";
 import { devImageInstallContext } from "./install/dev-image.js";
 
 await createPipe(() => {
-  console.log({ hello: { wow: { when: "what" } } });
   const tasks = [devImageInstallContext, workspaceTestContext, buildCoreContext];
   if (GlobalConfig.npmAuthToken) {
     PipesDOM.setMask(GlobalConfig.npmAuthToken);
