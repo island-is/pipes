@@ -38,7 +38,7 @@ export const snapTest = (actual: any, testFile: string, testTitle: string) => {
 
 export const testJSX = async (jsx: ReactNode, name: string, filename: string): Promise<void> => {
   await it(name, async () => {
-    const rendered = await render(jsx, {
+    await using rendered = await render(jsx, {
       forceRenderNow: true,
       renderAsString: false,
     });

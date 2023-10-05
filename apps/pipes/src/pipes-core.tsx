@@ -103,9 +103,9 @@ export class PipesCoreRunner {
     await value.run(this.#store, internalState).catch(async (e) => {
       internalState.state = "failed";
       if (e instanceof PipesDOM.DOMError) {
-        await PipesDOM.render(<PipesDOM.PipesObject value={e} />);
+        await using _r = await PipesDOM.render(<PipesDOM.PipesObject value={e} />);
       } else {
-        await PipesDOM.render(
+        await using _r = await PipesDOM.render(
           <PipesDOM.Error>
             <PipesDOM.PipesObject value={e} />
           </PipesDOM.Error>,
@@ -213,23 +213,26 @@ export class PipesCoreRunner {
     const isRunningInsideContainer = async () => {
       const isContainarised = isInsideContainer();
       if (!isContainarised) {
-        await PipesDOM.render(<PipesDOM.Info>This should run inside container for best usage.</PipesDOM.Info>, {
-          forceRenderNow: true,
-        });
+        await using _renderPipeShouldBeInContainer = await PipesDOM.render(
+          <PipesDOM.Info>This should run inside container for best usage.</PipesDOM.Info>,
+          {
+            forceRenderNow: true,
+          },
+        );
       }
     };
 
     await isRunningInsideContainer();
-    onCleanup(() => {
+    using _rawCleanUp = onCleanup(() => {
       // If program quits for some reason print out the logs if needed
       this.#renderRawLog();
     });
-    await this.#renderDaggerInfo();
+    await using _renderDaggerInfo = await this.#renderDaggerInfo();
     await connect(
       async (client: Client) => {
         this.#daggerState.value = "Connected";
         this.#client = client;
-        await this.#renderTaskState();
+        await using _renderTaskState = await this.#renderTaskState();
 
         /** Add all context */
         this.#contextPromiseAggregator.addPromise(
@@ -262,7 +265,7 @@ export class PipesCoreRunner {
             process.exit(0);
           }
           process.exit(1);
-        }, 2000);
+        }, 10000);
       });
   }
 }
@@ -324,3 +327,5 @@ export * from "./utils/cleanup/cleanup.js";
 export * from "./utils/get-nvm-version/get-nvm-version.js";
 export * from "./utils/base-utils/base-utils.js";
 export type { removeContextCommand } from "./core/types/remove-context-command.js";
+export { tmpDir } from "./utils/tmp-files/tmp-dir.js";
+export { tmpFile } from "./utils/tmp-files/tmp-file.js";

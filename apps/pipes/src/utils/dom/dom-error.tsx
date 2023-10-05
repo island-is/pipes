@@ -19,7 +19,7 @@ export class DOMError extends Error {
     return this.#message;
   };
   toString = async (): Promise<string> => {
-    const value = await render(this.#message, { renderAsString: true });
+    await using value = await render(this.#message, { renderAsString: true });
     return value.value();
   };
 }

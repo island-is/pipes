@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 interface Render {
   stop: () => Promise<void>;
   value: () => string;
+  [Symbol.asyncDispose]: () => Promise<void>;
 }
 
 type RenderValue = ReactNode;
@@ -28,6 +29,10 @@ const render = async (node: RenderValueParam, props: Partial<RenderProps> = {}):
       await instance.render(node);
       instance.unmount();
     },
+    [Symbol.asyncDispose]: async () => {
+      await instance.render(node);
+      instance.unmount();
+    },
     value: () => instance.prevValues,
   };
 };
@@ -35,6 +40,7 @@ const render = async (node: RenderValueParam, props: Partial<RenderProps> = {}):
 export const forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED = (node: ReactNode): void => {
   const instance = new Ink(false);
   instance._nonAsyncRender(node);
+  instance.unmount();
 };
 
 export default render;

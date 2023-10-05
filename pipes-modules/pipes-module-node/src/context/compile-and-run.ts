@@ -1,13 +1,12 @@
 import { builtinModules } from "node:module";
 import { basename, join } from "path";
 
+import { type removeContextCommand, tmpFile } from "@island-is/pipes-core";
 import { rollup } from "rollup";
 import { swc } from "rollup-plugin-swc3";
-import { file as tmpFile } from "tmp-promise";
 
 import type { PipesNodeModule } from "../interface.js";
 import type { Container } from "@dagger.io/dagger";
-import type { removeContextCommand } from "@island-is/pipes-core";
 
 export const compileAndRun: removeContextCommand<PipesNodeModule["Context"]["Implement"]["nodeCompileAndRun"]> =
   async function compileAndRun(context, config, { container, name, file, external, output = { output: "stdout" } }) {
@@ -74,8 +73,8 @@ export const compileAndRun: removeContextCommand<PipesNodeModule["Context"]["Imp
 const nodeResolve = (await import("rollup-plugin-node-resolve")).default;
 
 async function compileFile(inputFile: string, additionalExternals: string[] = [], name: string): Promise<string> {
-  const { path: tmpFilePath } = await tmpFile({ prefix: name, postfix: ".mjs" });
-
+  await using tmp = await tmpFile({ prefix: name, postfix: ".mjs" });
+  const tmpFilePath = tmp.path;
   const config = {
     input: inputFile,
     output: {

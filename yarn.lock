@@ -1007,6 +1007,7 @@ __metadata:
     string-width: "npm:6.1.0"
     tar-stream: "npm:3.1.6"
     terminal-link: "npm:3.0.0"
+    tmp-promise: "npm:3.0.3"
     ts-node: "npm:10.9.1"
     ts-toolbelt: "npm:9.6.0"
     type-fest: "npm:4.3.3"

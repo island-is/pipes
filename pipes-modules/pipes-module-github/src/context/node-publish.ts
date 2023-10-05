@@ -1,7 +1,6 @@
 import fsPromises from "node:fs/promises";
 
-import { ContextHasModule, onCleanup, z } from "@island-is/pipes-core";
-import { file } from "tmp-promise";
+import { ContextHasModule, tmpFile, z } from "@island-is/pipes-core";
 
 import type { PipesGitHubModule } from "../interface-module.js";
 import type { Container, removeContextCommand } from "@island-is/pipes-core";
@@ -30,10 +29,8 @@ export const GithubNodePublish: removeContextCommand<
     const workDir = "/build";
     const workDirNpmrc = `${workDir}/.npmrc`;
     const workDirPackageJSON = `${workDir}/package.json`;
-    const { path, cleanup } = await file({ postfix: ".json" });
-    const cleanTmp = onCleanup(() => {
-      void cleanup();
-    });
+    await using tmp = await tmpFile({ postfix: ".json" });
+    const path = tmp.path;
 
     await fsPromises.writeFile(path, `//npm.pkg.github.com/:_authToken=${props.token}`, "utf8");
     const files = oldContainer.directory(props.relativeWorkDir);
@@ -69,7 +66,6 @@ export const GithubNodePublish: removeContextCommand<
     }
     await fn(["publish", "--registry", "https://npm.pkg.github.com"], "Failled publishing");
 
-    cleanTmp();
     return;
   }
   throw new Error("Node module not set in context");
