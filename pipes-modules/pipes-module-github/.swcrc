@@ -10,8 +10,7 @@
     "baseUrl": "."
   },
   "module": {
-    "type": "nodenext",
-    "strict": true
+    "type": "nodenext"
   },
   "sourceMaps": true
 }

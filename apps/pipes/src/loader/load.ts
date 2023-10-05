@@ -41,7 +41,9 @@ export const load: LoadFn = async (url, context, defaultLoad) => {
   const moduleType = await getPackageType(fileURLToPath(url));
   /** Transpile all code that ends with ts or tsx */
   const { code } = await transformFile(fileURLToPath(url), {
+    root: process.cwd(),
     cwd: process.cwd(),
+    swcrc: false,
     jsc: {
       target: "esnext",
       parser: {
@@ -61,7 +63,6 @@ export const load: LoadFn = async (url, context, defaultLoad) => {
     sourceMaps: "inline",
     module: {
       type: moduleType === "commonjs" ? "commonjs" : "nodenext",
-      strict: true,
     },
   });
 
