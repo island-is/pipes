@@ -45,7 +45,7 @@
     "stack-utils": "2.0.6",
     "string-width": "6.1.0",
     "ts-node": "10.9.1",
-    "type-fest": "0.12.0",
+    "type-fest": "4.3.3",
     "typescript": "5.1.6",
     "widest-line": "4.0.1",
     "wrap-ansi": "8.1.0",
