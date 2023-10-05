@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, it } from "node:test";
 
 import { PipesDOM } from "../pipes-core.js";

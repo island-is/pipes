@@ -1,8 +1,4 @@
-import React from "react";
-
 import render from "../ink/render.js";
-
-import { PipesObject } from "./dom.js";
 
 import type { ReactElement } from "react";
 
