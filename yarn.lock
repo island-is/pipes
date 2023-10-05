@@ -886,7 +886,7 @@ __metadata:
     rollup-plugin-swc3: "npm:0.10.1"
     scheduler: "npm:0.23.0"
     signal-exit: "npm:4.1.0"
-    sinon: "npm:16.0.0"
+    sinon: "npm:16.1.0"
     slice-ansi: "npm:6.0.0"
     stack-utils: "npm:2.0.6"
     string-width: "npm:6.1.0"
@@ -1000,7 +1000,7 @@ __metadata:
     rollup-plugin-ts: "npm:3.4.5"
     scheduler: "npm:0.23.0"
     signal-exit: "npm:4.1.0"
-    sinon: "npm:16.0.0"
+    sinon: "npm:16.1.0"
     slice-ansi: "npm:6.0.0"
     stack-utils: "npm:2.0.6"
     streamifier: "npm:0.1.1"
@@ -9337,9 +9337,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sinon@npm:16.0.0":
-  version: 16.0.0
-  resolution: "sinon@npm:16.0.0"
+"sinon@npm:16.1.0":
+  version: 16.1.0
+  resolution: "sinon@npm:16.1.0"
   dependencies:
     "@sinonjs/commons": "npm:^3.0.0"
     "@sinonjs/fake-timers": "npm:^10.3.0"
@@ -9347,7 +9347,7 @@ __metadata:
     diff: "npm:^5.1.0"
     nise: "npm:^5.1.4"
     supports-color: "npm:^7.2.0"
-  checksum: 0f32ae2f5654ea8609a3621eb3b6c5830fa6e4c8df394bb6200c95199cbbbf99ecdaad97674c30bdd5d22c065f3e0fe86d8e664b33eecec48dccc85cb8707c2f
+  checksum: 1dc7dbfd4adbcdc82108447b671430396361e0853b2ad48e343b6e64a7d6fe3433e7e79b35577fb920dccea335e97cb82b61db0151821dbaf7bb4b8be470bb10
   languageName: node
   linkType: hard
 
