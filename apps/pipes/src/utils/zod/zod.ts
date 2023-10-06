@@ -3,6 +3,7 @@ import { parseArgs } from "node:util";
 import { ZodType, z } from "./base-zod/index.js";
 
 import type { DefaultProps, ZodTypeAny } from "./base-zod/index.js";
+import { isArray } from "lodash";
 
 export * from "./base-zod/index.js";
 export * from "./observer.js";
