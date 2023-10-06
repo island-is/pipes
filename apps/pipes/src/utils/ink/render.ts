@@ -18,10 +18,29 @@ interface RenderProps {
   forceRenderNow: boolean;
 }
 
+const options = {
+  allowOutput: true,
+};
+
+export const disableOutput = (): void => {
+  options.allowOutput = false;
+};
+
 /**
  * Mount a component and render the output.
  */
 const render = async (node: RenderValueParam, props: Partial<RenderProps> = {}): Promise<Render> => {
+  if (!options.allowOutput) {
+    return {
+      stop: () => {
+        return Promise.resolve();
+      },
+      [Symbol.asyncDispose]: () => {
+        return Promise.resolve();
+      },
+      value: () => "",
+    };
+  }
   const instance: Ink = new Ink(props.renderAsString ?? false);
   await instance.render(node, props.forceRenderNow ?? false);
   return {

@@ -13,7 +13,7 @@ export type Color = Parameters<typeof Container>[0]["color"];
 export type ISubtitle = SpecifixJSX<
   "Subtitle",
   { emoji?: string; color?: Color; display?: "ansi" | "markdown" | undefined },
-  string
+  string | string[]
 >;
 export const Subtitle = (props: Omit<ISubtitle, "type">): ReactNode => {
   const type = props.display ?? "ansi";
@@ -33,12 +33,13 @@ export const renderSubtitle = {
     ) : (
       <></>
     );
+    const value = Array.isArray(component.children) ? component.children.join("") : component.children;
     return (
       <Container color={color}>
         {label}
         <Text backgroundColor={color} color={"white"} bold={true}>
           {" ".repeat(2)}
-          {component.children.toUpperCase()}
+          {value.toUpperCase()}
           {" ".repeat(2)}
         </Text>
       </Container>

@@ -94,5 +94,5 @@ class WriteToGeneric {
 export const WriteTo = new WriteToGeneric(originalStdoutWrite);
 export const WriteToError = new WriteToGeneric(originalStderrWrite);
 
-process.stdout.write = WriteTo.write;
-process.stderr.write = WriteToError.write;
+// process.stdout.write = WriteTo.write;
+// process.stderr.write = WriteToError.write;

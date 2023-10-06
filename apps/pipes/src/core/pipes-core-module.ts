@@ -59,7 +59,7 @@ export const PipesCoreConfig = createConfig<PipesCoreModule>(({ z }) => ({
         short: "c",
       },
     })
-    .describe("Is the current environment a CI environment"),
+    .describe("Is the current environment a CI environment?"),
   isPR: z
     .boolean()
     .default(ciinfo.isPR || false)
