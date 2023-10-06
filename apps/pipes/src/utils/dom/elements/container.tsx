@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from "react";
 
+import { getScreenWidth } from "../../ink/components/width-context.js";
 import { Box } from "../../ink/index.js";
 
 import type { SpecifixJSX } from "./jsx.js";
@@ -25,9 +26,10 @@ export const renderContainer = {
     return (
       <Box
         borderColor={color}
-        alignSelf="center"
         paddingLeft={component.padding ?? 0}
         paddingRight={component.padding ?? 0}
+        marginBottom={1}
+        width={getScreenWidth()}
       >
         {component.children}
       </Box>

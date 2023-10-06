@@ -1,11 +1,8 @@
 {
   "recommendations": [
-    "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "eamodio.gitlens",
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers",
     "github.vscode-github-actions"
   ]
 }

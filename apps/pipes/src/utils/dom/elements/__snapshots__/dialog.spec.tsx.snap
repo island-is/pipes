@@ -3,6 +3,7 @@
 exports[`error 1`] = `
 "  [1m[41m[37m[X][39m[49m[22m  [1m[41m[37m  TEST  [39m[49m[22m
 
+
  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur
  leo. In hac habitasse platea dictumst. Proin dolor metus, pharetra in ipsum a, facilisis posuere velit. Quisque sit
  amet eros eu urna dignissim pharetra non id libero.
@@ -16,6 +17,7 @@ exports[`error 1`] = `
  nunc sollicitudin facilisis at nec magna. Nam vel tincidunt mauris. Pellentesque habitant morbi tristique senectus et
  netus et malesuada fames ac turpis egestas. Vivamus convallis, diam ac porta tempus, justo libero aliquet augue, a
  eleifend libero elit eu nisi.
+
 "
 `;
 
@@ -34,9 +36,16 @@ exports[`multiple lines 1`] = `
  nunc sollicitudin facilisis at nec magna. Nam vel tincidunt mauris. Pellentesque habitant morbi tristique senectus et
  netus et malesuada fames ac turpis egestas. Vivamus convallis, diam ac porta tempus, justo libero aliquet augue, a
  eleifend libero elit eu nisi.
+
 "
 `;
 
-exports[`padding 1`] = `"   This is a message"`;
+exports[`padding 1`] = `
+" This is a message
+"
+`;
 
-exports[`render 1`] = `"   This is a message"`;
+exports[`render 1`] = `
+" This is a message
+"
+`;

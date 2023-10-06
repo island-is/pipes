@@ -1,3 +1,7 @@
+import { readFile } from "fs/promises";
+import { join } from "path";
+import { fileURLToPath } from "url";
+
 import { connect } from "@dagger.io/dagger";
 import isInsideContainer from "is-inside-container";
 import { reaction, when } from "mobx";
@@ -20,7 +24,7 @@ import { DynamicPromiseAggregator } from "./dynamic.js";
 import { PipesStream } from "./stream.js";
 import { onCleanup } from "./utils/cleanup/cleanup.js";
 import * as PipesDOM from "./utils/dom/dom.js";
-import { forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED } from "./utils/ink/render.js";
+import { disableOutput, forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED } from "./utils/ink/render.js";
 import {
   createBasicZodStore,
   createGlobalZodKeyStore,
@@ -28,11 +32,41 @@ import {
   createZodKeyStore,
   createZodStore,
   createZodSymbolStore,
+  getHelpDescriptions,
   z,
 } from "./utils/zod/zod.js";
 
 import type { InternalStateStore, PipesCoreClass, PipesCoreModule, Simplify, createModuleDef } from "./core/index.js";
 import type { Client } from "@dagger.io/dagger";
+
+// Default arguments
+
+const shouldDisplayVersion = z
+  .boolean()
+  .default(false, {
+    arg: {
+      short: "v",
+      long: "version",
+    },
+  })
+  .describe("Display version")
+  .parse();
+
+const shouldDisplayHelp = z
+  .boolean()
+  .default(false, {
+    arg: {
+      short: "h",
+      long: "help",
+    },
+  })
+  .describe("Display help")
+  .parse();
+
+const allowOutput = !shouldDisplayHelp && !shouldDisplayVersion;
+if (!allowOutput) {
+  disableOutput();
+}
 
 export class PipesCoreRunner {
   #context: Set<PipesCoreClass> = new Set();
@@ -209,6 +243,29 @@ export class PipesCoreRunner {
       </PipesDOM.Group>,
     );
   }
+
+  #getVersionString = async () => {
+    const packageJSONPath = join(fileURLToPath(import.meta.url), "..", "..", "package.json");
+    const json = JSON.parse(await readFile(packageJSONPath, "utf-8")) as { version: string };
+    return json.version;
+  };
+  #version = this.#getVersionString();
+  #displayVersion = async () => {
+    const version = await this.#version;
+    return (
+      <PipesDOM.Text>
+        {version}
+        {"\n"}
+      </PipesDOM.Text>
+    );
+  };
+  #displayHeader = async () => {
+    const version = await this.#version;
+    return <PipesDOM.Title>Pipes {version}</PipesDOM.Title>;
+  };
+
+  #terminalWidth = PipesDOM.getScreenWidth();
+
   async run(): Promise<void> {
     const isRunningInsideContainer = async () => {
       const isContainarised = isInsideContainer();
@@ -223,6 +280,72 @@ export class PipesCoreRunner {
     };
 
     await isRunningInsideContainer();
+    if (shouldDisplayHelp) {
+      const args = getHelpDescriptions().map((e) => {
+        const env = e.env ? (
+          <PipesDOM.Box width={this.#terminalWidth}>
+            <PipesDOM.Text color="gray">env: </PipesDOM.Text>
+            <PipesDOM.Text>{e.env}</PipesDOM.Text>
+          </PipesDOM.Box>
+        ) : null;
+        const long = e.arg?.long ? (
+          <PipesDOM.Box width={this.#terminalWidth}>
+            <PipesDOM.Text color="gray">arg: </PipesDOM.Text> <PipesDOM.Text>--{e.arg.long}</PipesDOM.Text>
+          </PipesDOM.Box>
+        ) : null;
+        const short = e.arg?.short ? (
+          <PipesDOM.Box width={this.#terminalWidth}>
+            <PipesDOM.Text color="gray">arg: </PipesDOM.Text>
+            <PipesDOM.Text>-{e.arg.short}</PipesDOM.Text>
+          </PipesDOM.Box>
+        ) : null;
+        const types = (Array.isArray(e.type) ? e.type : [e.type]).map((e, index) => {
+          const isRaw = e.startsWith("raw:");
+          const value = isRaw ? e.split("raw:")[1] : JSON.stringify(e);
+          return (
+            <PipesDOM.Text
+              backgroundColor={isRaw ? "white" : undefined}
+              color={isRaw ? "black" : undefined}
+              key={index}
+            >
+              {value}
+            </PipesDOM.Text>
+          );
+        });
+        return (
+          <PipesDOM.Box flexDirection="row" width={this.#terminalWidth} key={JSON.stringify(e)} marginBottom={2}>
+            <PipesDOM.Box width={30} flexDirection="column">
+              {env}
+              {long}
+              {short}
+            </PipesDOM.Box>
+            <PipesDOM.Box width={this.#terminalWidth - 30} flexDirection="column">
+              <PipesDOM.Text bold={true}>Type</PipesDOM.Text>
+              <PipesDOM.Box width={this.#terminalWidth - 30} columnGap={1}>
+                {types}
+              </PipesDOM.Box>
+              <PipesDOM.Text>{e.description}</PipesDOM.Text>
+            </PipesDOM.Box>
+          </PipesDOM.Box>
+        );
+      });
+      const header = await this.#displayHeader();
+      forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(
+        <PipesDOM.Box width={this.#terminalWidth} flexDirection="column">
+          {header}
+          <PipesDOM.Subtitle>Arguments and environments</PipesDOM.Subtitle>
+          {args}
+        </PipesDOM.Box>,
+      );
+      process.exit(0);
+    }
+
+    if (shouldDisplayVersion) {
+      const version = await this.#displayVersion();
+      forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED(version);
+      process.exit(0);
+    }
+
     using _rawCleanUp = onCleanup(() => {
       // If program quits for some reason print out the logs if needed
       this.#renderRawLog();
