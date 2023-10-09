@@ -996,7 +996,7 @@ __metadata:
     prettier: "npm:3.0.3"
     react: "npm:18.2.0"
     react-reconciler: "npm:0.29.0"
-    rollup-plugin-dts: "npm:6.0.2"
+    rollup-plugin-dts: "npm:6.1.0"
     rollup-plugin-ts: "npm:3.4.5"
     scheduler: "npm:0.23.0"
     signal-exit: "npm:4.1.0"
@@ -7473,12 +7473,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.30.2, magic-string@npm:^0.30.3":
+"magic-string@npm:^0.30.2":
   version: 0.30.3
   resolution: "magic-string@npm:0.30.3"
   dependencies:
     "@jridgewell/sourcemap-codec": "npm:^1.4.15"
   checksum: f3c546b9be20d0f4b2f0a10fe0ad7b994d438c02e089a0777fd8128a00f76bd2004b13d5cd7219aa5cf445dc5fb84e915e48017d7a4cd20fa98ce8052cc15370
+  languageName: node
+  linkType: hard
+
+"magic-string@npm:^0.30.4":
+  version: 0.30.4
+  resolution: "magic-string@npm:0.30.4"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
+  checksum: 517640142e2b3e8248c7082f0345d711c787871211ddafe0b326f3c1fd54ece1f29d8b99fd78dac0a23ef150f764206f1ad43a3c8ce7e1ffd819a3396e88f5c4
   languageName: node
   linkType: hard
 
@@ -9075,35 +9084,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-dts@npm:6.0.2":
-  version: 6.0.2
-  resolution: "rollup-plugin-dts@npm:6.0.2"
+"rollup-plugin-dts@npm:6.1.0":
+  version: 6.1.0
+  resolution: "rollup-plugin-dts@npm:6.1.0"
   dependencies:
     "@babel/code-frame": "npm:^7.22.13"
-    magic-string: "npm:^0.30.3"
+    magic-string: "npm:^0.30.4"
   peerDependencies:
-    rollup: ^3.25
+    rollup: ^3.29.4 || ^4
     typescript: ^4.5 || ^5.0
   dependenciesMeta:
     "@babel/code-frame":
       optional: true
-  checksum: d9a73b00798d96f707562f104a3f490c05986dd1e23ea8b6c0999c0e4dbb3dc1fa919465f8240ca40a17a1ec222114f2a0808ab3e8cedc9fe4d0b0ca182d5dee
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch":
-  version: 6.0.2
-  resolution: "rollup-plugin-dts@patch:rollup-plugin-dts@npm%3A6.0.2#~/.yarn/patches/rollup-plugin-dts-npm-6.0.2-090a0bc313.patch::version=6.0.2&hash=78fc91"
-  dependencies:
-    "@babel/code-frame": "npm:^7.22.13"
-    magic-string: "npm:^0.30.3"
-  peerDependencies:
-    rollup: ^3.25
-    typescript: ^4.5 || ^5.0
-  dependenciesMeta:
-    "@babel/code-frame":
-      optional: true
-  checksum: 45b2be3be1b4ac058a1b393741a10bcc56e29a4032c3f1106236e701aec1d6b987243f2fa0079d920bfbf1594f901813686098ade1a4e91a66a1846418649881
+  checksum: 2ecbda8eb0644ce98ee3a795bf5b99368d80e357972c227b07c382c4af34e03fe681c0f6674e1967330b69e79f2ddf288a672f8964441d5f98e9998c50f41a01
   languageName: node
   linkType: hard
 
