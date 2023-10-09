@@ -102,7 +102,7 @@
     "tmp-promise": "3.0.3",
     "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
-    "type-fest": "4.3.3",
+    "type-fest": "4.4.0",
     "typescript": "5.2.2",
     "widest-line": "4.0.1",
     "wrap-ansi": "8.1.0",
