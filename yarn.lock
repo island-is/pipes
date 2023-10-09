@@ -956,7 +956,7 @@ __metadata:
     "@island-is/tsconfig-build": "workspace:*"
     "@rollup/plugin-alias": "npm:5.0.1"
     "@rollup/plugin-commonjs": "npm:25.0.5"
-    "@rollup/plugin-node-resolve": "npm:15.2.2"
+    "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@swc/core": "npm:1.3.92"
     "@swc/helpers": "npm:0.5.2"
     "@types/lodash": "npm:4.14.199"
@@ -1673,9 +1673,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:15.2.2":
-  version: 15.2.2
-  resolution: "@rollup/plugin-node-resolve@npm:15.2.2"
+"@rollup/plugin-node-resolve@npm:15.2.3":
+  version: 15.2.3
+  resolution: "@rollup/plugin-node-resolve@npm:15.2.3"
   dependencies:
     "@rollup/pluginutils": "npm:^5.0.1"
     "@types/resolve": "npm:1.20.2"
@@ -1688,7 +1688,7 @@ __metadata:
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: f4bcbadffb57d72472ad676349fdaea8e427e9cdc6ddd0ba43b07ce1df59c74af7a48e33de1916b1b361b649742679c0a8977af15fbde8f85a46c597b25e096d
+  checksum: d36a6792fbe9d8673d3a7c7dc88920be669ac54fba02ac0093d3c00fc9463fce2e87da1906a2651016742709c3d202b367fb49a62acd0d98f18409343f27b8b4
   languageName: node
   linkType: hard
 
