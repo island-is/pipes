@@ -70,6 +70,7 @@
     "mobx": "6.10.2",
     "prettier": "3.0.3",
     "react": "18.2.0",
+    "ts-toolbelt": "9.6.0",
     "typescript": "5.2.2"
   },
   "type": "module",
