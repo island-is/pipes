@@ -19,7 +19,7 @@ Insert into your your home directory (most likely /home/<USERNAME> on Unix and C
 
 ```sh
 
-yarn create @island-is/pipes example-app
+npx @island-is/create-pipes example-app
 
 ```
 

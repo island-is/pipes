@@ -10,9 +10,7 @@
 
 - [**@island-is/pipes-core**](apps/pipes/) - Core of Pipes. Runs tasks with [dagger.io](https://dagger.io)
 
-- [**@island-is/pipes-loader**](apps/pipes-loader/) - Node.js [loader](https://nodejs.org/api/esm.html#loaders) using [SWC](https://swc.rs/).
-
-- [**@island-is/create-pipes**](apps/create-pipes/) - Utility to create a boilerplate for a new CI project.
+- [**@island-is/create-pipes**](apps/create-pipes/) - Utility to bootstrap a new CI project.
 
 ## Prerequisites
 
@@ -36,9 +34,12 @@ Before getting started with **Pipes**, ensure you have the following setup:
     node --version
     ```
 - **Yarn** When using Node.js 20 you only need to enable [corepack](https://nodejs.org/dist/latest/docs/api/corepack.html):
+
   ```bash
   corepack enable
   ```
+
+  while in a directory of a Pipe project.
 
 After setting up the above prerequisites, you're ready to dive into **Pipes**!
 
@@ -57,7 +58,7 @@ Insert into your your home directory (most likely /home/<USERNAME> on Unix and C
 
 ```sh
 
-yarn create @island-is/pipes example-app
+npx @island-is/create-pipes example-app
 
 ```
 
@@ -76,5 +77,3 @@ Pipes can be further extend with the usage of modules. Current modules are:
 ## 🛡️ License
 
 License is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## WOW
