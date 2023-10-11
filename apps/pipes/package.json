@@ -92,6 +92,7 @@
     "string-width": "6.1.0",
     "terminal-link": "3.0.0",
     "tmp-promise": "3.0.3",
+    "ts-toolbelt": "9.6.0",
     "type-fest": "4.4.0",
     "typescript": "5.2.2",
     "widest-line": "4.0.1",

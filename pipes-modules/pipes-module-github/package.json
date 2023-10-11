@@ -53,6 +53,7 @@
     "ci-info": "*",
     "enquirer": "*",
     "mobx": "*",
+    "ts-toolbelt": "*",
     "zip-a-folder": "*"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "mobx": "6.10.2",
     "prettier": "3.0.3",
     "tmp-promise": "3.0.3",
+    "ts-toolbelt": "9.6.0",
     "typescript": "5.2.2",
     "zip-a-folder": "3.1.3"
   },

@@ -46,13 +46,15 @@
     "@dagger.io/dagger": "*",
     "@island-is/pipes-core": "*",
     "mobx": "*",
-    "react": "*"
+    "react": "*",
+    "ts-toolbelt": "*"
   },
   "dependencies": {
     "rollup": "4.0.2",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-swc3": "0.10.1",
-    "tmp-promise": "3.0.3"
+    "tmp-promise": "3.0.3",
+    "ts-toolbelt": "9.6.0"
   },
   "devDependencies": {
     "@dagger.io/dagger": "0.8.7",
