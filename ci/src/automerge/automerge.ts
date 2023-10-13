@@ -7,7 +7,7 @@ import type { PipesGitHubModule } from "@island.is/pipes-module-github";
  * This installs source files to a image and calls yarn install
  */
 export const automergeContext = createPipesCore().addModule<PipesGitHubModule>(PipesGitHub);
-
+automergeContext.config.appName = "Auto merge";
 automergeContext.addScript(async (context, config) => {
   await createTask(
     async () => {
