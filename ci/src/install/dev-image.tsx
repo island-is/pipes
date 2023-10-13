@@ -15,7 +15,6 @@ devImageInstallContext.config.appName = `Development install`;
 devImageInstallContext.config.nodeImageKey = `dev-image`;
 devImageInstallContext.config.nodeSourceIncludeOrExclude = "exclude";
 
-// Skstringip node_modules and dist.
 devImageInstallContext.config.nodeSourceExclude = [
   "**/node_modules",
   "**/dist",
