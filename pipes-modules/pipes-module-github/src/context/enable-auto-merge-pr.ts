@@ -48,6 +48,7 @@ export const GithubEnableAutoMergePR: removeContextCommand<
     },
   );
   if (typeof value !== "object" || !value || !("data" in value)) {
+    console.log(value);
     throw new Error(`Failed finding id`);
   }
   if (typeof value.data !== "object" || !value.data) {
