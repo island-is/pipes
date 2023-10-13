@@ -12,11 +12,9 @@ export const GithubEnableAutoMergePRParseOutput = z.custom<Promise<void>>();
 export type GithubEnableAutoMergePROutput = z.infer<typeof GithubEnableAutoMergePRParseOutput>;
 
 type Data = {
-  data: {
-    repository: {
-      pullRequest: {
-        id: string;
-      };
+  repository: {
+    pullRequest: {
+      id: string;
     };
   };
 };
@@ -56,7 +54,7 @@ export const GithubEnableAutoMergePR: removeContextCommand<
   if (typeof value.data !== "object" || !value.data) {
     throw new Error(`Invalid data`);
   }
-  const id = (value as Data).data.repository.pullRequest.id;
+  const id = (value as unknown as Data).repository.pullRequest.id;
   await gql(
     `
   mutation EnableAutoMerge($pullRequestId: ID!) {
