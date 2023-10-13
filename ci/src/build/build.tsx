@@ -3,6 +3,7 @@ import { PipesGitHub } from "@island.is/pipes-module-github";
 import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 import React from "react";
 
+import { automergeContext } from "../automerge/automerge.js";
 import { GlobalConfig } from "../config.js";
 import { devImageInstallContext } from "../install/dev-image.js";
 
@@ -23,6 +24,7 @@ interface Props extends Dependentans {
 }
 const createBuildContext = (props: Props) => {
   const buildContext = createPipesCore().addModule<PipesNodeModule>(PipesNode);
+  automergeContext.addDependency(buildContext.symbol);
   buildContext.config.appName = `Build ${props.relativeWorkDir}`;
   if (props.required) {
     buildContext.config.nodeWorkDir = devImageInstallContext.config.nodeWorkDir;
@@ -69,6 +71,7 @@ const createBuildContext = (props: Props) => {
           const publishContext = createPipesCore()
             .addModule<PipesNodeModule>(PipesNode)
             .addModule<PipesGitHubModule>(PipesGitHub);
+          automergeContext.addDependency(publishContext.symbol);
           publishContext.config.appName = `Deploy ${props.relativeWorkDir}`;
           publishContext.config.nodeWorkDir = buildContext.config.nodeWorkDir;
           publishContext.addDependency(buildContext.symbol);
