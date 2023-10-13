@@ -11,12 +11,7 @@ jobs:
     runs-on: ec2-runners
     container:
       image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
-    permissions:
-      actions: write
-      issues: write
-      statuses: write
-      contents: read
-      pull-requests: write
+    permissions: write-all
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
