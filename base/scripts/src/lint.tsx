@@ -1,6 +1,6 @@
 import { join } from "node:path";
 
-import { PipesDOM, type Simplify, listFilteredFiles } from "@island-is/pipes-core";
+import { PipesDOM, type Simplify, listFilteredFiles } from "@island.is/pipes-core";
 import { ESLint } from "eslint";
 import React from "react";
 

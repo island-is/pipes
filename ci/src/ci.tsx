@@ -1,4 +1,4 @@
-import { PipesDOM, createPipe } from "@island-is/pipes-core";
+import { PipesDOM, createPipe } from "@island.is/pipes-core";
 import React from "react";
 
 import { buildCoreContext } from "./build/build.js";

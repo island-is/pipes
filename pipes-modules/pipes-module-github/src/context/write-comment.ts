@@ -1,7 +1,7 @@
-import { z } from "@island-is/pipes-core";
+import { z } from "@island.is/pipes-core";
 
 import type { PipesGitHubModule } from "../interface-module.js";
-import type { removeContextCommand } from "@island-is/pipes-core";
+import type { removeContextCommand } from "@island.is/pipes-core";
 
 export type WriteCommentCurrentInput = { comment: string };
 export type WriteCommentCurrentOutput = Promise<void>;

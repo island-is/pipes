@@ -1,5 +1,5 @@
 import type { PipesNodeModule } from "../interface.js";
-import type { removeContextCommand } from "@island-is/pipes-core";
+import type { removeContextCommand } from "@island.is/pipes-core";
 
 export const getContainer: removeContextCommand<PipesNodeModule["Context"]["Implement"]["nodeGetContainer"]> =
   async function getContainer(context, _config) {

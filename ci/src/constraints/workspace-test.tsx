@@ -1,5 +1,5 @@
-import { createPipesCore, createTask } from "@island-is/pipes-core";
-import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import { createPipesCore, createTask } from "@island.is/pipes-core";
+import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 
 import { devImageInstallContext, devImageKey, devWorkDir } from "../install/dev-image.js";
 

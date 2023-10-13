@@ -17,7 +17,7 @@ export async function preparePublishPackage(workspacePath: string, version: stri
 
   filteredJSON["dependencies"] = filteredJSON["dependencies"] || {};
   Object.keys(filteredJSON["dependencies"]).forEach((e) => {
-    if (e.startsWith("@island-is")) {
+    if (e.startsWith("@island.is")) {
       filteredJSON["dependencies"][e] = version;
     }
   });

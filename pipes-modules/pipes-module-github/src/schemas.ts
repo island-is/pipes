@@ -1,4 +1,4 @@
-import { z } from "@island-is/pipes-core";
+import { z } from "@island.is/pipes-core";
 
 export const githubUserschema = z.object({ login: z.string() }).default({ login: "" });
 export const githubRepository = z

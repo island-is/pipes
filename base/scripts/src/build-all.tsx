@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { PipesDOM, Shell, z } from "@island-is/pipes-core";
+import { PipesDOM, Shell, z } from "@island.is/pipes-core";
 import React from "react";
 
 const action = z

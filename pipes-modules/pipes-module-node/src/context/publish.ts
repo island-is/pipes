@@ -1,9 +1,9 @@
 import fsPromises from "node:fs/promises";
 
-import { tmpFile, z } from "@island-is/pipes-core";
+import { tmpFile, z } from "@island.is/pipes-core";
 
 import type { PipesNodeModule } from "../pipes-module-node.js";
-import type { Container, removeContextCommand } from "@island-is/pipes-core";
+import type { Container, removeContextCommand } from "@island.is/pipes-core";
 
 export const NodePublishParseInput = z.object({
   token: z.string({ required_error: "Token is required to publish", invalid_type_error: "Token expects a string" }),

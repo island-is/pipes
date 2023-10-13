@@ -1,4 +1,4 @@
-# @island-is/create-pipes
+# @island.is/create-pipes
 
 **Usage**: Intended to be used as a custom loader in a Node.js environment with ES module support for usage with Pipes.
 
@@ -10,7 +10,7 @@ Insert into your your home directory (most likely /home/<USERNAME> on Unix and C
 
 ```yaml
 //npm.pkg.github.com/:_authToken={YOUR_TOKEN}
-@island-is:registry=https://npm.pkg.github.com/
+@island.is:registry=https://npm.pkg.github.com/
 ```
 
 > Note: This is only while pipes is in heavy testing.
@@ -19,7 +19,7 @@ Insert into your your home directory (most likely /home/<USERNAME> on Unix and C
 
 ```sh
 
-npx @island-is/create-pipes example-app
+npx @island.is/create-pipes example-app
 
 ```
 

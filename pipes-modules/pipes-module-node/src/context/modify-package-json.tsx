@@ -1,7 +1,7 @@
 import { writeFile } from "fs/promises";
 import { join } from "path/posix";
 
-import { type removeContextCommand, tmpFile } from "@island-is/pipes-core";
+import { type removeContextCommand, tmpFile } from "@island.is/pipes-core";
 
 import type { PipesNodeModule } from "../interface.js";
 

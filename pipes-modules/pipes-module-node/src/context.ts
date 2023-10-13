@@ -1,5 +1,5 @@
 import { Container } from "@dagger.io/dagger";
-import { createContext } from "@island-is/pipes-core";
+import { createContext } from "@island.is/pipes-core";
 
 import {
   RunStateSchema,

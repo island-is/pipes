@@ -4,6 +4,6 @@
 module.exports = {
   plugins: ["prettier"],
   rules: {
-    "prettier/prettier": ["error", require("@island-is/prettier-config")],
+    "prettier/prettier": ["error", require("@island.is/prettier-config")],
   },
 };

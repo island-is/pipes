@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-import { Directory, type removeContextCommand, tmpDir, tmpFile, z } from "@island-is/pipes-core";
+import { Directory, type removeContextCommand, tmpDir, tmpFile, z } from "@island.is/pipes-core";
 import { zip } from "zip-a-folder";
 
 import { GithubRelease } from "../release.js";

@@ -1,6 +1,6 @@
 import type { RunState } from "./context/run.js";
 import type { Container } from "@dagger.io/dagger";
-import type { PipesCoreModule, createModuleDef } from "@island-is/pipes-core";
+import type { PipesCoreModule, createModuleDef } from "@island.is/pipes-core";
 
 export interface IPipesNodeConfig {
   nodePackageManager: "yarn" | "npm";

@@ -1,6 +1,6 @@
 import { join } from "node:path";
 
-import { type Simplify, listFilteredFiles } from "@island-is/pipes-core";
+import { type Simplify, listFilteredFiles } from "@island.is/pipes-core";
 import ts from "typescript";
 
 export type STATUS_SUCCESS = "Success";
