@@ -12,11 +12,9 @@ export const GithubEnableAutoMergePRParseOutput = z.custom<Promise<void>>();
 export type GithubEnableAutoMergePROutput = z.infer<typeof GithubEnableAutoMergePRParseOutput>;
 
 type Data = {
-  data: {
-    repository: {
-      pullRequest: {
-        id: string;
-      };
+  repository: {
+    pullRequest: {
+      id: string;
     };
   };
 };
@@ -47,16 +45,11 @@ export const GithubEnableAutoMergePR: removeContextCommand<
       id: pull_number,
     },
   );
-  if (typeof value !== "object" || !value || !("data" in value)) {
-    throw new Error(`Failed finding id`);
+
+  const id = (value as Data)?.repository?.pullRequest?.id;
+  if (!id) {
+    throw new Error("Invalid id");
   }
-  if (typeof value.data !== "object" || !value.data) {
-    throw new Error(`Invalid data`);
-  }
-  if (typeof value.data !== "object" || !value.data) {
-    throw new Error(`Invalid data`);
-  }
-  const id = (value as Data).data.repository.pullRequest.id;
   await gql(
     `
   mutation EnableAutoMerge($pullRequestId: ID!) {

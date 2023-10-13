@@ -7,7 +7,7 @@ import type { PipesGitHubModule } from "@island.is/pipes-module-github";
  * This installs source files to a image and calls yarn install
  */
 export const automergeContext = createPipesCore().addModule<PipesGitHubModule>(PipesGitHub);
-
+automergeContext.config.appName = "Auto merge";
 automergeContext.addScript(async (context, config) => {
   await createTask(
     async () => {
@@ -24,13 +24,15 @@ automergeContext.addScript(async (context, config) => {
         await context.githubApprovePR({
           body: "Dependabot suggestions are always welcome!",
         });
-        // Adn we enable auto merging
+        // And we enable auto merging
         await context.githubEnableAutoMergePR({});
       } else if (initiator === "lodmfjord") {
         // Lodmfjord is lonely and has no friends.
         await context.githubApprovePR({
           body: "I hope you know what you are doing!",
         });
+        // And we enable auto merging for now!
+        await context.githubEnableAutoMergePR({});
       }
     },
     {
