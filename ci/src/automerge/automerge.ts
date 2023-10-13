@@ -24,13 +24,15 @@ automergeContext.addScript(async (context, config) => {
         await context.githubApprovePR({
           body: "Dependabot suggestions are always welcome!",
         });
-        // Adn we enable auto merging
+        // And we enable auto merging
         await context.githubEnableAutoMergePR({});
       } else if (initiator === "lodmfjord") {
         // Lodmfjord is lonely and has no friends.
         await context.githubApprovePR({
           body: "I hope you know what you are doing!",
         });
+        // And we enable auto merging for now!
+        await context.githubEnableAutoMergePR({});
       }
     },
     {
