@@ -4,8 +4,8 @@ import { Octokit } from "@octokit/rest";
 import type { PipesGitHubModule } from "../interface-module.js";
 import type { removeContextCommand } from "@island.is/pipes-core";
 
-export type GetOctoKitInput = undefined;
-export type GetOctoKitOutput = Octokit;
+export type GetOctokitInput = undefined;
+export type GetOctokitOutput = Octokit;
 export const GetOctokitParseOutput = z.custom<Octokit>((value) => {
   if (value instanceof Octokit) {
     return value;
@@ -13,7 +13,7 @@ export const GetOctokitParseOutput = z.custom<Octokit>((value) => {
   throw new Error(`Invalid octokit value`);
 });
 
-export const GithubGetOctoKit: removeContextCommand<PipesGitHubModule["Context"]["Implement"]["githubGetOctokit"]> = (
+export const GithubGetOctokit: removeContextCommand<PipesGitHubModule["Context"]["Implement"]["githubGetOctokit"]> = (
   context,
   config,
 ) => {

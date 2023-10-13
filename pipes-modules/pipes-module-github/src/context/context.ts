@@ -1,6 +1,19 @@
 import { type Directory, createContext } from "@island.is/pipes-core";
 
-import { GetOctokitParseOutput, GithubGetOctoKit } from "./get-octokit.js";
+import {
+  GithubApprovePR,
+  type GithubApprovePRInput,
+  type GithubApprovePROutput,
+  GithubApprovePRParseInput,
+  GithubApprovePRParseOutput,
+} from "./approve-pr.js";
+import {
+  GithubEnableAutoMergePR,
+  GithubEnableAutoMergePRParseInput,
+  GithubEnableAutoMergePRParseOutput,
+} from "./enable-auto-merge-pr.js";
+import { GetOctokitGQLParseOutput, GithubGetOctokitGQL } from "./get-octokit-gql.js";
+import { GetOctokitParseOutput, GithubGetOctokit } from "./get-octokit.js";
 import { GithubInitPr } from "./init-pr.js";
 import { GithubNodePublish, GithubNodePublishParseInput, GithubNodePublishParseOutput } from "./node-publish.js";
 import { GithubRelease } from "./release.js";
@@ -14,7 +27,9 @@ import {
   WriteCommentToCurrentPR,
 } from "./write-comment.js";
 
-import type { GetOctoKitInput, GetOctoKitOutput } from "./get-octokit.js";
+import type { GithubEnableAutoMergePRInput, GithubEnableAutoMergePROutput } from "./enable-auto-merge-pr.js";
+import type { GetOctokitGQLInput, GetOctokitGQLOutput } from "./get-octokit-gql.js";
+import type { GetOctokitInput, GetOctokitOutput } from "./get-octokit.js";
 import type { GithubNodePublishInput, GithubNodePublishOutput } from "./node-publish.js";
 import type {
   WriteCommentCurrentInput,
@@ -23,10 +38,21 @@ import type {
   WriteCommentOutput,
 } from "./write-comment.js";
 import type { PipesGitHubModule } from "../interface-module.js";
+import type { graphql } from "@octokit/graphql";
 import type { Octokit } from "@octokit/rest";
 
 export const GitHubContext: (prop: any) => PipesGitHubModule["Context"]["Implement"] = createContext<PipesGitHubModule>(
   ({ z, fn }): PipesGitHubModule["Context"]["Implement"] => ({
+    githubApprovePR: fn<GithubApprovePRInput, GithubApprovePROutput>({
+      value: GithubApprovePRParseInput,
+      output: GithubApprovePRParseOutput,
+      implement: GithubApprovePR,
+    }),
+    githubEnableAutoMergePR: fn<GithubEnableAutoMergePRInput, GithubEnableAutoMergePROutput>({
+      value: GithubEnableAutoMergePRParseInput,
+      output: GithubEnableAutoMergePRParseOutput,
+      implement: GithubEnableAutoMergePR,
+    }),
     /** Publish to npm registry on github */
     githubNodePublish: fn<GithubNodePublishInput, GithubNodePublishOutput>({
       value: GithubNodePublishParseInput,
@@ -38,9 +64,14 @@ export const GitHubContext: (prop: any) => PipesGitHubModule["Context"]["Impleme
       implement: GithubInitPr,
     }),
     githubOctokit: z.optional(z.custom<Octokit>()),
-    githubGetOctokit: fn<GetOctoKitInput, GetOctoKitOutput>({
+    githubOctokitGQL: z.optional(z.custom<typeof graphql>()),
+    githubGetOctokitGQL: fn<GetOctokitGQLInput, GetOctokitGQLOutput>({
+      output: GetOctokitGQLParseOutput,
+      implement: GithubGetOctokitGQL,
+    }),
+    githubGetOctokit: fn<GetOctokitInput, GetOctokitOutput>({
       output: GetOctokitParseOutput,
-      implement: GithubGetOctoKit,
+      implement: GithubGetOctokit,
     }),
     githubWriteCommentToCurrentPr: fn<WriteCommentCurrentInput, WriteCommentCurrentOutput>({
       value: WriteCommentCurrentParseInput,
