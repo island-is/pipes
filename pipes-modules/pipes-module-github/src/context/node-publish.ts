@@ -49,11 +49,11 @@ export const GithubNodePublish: removeContextCommand<
     };
     const name = packageJSON.name as string;
     const version = packageJSON.version as string;
-    if (props.unpublish !== "never") {
+    if (props.unpublish === "always" || props.unpublish === "ifExists") {
       try {
         await fn(["unpublish", `${name}@${version}`, "--registry", "https://npm.pkg.github.com"]);
       } catch (e) {
-        if (props.unpublish !== "ifExists") {
+        if (props.unpublish === "always") {
           throw e;
         }
       }

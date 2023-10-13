@@ -15,6 +15,13 @@ export interface IPipesNodeConfig {
 }
 
 export interface IPipesNodeContext {
+  nodePublish: (prop: {
+    token: string;
+    relativeWorkDir: string;
+    access?: "public" | "private";
+    container?: Container | undefined;
+    unpublish?: "ifExists" | "always" | "never";
+  }) => Promise<void>;
   nodeModifyPackageJSON: (prop: { relativeCwd: string; fn: (value: any) => string | Promise<string> }) => Promise<void>;
   nodeIsVersionGreaterOrEqual: (prop: { version: number }) => Promise<boolean>;
   nodeAddEnv: (prop: { container?: Container; env: [string, string][] }) => Promise<Container>;
