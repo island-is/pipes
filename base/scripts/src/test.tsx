@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { PipesDOM, Shell, listFilteredFiles } from "@island-is/pipes-core";
+import { PipesDOM, Shell, listFilteredFiles } from "@island.is/pipes-core";
 import React from "react";
 
 import { compileTypescript } from "./utils/typecheck.js";

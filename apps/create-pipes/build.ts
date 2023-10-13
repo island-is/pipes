@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
-import { z } from "@island-is/pipes-core";
+import { z } from "@island.is/pipes-core";
 
 const currentPath = fileURLToPath(dirname(import.meta.url));
 const packageJSON = JSON.parse(readFileSync(join(currentPath, "package.json"), "utf-8"));

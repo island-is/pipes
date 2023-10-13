@@ -1,4 +1,4 @@
-import { createConfig } from "@island-is/pipes-core";
+import { createConfig } from "@island.is/pipes-core";
 
 import type { PipesNodeModule } from "./interface.js";
 

@@ -1,16 +1,16 @@
 {
-  "name": "@island-is/tsconfig-build",
+  "name": "@island.is/tsconfig-build",
   "version": "0.1.0",
   "main": "./tsconfig.json",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "@island-is/tsconfig": "workspace:*"
+    "@island.is/tsconfig": "workspace:*"
   },
   "repository": {
     "directory": "base/tsconfig-build",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island.is/pipes"
   },
   "pipes": {
     "skipBuild": true,

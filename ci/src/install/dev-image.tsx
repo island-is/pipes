@@ -1,9 +1,9 @@
-import { createPipesCore, createTask } from "@island-is/pipes-core";
-import { PipesNode } from "@island-is/pipes-module-node";
+import { createPipesCore, createTask } from "@island.is/pipes-core";
+import { PipesNode } from "@island.is/pipes-module-node";
 
 import { GlobalConfig } from "../config.js";
 
-import type { PipesNodeModule } from "@island-is/pipes-module-node";
+import type { PipesNodeModule } from "@island.is/pipes-module-node";
 
 /**
  * This installs source files to a image and calls yarn install

@@ -1,5 +1,5 @@
 {
-  "name": "@island-is/pipes-core",
+  "name": "@island.is/pipes-core",
   "version": "0.1.0",
   "packageManager": "yarn@4.0.0-rc.47",
   "type": "module",
@@ -102,11 +102,11 @@
     "yoga-wasm-web": "0.3.3"
   },
   "devDependencies": {
-    "@island-is/eslint-config": "workspace:*",
-    "@island-is/prettier-config": "workspace:*",
-    "@island-is/scripts": "workspace:*",
-    "@island-is/tsconfig": "workspace:*",
-    "@island-is/tsconfig-build": "workspace:*",
+    "@island.is/eslint-config": "workspace:*",
+    "@island.is/prettier-config": "workspace:*",
+    "@island.is/scripts": "workspace:*",
+    "@island.is/tsconfig": "workspace:*",
+    "@island.is/tsconfig-build": "workspace:*",
     "@rollup/plugin-alias": "5.0.1",
     "@rollup/plugin-commonjs": "25.0.5",
     "@rollup/plugin-node-resolve": "15.2.3",
@@ -134,7 +134,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/island-is/pipes",
+    "url": "https://github.com/island.is/pipes",
     "directory": "apps/pipes"
   }
 }

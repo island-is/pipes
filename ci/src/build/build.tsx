@@ -1,13 +1,13 @@
-import { PipesDOM, createPipesCore, createTask } from "@island-is/pipes-core";
-import { PipesGitHub } from "@island-is/pipes-module-github";
-import { PipesNode, type PipesNodeModule } from "@island-is/pipes-module-node";
+import { PipesDOM, createPipesCore, createTask } from "@island.is/pipes-core";
+import { PipesGitHub } from "@island.is/pipes-module-github";
+import { PipesNode, type PipesNodeModule } from "@island.is/pipes-module-node";
 import React from "react";
 
 import { GlobalConfig } from "../config.js";
 import { devImageInstallContext } from "../install/dev-image.js";
 
-import type { Container, PipesCoreClass, PipesCoreModule } from "@island-is/pipes-core";
-import type { PipesGitHubModule } from "@island-is/pipes-module-github";
+import type { Container, PipesCoreClass, PipesCoreModule } from "@island.is/pipes-core";
+import type { PipesGitHubModule } from "@island.is/pipes-module-github";
 
 interface Dependentans {
   name: string;

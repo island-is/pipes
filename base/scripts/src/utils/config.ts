@@ -1,4 +1,4 @@
-import { z } from "@island-is/pipes-core";
+import { z } from "@island.is/pipes-core";
 
 const pipeWorkspace = z
   .object({

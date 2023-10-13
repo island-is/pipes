@@ -1,7 +1,7 @@
 /**
  * @file EsLint config
  */
-const prettier = require("@island-is/prettier-config");
+const prettier = require("@island.is/prettier-config");
 /**
  * @param {string} path - Path to workspace
  */

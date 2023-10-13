@@ -1,4 +1,4 @@
-import { type Directory, createContext } from "@island-is/pipes-core";
+import { type Directory, createContext } from "@island.is/pipes-core";
 
 import { GetOctokitParseOutput, GithubGetOctoKit } from "./get-octokit.js";
 import { GithubInitPr } from "./init-pr.js";

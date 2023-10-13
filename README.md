@@ -8,9 +8,9 @@
 
 **Pipes** consist of:
 
-- [**@island-is/pipes-core**](apps/pipes/) - Core of Pipes. Runs tasks with [dagger.io](https://dagger.io)
+- [**@island.is/pipes-core**](apps/pipes/) - Core of Pipes. Runs tasks with [dagger.io](https://dagger.io)
 
-- [**@island-is/create-pipes**](apps/create-pipes/) - Utility to bootstrap a new CI project.
+- [**@island.is/create-pipes**](apps/create-pipes/) - Utility to bootstrap a new CI project.
 
 ## Prerequisites
 
@@ -51,14 +51,14 @@ Insert into your your home directory (most likely /home/<USERNAME> on Unix and C
 
 ```yaml
 //npm.pkg.github.com/:_authToken={YOUR_TOKEN}
-@island-is:registry=https://npm.pkg.github.com/
+@island.is:registry=https://npm.pkg.github.com/
 ```
 
 > Note: This is only while pipes is in heavy testing.
 
 ```sh
 
-npx @island-is/create-pipes example-app
+npx @island.is/create-pipes example-app
 
 ```
 
@@ -68,11 +68,11 @@ This should create a new folder called `example-app`.
 
 Pipes can be further extend with the usage of modules. Current modules are:
 
-- [**@island-is/pipes-module-github**](pipes-modules/pipes-module-github/) - Working with GitHub.
+- [**@island.is/pipes-module-github**](pipes-modules/pipes-module-github/) - Working with GitHub.
 
-- [**@island-is/pipes-module-node**](pipes-modules/pipes-module-node/) - Working with NodeJS apps.
+- [**@island.is/pipes-module-node**](pipes-modules/pipes-module-node/) - Working with NodeJS apps.
 
-- [**@island-is/pipes-module-terraform**](pipes-modules/pipes-module-terraform/) - Working with Terraform
+- [**@island.is/pipes-module-terraform**](pipes-modules/pipes-module-terraform/) - Working with Terraform
 
 ## 🛡️ License
 

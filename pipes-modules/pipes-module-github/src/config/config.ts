@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 
-import { createConfig, z } from "@island-is/pipes-core";
+import { createConfig, z } from "@island.is/pipes-core";
 import ciinfo from "ci-info";
 
 import { githubPRUrls, githubRepository, githubUserschema } from "../schemas.js";

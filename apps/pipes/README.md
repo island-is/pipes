@@ -1,4 +1,4 @@
-# @island-is/pipes-core
+# @island.is/pipes-core
 
 Pipes is dev-friendly, testable pipelines library for local & CI/CD platforms, written in Typescript.
 

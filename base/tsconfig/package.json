@@ -1,5 +1,5 @@
 {
-  "name": "@island-is/tsconfig",
+  "name": "@island.is/tsconfig",
   "version": "0.1.0",
   "main": "./tsconfig.json",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "repository": {
     "directory": "base/tsconfig",
     "type": "git",
-    "url": "https://github.com/island-is/pipes"
+    "url": "https://github.com/island.is/pipes"
   },
   "pipes": {
     "skipBuild": true,
@@ -18,7 +18,7 @@
     "skipLint": true
   },
   "devDependencies": {
-    "@island-is/prettier-config": "workspace:*",
+    "@island.is/prettier-config": "workspace:*",
     "@swc/core": "1.3.92",
     "prettier": "3.0.3"
   },

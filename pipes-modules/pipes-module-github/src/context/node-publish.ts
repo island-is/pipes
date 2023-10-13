@@ -1,10 +1,10 @@
 import fsPromises from "node:fs/promises";
 
-import { ContextHasModule, tmpFile, z } from "@island-is/pipes-core";
+import { ContextHasModule, tmpFile, z } from "@island.is/pipes-core";
 
 import type { PipesGitHubModule } from "../interface-module.js";
-import type { Container, removeContextCommand } from "@island-is/pipes-core";
-import type { IPipesNodeContext } from "@island-is/pipes-module-node";
+import type { Container, removeContextCommand } from "@island.is/pipes-core";
+import type { IPipesNodeContext } from "@island.is/pipes-module-node";
 
 export const GithubNodePublishParseInput = z.object({
   token: z.string({ required_error: "Token is required to publish", invalid_type_error: "Token expects a string" }),

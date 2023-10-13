@@ -15,7 +15,7 @@ export const PackageJSON = ({ name, version, yarnVersion }: Props): string => {
       },
       dependencies: {
         glob: "10.3.10",
-        "@island-is/pipes-core": version,
+        "@island.is/pipes-core": version,
       },
     },
     null,

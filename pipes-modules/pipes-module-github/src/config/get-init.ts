@@ -1,6 +1,6 @@
 import fsSync from "node:fs";
 
-import { z } from "@island-is/pipes-core";
+import { z } from "@island.is/pipes-core";
 
 import { githubPRUrls, githubRepository, githubUserschema } from "../schemas.js";
 

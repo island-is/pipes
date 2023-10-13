@@ -1,6 +1,6 @@
 import { join } from "path/posix";
 
-import { Container, PipesDOM, type removeContextCommand, z } from "@island-is/pipes-core";
+import { Container, PipesDOM, type removeContextCommand, z } from "@island.is/pipes-core";
 import React from "react";
 
 import type { PipesNodeModule } from "../interface.js";

@@ -1,6 +1,6 @@
-import { createGlobalZodKeyStore, z } from "@island-is/pipes-core";
+import { createGlobalZodKeyStore, z } from "@island.is/pipes-core";
 
-import type { Simplify } from "@island-is/pipes-core";
+import type { Simplify } from "@island.is/pipes-core";
 import type { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods";
 import type { Octokit } from "@octokit/rest";
 

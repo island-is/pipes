@@ -1,6 +1,6 @@
 import { Transform } from "node:stream";
 
-import type { Simplify } from "@island-is/pipes-core";
+import type { Simplify } from "@island.is/pipes-core";
 export type STATUS_SUCCESS = "Success";
 export type STATUS_ERROR = "Error";
 export type UNKNOWN_ERROR = "Unknown error";

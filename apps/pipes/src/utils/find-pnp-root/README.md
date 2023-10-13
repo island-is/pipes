@@ -4,12 +4,12 @@ This library provides a utility function to detect and return the root directory
 
 ## 🛠️ Usage
 
-Import `findPnpRoot` from `@island-is/pipes-core`
+Import `findPnpRoot` from `@island.is/pipes-core`
 
 ## 📖 Example
 
 ```typescript
-import { findPnpRoot } from "@island-is/pipes-core";
+import { findPnpRoot } from "@island.is/pipes-core";
 
 const projectRoot = findPnpRoot("/path/to/any/sub/directory");
 console.log(projectRoot);

@@ -4,12 +4,12 @@ This library provides a utility function to find and return the Node.js version 
 
 ## 🛠️ Usage
 
-import `getNvmVersion` from `@island-is/pipes-core`
+import `getNvmVersion` from `@island.is/pipes-core`
 
 ## 📖 Example
 
 ```typescript
-import { getNvmVersion } from "@island-is/pipes-core";
+import { getNvmVersion } from "@island.is/pipes-core";
 
 const nodeVersion = getNvmVersion("/path/to/any/sub/directory");
 console.log(nodeVersion);

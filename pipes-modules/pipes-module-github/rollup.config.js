@@ -2,7 +2,7 @@ import { builtinModules } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFile } from "node:fs/promises";
-import { getAllWorkspaces } from "@island-is/scripts";
+import { getAllWorkspaces } from "@island.is/scripts";
 
 const workspaces = await (async () => {
   return (await getAllWorkspaces()).reduce((a, b) => {
@@ -35,7 +35,7 @@ const config = {
   },
   plugins: [
     {
-      name: "island-is-resolve",
+      name: "island.is-resolve",
       resolveId(source) {
         try {
           const file = import.meta.resolve?.(source);

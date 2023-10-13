@@ -1,7 +1,7 @@
 import { builtinModules } from "node:module";
 import { basename, join } from "path";
 
-import { type removeContextCommand, tmpFile } from "@island-is/pipes-core";
+import { type removeContextCommand, tmpFile } from "@island.is/pipes-core";
 import { rollup } from "rollup";
 import { swc } from "rollup-plugin-swc3";
 

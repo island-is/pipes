@@ -1,5 +1,5 @@
 {
-  "extends": "@island-is/tsconfig-build",
+  "extends": "@island.is/tsconfig-build",
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"],
   "compilerOptions": {
