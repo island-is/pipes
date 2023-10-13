@@ -45,16 +45,11 @@ export const GithubEnableAutoMergePR: removeContextCommand<
       id: pull_number,
     },
   );
-  if (typeof value !== "object" || !value || !("data" in value)) {
-    throw new Error(JSON.stringify(value));
+
+  const id = (value as Data)?.repository?.pullRequest?.id;
+  if (!id) {
+    throw new Error("Invalid id");
   }
-  if (typeof value.data !== "object" || !value.data) {
-    throw new Error(`Invalid data`);
-  }
-  if (typeof value.data !== "object" || !value.data) {
-    throw new Error(`Invalid data`);
-  }
-  const id = (value as unknown as Data).repository.pullRequest.id;
   await gql(
     `
   mutation EnableAutoMerge($pullRequestId: ID!) {
