@@ -22,6 +22,8 @@ jobs:
         id: extract_sha
         run: |
           echo "::set-output name=sha::$(echo "${{ github.event.comment.body }}" | awk '{print $2}')"
+      - name: SHA
+        run: echo steps.extract_sha.outputs.sha
       - name: Pipe release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
