@@ -1,0 +1,32 @@
+name: Release manager
+
+on:
+  issue_comment:
+    types: [created]
+concurrency:
+  group: release-manager
+  cancel-in-progress: false
+
+jobs:
+  specific-issue-job:
+    runs-on: ec2-runners
+    container:
+      image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
+    permissions: write-all
+    if: |
+      github.event.issue.number == vars.RELEASE_ISSUE &&
+      contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) &&
+      startsWith(github.event.comment.body, 'release ')
+    steps:
+      - name: Extract SHA from comment
+        id: extract_sha
+        run: |
+          echo "::set-output name=sha::$(echo "${{ github.event.comment.body }}" | awk '{print $2}')"
+      - name: Pipe release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PIPES_ACTION: CreateRelease
+          RELEASE_SHA: ${{ steps.extract_sha.outputs.sha }}
+        run: yarn node src/ci.tsx
+        working-directory: ./ci

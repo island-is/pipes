@@ -3,6 +3,12 @@ import type { graphql } from "@octokit/graphql";
 import type { Octokit } from "@octokit/rest";
 
 export interface IGitHubContext {
+  githubGetMatchingCommit: (prop: { tagPattern: RegExp; sha?: string | undefined }) => Promise<string | null>;
+  githubGetCommitsBetween: (prop: {
+    startSha: string;
+    endSha: string;
+  }) => Promise<{ sha: string; commit: string; commitBody: string }[]>;
+  githubWriteIssue: (prop: { body: string; title: string }) => Promise<{ id: number; url: string }>;
   githubGetOctokitGQL: () => typeof graphql;
   githubEnableAutoMergePR: (prop: { pullNumber?: number | undefined }) => Promise<void>;
   githubApprovePR: (prop: { pullNumber?: number | undefined; body?: string | undefined }) => Promise<void>;
