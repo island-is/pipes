@@ -33,7 +33,11 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
   await using tmp = await tmpFile({ postfix: ".json" });
   const path = tmp.path;
 
-  await fsPromises.writeFile(path, `_auth=${props.token}\n${props.email}\nalways-auth=true `, "utf8");
+  await fsPromises.writeFile(
+    path,
+    `//registry.npmjs.org/:_auth=${props.token}\n${props.email}\nalways-auth=true `,
+    "utf8",
+  );
   const files = oldContainer.directory(props.relativeWorkDir);
   const container = (await context.nodeGetContainer())
     .withDirectory(workDir, files)
