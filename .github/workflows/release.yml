@@ -12,7 +12,7 @@ jobs:
       github.event.issue.user.login == 'dependabot[bot]' &&
       startsWith(github.event.issue.title, 'Release draft for version:') &&
       contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) &&
-      startsWith(github.event.comment.body, 'release ')
+      startsWith(github.event.comment.body, 'release')
     container:
       image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
     permissions:
