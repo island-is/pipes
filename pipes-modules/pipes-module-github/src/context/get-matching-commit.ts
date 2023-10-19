@@ -16,13 +16,10 @@ export const GetMatchingCommitInput = z.object({
 
 export type GetMatchingCommitInput = z.input<typeof GetMatchingCommitInput>;
 export const GetMatchingCommitOutput = z.custom<
-  Promise<
-    | string
-    | {
-        sha: string;
-        tag: string;
-      }
-  >
+  Promise<null | {
+    sha: string;
+    tag: string;
+  }>
 >();
 export type GetMatchingCommitOutput = z.infer<typeof GetMatchingCommitOutput>;
 

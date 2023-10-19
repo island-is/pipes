@@ -11,7 +11,9 @@ export const NodePublishParseInput = z.object({
     required_error: "Relative dir is required for publish",
     invalid_type_error: "Relative dir expects string for publish",
   }),
-  access: z.union([z.literal("public"), z.literal("private")]).default("restricted"),
+  version: z.string(),
+  email: z.string(),
+  access: z.union([z.literal("public"), z.literal("restricted")]).default("restricted"),
   container: z.custom<Container>().optional(),
   unpublish: z.union([z.literal("ifExists"), z.literal("always"), z.literal("never")]).default("never"),
 });
@@ -31,7 +33,7 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
   await using tmp = await tmpFile({ postfix: ".json" });
   const path = tmp.path;
 
-  await fsPromises.writeFile(path, `//registry.npmjs.org/:_authToken=${props.token}`, "utf8");
+  await fsPromises.writeFile(path, `_auth=${props.token}\n${props.email}\nalways-auth=true `, "utf8");
   const files = oldContainer.directory(props.relativeWorkDir);
   const container = (await context.nodeGetContainer())
     .withDirectory(workDir, files)
@@ -47,7 +49,7 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
   const version = packageJSON.version as string;
   if (props.unpublish === "always" || props.unpublish === "ifExists") {
     try {
-      await fn(["unpublish", `${name}@${version}`, "--registry", "https://registry.npmjs.org"]);
+      await fn(["unpublish", `${name}@${version}`]);
     } catch (e) {
       if (props.unpublish === "always") {
         throw e;
@@ -55,7 +57,8 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     }
   }
 
-  await fn(["publish", "--access", props.access ?? "restricted", "--registry", "https://registry.npmjs.org"]);
+  await fn(["version", "--no-git-tag-version", props.version]);
+  await fn(["publish", "--access", props.access ?? "restricted"]);
 
   return;
 };
