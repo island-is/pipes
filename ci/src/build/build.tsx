@@ -96,6 +96,7 @@ const createBuildContext = (props: Props) => {
                 token: GlobalConfig.npmAuthToken,
                 relativeWorkDir: "./dist",
                 unpublish: "ifExists",
+                access: "public",
               }),
               context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.releaseVersion as string }),
             ]);

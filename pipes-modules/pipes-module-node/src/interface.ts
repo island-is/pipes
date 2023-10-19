@@ -18,7 +18,7 @@ export interface IPipesNodeContext {
   nodePublish: (prop: {
     token: string;
     relativeWorkDir: string;
-    access?: "public" | "private";
+    access?: "public" | "restricted";
     container?: Container | undefined;
     unpublish?: "ifExists" | "always" | "never";
   }) => Promise<void>;

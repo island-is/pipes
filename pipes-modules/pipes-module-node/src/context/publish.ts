@@ -11,7 +11,7 @@ export const NodePublishParseInput = z.object({
     required_error: "Relative dir is required for publish",
     invalid_type_error: "Relative dir expects string for publish",
   }),
-  access: z.union([z.literal("public"), z.literal("private")]).default("private"),
+  access: z.union([z.literal("public"), z.literal("private")]).default("restricted"),
   container: z.custom<Container>().optional(),
   unpublish: z.union([z.literal("ifExists"), z.literal("always"), z.literal("never")]).default("never"),
 });
@@ -55,7 +55,7 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     }
   }
 
-  await fn(["publish", "--access", props.access ?? "private", "--registry", "https://registry.npmjs.org"]);
+  await fn(["publish", "--access", props.access ?? "restricted", "--registry", "https://registry.npmjs.org"]);
 
   return;
 };
