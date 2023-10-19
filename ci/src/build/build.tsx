@@ -91,7 +91,7 @@ const createBuildContext = (props: Props) => {
             }
             const files = (await context.nodePrepareContainer()).directory("./dist");
             await Promise.all([
-              context.githubNodePublish({
+              context.nodePublish({
                 token: GlobalConfig.npmAuthToken,
                 relativeWorkDir: "./dist",
                 unpublish: "ifExists",
