@@ -15,9 +15,7 @@ jobs:
       startsWith(github.event.comment.body, 'release')
     container:
       image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
-    permissions:
-      contents: read
-      pull-requests: write
+    permissions: write-all
     steps:
       - name: Extract SHA from issue body
         id: extract-sha
