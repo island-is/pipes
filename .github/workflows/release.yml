@@ -6,6 +6,30 @@ on:
       - created
 
 jobs:
+  debug:
+    runs-on: ec2-runners
+    container:
+      image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
+    steps:
+      - name: Debug condition 1
+        run: |
+          RESULT1=$(echo "${{ github.event.issue.user.login == 'dependabot[bot]' }}")
+          echo "Condition 1: github.event.issue.user.login == 'dependabot[bot]' => $RESULT1"
+
+      - name: Debug condition 2
+        run: |
+          RESULT2=$(echo "${{ startsWith(github.event.issue.title, 'Release draft for version:') }}")
+          echo "Condition 2: startsWith(github.event.issue.title, 'Release draft for version:') => $RESULT2"
+
+      - name: Debug condition 3
+        run: |
+          RESULT3=$(echo "${{ contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) }}")
+          echo "Condition 3: contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) => $RESULT3"
+
+      - name: Debug condition 4
+        run: |
+          RESULT4=$(echo "${{ startsWith(github.event.comment.body, 'release') }}")
+
   release:
     runs-on: ec2-runners
     if: |
