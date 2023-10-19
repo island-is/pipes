@@ -61,7 +61,6 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     }
   }
 
-  await fn(["version", "--no-git-tag-version", props.version]);
   await fn(["publish", "--access", props.access ?? "restricted"]);
 
   return;
