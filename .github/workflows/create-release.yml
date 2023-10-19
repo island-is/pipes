@@ -39,7 +39,7 @@ jobs:
         run: yarn install
       - name: Pipe release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PIPES_ACTION: CreateRelease
           RELEASE_SHA: ${{ steps.extract_sha.outputs.sha }}
