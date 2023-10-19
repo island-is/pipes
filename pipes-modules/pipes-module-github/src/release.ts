@@ -234,6 +234,7 @@ export class GithubRelease {
       if (state === "update") {
         throw new Error(`Release does not exist`);
       }
+      console.log("create tag");
       const value = await this.#git.rest.repos.createRelease({
         body,
         name,
