@@ -40,7 +40,7 @@ jobs:
         run: yarn install
       - name: Run script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PIPES_ACTION: Release
           RELEASE_BODY: ${{ github.event.issue.body }}

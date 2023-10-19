@@ -53,7 +53,16 @@ export const GlobalConfig = (() => {
         },
       })
       .parse(undefined),
-
+    githubToken: z
+      .string()
+      .optional()
+      .default(undefined, {
+        env: "GITHUB_TOKEN",
+        arg: {
+          long: "githubToken",
+        },
+      })
+      .parse(undefined),
     releaseBody,
     releaseVersion: version,
     releaseSha: sha,
