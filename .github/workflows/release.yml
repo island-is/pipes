@@ -7,9 +7,7 @@ on:
 
 jobs:
   debug:
-    runs-on: ec2-runners
-    container:
-      image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
+    runs-on: ubuntu-latest
     steps:
       - name: Debug condition 1
         run: |
