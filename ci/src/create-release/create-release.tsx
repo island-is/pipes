@@ -50,7 +50,7 @@ createReleaseContext.addScript(async (context, config) => {
   const shaURL = getShaURL(sha);
   await createTask(
     async () => {
-      const previousVersion = await context.githubGetMatchingCommit({ sha, tagPattern: /^release-.*/ });
+      const previousVersion = await context.githubGetMatchingCommit({ sha, tagPattern: /^v.*/ });
       const printmessage = async ({ id, url }: { id: number; url: string }) => {
         await using _render = await PipesDOM.render(
           <PipesDOM.Text>
@@ -81,7 +81,7 @@ createReleaseContext.addScript(async (context, config) => {
       const commits = await context.githubGetCommitsBetween({ startSha: previousVersion.sha, endSha: sha });
       // FOR NOW: By default lets just now patch the last number
       const version = previousVersion.tag
-        .replace("release-", "")
+        .replace("v", "")
         .split(".")
         .map((value, index) => `${parseInt(value, 10) + (index === 2 ? 1 : 0)}`)
         .join("\n");

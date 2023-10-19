@@ -66,7 +66,6 @@
       "types",
       "packageManager",
       "license",
-      "publishConfig",
       "version",
       "dependencies",
       "repository"
@@ -78,9 +77,6 @@
       "LICENSE"
     ],
     "buildWithRollup": true
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@island.is/eslint-config": "workspace:*",

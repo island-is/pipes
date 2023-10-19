@@ -16,7 +16,6 @@
       "types",
       "type",
       "license",
-      "publishConfig",
       "version",
       "dependencies",
       "repository"
@@ -60,9 +59,6 @@
     "yarn": "4.0.0-rc.47",
     "npm": "please use yarn",
     "pnpm": "please use yarn"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@actions/core": "1.10.1",

@@ -60,8 +60,7 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
       }
     }
   }
-
-  await fn(["publish", "--access", props.access ?? "restricted"]);
+  await fn(["publish"]);
 
   return;
 };

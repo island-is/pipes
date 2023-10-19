@@ -24,7 +24,6 @@
       "repository",
       "types",
       "license",
-      "publishConfig",
       "dependencies",
       "repository"
     ],
@@ -33,9 +32,6 @@
       "README.md"
     ],
     "buildWithRollup": true
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "directory": "pipes-modules/pipes-module-node",
