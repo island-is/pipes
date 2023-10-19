@@ -8,14 +8,19 @@ const getExtraReleaseVars = (releaseBody: string | undefined) => {
       changelog: undefined,
     };
   }
-  const versionMatch = releaseBody.match(/Version: (\S+)/);
-  const version = versionMatch ? versionMatch[1] : null;
+  const version = releaseBody
+    .split("\n")
+    .find((e) => e.includes("Version:"))
+    ?.split("Version:")[1]
+    .trim();
 
-  const shaMatch = releaseBody.match(/SHA: \[([a-f0-9]+)\]/);
-  const sha = shaMatch ? shaMatch[1] : null;
+  const sha = releaseBody
+    .split("\n")
+    .find((e) => e.includes("SHA:"))
+    ?.split("SHA:")[1]
+    .trim();
 
-  const changelogMatch = releaseBody.match(/## Changelog\n\n([\s\S]+)$/); // Assuming changelog is at the end
-  const changelog = changelogMatch ? changelogMatch[1].trim() : null;
+  const changelog = releaseBody.split("## Changelog")[1];
   return {
     version,
     sha,
