@@ -9,6 +9,9 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
+      - name: User
+        run: |
+          echo ${{ github.evcent.issue.user.login }}
       - name: Debug condition 1
         run: |
           RESULT1=$(echo "${{ github.event.issue.user.login == 'dependabot[bot]' }}")
