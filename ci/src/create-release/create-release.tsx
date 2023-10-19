@@ -43,7 +43,11 @@ createReleaseContext.addScript(async (context, config) => {
   if (!sha) {
     throw new Error(`Release SHA is not defined`);
   }
-  const shaURL = `https://github.com/${config.githubOwner}/${config.githubRepo}/commit/${sha}`;
+
+  const getShaURL = (sha: string) => {
+    return `https://github.com/${config.githubOwner}/${config.githubRepo}/commit/${sha}`;
+  };
+  const shaURL = getShaURL(sha);
   await createTask(
     async () => {
       const previousVersion = await context.githubGetMatchingCommit({ sha, tagPattern: /^release-.*/ });
@@ -74,7 +78,26 @@ createReleaseContext.addScript(async (context, config) => {
         await printmessage(value);
         return;
       }
-      throw new Error(`Not implemented for updates`);
+      const commits = await context.githubGetCommitsBetween({ startSha: previousVersion.sha, endSha: sha });
+      // FOR NOW: By default lets just now patch the last number
+      const version = previousVersion.tag
+        .replace("release-", "")
+        .split(".")
+        .map((value, index) => `${parseInt(value, 10) + (index === 2 ? 1 : 0)}`)
+        .join("\n");
+      const changelog = commits.map((e) => `[${e.commit}](${getShaURL(e.sha)})`);
+      const body = releaseMARKDOWNTemplate({
+        version,
+        changelog,
+        sha,
+        shaURL,
+      });
+      const title = getTitle({ version });
+      const value = await context.githubWriteIssue({
+        body,
+        title,
+      });
+      await printmessage(value);
     },
     {
       inProgress: `Automerging if needed`,

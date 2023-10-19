@@ -3,7 +3,10 @@ import type { graphql } from "@octokit/graphql";
 import type { Octokit } from "@octokit/rest";
 
 export interface IGitHubContext {
-  githubGetMatchingCommit: (prop: { tagPattern: RegExp; sha?: string | undefined }) => Promise<string | null>;
+  githubGetMatchingCommit: (prop: {
+    tagPattern: RegExp;
+    sha?: string | undefined;
+  }) => Promise<{ sha: string; tag: string } | null>;
   githubGetCommitsBetween: (prop: {
     startSha: string;
     endSha: string;

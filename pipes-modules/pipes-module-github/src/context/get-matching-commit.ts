@@ -15,7 +15,15 @@ export const GetMatchingCommitInput = z.object({
 });
 
 export type GetMatchingCommitInput = z.input<typeof GetMatchingCommitInput>;
-export const GetMatchingCommitOutput = z.custom<Promise<string | null>>();
+export const GetMatchingCommitOutput = z.custom<
+  Promise<
+    | string
+    | {
+        sha: string;
+        tag: string;
+      }
+  >
+>();
 export type GetMatchingCommitOutput = z.infer<typeof GetMatchingCommitOutput>;
 
 type Data = {
@@ -80,7 +88,10 @@ export const getMatchingCommit: removeContextCommand<
       const tags = value.repository.refs.nodes;
       for (const tag of tags) {
         if (tagPattern.test(tag.name)) {
-          return tag.target.oid;
+          return {
+            sha: tag.target.oid,
+            tag: tag.name,
+          };
         }
       }
 

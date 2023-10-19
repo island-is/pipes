@@ -1,24 +1,37 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "release-*"
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+  issue_comment:
+    types:
+      - created
 
 jobs:
   release:
     runs-on: ec2-runners
+    if: |
+      github.event.issue.user.login == 'dependabot[bot]' &&
+      startsWith(github.event.issue.title, 'Release draft for version:') &&
+      contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) &&
+      startsWith(github.event.comment.body, 'release ')
     container:
       image: public.ecr.aws/m3u4c4h9/island-is/actions-runner-public:latest
     permissions:
       contents: read
       pull-requests: write
     steps:
+      - name: Extract SHA from issue body
+        id: extract-sha
+        run: |
+          SHA_REGEX="SHA: \[([a-f0-9]+)\]"
+          if [[ "${{ github.event.issue.body }}" =~ $SHA_REGEX ]]; then
+            echo "SHA::${BASH_REMATCH[1]}"
+            echo "SHA=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SHA }}
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -27,13 +40,11 @@ jobs:
           cache-dependency-path: "yarn.lock"
       - name: Install dependencies
         run: yarn install
-      - name: Extract release version from branch name
-        run: echo "RELEASE_VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/release-//')" >> $GITHUB_ENV
       - name: Run script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PIPES_ACTION: Release
-          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
+          RELEASE_BODY: ${{ github.event.issue.body }}
         run: yarn node src/ci.tsx
         working-directory: ./ci

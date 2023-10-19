@@ -67,7 +67,12 @@ const createBuildContext = (props: Props) => {
           throw new Error(`Container not set`);
         }
         await (await context.imageStore).setKey(`node-${newKey}`, container);
-        if (GlobalConfig.action === "Release" && GlobalConfig.npmAuthToken && GlobalConfig.version) {
+        if (
+          GlobalConfig.action === "Release" &&
+          GlobalConfig.npmAuthToken &&
+          GlobalConfig.releaseVersion &&
+          GlobalConfig.releaseChangelog
+        ) {
           const publishContext = createPipesCore()
             .addModule<PipesNodeModule>(PipesNode)
             .addModule<PipesGitHubModule>(PipesGitHub);
@@ -79,7 +84,10 @@ const createBuildContext = (props: Props) => {
           publishContext.config.githubToken = GlobalConfig.npmAuthToken;
           publishContext.addScript(async (context) => {
             if (props.createRelease) {
-              await context.githubRelease({ version: GlobalConfig.version });
+              await context.githubRelease({
+                version: GlobalConfig.releaseVersion as string,
+                body: GlobalConfig.releaseChangelog as string,
+              });
             }
             const files = (await context.nodePrepareContainer()).directory("./dist");
             await Promise.all([
@@ -88,7 +96,7 @@ const createBuildContext = (props: Props) => {
                 relativeWorkDir: "./dist",
                 unpublish: "ifExists",
               }),
-              context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.version }),
+              context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.releaseVersion as string }),
             ]);
           });
 
