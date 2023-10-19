@@ -1125,7 +1125,7 @@ __metadata:
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.3.93"
-    "@types/semver": "npm:7.5.3"
+    "@types/semver": "npm:7.5.4"
     "@yarnpkg/types": "npm:4.0.0-rc.53"
     commitlint: "npm:17.8.0"
     eslint: "npm:8.51.0"
@@ -2231,10 +2231,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:7.5.3":
-  version: 7.5.3
-  resolution: "@types/semver@npm:7.5.3"
-  checksum: 452c2f37b16358805efcae2d9888a2cfe696b7fb9962451eb0fb46b0fa0bbd68924977cfd28afca91507eb6e3fc19909855a4f7fe4b1f1221d5aeed780e800ae
+"@types/semver@npm:7.5.4":
+  version: 7.5.4
+  resolution: "@types/semver@npm:7.5.4"
+  checksum: e99c3edc8d64f56abcd891b9e44a45c4ae3cab551c8af5aa67b5df2b49e5fd03f74aac9da71fd5357a50a08d5deb95014516956b15b407052e07f25c7a4a606e
   languageName: node
   linkType: hard
 
