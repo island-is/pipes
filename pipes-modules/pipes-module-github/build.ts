@@ -27,18 +27,20 @@ const createConfig = (input: string) => {
 const mainConfig = (input: string, output: string) => {
   const baseConfig = createConfig(input);
   (baseConfig as any).output = {
-    sourcemap: true,
+    sourcemap: false,
     file: output,
     format: "esm",
   };
   baseConfig.plugins = [
     ...baseConfig.plugins,
     swc({
-      sourceMaps: true,
+      sourceMaps: false,
       minify: false,
     }),
   ];
-  return baseConfig as typeof baseConfig & { output: { sourcemap: true; file: string; format: "commonjs" | "module" } };
+  return baseConfig as typeof baseConfig & {
+    output: { sourcemap: false; file: string; format: "commonjs" | "module" };
+  };
 };
 
 const dtsConfig = (input: string) => {
