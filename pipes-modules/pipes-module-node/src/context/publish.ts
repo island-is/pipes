@@ -43,8 +43,8 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     .withDirectory(workDir, files)
     .withFile(workDirNpmrc, context.client.host().file(path));
   const packageJSON = JSON.parse(await container.file(workDirPackageJSON).contents());
-  const fn = async (cmd: string[]) => {
-    await container
+  const fn = (cmd: string[]) => {
+    return container
       .withWorkdir(workDir)
       .withExec(["npm", ...cmd])
       .stdout();
@@ -60,6 +60,8 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
       }
     }
   }
+  const whoami = await fn(["whoami"]);
+  console.log(whoami);
   await fn(["publish", "--access", "public"]);
 
   return;
