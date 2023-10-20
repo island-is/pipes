@@ -39,6 +39,7 @@ export const PipesNodeContext: (prop: any) => PipesNodeModule["Context"]["Implem
       value: z.object({
         args: z.array(z.string().default(".")),
         relativeCwd: z.string().optional(),
+        env: z.record(z.string(), z.string()).optional(),
         packageManager: z.union([z.literal("yarn"), z.literal("npm")]).optional(),
       }),
       output: RunStateSchema,

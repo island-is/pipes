@@ -38,7 +38,13 @@ const createBuildContext = (props: Props) => {
     let container: Container;
     const newKey = `${config.nodeImageKey}-build-${props.relativeWorkDir}`;
     const fn = async (value: string) => {
-      const stateValue = await context.nodeRun({ args: ["run", value], relativeCwd: props.relativeWorkDir });
+      const stateValue = await context.nodeRun({
+        args: ["run", value],
+        relativeCwd: props.relativeWorkDir,
+        env: {
+          releaseVersion: GlobalConfig.releaseVersion as string,
+        },
+      });
       if (stateValue.state === "Error") {
         await PipesDOM.render(
           () => {
