@@ -11,7 +11,6 @@ const defaultVersion = "0.1.0";
 const releaseMARKDOWNTemplate = ({
   version,
   sha,
-  shaURL,
   changelog,
 }: {
   version: string;
@@ -21,7 +20,7 @@ const releaseMARKDOWNTemplate = ({
 }): string => {
   return `
   * Version: ${version}
-  * SHA: [${sha}](${shaURL})
+  * SHA: ${sha}
 
   ## Changelog
 
