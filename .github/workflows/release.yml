@@ -29,7 +29,9 @@ jobs:
             echo "SHA::${BASH_REMATCH[1]}"
             echo "SHA=${BASH_REMATCH[1]}" >> $GITHUB_ENV
           fi
-
+      - name: Echo SHA
+        run: |
+          echo ${{ env.SHA }}
       - name: Checkout code
         uses: actions/checkout@v4
         with:
