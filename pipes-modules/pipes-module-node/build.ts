@@ -8,7 +8,7 @@ import dts from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
 import { z } from "@island.is/pipes-core";
-import { copyFile } from "node:fs/promises";
+import { copyFile, mkdir } from "node:fs/promises";
 
 const currentPath = fileURLToPath(dirname(import.meta.url));
 const packageJSON = JSON.parse(readFileSync(join(currentPath, "package.json"), "utf-8"));
@@ -67,6 +67,7 @@ const build = async (input: string, output: string, type: string) => {
 export const copyFiles = async () => {
   const currentURL = dirname(fileURLToPath(import.meta.url));
   const toURL = join(currentURL, "dist");
+  await mkdir(toURL, { recursive: true });
   const files: { from: string; to: string }[] = packageJSON.pipes.publishFiles
     .filter((e: string) => !e.startsWith("dist"))
     .map((e: string) => {

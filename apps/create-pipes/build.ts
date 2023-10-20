@@ -2,7 +2,7 @@ import { rollup } from "rollup";
 import { builtinModules } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readFileSync } from "node:fs";
+import { mkdir, readFileSync } from "node:fs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
@@ -54,6 +54,7 @@ const build = async (input: string, output: string) => {
 export const copyFiles = async () => {
   const currentURL = dirname(fileURLToPath(import.meta.url));
   const toURL = join(currentURL, "dist");
+  await mkdir(toURL, { recursive: true });
   const files: { from: string; to: string }[] = packageJSON.pipes.publishFiles
     .filter((e: string) => !e.startsWith("dist"))
     .map((e: string) => {
