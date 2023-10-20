@@ -35,7 +35,7 @@ const mainConfig = (input: string, output: string) => {
     ...baseConfig.plugins,
     swc({
       sourceMaps: false,
-      minify: true,
+      minify: false,
     }),
   ];
   return baseConfig as typeof baseConfig & { output: { sourcemap: true; file: string; format: "commonjs" | "module" } };
