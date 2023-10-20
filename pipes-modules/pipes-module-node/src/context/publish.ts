@@ -35,7 +35,7 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
 
   await fsPromises.writeFile(
     path,
-    `//registry.npmjs.org/:_auth=${props.token}\n${props.email}\nalways-auth=true `,
+    `//registry.npmjs.org/:_authToken=${props.token}\n${props.email}=true\nalways-auth=true `,
     "utf8",
   );
   const files = oldContainer.directory(props.relativeWorkDir);
@@ -60,10 +60,8 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
       }
     }
   }
-  const whoami = await fn(["whoami"]);
-  console.log({ whoami });
 
-  //await fn(["publish", "--access", props.access ?? "public"]);
+  await fn(["publish", "--access", props.access ?? "public"]);
 
   return;
 };
