@@ -2,7 +2,7 @@ import { rollup } from "rollup";
 import { builtinModules } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { swc } from "rollup-plugin-swc3";
@@ -27,15 +27,15 @@ const createConfig = (input: string) => {
 const mainConfig = (input: string, output: string) => {
   const baseConfig = createConfig(input);
   (baseConfig as any).output = {
-    sourcemap: true,
+    sourcemap: false,
     file: output,
     format: "esm",
   };
   baseConfig.plugins = [
     ...baseConfig.plugins,
     swc({
-      sourceMaps: true,
-      minify: false,
+      sourceMaps: false,
+      minify: true,
     }),
   ];
   return baseConfig as typeof baseConfig & { output: { sourcemap: true; file: string; format: "commonjs" | "module" } };
@@ -84,3 +84,8 @@ const version = z
 
 await Promise.all(promises);
 await preparePublishPackage(process.cwd(), version);
+
+const currentURL = dirname(fileURLToPath(import.meta.url));
+const distFile = join(currentURL, `dist/dist/create-pipes.js`);
+const content = ["#!/usr/bin/env node", readFileSync(distFile, "utf-8")].join("\n");
+writeFileSync(distFile, content, "utf-8");
