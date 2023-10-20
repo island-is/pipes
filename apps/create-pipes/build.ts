@@ -7,6 +7,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
 import { z } from "@island.is/pipes-core";
+import { copyFile } from "node:fs/promises";
 
 const currentPath = fileURLToPath(dirname(import.meta.url));
 const packageJSON = JSON.parse(readFileSync(join(currentPath, "package.json"), "utf-8"));
@@ -50,8 +51,23 @@ const build = async (input: string, output: string) => {
   ]);
 };
 
+export const copyFiles = async () => {
+  const currentURL = dirname(fileURLToPath(import.meta.url));
+  const toURL = join(currentURL, "dist");
+  const files: { from: string; to: string }[] = packageJSON.pipes.publishFiles
+    .filter((e: string) => !e.startsWith("dist"))
+    .map((e: string) => {
+      return { from: join(currentURL, e), to: join(toURL, e) };
+    });
+  await Promise.all(
+    files.map(({ from, to }) => {
+      copyFile(from, to);
+    }),
+  );
+};
 const promises = [
   build(join(currentPath, "src", "create-pipes.ts"), join(currentPath, "dist", "dist", "create-pipes.js")),
+  copyFiles(),
 ];
 
 const version = z

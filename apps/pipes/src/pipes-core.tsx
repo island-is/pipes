@@ -22,7 +22,6 @@ import {
 } from "./core/index.js";
 import { DynamicPromiseAggregator } from "./dynamic.js";
 import { PipesStream } from "./stream.js";
-import { onCleanup } from "./utils/cleanup/cleanup.js";
 import * as PipesDOM from "./utils/dom/dom.js";
 import { disableOutput, forceRenderNow_DO_NOT_USE_THIS_OR_YOU_WILL_GET_FIRED } from "./utils/ink/render.js";
 import {
@@ -344,10 +343,10 @@ export class PipesCoreRunner {
       process.exit(0);
     }
 
-    using _rawCleanUp = onCleanup(() => {
+    const rawCleanUp = () => {
       // If program quits for some reason print out the logs if needed
       this.#renderRawLog();
-    });
+    };
     await using _renderDaggerInfo = await this.#renderDaggerInfo();
     await connect(
       async (client: Client) => {
@@ -379,6 +378,7 @@ export class PipesCoreRunner {
         }
       })
       .finally(() => {
+        rawCleanUp();
         setTimeout(() => {
           // TODO: fix this
           // Give time render and jobs to quit safely.

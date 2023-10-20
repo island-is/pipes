@@ -8,6 +8,7 @@ import dts from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
 import { z } from "./src/utils/zod/zod.js";
+import { copyFile } from "node:fs/promises";
 
 const currentPath = fileURLToPath(dirname(import.meta.url));
 const packageJSON = JSON.parse(readFileSync(join(currentPath, "package.json"), "utf-8"));
@@ -63,9 +64,25 @@ const build = async (input: string, output: string, type: string) => {
   ]);
 };
 
+export const copyFiles = async () => {
+  const currentURL = dirname(fileURLToPath(import.meta.url));
+  const toURL = join(currentURL, "dist");
+  const files: { from: string; to: string }[] = packageJSON.pipes.publishFiles
+    .filter((e: string) => !e.startsWith("dist"))
+    .map((e: string) => {
+      return { from: join(currentURL, e), to: join(toURL, e) };
+    });
+  await Promise.all(
+    files.map(({ from, to }) => {
+      copyFile(from, to);
+    }),
+  );
+};
+
 const promises = [
   build("./src/pipes-core.tsx", "./dist/dist/pipes-core.js", "./dist/dist/pipes-core.d.ts"),
   build("./src/loader.mjs", "./dist/dist/loader.mjs", "./dist/dist/loader.d.ts"),
+  copyFiles(),
 ];
 
 const version = z

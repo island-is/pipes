@@ -72,7 +72,6 @@
     ],
     "publishFiles": [
       "dist/**",
-      "files/**",
       "README.md",
       "LICENSE"
     ],
