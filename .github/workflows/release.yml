@@ -13,7 +13,7 @@ jobs:
   release:
     runs-on: ec2-runners
     if: |
-      github.event.issue.user.login == 'github-actions[bot]' &&
+      github.event.issue.user.login == 'andes-it' &&
       startsWith(github.event.issue.title, 'Release draft for version:') &&
       contains(fromJson(vars.RELEASE_MANAGERS), github.event.comment.user.login) &&
       startsWith(github.event.comment.body, 'release')
