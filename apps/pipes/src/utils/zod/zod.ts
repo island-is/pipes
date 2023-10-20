@@ -272,15 +272,12 @@ const addOptions = (context: z.ZodDefault<ZodType<any>>, options: z.DefaultProps
   if (keys.length === 0) {
     return context;
   }
-  const hasKey = keys.find((e) => AllKeys.has(e));
-  if (hasKey) {
-    console.error(`Pipes already has key: ${hasKey}`);
-    return context;
-  }
 
-  keys.forEach((key) => {
-    AllKeys.add(key);
-  });
+  keys
+    .filter((e) => AllKeys.has(e))
+    .forEach((key) => {
+      AllKeys.add(key);
+    });
   const type = getMostInnerZodTypeString(context);
   const isArray = getIsArray(context);
   const obj = { arg, env, description: context.description, type, isArray };

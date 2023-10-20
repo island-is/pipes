@@ -8,6 +8,7 @@ import dts from "rollup-plugin-dts";
 import { swc } from "rollup-plugin-swc3";
 import { preparePublishPackage } from "../../base/scripts/src/utils/publish.js";
 import { z } from "@island.is/pipes-core";
+import { copyFile, mkdir } from "node:fs/promises";
 
 const currentPath = fileURLToPath(dirname(import.meta.url));
 const packageJSON = JSON.parse(readFileSync(join(currentPath, "package.json"), "utf-8"));
@@ -62,12 +63,28 @@ const build = async (input: string, output: string, type: string) => {
     })(),
   ]);
 };
+
+export const copyFiles = async () => {
+  const currentURL = dirname(fileURLToPath(import.meta.url));
+  const toURL = join(currentURL, "dist");
+  await mkdir(toURL, { recursive: true });
+  const files: { from: string; to: string }[] = packageJSON.pipes.publishFiles
+    .filter((e: string) => !e.startsWith("dist"))
+    .map((e: string) => {
+      return { from: join(currentURL, e), to: join(toURL, e) };
+    });
+  await Promise.all(
+    files.map(({ from, to }) => {
+      copyFile(from, to);
+    }),
+  );
+};
 const mainPath = join("dist", "dist");
 const mainFile = basename(mainPath).replace(".tsx", ".js").replace(".ts", ".js");
 const mainFilePath = join(mainPath, mainFile);
 const typeFilePath = join(mainPath, mainFile).replace(".js", ".d.ts");
 
-const promises = [build(packageJSON.source, mainFilePath, typeFilePath)];
+const promises = [build(packageJSON.source, mainFilePath, typeFilePath), copyFiles()];
 const version = z
   .string()
   .default(packageJSON.version, {
