@@ -61,8 +61,8 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     }
   }
   const whoami = await fn(["whoami"]);
-  console.log(whoami);
-  await fn(["publish", "--access", "public"]);
+  console.log({ whoami });
+  await fn(["publish", "--access", props.access ?? "public"]);
 
   return;
 };
