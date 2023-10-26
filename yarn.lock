@@ -950,7 +950,7 @@ __metadata:
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    type-fest: "npm:4.5.0"
+    type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
@@ -1058,7 +1058,7 @@ __metadata:
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    type-fest: "npm:4.5.0"
+    type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
     wrap-ansi: "npm:8.1.0"
@@ -9957,10 +9957,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:4.5.0":
-  version: 4.5.0
-  resolution: "type-fest@npm:4.5.0"
-  checksum: 2ad3d1dc066381eca56eb006132782a101e0241807a08849be5de7da53924192f2155afc3e899ef84c0b231232a2f0260f15eb5631adfc36d058d259b152d4c3
+"type-fest@npm:4.6.0":
+  version: 4.6.0
+  resolution: "type-fest@npm:4.6.0"
+  checksum: f0a3fc7785ac5b6bf264e5a844f80ac5a6f04fcf8c5b9bc51d5120428360d4c883ee120e722c6aef991db03a37a7c13313c06e5146f8c1839bbafc40e902cd30
   languageName: node
   linkType: hard
 
