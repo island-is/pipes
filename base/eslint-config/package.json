@@ -34,7 +34,7 @@
     "@types/eslint": "8.44.6",
     "@types/eslint-config-prettier": "6.11.2",
     "@types/node": "20.8.9",
-    "@types/react": "18.2.32",
+    "@types/react": "18.2.33",
     "eslint-plugin-import-order": "2.1.4"
   },
   "pipes": {
