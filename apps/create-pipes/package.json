@@ -44,7 +44,7 @@
     "scheduler": "0.23.0",
     "slice-ansi": "7.1.0",
     "stack-utils": "2.0.6",
-    "string-width": "6.1.0",
+    "string-width": "7.0.0",
     "terminal-link": "3.0.0",
     "tmp-promise": "3.0.3",
     "ts-toolbelt": "9.6.0",
