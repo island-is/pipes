@@ -942,7 +942,7 @@ __metadata:
     type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
-    wrap-ansi: "npm:8.1.0"
+    wrap-ansi: "npm:9.0.0"
     xo: "npm:0.56.0"
     yoga-wasm-web: "npm:0.3.3"
   bin:
@@ -1050,7 +1050,7 @@ __metadata:
     type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
     widest-line: "npm:4.0.1"
-    wrap-ansi: "npm:8.1.0"
+    wrap-ansi: "npm:9.0.0"
     xo: "npm:0.56.0"
     yoga-wasm-web: "npm:0.3.3"
     zod: "npm:3.22.4"
@@ -10334,7 +10334,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:8.1.0, wrap-ansi@npm:^8.1.0":
+"wrap-ansi@npm:9.0.0":
+  version: 9.0.0
+  resolution: "wrap-ansi@npm:9.0.0"
+  dependencies:
+    ansi-styles: "npm:^6.2.1"
+    string-width: "npm:^7.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: b9d91564c091cf3978a7c18ca0f3e4d4606e83549dbe59cf76f5e77feefdd5ec91443155e8102630524d10a8c275efac8a7082c0f26fa43e6b989dc150d176ce
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:^8.1.0":
   version: 8.1.0
   resolution: "wrap-ansi@npm:8.1.0"
   dependencies:
