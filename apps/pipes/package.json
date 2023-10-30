@@ -92,7 +92,7 @@
     "ts-toolbelt": "9.6.0",
     "type-fest": "4.6.0",
     "typescript": "5.2.2",
-    "widest-line": "4.0.1",
+    "widest-line": "5.0.0",
     "wrap-ansi": "9.0.0",
     "xo": "0.56.0",
     "yoga-wasm-web": "0.3.3"

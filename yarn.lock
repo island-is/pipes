@@ -941,7 +941,7 @@ __metadata:
     ts-toolbelt: "npm:9.6.0"
     type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
-    widest-line: "npm:4.0.1"
+    widest-line: "npm:5.0.0"
     wrap-ansi: "npm:9.0.0"
     xo: "npm:0.56.0"
     yoga-wasm-web: "npm:0.3.3"
@@ -1049,7 +1049,7 @@ __metadata:
     ts-toolbelt: "npm:9.6.0"
     type-fest: "npm:4.6.0"
     typescript: "npm:5.2.2"
-    widest-line: "npm:4.0.1"
+    widest-line: "npm:5.0.0"
     wrap-ansi: "npm:9.0.0"
     xo: "npm:0.56.0"
     yoga-wasm-web: "npm:0.3.3"
@@ -10314,7 +10314,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"widest-line@npm:4.0.1, widest-line@npm:^4.0.1":
+"widest-line@npm:5.0.0":
+  version: 5.0.0
+  resolution: "widest-line@npm:5.0.0"
+  dependencies:
+    string-width: "npm:^7.0.0"
+  checksum: 07f6527b961b88d40ac250596c06fada00cbe049080c6cc8ef4d7bc4f4ab03d7eb1a1c2e5585dd0d8b6ec99ba6f168d5b236edd8ba9221aeb8d914451f0235f9
+  languageName: node
+  linkType: hard
+
+"widest-line@npm:^4.0.1":
   version: 4.0.1
   resolution: "widest-line@npm:4.0.1"
   dependencies:
