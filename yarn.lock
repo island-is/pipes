@@ -933,7 +933,7 @@ __metadata:
     rollup-plugin-swc: "npm:0.2.1"
     rollup-plugin-swc3: "npm:0.10.3"
     scheduler: "npm:0.23.0"
-    slice-ansi: "npm:6.0.0"
+    slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
     string-width: "npm:6.1.0"
     terminal-link: "npm:3.0.0"
@@ -1039,7 +1039,7 @@ __metadata:
     react-reconciler: "npm:0.29.0"
     rollup-plugin-dts: "npm:6.1.0"
     rollup-plugin-ts: "npm:3.4.5"
-    slice-ansi: "npm:6.0.0"
+    slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
     streamifier: "npm:0.1.1"
     string-width: "npm:6.1.0"
@@ -6425,6 +6425,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-fullwidth-code-point@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "is-fullwidth-code-point@npm:5.0.0"
+  dependencies:
+    get-east-asian-width: "npm:^1.0.0"
+  checksum: 8dfb2d2831b9e87983c136f5c335cd9d14c1402973e357a8ff057904612ed84b8cba196319fabedf9aefe4639e14fe3afe9d9966d1d006ebeb40fe1fed4babe5
+  languageName: node
+  linkType: hard
+
 "is-generator-function@npm:^1.0.10":
   version: 1.0.10
   resolution: "is-generator-function@npm:1.0.10"
@@ -9264,13 +9273,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slice-ansi@npm:6.0.0":
-  version: 6.0.0
-  resolution: "slice-ansi@npm:6.0.0"
+"slice-ansi@npm:7.1.0":
+  version: 7.1.0
+  resolution: "slice-ansi@npm:7.1.0"
   dependencies:
     ansi-styles: "npm:^6.2.1"
-    is-fullwidth-code-point: "npm:^4.0.0"
-  checksum: d0510f02af166eff9948e7cf88985c33d9ded6de0e39908b67b5e29f802c88025c27d7e1801ce1d1d1ec311fb539538086cd2a4193d2e8f735e6c5c0e63486dd
+    is-fullwidth-code-point: "npm:^5.0.0"
+  checksum: 10313dd3cf7a2e4b265f527b1684c7c568210b09743fd1bd74f2194715ed13ffba653dc93a5fa79e3b1711518b8990a732cb7143aa01ddafe626e99dfa6474b2
   languageName: node
   linkType: hard
 
