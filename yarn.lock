@@ -914,7 +914,7 @@ __metadata:
     ci-info: "npm:3.9.0"
     cli-boxes: "npm:3.0.0"
     cli-cursor: "npm:4.0.0"
-    cli-truncate: "npm:3.1.0"
+    cli-truncate: "npm:4.0.0"
     code-excerpt: "npm:4.0.0"
     date-fns: "npm:2.30.0"
     eslint: "npm:8.52.0"
@@ -1023,7 +1023,7 @@ __metadata:
     ci-info: "npm:3.9.0"
     cli-boxes: "npm:3.0.0"
     cli-cursor: "npm:4.0.0"
-    cli-truncate: "npm:3.1.0"
+    cli-truncate: "npm:4.0.0"
     code-excerpt: "npm:4.0.0"
     date-fns: "npm:2.30.0"
     eslint: "npm:8.52.0"
@@ -3474,13 +3474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-truncate@npm:3.1.0":
-  version: 3.1.0
-  resolution: "cli-truncate@npm:3.1.0"
+"cli-truncate@npm:4.0.0":
+  version: 4.0.0
+  resolution: "cli-truncate@npm:4.0.0"
   dependencies:
     slice-ansi: "npm:^5.0.0"
-    string-width: "npm:^5.0.0"
-  checksum: c3243e41974445691c63f8b405df1d5a24049dc33d324fe448dc572e561a7b772ae982692900b1a5960901cc4fc7def25a629b9c69a4208ee89d12ab3332617a
+    string-width: "npm:^7.0.0"
+  checksum: d5149175fd25ca985731bdeec46a55ec237475cf74c1a5e103baea696aceb45e372ac4acbaabf1316f06bd62e348123060f8191ffadfeedebd2a70a2a7fb199d
   languageName: node
   linkType: hard
 
@@ -4104,6 +4104,13 @@ __metadata:
   version: 10.2.1
   resolution: "emoji-regex@npm:10.2.1"
   checksum: fb2143d669ed7a3b180a56bfb5fc0638af25aeef421df4bb9c3a835dccfc4b737bcb45dfc8cea33c3f2b9dcd92a3fdb79820c7a840491a899e2d68aa3245c4b5
+  languageName: node
+  linkType: hard
+
+"emoji-regex@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "emoji-regex@npm:10.3.0"
+  checksum: b9b084ebe904f13bb4b66ee4c29fb41a7a4a1165adcc33c1ce8056c0194b882cc91ebdc782f1a779b5d7ea7375c5064643a7734893d7c657b44c5c6b9d7bf1e7
   languageName: node
   linkType: hard
 
@@ -5632,6 +5639,13 @@ __metadata:
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
   checksum: b9769a836d2a98c3ee734a88ba712e62703f1df31b94b784762c433c27a386dd6029ff55c2a920c392e33657d80191edbf18c61487e198844844516f843496b9
+  languageName: node
+  linkType: hard
+
+"get-east-asian-width@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "get-east-asian-width@npm:1.2.0"
+  checksum: c9b280e7c7c67fb89fa17e867c4a9d1c9f1321aba2a9ee27bff37fb6ca9552bccda328c70a80c1f83a0e39ba1b7e3427e60f47823402d19e7a41b83417ec047a
   languageName: node
   linkType: hard
 
@@ -9419,7 +9433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^5.0.0, string-width@npm:^5.0.1, string-width@npm:^5.1.2":
+"string-width@npm:^5.0.1, string-width@npm:^5.1.2":
   version: 5.1.2
   resolution: "string-width@npm:5.1.2"
   dependencies:
@@ -9427,6 +9441,17 @@ __metadata:
     emoji-regex: "npm:^9.2.2"
     strip-ansi: "npm:^7.0.1"
   checksum: 7369deaa29f21dda9a438686154b62c2c5f661f8dda60449088f9f980196f7908fc39fdd1803e3e01541970287cf5deae336798337e9319a7055af89dafa7193
+  languageName: node
+  linkType: hard
+
+"string-width@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "string-width@npm:7.0.0"
+  dependencies:
+    emoji-regex: "npm:^10.3.0"
+    get-east-asian-width: "npm:^1.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: bc0de5700a2690895169fce447ec4ed44bc62de80312c2093d5606bfd48319bb88e48a99e97f269dff2bc9577448b91c26b3804c16e7d9b389699795e4655c3b
   languageName: node
   linkType: hard
 
@@ -9507,7 +9532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:^7.0.1":
+"strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
   version: 7.1.0
   resolution: "strip-ansi@npm:7.1.0"
   dependencies:
