@@ -935,7 +935,7 @@ __metadata:
     scheduler: "npm:0.23.0"
     slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
-    string-width: "npm:6.1.0"
+    string-width: "npm:7.0.0"
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
@@ -1042,7 +1042,7 @@ __metadata:
     slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
     streamifier: "npm:0.1.1"
-    string-width: "npm:6.1.0"
+    string-width: "npm:7.0.0"
     tar-stream: "npm:3.1.6"
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
@@ -4097,13 +4097,6 @@ __metadata:
   version: 1.4.528
   resolution: "electron-to-chromium@npm:1.4.528"
   checksum: 0a106fb5dd9d935071c0e2e906b4b23b541fd19170af17f450e23dea4b48b6cb9f02d4a7772397ee568a2f612d095e78193dc754fa41964e5de0b5e6ea21361f
-  languageName: node
-  linkType: hard
-
-"emoji-regex@npm:^10.2.1":
-  version: 10.2.1
-  resolution: "emoji-regex@npm:10.2.1"
-  checksum: fb2143d669ed7a3b180a56bfb5fc0638af25aeef421df4bb9c3a835dccfc4b737bcb45dfc8cea33c3f2b9dcd92a3fdb79820c7a840491a899e2d68aa3245c4b5
   languageName: node
   linkType: hard
 
@@ -9431,14 +9424,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:6.1.0":
-  version: 6.1.0
-  resolution: "string-width@npm:6.1.0"
+"string-width@npm:7.0.0, string-width@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "string-width@npm:7.0.0"
   dependencies:
-    eastasianwidth: "npm:^0.2.0"
-    emoji-regex: "npm:^10.2.1"
-    strip-ansi: "npm:^7.0.1"
-  checksum: 8aefb456a230c8d7fe254049b1b2d62603da1a3b6c7fc9f3332f6779583cc1c72653f9b6e4cd0c1c92befee1565d4a0a7542d09ba4ceb6d96af02fbd8425bb03
+    emoji-regex: "npm:^10.3.0"
+    get-east-asian-width: "npm:^1.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: bc0de5700a2690895169fce447ec4ed44bc62de80312c2093d5606bfd48319bb88e48a99e97f269dff2bc9577448b91c26b3804c16e7d9b389699795e4655c3b
   languageName: node
   linkType: hard
 
@@ -9450,17 +9443,6 @@ __metadata:
     emoji-regex: "npm:^9.2.2"
     strip-ansi: "npm:^7.0.1"
   checksum: 7369deaa29f21dda9a438686154b62c2c5f661f8dda60449088f9f980196f7908fc39fdd1803e3e01541970287cf5deae336798337e9319a7055af89dafa7193
-  languageName: node
-  linkType: hard
-
-"string-width@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "string-width@npm:7.0.0"
-  dependencies:
-    emoji-regex: "npm:^10.3.0"
-    get-east-asian-width: "npm:^1.0.0"
-    strip-ansi: "npm:^7.1.0"
-  checksum: bc0de5700a2690895169fce447ec4ed44bc62de80312c2093d5606bfd48319bb88e48a99e97f269dff2bc9577448b91c26b3804c16e7d9b389699795e4655c3b
   languageName: node
   linkType: hard
 
