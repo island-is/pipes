@@ -1015,7 +1015,7 @@ __metadata:
     "@types/stack-utils": "npm:2.0.2"
     "@types/tar-stream": "npm:3"
     "@types/which": "npm:3"
-    "@types/wrap-ansi": "npm:8.0.2"
+    "@types/wrap-ansi": "npm:8.1.0"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
     boxen: "npm:7.1.1"
@@ -2274,10 +2274,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wrap-ansi@npm:8.0.2":
-  version: 8.0.2
-  resolution: "@types/wrap-ansi@npm:8.0.2"
-  checksum: 62a29a06d912270fb101f022ed7a0b9ad356ec5cec418c685bcd876bca97af7cc33c80bcf0d18575c63e85e9cbd7143988ef5a77436f63fe0d424aa6c4b72890
+"@types/wrap-ansi@npm:8.1.0":
+  version: 8.1.0
+  resolution: "@types/wrap-ansi@npm:8.1.0"
+  dependencies:
+    wrap-ansi: "npm:*"
+  checksum: 89319bc5751ab29a8d9fa435b3aacb313a47b308f00efee952519bcba3ccc907b5068bea287c1a55954427899f949bf917fcbf4cee80b92630b5a5f8065c488d
   languageName: node
   linkType: hard
 
@@ -10325,7 +10327,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:9.0.0":
+"wrap-ansi@npm:*, wrap-ansi@npm:9.0.0":
   version: 9.0.0
   resolution: "wrap-ansi@npm:9.0.0"
   dependencies:
