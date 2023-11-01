@@ -880,7 +880,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.95"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.52.0"
     prettier: "npm:3.0.3"
@@ -904,7 +904,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.95"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     "@types/react": "npm:18.2.33"
     "@types/react-reconciler": "npm:0.28.6"
     ansi-escapes: "npm:6.2.0"
@@ -960,7 +960,7 @@ __metadata:
     "@swc/core": "npm:1.3.95"
     "@types/eslint": "npm:8.44.6"
     "@types/eslint-config-prettier": "npm:6.11.2"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     "@types/react": "npm:18.2.33"
     "@typescript-eslint/eslint-plugin": "npm:6.9.1"
     "@typescript-eslint/parser": "npm:6.9.1"
@@ -1007,7 +1007,7 @@ __metadata:
     "@swc/core": "npm:1.3.95"
     "@swc/helpers": "npm:0.5.3"
     "@types/lodash": "npm:4.14.200"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     "@types/object-hash": "npm:3"
     "@types/react": "npm:18.2.33"
     "@types/react-reconciler": "npm:0.28.6"
@@ -1069,7 +1069,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@octokit/rest": "npm:20.0.2"
     "@swc/core": "npm:1.3.95"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     ci-info: "npm:4.0.0"
     enquirer: "npm:2.4.1"
     eslint: "npm:8.52.0"
@@ -1101,7 +1101,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.95"
-    "@types/node": "npm:20.8.9"
+    "@types/node": "npm:20.8.10"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.52.0"
     mobx: "npm:6.10.2"
@@ -2111,12 +2111,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.8.9":
-  version: 20.8.9
-  resolution: "@types/node@npm:20.8.9"
+"@types/node@npm:20.8.10":
+  version: 20.8.10
+  resolution: "@types/node@npm:20.8.10"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 71e0023342272e63c47f3fab6082bd6c89d0b0c4262a1c2d0d52458560077f5c28ef5cfe704306eac43fc2e5111bef4e1cdbf08f565650520fad5e54005a8836
+  checksum: 8930039077c8ad74de74c724909412bea8110c3f8892bcef8dda3e9629073bed65632ee755f94b252bcdae8ca71cf83e89a4a440a105e2b1b7c9797b43483049
   languageName: node
   linkType: hard
 
