@@ -38,7 +38,7 @@
   "repository": {
     "directory": "pipes-modules/pipes-module-github",
     "type": "git",
-    "url": "https://github.com/island.is/pipes"
+    "url": "https://github.com/island-is/pipes"
   },
   "dependencies": {
     "@octokit/rest": "20.0.2"
