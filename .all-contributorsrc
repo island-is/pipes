@@ -1,0 +1,37 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "lodmfjord",
+      "name": "lommi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5091589?v=4",
+      "profile": "https://github.com/lodmfjord",
+      "contributions": [
+        "maintenance",
+        "code"
+      ]
+    },
+    {
+      "login": "busla",
+      "name": "Jón Levy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3162968?v=4",
+      "profile": "http://github.com/busla",
+      "contributions": [
+        "projectManagement",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "pipes",
+  "projectOwner": "island-is"
+}
