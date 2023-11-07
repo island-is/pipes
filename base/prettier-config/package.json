@@ -8,7 +8,7 @@
   "repository": {
     "directory": "base/prettier-config",
     "type": "git",
-    "url": "https://github.com/island.is/pipes"
+    "url": "https://github.com/island-is/pipes"
   },
   "pipes": {
     "skipBuild": true,

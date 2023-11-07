@@ -96,7 +96,7 @@
   "repository": {
     "directory": "apps/create-pipes",
     "type": "git",
-    "url": "https://github.com/island.is/pipes"
+    "url": "https://github.com/island-is/pipes"
   },
   "engines": {
     "node": "20.5.1",

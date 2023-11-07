@@ -35,7 +35,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/island.is/pipes",
+    "url": "https://github.com/island-is/pipes",
     "directory": "ci"
   },
   "version": "0.1.0"
