@@ -90,7 +90,7 @@ const promises = [build(packageJSON.source, mainFilePath, typeFilePath), copyFil
 const version = z
   .string()
   .default(packageJSON.version, {
-    env: "VERSION",
+    env: "RELEASE_VERSION",
     arg: {
       long: "releaseVersion",
     },

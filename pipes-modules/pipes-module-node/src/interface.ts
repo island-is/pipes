@@ -32,6 +32,7 @@ export interface IPipesNodeContext {
   nodePrepareContainer: () => Promise<Container>;
   nodeRun: (props: {
     args: string[];
+    env?: Record<string, string>;
     relativeCwd?: string;
     packageManager?: IPipesNodeConfig["nodePackageManager"];
   }) => Promise<RunState>;

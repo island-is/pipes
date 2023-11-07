@@ -46,7 +46,7 @@ export type RunState = RunStateError | RunStateMessage;
 export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["nodeRun"]> = async function run(
   context,
   config,
-  { args, relativeCwd = ".", packageManager },
+  { args, env, relativeCwd = ".", packageManager },
 ) {
   const container = await context.nodePrepareContainer();
   const path = join(config.nodeWorkDir, relativeCwd);
@@ -60,8 +60,18 @@ export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["
       },
     );
   }
+  const getContainer = () => {
+    if (!env) {
+      return container;
+    }
+    let value = container;
+    for (const [key, envValue] of Object.entries(env)) {
+      value = value.withEnvVariable(key, envValue);
+    }
+    return value;
+  };
   try {
-    const newContainer = await container
+    const newContainer = await getContainer()
       .withWorkdir(path)
       .withExec([packageManager ?? config.nodePackageManager, ...args])
       .sync();
