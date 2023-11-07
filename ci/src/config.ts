@@ -64,7 +64,7 @@ export const GlobalConfig = (() => {
       })
       .parse(undefined),
     releaseBody,
-    releaseVersion: version,
+    releaseVersion: version || "1.0.0",
     releaseSha: sha,
     releaseChangelog: changelog,
     npmAuthToken: z.string().optional().default(undefined, { env: "NPM_TOKEN" }).parse(undefined),
