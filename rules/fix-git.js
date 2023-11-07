@@ -23,7 +23,7 @@ const fixGit = (yarn) => {
     }
     workspace.set("license", "MIT");
     workspace.set("repository.type", "git");
-    workspace.set("repository.url", "https://github.com/island.is/pipes");
+    workspace.set("repository.url", "https://github.com/island-is/pipes");
     workspace.set("repository.directory", createRealtivePath(workspace.cwd));
   }
   const _rules = require("./rules.js");
