@@ -42,7 +42,7 @@ const createBuildContext = (props: Props) => {
         args: ["run", value],
         relativeCwd: props.relativeWorkDir,
         env: {
-          releaseVersion: GlobalConfig.releaseVersion as string,
+          releaseVersion: GlobalConfig.releaseVersion,
         },
       });
       if (stateValue.state === "Error") {
@@ -92,7 +92,7 @@ const createBuildContext = (props: Props) => {
           publishContext.addScript(async (context) => {
             if (props.createRelease) {
               await context.githubRelease({
-                version: GlobalConfig.releaseVersion as string,
+                version: GlobalConfig.releaseVersion,
                 body: GlobalConfig.releaseChangelog as string,
               });
             }
@@ -100,13 +100,13 @@ const createBuildContext = (props: Props) => {
             await Promise.all([
               context.nodePublish({
                 email: "jonorn@gmail.com",
-                version: GlobalConfig.releaseVersion as string,
+                version: GlobalConfig.releaseVersion,
                 token: GlobalConfig.npmAuthToken,
                 relativeWorkDir: "./dist",
                 unpublish: "ifExists",
                 access: "public",
               }),
-              context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.releaseVersion as string }),
+              context.githubUploadArtifact({ files, name: props.name, version: GlobalConfig.releaseVersion }),
             ]);
           });
 
