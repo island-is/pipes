@@ -41,19 +41,9 @@
     ],
     "buildWithRollup": true
   },
-  "main": "./dist/dist/pipes-core.js",
-  "types": "./dist/dist/pipes-core.d.ts",
+  "main": "./src/pipes-core.tsx",
+  "types": "./src/pipes-core.tsx",
   "source": "./src/pipes-core.tsx",
-  "exports": {
-    ".": {
-      "types": "./dist/dist/pipes-core.d.ts",
-      "import": "./dist/dist/pipes-core.js"
-    },
-    "./loader.mjs": {
-      "types": "./dist/dist/loader.d.ts",
-      "import": "./dist/dist/loader.mjs"
-    }
-  },
   "engines": {
     "node": "20.5.1",
     "yarn": "4.0.0-rc.47",
