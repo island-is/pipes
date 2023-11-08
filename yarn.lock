@@ -2269,11 +2269,11 @@ __metadata:
   linkType: hard
 
 "@types/tar-stream@npm:3":
-  version: 3.1.2
-  resolution: "@types/tar-stream@npm:3.1.2"
+  version: 3.1.3
+  resolution: "@types/tar-stream@npm:3.1.3"
   dependencies:
     "@types/node": "npm:*"
-  checksum: db783009167cdf59f46d620e8f969ed8bd73861f2dc3e7094fda7bf646c162db07932681a419828e00671af3acfd893092e0a6d305f034f31fa41a42aaba4dd0
+  checksum: 187387748288b35924284afc26cf36b6b966377f5131398bf484c475f7191c50f5e5903c94a7391049b6cdfce174ae2e63f776dea9425d94ddc6bd31ebe386ee
   languageName: node
   linkType: hard
 
