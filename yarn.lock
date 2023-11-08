@@ -923,7 +923,7 @@ __metadata:
     "@swc/core": "npm:1.3.96"
     "@types/node": "npm:20.9.0"
     "@types/react": "npm:18.2.36"
-    "@types/react-reconciler": "npm:0.28.7"
+    "@types/react-reconciler": "npm:0.28.8"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
     boxen: "npm:7.1.1"
@@ -1027,7 +1027,7 @@ __metadata:
     "@types/node": "npm:20.9.0"
     "@types/object-hash": "npm:3"
     "@types/react": "npm:18.2.36"
-    "@types/react-reconciler": "npm:0.28.7"
+    "@types/react-reconciler": "npm:0.28.8"
     "@types/slice-ansi": "npm:5.0.2"
     "@types/stack-utils": "npm:2.0.3"
     "@types/tar-stream": "npm:3"
@@ -2179,12 +2179,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.28.7":
-  version: 0.28.7
-  resolution: "@types/react-reconciler@npm:0.28.7"
+"@types/react-reconciler@npm:0.28.8":
+  version: 0.28.8
+  resolution: "@types/react-reconciler@npm:0.28.8"
   dependencies:
     "@types/react": "npm:*"
-  checksum: e38dd8596fe787123730a9765e8ccfa476d7628970f7ad9e2e697d33ccb20da55bdab85e23dd77bbc5ca12bbc20c312f5080b6e9f25b3be7e55f74871db9039e
+  checksum: 6d44e0f0d492c0748179be8bc69a10c7499c2b0299c6c45c415b101f9e875bb7fb8d5bb0f43cc198351b94c31b15fcb15bb3c988ea578605329eb8834d5ff3fa
   languageName: node
   linkType: hard
 
