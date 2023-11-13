@@ -65,7 +65,7 @@
     "ci-info": "4.0.0",
     "enquirer": "2.4.1",
     "eslint": "8.53.0",
-    "mobx": "6.10.2",
+    "mobx": "6.11.0",
     "prettier": "3.0.3",
     "tmp-promise": "3.0.3",
     "ts-toolbelt": "9.6.0",
