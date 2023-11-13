@@ -63,7 +63,7 @@
     "@types/node": "20.9.0",
     "ci-info": "4.0.0",
     "eslint": "8.53.0",
-    "mobx": "6.10.2",
+    "mobx": "6.11.0",
     "prettier": "3.0.3",
     "react": "18.2.0",
     "ts-toolbelt": "9.6.0",
