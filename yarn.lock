@@ -948,7 +948,7 @@ __metadata:
     react-reconciler: "npm:0.29.0"
     rollup: "npm:4.4.1"
     rollup-plugin-swc: "npm:0.2.1"
-    rollup-plugin-swc3: "npm:0.10.3"
+    rollup-plugin-swc3: "npm:0.10.4"
     scheduler: "npm:0.23.0"
     slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
@@ -1126,7 +1126,7 @@ __metadata:
     react: "npm:18.2.0"
     rollup: "npm:4.4.1"
     rollup-plugin-node-resolve: "npm:5.2.0"
-    rollup-plugin-swc3: "npm:0.10.3"
+    rollup-plugin-swc3: "npm:0.10.4"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
     typescript: "npm:5.2.2"
@@ -8887,18 +8887,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-swc3@npm:0.10.3":
-  version: 0.10.3
-  resolution: "rollup-plugin-swc3@npm:0.10.3"
+"rollup-plugin-swc3@npm:0.10.4":
+  version: 0.10.4
+  resolution: "rollup-plugin-swc3@npm:0.10.4"
   dependencies:
     "@fastify/deepmerge": "npm:^1.3.0"
     "@rollup/pluginutils": "npm:^5.0.5"
     get-tsconfig: "npm:^4.7.2"
-    rollup-swc-preserve-directives: "npm:^0.5.0"
+    rollup-swc-preserve-directives: "npm:^0.6.0"
   peerDependencies:
     "@swc/core": ">=1.2.165"
     rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
-  checksum: 669c6439ae9b2b763018a87f2c74ef441d3aec4f648511579cda937b09c85ac77366017fb54ff3a024074dffc86502722c34407d730218245f365e2f4eeed7ff
+  checksum: 9add7f3869a7f16458df7b6ac362afd14f1e9258f681a3e2b94eb59c559152b035e4bf5ec0abb82f4d738e9270e1f10a708c9a7dce3010bac0afb58ef30cbd7a
   languageName: node
   linkType: hard
 
@@ -8966,15 +8966,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-swc-preserve-directives@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "rollup-swc-preserve-directives@npm:0.5.0"
+"rollup-swc-preserve-directives@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "rollup-swc-preserve-directives@npm:0.6.0"
   dependencies:
     "@napi-rs/magic-string": "npm:^0.3.4"
   peerDependencies:
     "@swc/core": ">=1.3.79"
-    rollup: ^2.0.0 || ^3.0.0
-  checksum: ed98fc3f044b3fcabf7b5f6d443d665f744c8dd38ac52bbcde4b1ad7940f1f80c3b291275b273425e81444ed7355a8a8dc62979089511abc4a6d60b87b45e9de
+    rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
+  checksum: 72d514d9307f4640b50b95b466252c920fca1ed52b123a98cdf28a8576a2b6a8098dccb0d03ced9670d1a407438350beea7071acd10341ac24d2dfe69e3549aa
   languageName: node
   linkType: hard
 
