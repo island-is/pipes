@@ -2287,9 +2287,9 @@ __metadata:
   linkType: hard
 
 "@types/which@npm:3":
-  version: 3.0.2
-  resolution: "@types/which@npm:3.0.2"
-  checksum: 4fbccb51277cab935c0fb1ca328caa70fbc724f52c192fbbb77cc6d35cfdcdd9b033fa1e3d9a3e5fd0674a31ee51f66dae62e2bca5e1dff666a8d2e870cd7806
+  version: 3.0.3
+  resolution: "@types/which@npm:3.0.3"
+  checksum: eee298875ff62f7d56a2267cd70789a7032647c599d6abc684864281923763c082626b9742d4cfa7ea3e0790ac5d05aff48edd6ecba0f61eb69a6d57cc83c6f5
   languageName: node
   linkType: hard
 
