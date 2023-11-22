@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@island.is/scripts": "workspace:*",
-    "@swc/core": "1.3.96",
+    "@swc/core": "1.3.99",
     "prettier": "3.0.3"
   },
   "packageManager": "yarn@4.0.0-rc.47",
