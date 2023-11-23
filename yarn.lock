@@ -986,7 +986,7 @@ __metadata:
     eslint-import-resolver-node: "npm:0.3.9"
     eslint-import-resolver-typescript: "npm:3.6.1"
     eslint-plugin-eslint-comments: "npm:3.2.0"
-    eslint-plugin-filenames-simple: "npm:0.8.0"
+    eslint-plugin-filenames-simple: "npm:0.9.0"
     eslint-plugin-import: "npm:2.29.0"
     eslint-plugin-import-order: "npm:2.1.4"
     eslint-plugin-jsdoc: "npm:46.9.0"
@@ -4580,14 +4580,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-filenames-simple@npm:0.8.0":
-  version: 0.8.0
-  resolution: "eslint-plugin-filenames-simple@npm:0.8.0"
+"eslint-plugin-filenames-simple@npm:0.9.0":
+  version: 0.9.0
+  resolution: "eslint-plugin-filenames-simple@npm:0.9.0"
   dependencies:
     pluralize: "npm:^8.0.0"
   peerDependencies:
     eslint: ">=7.0.0 <9.0.0"
-  checksum: 8e93b49ea1a4caf69cf129cb72dc1837be9bd53bece35b847b079e82432df24d9340c8dc8e86028a8ad27f00d8404a65db4f77b41839d6aa1c1131037720f6a2
+  checksum: e29a7e6a0c9edce32e2c9a90ab3350e5c0a1875b6ee3f81826934689d471d3bc46edcdda7209df8b706885c51c1142016ebbede80ca5993edf9128e0af73c212
   languageName: node
   linkType: hard
 
