@@ -922,7 +922,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.3.100"
     "@types/node": "npm:20.10.3"
-    "@types/react": "npm:18.2.41"
+    "@types/react": "npm:18.2.42"
     "@types/react-reconciler": "npm:0.28.8"
     ansi-escapes: "npm:6.2.0"
     auto-bind: "npm:5.0.1"
@@ -978,7 +978,7 @@ __metadata:
     "@types/eslint": "npm:8.44.8"
     "@types/eslint-config-prettier": "npm:6.11.3"
     "@types/node": "npm:20.10.3"
-    "@types/react": "npm:18.2.41"
+    "@types/react": "npm:18.2.42"
     "@typescript-eslint/eslint-plugin": "npm:6.13.1"
     "@typescript-eslint/parser": "npm:6.13.1"
     eslint: "npm:8.55.0"
@@ -1026,7 +1026,7 @@ __metadata:
     "@types/lodash": "npm:4.14.202"
     "@types/node": "npm:20.10.3"
     "@types/object-hash": "npm:3"
-    "@types/react": "npm:18.2.41"
+    "@types/react": "npm:18.2.42"
     "@types/react-reconciler": "npm:0.28.8"
     "@types/slice-ansi": "npm:7.1.0"
     "@types/stack-utils": "npm:2.0.3"
@@ -2189,14 +2189,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.41":
-  version: 18.2.41
-  resolution: "@types/react@npm:18.2.41"
+"@types/react@npm:18.2.42":
+  version: 18.2.42
+  resolution: "@types/react@npm:18.2.42"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 31a498a56ad3e825ae13799355fe49042c0cdbbe6f40003f39b6b9cf847ba1669393c22ba60e97b1072cf1c002b15432082cdd17e47c948430bdc1f0864829b9
+  checksum: b6ee1873ba551ca7bf87cefff00a615aa4322cd68d425858a2e09be260d8037d7fc68865739d2b05cc88cefa7acd009afdaea43e9856fc6302b322cc8c19464e
   languageName: node
   linkType: hard
 
