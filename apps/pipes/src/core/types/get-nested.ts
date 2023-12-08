@@ -13,10 +13,10 @@ export type isNestedKey<
 > = Key extends keyof Module
   ? `${AddKey}${Key}`
   : Key extends `${infer First}.${infer Rest}`
-  ? First extends keyof Module
-    ? isNestedKey<Module[First], Rest, `${AddKey}${First}.`>
-    : never
-  : never;
+    ? First extends keyof Module
+      ? isNestedKey<Module[First], Rest, `${AddKey}${First}.`>
+      : never
+    : never;
 
 export type getNestedObject<
   Module extends Record<string, any>,
@@ -25,7 +25,7 @@ export type getNestedObject<
 > = Key extends keyof Module
   ? Module[Key]
   : Key extends `${infer First}.${infer Rest}`
-  ? First extends keyof Module
-    ? getNestedObject<Module[First], Rest, `${AddKey}${First}.`>
-    : never
-  : never;
+    ? First extends keyof Module
+      ? getNestedObject<Module[First], Rest, `${AddKey}${First}.`>
+      : never
+    : never;

@@ -154,8 +154,8 @@ type ReplaceImplementation<T> = {
   [K in NonFunctionKeys<T>]: string extends K
     ? never
     : T[K] extends (...args: any[]) => any
-    ? never
-    : valueToZod<T[K]> | T[K];
+      ? never
+      : valueToZod<T[K]> | T[K];
 } & {
   [K in FunctionKeys<T>]: string extends K ? never : T[K] extends (...args: any[]) => any ? T[K] : never;
 };
@@ -243,10 +243,10 @@ export type MergeModules<
         : never
       : never
     : PrevModules extends [infer X]
-    ? X extends AnyModule
-      ? MergeStateHelper<"Config.Incoming", X["Config"]["Incoming"], [], []>
-      : never
-    : never,
+      ? X extends AnyModule
+        ? MergeStateHelper<"Config.Incoming", X["Config"]["Incoming"], [], []>
+        : never
+      : never,
   MergedContext = PrevModules extends [infer X, ...infer R]
     ? X extends AnyModule
       ? R extends AnyModule[]
@@ -254,10 +254,10 @@ export type MergeModules<
         : never
       : never
     : PrevModules extends [infer X]
-    ? X extends AnyModule
-      ? MergeStateHelper<"Context.Incoming", X["Context"]["Incoming"], [], []>
-      : never
-    : never,
+      ? X extends AnyModule
+        ? MergeStateHelper<"Context.Incoming", X["Context"]["Incoming"], [], []>
+        : never
+      : never,
   Name extends newModuleName<"CurrentState"> = newModuleName<"CurrentState">,
 > = CreateModule<Name, MergedContext, MergedConfig>;
 
