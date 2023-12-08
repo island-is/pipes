@@ -11,6 +11,7 @@ import { doesFileExists } from "./does-file-exist.js";
  */
 export async function shouldCompile(path: string): Promise<string | null> {
   const fileIsHere = await doesFileExists(path);
+  console.log({path, fileIsHere})
   if (fileIsHere) {
     const currentExtension = extname(path);
     if (allowed_extension.includes(currentExtension)) {

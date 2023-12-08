@@ -22,7 +22,7 @@ describe("resolve", () => {
 
   it("should return source URL for local file", async () => {
     const nextResolve = mock.fn(() => ({ url: "node:fs", shortCircuit: false })) as any;
-    const result = await resolve("./resolve.ts", {}, nextResolve);
+    const result = await resolve("./src/loader/resolve.ts", {}, nextResolve);
 
     assert.strictEqual(result.url.startsWith("file:///"), true);
     assert.strictEqual(result.url.endsWith("resolve.ts"), true);
@@ -31,8 +31,7 @@ describe("resolve", () => {
 
   it("should return source URL for local file with js ending", async () => {
     const nextResolve = mock.fn(() => ({ url: "node:fs", shortCircuit: false })) as any;
-    const result = await resolve("./resolve.js", {}, nextResolve);
-
+    const result = await resolve("./src/loader/resolve.js", {}, nextResolve);
     assert.strictEqual(result.url.startsWith("file:///"), true);
     assert.strictEqual(result.url.endsWith("resolve.ts"), true);
     assert.strictEqual(result.shortCircuit, true);
@@ -40,8 +39,7 @@ describe("resolve", () => {
 
   it("should return source URL for local file with …", async () => {
     const nextResolve = mock.fn(() => ({ url: "node:fs", shortCircuit: false })) as any;
-    const result = await resolve(".…/config.ts", {}, nextResolve);
-
+    const result = await resolve("../pipes/src/config.ts", {}, nextResolve);
     assert.strictEqual(result.url.startsWith("file:///"), true);
     assert.strictEqual(result.url.endsWith("config.ts"), true);
     assert.strictEqual(result.shortCircuit, true);

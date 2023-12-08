@@ -1,4 +1,4 @@
-import { join } from "node:path";
+import { resolve } from "node:path";
 
 import { convertURL } from "./convert-url.js";
 import { isRelativePath } from "./is-relative-path.js";
@@ -15,7 +15,7 @@ export const convertFilePath = (path: string, parent: string | null | undefined)
     throw new Error("Invalid url!");
   }
   if (filePath && isRelativePath(filePath)) {
-    return join(parent || process.cwd(), filePath);
+    return resolve(parent || process.cwd(), filePath);
   }
   return filePath;
 };
