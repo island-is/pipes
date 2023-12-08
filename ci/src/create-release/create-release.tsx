@@ -6,8 +6,6 @@ import { GlobalConfig } from "../config.js";
 
 import type { PipesGitHubModule } from "@island.is/pipes-module-github";
 
-const defaultChangeLOG = [`First version`];
-const defaultVersion = "0.1.0";
 const releaseMARKDOWNTemplate = ({
   version,
   sha,
@@ -49,7 +47,6 @@ createReleaseContext.addScript(async (context, config) => {
   const shaURL = getShaURL(sha);
   await createTask(
     async () => {
-      const previousVersion = await context.githubGetMatchingCommit({ sha, tagPattern: /^v.*/ });
       const printmessage = async ({ id, url }: { id: number; url: string }) => {
         await using _render = await PipesDOM.render(
           <PipesDOM.Text>
@@ -60,34 +57,12 @@ createReleaseContext.addScript(async (context, config) => {
           },
         );
       };
-      if (previousVersion == null) {
-        const version = defaultVersion;
-        const changelog = defaultChangeLOG;
-        const body = releaseMARKDOWNTemplate({
-          version,
-          changelog,
-          sha,
-          shaURL,
-        });
-        const title = getTitle({ version });
-        const value = await context.githubWriteIssue({
-          body,
-          title,
-        });
-        await printmessage(value);
-        return;
-      }
-      const commits = await context.githubGetCommitsBetween({ startSha: previousVersion.sha, endSha: sha });
+
       // FOR NOW: By default lets just now patch the last number
-      const version = previousVersion.tag
-        .replace("v", "")
-        .split(".")
-        .map((value, index) => `${parseInt(value, 10) + (index === 2 ? 1 : 0)}`)
-        .join("\n");
-      const changelog = commits.map((e) => `[${e.commit}](${getShaURL(e.sha)})`);
+      const version = GlobalConfig.releaseVersion;
       const body = releaseMARKDOWNTemplate({
         version,
-        changelog,
+        changelog: (GlobalConfig.releaseChangelog ?? "").split("\n"),
         sha,
         shaURL,
       });
