@@ -42,6 +42,7 @@ export const GlobalConfig = (() => {
     .parse(undefined);
 
   const { version, sha, changelog } = getExtraReleaseVars(releaseBody);
+  console.log({ version, sha, changelog });
   return {
     workDir: "/pipes-ci",
     sourceDir: z
