@@ -127,12 +127,12 @@ type DefaultWrapOutput<T extends StoreObj> = {
   [K in keyof T]: T[K] extends z.ZodType<any>
     ? z.infer<T[K]>
     : T[K] extends (arg1: any, arg2: any, ...arg: infer Arg) => infer X
-    ? Arg["length"] extends 0 | undefined
-      ? () => X
-      : (arg: Arg[0]) => X
-    : T[K] extends (arg1: any, arg2: any) => infer X
-    ? () => X
-    : T[K];
+      ? Arg["length"] extends 0 | undefined
+        ? () => X
+        : (arg: Arg[0]) => X
+      : T[K] extends (arg1: any, arg2: any) => infer X
+        ? () => X
+        : T[K];
 };
 
 export const wrapContext = <T extends Record<string, any>, Output = DefaultWrapOutput<T>>(
@@ -359,10 +359,10 @@ type FunctionWithSymbolArg<T extends unknown> = T extends () => infer Return
     ? () => Promise<Record<symbol, X>>
     : never
   : T extends (firstArg: string) => infer Return
-  ? (symbol: symbol) => Return
-  : T extends (symbol: string, ...args: infer B) => infer Return
-  ? (symbol: symbol, ...args: B) => Return
-  : never;
+    ? (symbol: symbol) => Return
+    : T extends (symbol: string, ...args: infer B) => infer Return
+      ? (symbol: symbol, ...args: B) => Return
+      : never;
 
 type SymbolStore<
   X extends ZodType<any> = any,

@@ -9,13 +9,13 @@ export type IsUnique<
 export type UniqueModules<T extends { ModuleName: ModuleName }[]> = T extends [infer _Head]
   ? T
   : T extends [infer Head, ...infer Tail]
-  ? Head extends AnyModule
-    ? Tail extends AnyModule[]
-      ? IsUnique<Head, Tail> extends false
-        ? never
-        : UniqueModules<Tail> extends Tail
-        ? T
+    ? Head extends AnyModule
+      ? Tail extends AnyModule[]
+        ? IsUnique<Head, Tail> extends false
+          ? never
+          : UniqueModules<Tail> extends Tail
+            ? T
+            : never
         : never
       : never
-    : never
-  : never;
+    : never;

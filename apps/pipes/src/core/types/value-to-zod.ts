@@ -40,14 +40,14 @@ type ArrayToZodArray<
   ? // Only one member in array. Return head.
     valueToZod<head>
   : U extends [...infer R, null]
-  ? // Array contains null or undefined. Return optional array.
-    ZodOptional<ArrayToZodArray<R>> | ZodDefault<ZodOptional<ArrayToZodArray<R>>>
-  : U extends [null, ...infer R]
-  ? ZodOptional<ArrayToZodArray<R>> | ZodDefault<ZodOptional<ArrayToZodArray<R>>>
-  : AddUnion extends 1
-  ? // @ts-expect-error - Sometimes we get never here.
-    ZodDefault<ZodUnion<GenericArray<ArrayToZod<U>>>>
-  : ZodType<U> | ArrayToZod<U>;
+    ? // Array contains null or undefined. Return optional array.
+      ZodOptional<ArrayToZodArray<R>> | ZodDefault<ZodOptional<ArrayToZodArray<R>>>
+    : U extends [null, ...infer R]
+      ? ZodOptional<ArrayToZodArray<R>> | ZodDefault<ZodOptional<ArrayToZodArray<R>>>
+      : AddUnion extends 1
+        ? // @ts-expect-error - Sometimes we get never here.
+          ZodDefault<ZodUnion<GenericArray<ArrayToZod<U>>>>
+        : ZodType<U> | ArrayToZod<U>;
 type ValueToZodArray<T, AddUnion = 1, U extends List<any> = ListOf<combineNullUndefined<T>>> = ArrayToZodArray<
   U,
   AddUnion
@@ -56,8 +56,8 @@ type ValueToZodArray<T, AddUnion = 1, U extends List<any> = ListOf<combineNullUn
 type List2Tuple<L> = L extends [infer Head, ...infer Tail]
   ? [valueToZod<Head>, ...List2Tuple<Tail>]
   : L extends [infer Head]
-  ? [valueToZod<Head>]
-  : [];
+    ? [valueToZod<Head>]
+    : [];
 
 type zodDefault<T extends ZodTypeAny> = ZodDefault<T> | T;
 type zodLazy<T extends ZodTypeAny> = ZodLazy<T> | T;
@@ -111,47 +111,47 @@ type zodKey<T> = true extends If<isAny<T>, true>
   ? // Ignore any
     "unknown"
   : // Ignore never
-  true extends If<Is<T, never, "equals">, true>
-  ? "unknown"
-  : // We have many items!
-  true extends hasManyItems<T>
-  ? "many"
-  : // Null or undefined
-  true extends If<Is<T, null | undefined, "extends->">, true>
-  ? "nullOrUndefined"
-  : // Boolean
-  true extends isTrueAndFalse<T>
-  ? "boolean"
-  : // True Literal
-  true extends isTrueOnly<T>
-  ? "true"
-  : // False Literal
-  true extends isFalseOnly<T>
-  ? "false"
-  : // Module Name
-  T extends string & { __type: "modulename" }
-  ? "modulename"
-  : // Literal
-  true extends If<IsLiteral<T>, true>
-  ? "literal"
-  : // Array
-  T extends any[]
-  ? isTuple<T> extends true
-    ? "tuple"
-    : "array"
-  : // Date
-  true extends If<Is<T, Date, "equals">, true>
-  ? "date"
-  : // String
-  true extends If<Is<T, string, "equals">, true>
-  ? "string"
-  : // Number
-  true extends If<Is<T, number, "equals">, true>
-  ? "number"
-  : // Void
-  true extends If<Is<T, void, "equals">, true>
-  ? "void"
-  : // Object
-  T extends { [k: string]: any }
-  ? "object"
-  : "unknown";
+    true extends If<Is<T, never, "equals">, true>
+    ? "unknown"
+    : // We have many items!
+      true extends hasManyItems<T>
+      ? "many"
+      : // Null or undefined
+        true extends If<Is<T, null | undefined, "extends->">, true>
+        ? "nullOrUndefined"
+        : // Boolean
+          true extends isTrueAndFalse<T>
+          ? "boolean"
+          : // True Literal
+            true extends isTrueOnly<T>
+            ? "true"
+            : // False Literal
+              true extends isFalseOnly<T>
+              ? "false"
+              : // Module Name
+                T extends string & { __type: "modulename" }
+                ? "modulename"
+                : // Literal
+                  true extends If<IsLiteral<T>, true>
+                  ? "literal"
+                  : // Array
+                    T extends any[]
+                    ? isTuple<T> extends true
+                      ? "tuple"
+                      : "array"
+                    : // Date
+                      true extends If<Is<T, Date, "equals">, true>
+                      ? "date"
+                      : // String
+                        true extends If<Is<T, string, "equals">, true>
+                        ? "string"
+                        : // Number
+                          true extends If<Is<T, number, "equals">, true>
+                          ? "number"
+                          : // Void
+                            true extends If<Is<T, void, "equals">, true>
+                            ? "void"
+                            : // Object
+                              T extends { [k: string]: any }
+                              ? "object"
+                              : "unknown";

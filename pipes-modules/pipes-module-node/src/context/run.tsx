@@ -50,7 +50,6 @@ export const run: removeContextCommand<PipesNodeModule["Context"]["Implement"]["
 ) {
   const container = await context.nodePrepareContainer();
   const path = join(config.nodeWorkDir, relativeCwd);
-  console.log(`working on ${path}`);
   if (config.nodeDebug) {
     void PipesDOM.render(
       <PipesDOM.Info>

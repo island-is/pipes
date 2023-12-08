@@ -378,8 +378,8 @@ type State_Internal<T extends any = any> = T extends {
   ? T["isReady"]["state"] extends "READY"
     ? { client: Client; modules: ModuleName[]; isReady: State_IsPipeCoreReady<{ state: "READY" }> }
     : T["isReady"]["state"] extends "NOT_READY"
-    ? { modules: ModuleName[]; isReady: State_IsPipeCoreReady<{ state: "NOT_READY" }> }
-    : never
+      ? { modules: ModuleName[]; isReady: State_IsPipeCoreReady<{ state: "NOT_READY" }> }
+      : never
   : never;
 
 type fn<Context extends any, Config extends any> = (context: Context, config: Config) => Promise<void> | void;

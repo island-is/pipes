@@ -25,14 +25,14 @@ export class PipesError<T extends (...value: any[]) => any> extends Error {
       typeof error === "undefined"
         ? undefined
         : error === null
-        ? undefined
-        : typeof error === "string"
-        ? error
-        : typeof error === "object" && error instanceof Error
-        ? error.toString()
-        : typeof error === "object" && "toString" in error
-        ? error.toString()
-        : undefined;
+          ? undefined
+          : typeof error === "string"
+            ? error
+            : typeof error === "object" && error instanceof Error
+              ? error.toString()
+              : typeof error === "object" && "toString" in error
+                ? error.toString()
+                : undefined;
   }
   getPipesError(): {
     message: string;
