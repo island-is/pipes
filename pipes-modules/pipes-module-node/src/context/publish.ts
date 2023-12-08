@@ -43,14 +43,13 @@ export const NodePublish: removeContextCommand<PipesNodeModule["Context"]["Imple
     .withDirectory(workDir, files)
     .withFile(workDirNpmrc, context.client.host().file(path));
   const packageJSON = JSON.parse(await container.file(workDirPackageJSON).contents());
-  const fn = (cmd: string[]) => {
-    return container
-      .withWorkdir(workDir)
+  const fn = async (cmd: string[]) => {
+    return (await container.withWorkdir(workDir).withExec(["npm", "version", props.version]).sync())
       .withExec(["npm", ...cmd])
       .stdout();
   };
   const name = packageJSON.name as string;
-  const version = packageJSON.version as string;
+  const version = props.version;
   if (props.unpublish === "always" || props.unpublish === "ifExists") {
     try {
       await fn(["unpublish", `${name}@${version}`]);
