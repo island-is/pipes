@@ -55,11 +55,4 @@ const getAppPath = (type: "app" | "module", name: string) => {
   throw new Error("Invalid type");
 };
 
-await build(getAppPath("app", "pipes"), "pipes-core").then(() => {
-  return Promise.all([
-    build(getAppPath("app", "create-pipes"), "create-pipes"),
-    build(getAppPath("module", "pipes-module-node"), "pipes-module-node").then(() => {
-      return build(getAppPath("module", "pipes-module-github"), "pipes-module-github");
-    }),
-  ]);
-});
+await build(getAppPath("app", "pipes"), "pipes-core");

@@ -54,7 +54,6 @@ export const resolve: ResolveFn = async (url, context, nextResolve) => {
    * b) the file does not exist but a file with .ts .tsx ending does
    */
   const compileFile = await shouldCompile(filePath);
-
   /** Ignore files who do not meet those conditions */
   if (!compileFile && (await doesFileExists(filePath))) {
     const fileIsDirectory = await isDirectory(filePath);
