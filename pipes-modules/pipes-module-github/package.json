@@ -53,7 +53,7 @@
     "zip-a-folder": "*"
   },
   "devDependencies": {
-    "@dagger.io/dagger": "0.9.3",
+    "@dagger.io/dagger": "0.9.4",
     "@island.is/eslint-config": "workspace:*",
     "@island.is/pipes-core": "workspace:*",
     "@island.is/prettier-config": "workspace:*",
