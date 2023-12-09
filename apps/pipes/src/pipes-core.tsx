@@ -439,7 +439,6 @@ export {
   createGlobalZodKeyStore,
   createGlobalZodStore,
 };
-export * from "./utils/zod/base-zod/index.js";
 export type { createModuleDef, PipesCoreModule, Simplify };
 export * from "./core/index.js";
 export * from "@dagger.io/dagger";
