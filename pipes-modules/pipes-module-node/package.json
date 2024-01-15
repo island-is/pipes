@@ -46,7 +46,7 @@
     "ts-toolbelt": "*"
   },
   "dependencies": {
-    "rollup": "4.9.4",
+    "rollup": "4.9.5",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-swc3": "0.11.0",
     "tmp-promise": "3.0.3",
