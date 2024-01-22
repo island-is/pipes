@@ -999,7 +999,7 @@ __metadata:
     stack-utils: "npm:2.0.6"
     streamifier: "npm:0.1.1"
     string-width: "npm:7.0.0"
-    tar-stream: "npm:3.1.6"
+    tar-stream: "npm:3.1.7"
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
@@ -9627,7 +9627,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:3.1.6, tar-stream@npm:^3.0.0":
+"tar-stream@npm:3.1.7":
+  version: 3.1.7
+  resolution: "tar-stream@npm:3.1.7"
+  dependencies:
+    b4a: "npm:^1.6.4"
+    fast-fifo: "npm:^1.2.0"
+    streamx: "npm:^2.15.0"
+  checksum: b21a82705a72792544697c410451a4846af1f744176feb0ff11a7c3dd0896961552e3def5e1c9a6bbee4f0ae298b8252a1f4c9381e9f991553b9e4847976f05c
+  languageName: node
+  linkType: hard
+
+"tar-stream@npm:^3.0.0":
   version: 3.1.6
   resolution: "tar-stream@npm:3.1.6"
   dependencies:
