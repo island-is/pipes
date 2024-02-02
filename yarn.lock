@@ -900,7 +900,7 @@ __metadata:
     "@types/node": "npm:20.11.16"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.56.0"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     typescript: "npm:5.3.3"
   peerDependencies:
     "@swc/core": "*"
@@ -938,7 +938,7 @@ __metadata:
     eslint-plugin-sonarjs: "npm:0.23.0"
     eslint-plugin-unused-imports: "npm:3.0.0"
     eslint-plugin-workspaces: "npm:0.10.0"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     typescript: "npm:5.3.3"
   peerDependencies:
@@ -991,7 +991,7 @@ __metadata:
     mobx: "npm:6.12.0"
     node-fetch: "npm:3.3.2"
     object-hash: "npm:3.0.0"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     react-reconciler: "npm:0.29.0"
     rollup-plugin-dts: "npm:6.1.0"
@@ -1031,7 +1031,7 @@ __metadata:
     enquirer: "npm:2.4.1"
     eslint: "npm:8.56.0"
     mobx: "npm:6.12.0"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
     typescript: "npm:5.3.3"
@@ -1062,7 +1062,7 @@ __metadata:
     ci-info: "npm:4.0.0"
     eslint: "npm:8.56.0"
     mobx: "npm:6.12.0"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     react: "npm:18.2.0"
     rollup: "npm:4.9.6"
     rollup-plugin-node-resolve: "npm:5.2.0"
@@ -1096,7 +1096,7 @@ __metadata:
     express: "npm:4.18.2"
     glob: "npm:10.3.10"
     husky: "npm:9.0.10"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
     semver: "npm:7.5.4"
     typescript: "npm:5.3.3"
     zod: "npm:3.22.4"
@@ -1111,7 +1111,7 @@ __metadata:
   dependencies:
     "@island.is/scripts": "workspace:*"
     "@swc/core": "npm:1.3.107"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -1146,7 +1146,7 @@ __metadata:
   dependencies:
     "@island.is/prettier-config": "workspace:*"
     "@swc/core": "npm:1.3.107"
-    prettier: "npm:3.1.1"
+    prettier: "npm:3.2.4"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -8353,12 +8353,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.1.1":
-  version: 3.1.1
-  resolution: "prettier@npm:3.1.1"
+"prettier@npm:3.2.4":
+  version: 3.2.4
+  resolution: "prettier@npm:3.2.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 26a249f321b97d26c04483f1bf2eeb22e082a76f4222a2c922bebdc60111691aad4ec3979610e83942e0b956058ec361d9e9c81c185172264eb6db9aa678082b
+  checksum: e2b735d0552501b3a7ac8bd3ba3b6de2920bb35bd4cd02d08cb9057ebe3e96d83b9a7e4b903d987b7530a50223b12c74d107c154337236ae2c68156ba1e65cd2
   languageName: node
   linkType: hard
 
