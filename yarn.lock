@@ -871,7 +871,7 @@ __metadata:
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@types/node": "npm:20.11.17"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.56.0"
@@ -889,7 +889,7 @@ __metadata:
     "@island.is/prettier-config": "workspace:*"
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@types/eslint": "npm:8.56.2"
     "@types/eslint-config-prettier": "npm:6.11.3"
     "@types/node": "npm:20.11.17"
@@ -936,7 +936,7 @@ __metadata:
     "@rollup/plugin-alias": "npm:5.1.0"
     "@rollup/plugin-commonjs": "npm:25.0.7"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@swc/helpers": "npm:0.5.6"
     "@types/lodash": "npm:4.14.202"
     "@types/node": "npm:20.11.17"
@@ -1000,7 +1000,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@octokit/rest": "npm:20.0.2"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@types/node": "npm:20.11.17"
     ci-info: "npm:4.0.0"
     enquirer: "npm:2.4.1"
@@ -1032,7 +1032,7 @@ __metadata:
     "@island.is/prettier-config": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@types/node": "npm:20.11.17"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.56.0"
@@ -1063,7 +1063,7 @@ __metadata:
     "@island.is/prettier-config": "workspace:*"
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     "@types/semver": "npm:7.5.7"
     "@yarnpkg/types": "npm:4.0.0"
     commitlint: "npm:18.6.0"
@@ -1085,7 +1085,7 @@ __metadata:
   resolution: "@island.is/prettier-config@workspace:base/prettier-config"
   dependencies:
     "@island.is/scripts": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     prettier: "npm:3.1.1"
   peerDependencies:
     "@swc/core": "*"
@@ -1109,7 +1109,7 @@ __metadata:
   resolution: "@island.is/tsconfig-build@workspace:base/tsconfig-build"
   dependencies:
     "@island.is/tsconfig": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -1120,7 +1120,7 @@ __metadata:
   resolution: "@island.is/tsconfig@workspace:base/tsconfig"
   dependencies:
     "@island.is/prettier-config": "workspace:*"
-    "@swc/core": "npm:1.4.0"
+    "@swc/core": "npm:1.4.1"
     prettier: "npm:3.1.1"
   peerDependencies:
     "@swc/core": "*"
@@ -1788,91 +1788,91 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-darwin-arm64@npm:1.4.0"
+"@swc/core-darwin-arm64@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-darwin-arm64@npm:1.4.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-darwin-x64@npm:1.4.0"
+"@swc/core-darwin-x64@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-darwin-x64@npm:1.4.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.4.0"
+"@swc/core-linux-arm-gnueabihf@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.4.1"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.4.0"
+"@swc/core-linux-arm64-gnu@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.4.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-linux-arm64-musl@npm:1.4.0"
+"@swc/core-linux-arm64-musl@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-linux-arm64-musl@npm:1.4.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-linux-x64-gnu@npm:1.4.0"
+"@swc/core-linux-x64-gnu@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-linux-x64-gnu@npm:1.4.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-linux-x64-musl@npm:1.4.0"
+"@swc/core-linux-x64-musl@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-linux-x64-musl@npm:1.4.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.4.0"
+"@swc/core-win32-arm64-msvc@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.4.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.4.0"
+"@swc/core-win32-ia32-msvc@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.4.1"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core-win32-x64-msvc@npm:1.4.0"
+"@swc/core-win32-x64-msvc@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core-win32-x64-msvc@npm:1.4.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@swc/core@npm:1.4.0"
+"@swc/core@npm:1.4.1":
+  version: 1.4.1
+  resolution: "@swc/core@npm:1.4.1"
   dependencies:
-    "@swc/core-darwin-arm64": "npm:1.4.0"
-    "@swc/core-darwin-x64": "npm:1.4.0"
-    "@swc/core-linux-arm-gnueabihf": "npm:1.4.0"
-    "@swc/core-linux-arm64-gnu": "npm:1.4.0"
-    "@swc/core-linux-arm64-musl": "npm:1.4.0"
-    "@swc/core-linux-x64-gnu": "npm:1.4.0"
-    "@swc/core-linux-x64-musl": "npm:1.4.0"
-    "@swc/core-win32-arm64-msvc": "npm:1.4.0"
-    "@swc/core-win32-ia32-msvc": "npm:1.4.0"
-    "@swc/core-win32-x64-msvc": "npm:1.4.0"
-    "@swc/counter": "npm:^0.1.1"
+    "@swc/core-darwin-arm64": "npm:1.4.1"
+    "@swc/core-darwin-x64": "npm:1.4.1"
+    "@swc/core-linux-arm-gnueabihf": "npm:1.4.1"
+    "@swc/core-linux-arm64-gnu": "npm:1.4.1"
+    "@swc/core-linux-arm64-musl": "npm:1.4.1"
+    "@swc/core-linux-x64-gnu": "npm:1.4.1"
+    "@swc/core-linux-x64-musl": "npm:1.4.1"
+    "@swc/core-win32-arm64-msvc": "npm:1.4.1"
+    "@swc/core-win32-ia32-msvc": "npm:1.4.1"
+    "@swc/core-win32-x64-msvc": "npm:1.4.1"
+    "@swc/counter": "npm:^0.1.2"
     "@swc/types": "npm:^0.1.5"
   peerDependencies:
     "@swc/helpers": ^0.5.0
@@ -1900,14 +1900,14 @@ __metadata:
   peerDependenciesMeta:
     "@swc/helpers":
       optional: true
-  checksum: 2f310f81c24b5688a6d4171b4fdb59987070ecda03aad51d755592607b461ddcd6a9d0488510f47785ce634707fd6f30f986ab1f1138e794972d53ce0e94db80
+  checksum: 328197e1d98fee3d94ee299a0501e05294859fdc7f5e3318493efb926fc7625731835bf565de025e082b67c94b15a8a315d3a6bbaa52ea2e0b6c1595c299fae4
   languageName: node
   linkType: hard
 
-"@swc/counter@npm:^0.1.1":
-  version: 0.1.2
-  resolution: "@swc/counter@npm:0.1.2"
-  checksum: 8427c594f1f0cf44b83885e9c8fe1e370c9db44ae96e07a37c117a6260ee97797d0709483efbcc244e77bac578690215f45b23254c4cd8a70fb25ddbb50bf33e
+"@swc/counter@npm:^0.1.2":
+  version: 0.1.3
+  resolution: "@swc/counter@npm:0.1.3"
+  checksum: df8f9cfba9904d3d60f511664c70d23bb323b3a0803ec9890f60133954173047ba9bdeabce28cd70ba89ccd3fd6c71c7b0bd58be85f611e1ffbe5d5c18616598
   languageName: node
   linkType: hard
 
