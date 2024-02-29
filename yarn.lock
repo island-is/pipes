@@ -922,7 +922,7 @@ __metadata:
     "@island.is/scripts": "workspace:*"
     "@island.is/tsconfig": "workspace:*"
     "@swc/core": "npm:1.4.2"
-    "@types/eslint": "npm:8.56.4"
+    "@types/eslint": "npm:8.56.5"
     "@types/eslint-config-prettier": "npm:6.11.3"
     "@types/node": "npm:20.11.22"
     "@types/react": "npm:18.2.60"
@@ -1982,13 +1982,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.56.4":
-  version: 8.56.4
-  resolution: "@types/eslint@npm:8.56.4"
+"@types/eslint@npm:8.56.5":
+  version: 8.56.5
+  resolution: "@types/eslint@npm:8.56.5"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: bb8018f0c27839dd0b8c515ac4e6fac39500c36ba20007a6ecca2fe5e5f81cbecca2be8f6f649bdafd5556b8c6d5285d8506ae61cc8570f71fd4e6b07042f641
+  checksum: 548aab6ea34ca14452bf6e9212c76bb22cdf3b725d47e25591c20651af3f47fb62c59c4e80ed8ea3f7d1d7374d907cbba980af910e4c0f0cb29f73b9a6a9226f
   languageName: node
   linkType: hard
 
