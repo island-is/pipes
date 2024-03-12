@@ -75,7 +75,7 @@
     "cli-cursor": "4.0.0",
     "cli-truncate": "4.0.0",
     "code-excerpt": "4.0.0",
-    "date-fns": "2.30.0",
+    "date-fns": "3.4.0",
     "indent-string": "5.0.0",
     "is-inside-container": "1.0.0",
     "jest-snapshot": "29.7.0",
