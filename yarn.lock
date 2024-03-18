@@ -936,7 +936,7 @@ __metadata:
     "@rollup/plugin-commonjs": "npm:25.0.7"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@swc/core": "npm:1.4.8"
-    "@swc/helpers": "npm:0.5.6"
+    "@swc/helpers": "npm:0.5.7"
     "@types/lodash": "npm:4.17.0"
     "@types/node": "npm:20.11.27"
     "@types/object-hash": "npm:3"
@@ -1910,12 +1910,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/helpers@npm:0.5.6":
-  version: 0.5.6
-  resolution: "@swc/helpers@npm:0.5.6"
+"@swc/helpers@npm:0.5.7":
+  version: 0.5.7
+  resolution: "@swc/helpers@npm:0.5.7"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 16f0a18367b1248317dcc3e5f32411da1a2906f983f4f072e394dfed37523385bc4d7bf71bab204cc8b3875c024a91421dd5c1f9c5bad1b1172fcb50aa2ec96f
+  checksum: f9c4cbd2d59ef86dbe9f955651f1d49561cd897ca113d713f370853ebcc44841712b9b4c674508a314cceadc2ef27cdc0979b36cbb3af8b26b727e345ffe1f2e
   languageName: node
   linkType: hard
 
