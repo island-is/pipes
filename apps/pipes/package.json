@@ -66,7 +66,7 @@
     "@dagger.io/dagger": "0.10.2",
     "@types/react": "18.2.67",
     "@types/react-reconciler": "0.28.8",
-    "ansi-escapes": "6.2.0",
+    "ansi-escapes": "6.2.1",
     "auto-bind": "5.0.1",
     "boxen": "7.1.1",
     "chalk": "5.3.0",
