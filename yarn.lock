@@ -892,7 +892,7 @@ __metadata:
     "@types/eslint": "npm:8.56.6"
     "@types/eslint-config-prettier": "npm:6.11.3"
     "@types/node": "npm:20.11.30"
-    "@types/react": "npm:18.2.70"
+    "@types/react": "npm:18.2.72"
     "@typescript-eslint/eslint-plugin": "npm:6.18.1"
     "@typescript-eslint/parser": "npm:7.4.0"
     eslint: "npm:8.57.0"
@@ -940,7 +940,7 @@ __metadata:
     "@types/lodash": "npm:4.17.0"
     "@types/node": "npm:20.11.30"
     "@types/object-hash": "npm:3"
-    "@types/react": "npm:18.2.70"
+    "@types/react": "npm:18.2.72"
     "@types/react-reconciler": "npm:0.28.8"
     "@types/slice-ansi": "npm:7.1.0"
     "@types/stack-utils": "npm:2.0.3"
@@ -2119,14 +2119,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.70":
-  version: 18.2.70
-  resolution: "@types/react@npm:18.2.70"
+"@types/react@npm:18.2.72":
+  version: 18.2.72
+  resolution: "@types/react@npm:18.2.72"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: ddf235dfa6abe0075b40e66d3119ca3d0af330045cd12ebea8f335e07e6d71882535bfab2b7ae33c1709a6c1cf06eab2e5587c9d4c2333d25f781f9fd34c83e5
+  checksum: 0c15461eeb8cd5153b48446d4aae681ae1d4f45fa5828fc53c12aaac9dfe426a64259a284737f6abfc3bea36df9507c129d7065ebb390b21349ad30128385ac1
   languageName: node
   linkType: hard
 
