@@ -514,11 +514,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^19.2.2":
-  version: 19.2.2
-  resolution: "@commitlint/cli@npm:19.2.2"
+"@commitlint/cli@npm:^19.3.0":
+  version: 19.3.0
+  resolution: "@commitlint/cli@npm:19.3.0"
   dependencies:
-    "@commitlint/format": "npm:^19.0.3"
+    "@commitlint/format": "npm:^19.3.0"
     "@commitlint/lint": "npm:^19.2.2"
     "@commitlint/load": "npm:^19.2.0"
     "@commitlint/read": "npm:^19.2.1"
@@ -527,7 +527,7 @@ __metadata:
     yargs: "npm:^17.0.0"
   bin:
     commitlint: cli.js
-  checksum: bff139177aecffe809ec8665a7ffd3f9acae144ec8634b6ed93802ae9a3333bc978f69ba26dacd2bbc0e06e3dada8ca49fe49bd5316c916e626f8df8dcc03dc9
+  checksum: b1565c0529b8a27ebb3313230f5ddf2f72c5dd819073b2ec141ea1547dfc4de3400a7208ae4f93b071cf8a6a2736aaeb1348c722f6e4627dc964dd0976a37810
   languageName: node
   linkType: hard
 
@@ -572,13 +572,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/format@npm:^19.0.3":
-  version: 19.0.3
-  resolution: "@commitlint/format@npm:19.0.3"
+"@commitlint/format@npm:^19.3.0":
+  version: 19.3.0
+  resolution: "@commitlint/format@npm:19.3.0"
   dependencies:
     "@commitlint/types": "npm:^19.0.3"
     chalk: "npm:^5.3.0"
-  checksum: ccd71c669e43272fc7d55aba38b149ebc1fab40364ddb4182d4067210592981d42e51d2295a5c0476a34a7a296f14eaee54cc3aa246e3e5d477ed2ae5917a532
+  checksum: cc0e1e0e6d5eea76b856ad1be879de166c3d1385e1ae0e1bb78c575f9b78b53d92a56cd4719427cdba9cbb9a10235768da29144da9892596525c923d126951dd
   languageName: node
   linkType: hard
 
@@ -1065,7 +1065,7 @@ __metadata:
     "@swc/core": "npm:1.4.16"
     "@types/semver": "npm:7.5.8"
     "@yarnpkg/types": "npm:4.0.0"
-    commitlint: "npm:19.2.2"
+    commitlint: "npm:19.3.0"
     eslint: "npm:8.57.0"
     express: "npm:4.19.2"
     glob: "npm:10.3.12"
@@ -3518,15 +3518,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commitlint@npm:19.2.2":
-  version: 19.2.2
-  resolution: "commitlint@npm:19.2.2"
+"commitlint@npm:19.3.0":
+  version: 19.3.0
+  resolution: "commitlint@npm:19.3.0"
   dependencies:
-    "@commitlint/cli": "npm:^19.2.2"
+    "@commitlint/cli": "npm:^19.3.0"
     "@commitlint/types": "npm:^19.0.3"
   bin:
     commitlint: cli.js
-  checksum: fee3fd582e10401eaeabcf46a5daf5a141f3a877c8683d130d5eb11b0d0ea50f3d6edd8f249c680d6f4032e4b718fa05e0984e1c9d69a60acb747e81d146593e
+  checksum: a83dca51cc0b16686a56c7f38757412b9195ae2969560b4757310053820635462aeb9db390aadf3c97edf31eb722420d6a04664a09e0a1138b24f660ead1ae72
   languageName: node
   linkType: hard
 
