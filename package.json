@@ -27,7 +27,7 @@
     "@swc/core": "1.4.16",
     "@types/semver": "7.5.8",
     "@yarnpkg/types": "4.0.0",
-    "commitlint": "19.2.2",
+    "commitlint": "19.3.0",
     "eslint": "8.57.0",
     "express": "4.19.2",
     "glob": "10.3.12",
