@@ -984,7 +984,7 @@ __metadata:
     wrap-ansi: "npm:9.0.0"
     xo: "npm:0.58.0"
     yoga-wasm-web: "npm:0.3.3"
-    zod: "npm:3.23.3"
+    zod: "npm:3.23.4"
   languageName: unknown
   linkType: soft
 
@@ -1073,7 +1073,7 @@ __metadata:
     prettier: "npm:3.1.1"
     semver: "npm:7.6.0"
     typescript: "npm:5.3.3"
-    zod: "npm:3.23.3"
+    zod: "npm:3.23.4"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -10805,9 +10805,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.23.3":
-  version: 3.23.3
-  resolution: "zod@npm:3.23.3"
-  checksum: 7db67eff699ea2f0f6855cc45d936d0cf055c5ec8a704aa2638e3ba1dc2b3c6ab7a5a2b451c5c5e031908db37a484003dc82b69f5cbc8c183735238f65e8a24e
+"zod@npm:3.23.4":
+  version: 3.23.4
+  resolution: "zod@npm:3.23.4"
+  checksum: 29117ce59f16af155d9a3aab024d18e858e55b4b51c1f848772516ec6f019e617a0cdaf4c6e20f15154360a9f4c160056aba34502ec68072c8f0af31dfd653d6
   languageName: node
   linkType: hard
