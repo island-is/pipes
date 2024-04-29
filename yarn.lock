@@ -892,7 +892,7 @@ __metadata:
     "@types/eslint": "npm:8.56.7"
     "@types/eslint-config-prettier": "npm:6.11.3"
     "@types/node": "npm:20.12.7"
-    "@types/react": "npm:18.3.0"
+    "@types/react": "npm:18.3.1"
     "@typescript-eslint/eslint-plugin": "npm:6.18.1"
     "@typescript-eslint/parser": "npm:7.7.1"
     eslint: "npm:8.57.0"
@@ -913,7 +913,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:3.1.0"
     eslint-plugin-workspaces: "npm:0.10.0"
     prettier: "npm:3.1.1"
-    react: "npm:18.3.0"
+    react: "npm:18.3.1"
     typescript: "npm:5.3.3"
   peerDependencies:
     "@swc/core": "*"
@@ -940,7 +940,7 @@ __metadata:
     "@types/lodash": "npm:4.17.0"
     "@types/node": "npm:20.12.7"
     "@types/object-hash": "npm:3"
-    "@types/react": "npm:18.3.0"
+    "@types/react": "npm:18.3.1"
     "@types/react-reconciler": "npm:0.28.8"
     "@types/slice-ansi": "npm:7.1.0"
     "@types/stack-utils": "npm:2.0.3"
@@ -966,7 +966,7 @@ __metadata:
     node-fetch: "npm:3.3.2"
     object-hash: "npm:3.0.0"
     prettier: "npm:3.1.1"
-    react: "npm:18.3.0"
+    react: "npm:18.3.1"
     react-reconciler: "npm:0.29.2"
     rollup-plugin-dts: "npm:6.1.0"
     rollup-plugin-ts: "npm:3.4.5"
@@ -1037,7 +1037,7 @@ __metadata:
     eslint: "npm:8.57.0"
     mobx: "npm:6.12.3"
     prettier: "npm:3.1.1"
-    react: "npm:18.3.0"
+    react: "npm:18.3.1"
     rollup: "npm:4.17.0"
     rollup-plugin-node-resolve: "npm:5.2.0"
     rollup-plugin-swc3: "npm:0.11.1"
@@ -2017,13 +2017,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.3.0":
-  version: 18.3.0
-  resolution: "@types/react@npm:18.3.0"
+"@types/react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "@types/react@npm:18.3.1"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 2444294740016d61721df9adeb8635658c660c13b0782df9f067260ac6b0a4b71e68245089814ab53264843eb75f81d90f770253b94a13955cc1ddccf3593301
+  checksum: baa6b8a75c471c89ebf3477b4feab57102ced25f0c1e553dd04ef6a1f0def28d5e0172fa626a631f22e223f840b5aaa2403b2d4bb671c83c5a9d6c7ae39c7a05
   languageName: node
   linkType: hard
 
@@ -8660,12 +8660,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.3.0":
-  version: 18.3.0
-  resolution: "react@npm:18.3.0"
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 17112377dad4e5c868b608be57c8e970a3f6ee6eb6269a5c4c23b11b8b4f393c42a8a046be0c9ddbc5f182b909330ddbecab905bcdea5051b05ec3914491fd79
+  checksum: 261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
   languageName: node
   linkType: hard
 
