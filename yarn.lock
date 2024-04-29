@@ -967,7 +967,7 @@ __metadata:
     object-hash: "npm:3.0.0"
     prettier: "npm:3.1.1"
     react: "npm:18.3.0"
-    react-reconciler: "npm:0.29.1"
+    react-reconciler: "npm:0.29.2"
     rollup-plugin-dts: "npm:6.1.0"
     rollup-plugin-ts: "npm:3.4.5"
     slice-ansi: "npm:7.1.0"
@@ -8648,15 +8648,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-reconciler@npm:0.29.1":
-  version: 0.29.1
-  resolution: "react-reconciler@npm:0.29.1"
+"react-reconciler@npm:0.29.2":
+  version: 0.29.2
+  resolution: "react-reconciler@npm:0.29.2"
   dependencies:
     loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.1"
+    scheduler: "npm:^0.23.2"
   peerDependencies:
-    react: ^18.3.0
-  checksum: b51e93591616016e6227888aa3e9ee86744d697604402b52da1d5a56dc5f50b0c1b0f37f0f8c6a4b02645b900bcc8ca167249fe2924c3f48abf7fd4c3d512819
+    react: ^18.3.1
+  checksum: f9ef98a88ec07efaf520ce4508bc4f499cfbec6c929549b4b802a09c2c7cd1b7b893f197ab0505dc03398a991b4f57d7b6572ae53d2699db74496cadde541cfc
   languageName: node
   linkType: hard
 
@@ -9248,12 +9248,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.1":
-  version: 0.23.1
-  resolution: "scheduler@npm:0.23.1"
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 6e194e726210c2d619cbf69a73fdb068cb0c9b0c99222de429ec5fc562c2f28e59a8cb3526e9104e16521e7e57c785a82bc44dd3f78fd0de86aea719a218f3c3
+  checksum: e8d68b89d18d5b028223edf090092846868a765a591944760942b77ea1f69b17235f7e956696efbb62c8130ab90af7e0949bfb8eba7896335507317236966bc9
   languageName: node
   linkType: hard
 
