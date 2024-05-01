@@ -952,7 +952,7 @@ __metadata:
     boxen: "npm:7.1.1"
     chalk: "npm:5.3.0"
     ci-info: "npm:4.0.0"
-    cli-boxes: "npm:3.0.0"
+    cli-boxes: "npm:4.0.0"
     cli-cursor: "npm:4.0.0"
     cli-truncate: "npm:4.0.0"
     code-excerpt: "npm:4.0.0"
@@ -3415,7 +3415,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-boxes@npm:3.0.0, cli-boxes@npm:^3.0.0":
+"cli-boxes@npm:4.0.0":
+  version: 4.0.0
+  resolution: "cli-boxes@npm:4.0.0"
+  checksum: 315f15c723ac6345e3fb7d5673757c379ea673eca387f255a12be5bb39b11fbca590e6a893165da0c0348cbff9c71578bc46b410edce7e9c54ed9b46a4a12b0c
+  languageName: node
+  linkType: hard
+
+"cli-boxes@npm:^3.0.0":
   version: 3.0.0
   resolution: "cli-boxes@npm:3.0.0"
   checksum: 637d84419d293a9eac40a1c8c96a2859e7d98b24a1a317788e13c8f441be052fc899480c6acab3acc82eaf1bccda6b7542d7cdcf5c9c3cc39227175dc098d5b2

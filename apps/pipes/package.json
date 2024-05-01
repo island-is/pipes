@@ -71,7 +71,7 @@
     "boxen": "7.1.1",
     "chalk": "5.3.0",
     "ci-info": "4.0.0",
-    "cli-boxes": "3.0.0",
+    "cli-boxes": "4.0.0",
     "cli-cursor": "4.0.0",
     "cli-truncate": "4.0.0",
     "code-excerpt": "4.0.0",
