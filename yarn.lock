@@ -909,7 +909,7 @@ __metadata:
     eslint-plugin-prefer-arrow: "npm:1.2.3"
     eslint-plugin-prettier: "npm:5.1.3"
     eslint-plugin-react: "npm:7.34.1"
-    eslint-plugin-sonarjs: "npm:0.25.1"
+    eslint-plugin-sonarjs: "npm:1.0.0"
     eslint-plugin-unused-imports: "npm:3.2.0"
     eslint-plugin-workspaces: "npm:0.10.0"
     prettier: "npm:3.1.1"
@@ -4860,12 +4860,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-sonarjs@npm:0.25.1":
-  version: 0.25.1
-  resolution: "eslint-plugin-sonarjs@npm:0.25.1"
+"eslint-plugin-sonarjs@npm:1.0.0":
+  version: 1.0.0
+  resolution: "eslint-plugin-sonarjs@npm:1.0.0"
   peerDependencies:
-    eslint: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: ea94da85493dd005b39c8d55fb4e198d433874e75653136ae7d6042f31f4396ab25665fb264972ac17b891efa84ec0c6cf9fdde315a312b2a87d7e06bcb2148e
+    eslint: ^8.0.0 || ^9.0.0
+  checksum: 6afbfe1f3569b559cae6b295a9b0cccffb5d6a2013d260c7a9f47d55718be51c00e7f73a1d7ed2c1f8be2d495a5f223b78f8243ab4e2abfc31fa942936a5af6a
   languageName: node
   linkType: hard
 
