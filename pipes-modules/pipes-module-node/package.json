@@ -59,7 +59,7 @@
     "@island.is/prettier-config": "workspace:*",
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
-    "@swc/core": "1.5.0",
+    "@swc/core": "1.5.3",
     "@types/node": "20.12.8",
     "ci-info": "4.0.0",
     "eslint": "8.57.0",
