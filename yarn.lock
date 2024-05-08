@@ -911,7 +911,7 @@ __metadata:
     eslint-plugin-react: "npm:7.34.1"
     eslint-plugin-sonarjs: "npm:1.0.3"
     eslint-plugin-unused-imports: "npm:3.2.0"
-    eslint-plugin-workspaces: "npm:0.10.0"
+    eslint-plugin-workspaces: "npm:0.10.1"
     prettier: "npm:3.1.1"
     react: "npm:18.3.1"
     typescript: "npm:5.3.3"
@@ -4910,12 +4910,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-workspaces@npm:0.10.0":
-  version: 0.10.0
-  resolution: "eslint-plugin-workspaces@npm:0.10.0"
+"eslint-plugin-workspaces@npm:0.10.1":
+  version: 0.10.1
+  resolution: "eslint-plugin-workspaces@npm:0.10.1"
   dependencies:
     find-workspaces: "npm:^0.3.0"
-  checksum: efb6b8535b0c5b09d1b31107eb3967f02a61bb863c157240cd54ed7baf101b6efdc9df972804034e4e66a3181123033fa812251f1652060dbf72b643218703f6
+  checksum: 22942be27b269a4f85b8d967c1bdec0eb766c8f8e95d3164f87b1579d50e9fc4653a614063173c18097c5bca073d1f9badb40adec1a1173740d62285790a0a0e
   languageName: node
   linkType: hard
 
