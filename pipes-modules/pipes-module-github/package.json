@@ -60,7 +60,7 @@
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
     "@octokit/rest": "20.1.1",
-    "@swc/core": "1.5.5",
+    "@swc/core": "1.5.6",
     "@types/node": "20.12.11",
     "ci-info": "4.0.0",
     "enquirer": "2.4.1",
