@@ -70,6 +70,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/code-frame@npm:^7.24.2":
+  version: 7.24.2
+  resolution: "@babel/code-frame@npm:7.24.2"
+  dependencies:
+    "@babel/highlight": "npm:^7.24.2"
+    picocolors: "npm:^1.0.0"
+  checksum: 7db8f5b36ffa3f47a37f58f61e3d130b9ecad21961f3eede7e2a4ac2c7e4a5efb6e9d03a810c669bc986096831b6c0dfc2c3082673d93351b82359c1b03e0590
+  languageName: node
+  linkType: hard
+
 "@babel/compat-data@npm:^7.22.9":
   version: 7.22.20
   resolution: "@babel/compat-data@npm:7.22.20"
@@ -233,6 +243,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-validator-identifier@npm:^7.24.5":
+  version: 7.24.5
+  resolution: "@babel/helper-validator-identifier@npm:7.24.5"
+  checksum: 38aaf6a64a0ea2e84766165b461deda3c24fd2173dff18419a2cc9e1ea1d3e709039aee94db29433a07011492717c80900a5eb564cdca7d137757c3c69e26898
+  languageName: node
+  linkType: hard
+
 "@babel/helper-validator-option@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/helper-validator-option@npm:7.22.15"
@@ -270,6 +287,18 @@ __metadata:
     chalk: "npm:^2.0.0"
     js-tokens: "npm:^4.0.0"
   checksum: ff59305c0184648c9cb042638e9d2d184c12df2a112c71359268a982e7ab65cd5236f392ee8eb722a3bf5b5bd155954fdc7b5aacb6b2b1cd5e38dafcbe63cc57
+  languageName: node
+  linkType: hard
+
+"@babel/highlight@npm:^7.24.2":
+  version: 7.24.5
+  resolution: "@babel/highlight@npm:7.24.5"
+  dependencies:
+    "@babel/helper-validator-identifier": "npm:^7.24.5"
+    chalk: "npm:^2.4.2"
+    js-tokens: "npm:^4.0.0"
+    picocolors: "npm:^1.0.0"
+  checksum: afde0403154ad69ecd58a98903058e776760444bf4d0363fb740a8596bc6278b72c5226637c4f6b3674d70acb1665207fe2fcecfe93a74f2f4ab033e89fd7e8c
   languageName: node
   linkType: hard
 
@@ -1010,7 +1039,7 @@ __metadata:
     prettier: "npm:3.1.1"
     react: "npm:18.3.1"
     react-reconciler: "npm:0.29.2"
-    rollup-plugin-dts: "npm:6.1.0"
+    rollup-plugin-dts: "npm:6.1.1"
     rollup-plugin-ts: "npm:3.4.5"
     slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
@@ -7994,6 +8023,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.30.10":
+  version: 0.30.10
+  resolution: "magic-string@npm:0.30.10"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
+  checksum: 9f8bf6363a14c98a9d9f32ef833b194702a5c98fb931b05ac511b76f0b06fd30ed92beda6ca3261d2d52d21e39e891ef1136fbd032023f6cbb02d0b7d5767201
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.30.2":
   version: 0.30.3
   resolution: "magic-string@npm:0.30.3"
@@ -8009,15 +8047,6 @@ __metadata:
   dependencies:
     "@jridgewell/sourcemap-codec": "npm:^1.4.15"
   checksum: c8a6b25f813215ca9db526f3a407d6dc0bf35429c2b8111d6f1c2cf6cf6afd5e2d9f9cd189416a0e3959e20ecd635f73639f9825c73de1074b29331fe36ace59
-  languageName: node
-  linkType: hard
-
-"magic-string@npm:^0.30.4":
-  version: 0.30.4
-  resolution: "magic-string@npm:0.30.4"
-  dependencies:
-    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
-  checksum: 517640142e2b3e8248c7082f0345d711c787871211ddafe0b326f3c1fd54ece1f29d8b99fd78dac0a23ef150f764206f1ad43a3c8ce7e1ffd819a3396e88f5c4
   languageName: node
   linkType: hard
 
@@ -9573,19 +9602,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-dts@npm:6.1.0":
-  version: 6.1.0
-  resolution: "rollup-plugin-dts@npm:6.1.0"
+"rollup-plugin-dts@npm:6.1.1":
+  version: 6.1.1
+  resolution: "rollup-plugin-dts@npm:6.1.1"
   dependencies:
-    "@babel/code-frame": "npm:^7.22.13"
-    magic-string: "npm:^0.30.4"
+    "@babel/code-frame": "npm:^7.24.2"
+    magic-string: "npm:^0.30.10"
   peerDependencies:
     rollup: ^3.29.4 || ^4
     typescript: ^4.5 || ^5.0
   dependenciesMeta:
     "@babel/code-frame":
       optional: true
-  checksum: 2ecbda8eb0644ce98ee3a795bf5b99368d80e357972c227b07c382c4af34e03fe681c0f6674e1967330b69e79f2ddf288a672f8964441d5f98e9998c50f41a01
+  checksum: 8a66833a5af32f77d9bbc746339097d4af2382e5160f7629d85dcecb4efad12cbfebd37c79147fa688f073c333d71f53135e08a225a3fc3e9a3b3f92c46b2381
   languageName: node
   linkType: hard
 
