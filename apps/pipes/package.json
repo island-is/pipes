@@ -104,7 +104,7 @@
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
     "@rollup/plugin-alias": "5.1.0",
-    "@rollup/plugin-commonjs": "25.0.7",
+    "@rollup/plugin-commonjs": "25.0.8",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@swc/core": "1.5.7",
     "@swc/helpers": "0.5.11",
