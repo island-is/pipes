@@ -106,7 +106,7 @@
     "@rollup/plugin-alias": "5.1.0",
     "@rollup/plugin-commonjs": "26.0.1",
     "@rollup/plugin-node-resolve": "15.2.3",
-    "@swc/core": "1.5.29",
+    "@swc/core": "1.6.1",
     "@swc/helpers": "0.5.11",
     "@types/lodash": "4.17.5",
     "@types/node": "20.14.2",
