@@ -933,7 +933,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.6.5"
-    "@types/node": "npm:20.14.8"
+    "@types/node": "npm:20.14.9"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.57.0"
     prettier: "npm:3.1.1"
@@ -953,7 +953,7 @@ __metadata:
     "@swc/core": "npm:1.6.5"
     "@types/eslint": "npm:8.56.7"
     "@types/eslint-config-prettier": "npm:6.11.3"
-    "@types/node": "npm:20.14.8"
+    "@types/node": "npm:20.14.9"
     "@types/react": "npm:18.3.3"
     "@typescript-eslint/eslint-plugin": "npm:6.18.1"
     "@typescript-eslint/parser": "npm:7.14.1"
@@ -1000,7 +1000,7 @@ __metadata:
     "@swc/core": "npm:1.6.5"
     "@swc/helpers": "npm:0.5.11"
     "@types/lodash": "npm:4.17.5"
-    "@types/node": "npm:20.14.8"
+    "@types/node": "npm:20.14.9"
     "@types/object-hash": "npm:3"
     "@types/react": "npm:18.3.3"
     "@types/react-reconciler": "npm:0.28.8"
@@ -1062,7 +1062,7 @@ __metadata:
     "@island.is/tsconfig-build": "workspace:*"
     "@octokit/rest": "npm:21.0.0"
     "@swc/core": "npm:1.6.5"
-    "@types/node": "npm:20.14.8"
+    "@types/node": "npm:20.14.9"
     ci-info: "npm:4.0.0"
     enquirer: "npm:2.4.1"
     eslint: "npm:8.57.0"
@@ -1094,7 +1094,7 @@ __metadata:
     "@island.is/tsconfig": "workspace:*"
     "@island.is/tsconfig-build": "workspace:*"
     "@swc/core": "npm:1.6.5"
-    "@types/node": "npm:20.14.8"
+    "@types/node": "npm:20.14.9"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.57.0"
     mobx: "npm:6.12.4"
@@ -2359,12 +2359,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.14.8":
-  version: 20.14.8
-  resolution: "@types/node@npm:20.14.8"
+"@types/node@npm:20.14.9":
+  version: 20.14.9
+  resolution: "@types/node@npm:20.14.9"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 73822f66f269ce865df7e2f586787ac7444bd1169fd265cbed1e851b72787f1170517c5b616e0308ec2fbc0934ec6403b0f28d4152acbb0486071aec41167d51
+  checksum: f313b06c79be92f5d3541159ef813b9fc606941f951ecf826e940658c6d4952755ca2f06277b746326cef0697ed79a04676ecde053d32e1121b3352c8168d2e9
   languageName: node
   linkType: hard
 
