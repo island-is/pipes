@@ -109,7 +109,7 @@
     "@swc/core": "1.6.5",
     "@swc/helpers": "0.5.11",
     "@types/lodash": "4.17.5",
-    "@types/node": "20.14.8",
+    "@types/node": "20.14.9",
     "@types/object-hash": "3",
     "@types/react": "18.3.3",
     "@types/react-reconciler": "0.28.8",
