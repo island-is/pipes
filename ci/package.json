@@ -17,7 +17,7 @@
     "@island.is/scripts": "workspace:*",
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
-    "@swc/core": "1.6.5",
+    "@swc/core": "1.6.6",
     "@types/node": "20.14.9",
     "eslint": "8.57.0",
     "prettier": "3.1.1",
