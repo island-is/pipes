@@ -1035,7 +1035,7 @@ __metadata:
     slice-ansi: "npm:7.1.0"
     stack-utils: "npm:2.0.6"
     streamifier: "npm:0.1.1"
-    string-width: "npm:7.1.0"
+    string-width: "npm:7.2.0"
     tar-stream: "npm:3.1.7"
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
@@ -10521,14 +10521,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:7.1.0":
-  version: 7.1.0
-  resolution: "string-width@npm:7.1.0"
+"string-width@npm:7.2.0":
+  version: 7.2.0
+  resolution: "string-width@npm:7.2.0"
   dependencies:
     emoji-regex: "npm:^10.3.0"
     get-east-asian-width: "npm:^1.0.0"
     strip-ansi: "npm:^7.1.0"
-  checksum: a183573fe7209e0d294f661846d33f8caf72aa86d983e5b48a0ed45ab15bcccb02c6f0344b58b571988871105457137b8207855ea536827dbc4a376a0f31bf8f
+  checksum: 42f9e82f61314904a81393f6ef75b832c39f39761797250de68c041d8ba4df2ef80db49ab6cd3a292923a6f0f409b8c9980d120f7d32c820b4a8a84a2598a295
   languageName: node
   linkType: hard
 
