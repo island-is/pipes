@@ -965,7 +965,7 @@ __metadata:
     eslint-plugin-filenames-simple: "npm:0.9.0"
     eslint-plugin-import: "npm:2.29.1"
     eslint-plugin-import-order: "npm:2.1.4"
-    eslint-plugin-jsdoc: "npm:48.5.0"
+    eslint-plugin-jsdoc: "npm:48.5.1"
     eslint-plugin-jsx-a11y: "npm:6.9.0"
     eslint-plugin-node: "npm:11.1.0"
     eslint-plugin-prefer-arrow: "npm:1.2.3"
@@ -4380,6 +4380,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:^4.3.5":
+  version: 4.3.5
+  resolution: "debug@npm:4.3.5"
+  dependencies:
+    ms: "npm:2.1.2"
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: cb6eab424c410e07813ca1392888589972ce9a32b8829c6508f5e1f25f3c3e70a76731610ae55b4bbe58d1a2fffa1424b30e97fa8d394e49cd2656a9643aedd2
+  languageName: node
+  linkType: hard
+
 "deep-equal@npm:^2.0.5":
   version: 2.2.3
   resolution: "deep-equal@npm:2.2.3"
@@ -5304,14 +5316,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:48.5.0":
-  version: 48.5.0
-  resolution: "eslint-plugin-jsdoc@npm:48.5.0"
+"eslint-plugin-jsdoc@npm:48.5.1":
+  version: 48.5.1
+  resolution: "eslint-plugin-jsdoc@npm:48.5.1"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.43.1"
     are-docs-informative: "npm:^0.0.2"
     comment-parser: "npm:1.4.1"
-    debug: "npm:^4.3.4"
+    debug: "npm:^4.3.5"
     escape-string-regexp: "npm:^4.0.0"
     esquery: "npm:^1.5.0"
     parse-imports: "npm:^2.1.0"
@@ -5320,7 +5332,7 @@ __metadata:
     synckit: "npm:^0.9.0"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: f06e2bbd5034d869e5aea57929b9883115bb4f17e0dbe62183124b5f284e787afa00002d91b85016ccf3c68dd4ca86dbc1d39da4cb04a25172cef1395919e1a2
+  checksum: c73a35ce4062d712ab4248b1105ce00743a706544b8b8eb32f30c810aa0d6ae0f5cb2ca0878324ab08f23bd01ded47ca19ac8cf0a8dd45daf336a124c0bf396c
   languageName: node
   linkType: hard
 
