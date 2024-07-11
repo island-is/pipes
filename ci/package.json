@@ -19,7 +19,7 @@
     "@island.is/tsconfig-build": "workspace:*",
     "@swc/core": "1.6.13",
     "@types/node": "20.14.10",
-    "eslint": "8.57.0",
+    "eslint": "9.6.0",
     "prettier": "3.1.1",
     "typescript": "5.3.3"
   },
