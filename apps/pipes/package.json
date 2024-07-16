@@ -108,7 +108,7 @@
     "@rollup/plugin-node-resolve": "15.2.3",
     "@swc/core": "1.6.13",
     "@swc/helpers": "0.5.12",
-    "@types/lodash": "4.17.6",
+    "@types/lodash": "4.17.7",
     "@types/node": "20.14.10",
     "@types/object-hash": "3",
     "@types/react": "18.3.3",
