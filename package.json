@@ -31,7 +31,7 @@
     "eslint": "8.57.0",
     "express": "4.19.2",
     "glob": "11.0.0",
-    "husky": "9.1.0",
+    "husky": "9.1.1",
     "prettier": "3.1.1",
     "semver": "7.6.3",
     "typescript": "5.3.3",
