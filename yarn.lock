@@ -958,7 +958,7 @@ __metadata:
     ci-info: "npm:4.0.0"
     eslint: "npm:8.57.0"
     prettier: "npm:3.1.1"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -997,7 +997,7 @@ __metadata:
     eslint-plugin-workspaces: "npm:0.10.1"
     prettier: "npm:3.1.1"
     react: "npm:18.3.1"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
   peerDependencies:
     "@swc/core": "*"
   languageName: unknown
@@ -1062,7 +1062,7 @@ __metadata:
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
     type-fest: "npm:4.22.1"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
     widest-line: "npm:5.0.0"
     wrap-ansi: "npm:9.0.0"
     xo: "npm:0.59.0"
@@ -1091,7 +1091,7 @@ __metadata:
     prettier: "npm:3.1.1"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
     zip-a-folder: "npm:3.1.7"
   peerDependencies:
     "@dagger.io/dagger": "*"
@@ -1126,7 +1126,7 @@ __metadata:
     rollup-plugin-swc3: "npm:0.11.2"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
   peerDependencies:
     "@dagger.io/dagger": "*"
     "@island.is/pipes-core": "*"
@@ -1155,7 +1155,7 @@ __metadata:
     husky: "npm:9.1.1"
     prettier: "npm:3.1.1"
     semver: "npm:7.6.3"
-    typescript: "npm:5.3.3"
+    typescript: "npm:5.5.3"
     zod: "npm:3.23.8"
   peerDependencies:
     "@swc/core": "*"
@@ -11266,13 +11266,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.3.3":
-  version: 5.3.3
-  resolution: "typescript@npm:5.3.3"
+"typescript@npm:5.5.3, typescript@npm:^5.5.3":
+  version: 5.5.3
+  resolution: "typescript@npm:5.5.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 6e4e6a14a50c222b3d14d4ea2f729e79f972fa536ac1522b91202a9a65af3605c2928c4a790a4a50aa13694d461c479ba92cedaeb1e7b190aadaa4e4b96b8e18
+  checksum: 11a867312419ed497929aafd2f1d28b2cd41810a5eb6c6e9e169559112e9ea073d681c121a29102e67cd4478d0a4ae37a306a5800f3717f59c4337e6a9bd5e8d
   languageName: node
   linkType: hard
 
@@ -11286,23 +11286,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.5.3":
+"typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.5.3
-  resolution: "typescript@npm:5.5.3"
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=5da071"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 11a867312419ed497929aafd2f1d28b2cd41810a5eb6c6e9e169559112e9ea073d681c121a29102e67cd4478d0a4ae37a306a5800f3717f59c4337e6a9bd5e8d
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>":
-  version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=5da071"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 57bf073a0b88f9bf76e5a24be3df864a8f9d0e70f8316969f4992ae26e30cb8d078708922da2ade1f2c8d1faee13b28bcb69876ebb1e37910e31c54aa9126aa2
+  checksum: b61b8bb4b4d6a8a00f9d5f931f8c67070eed6ad11feabf4c41744a326987080bfc806a621596c70fbf2e5974eca3ed65bafeeeb22a078071bdfb51d8abd7c013
   languageName: node
   linkType: hard
 
@@ -11313,16 +11303,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 584be8bac7112ad49a9eb9992f71d542b1ff2fafb5bb315e1c196145e8feab589f1d7223cfb2d5df6770789582e6918f8287d1f2f89911b38eb80e29c560ad00
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
-  version: 5.5.3
-  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=5da071"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: b61b8bb4b4d6a8a00f9d5f931f8c67070eed6ad11feabf4c41744a326987080bfc806a621596c70fbf2e5974eca3ed65bafeeeb22a078071bdfb51d8abd7c013
   languageName: node
   linkType: hard
 
