@@ -94,7 +94,7 @@
     "typescript": "5.3.3",
     "widest-line": "5.0.0",
     "wrap-ansi": "9.0.0",
-    "xo": "0.59.0",
+    "xo": "0.59.2",
     "yoga-wasm-web": "0.3.3"
   },
   "devDependencies": {
