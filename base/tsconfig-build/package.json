@@ -28,6 +28,6 @@
     "@swc/core": "*"
   },
   "devDependencies": {
-    "@swc/core": "1.7.1"
+    "@swc/core": "1.7.2"
   }
 }
