@@ -726,9 +726,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dagger.io/dagger@npm:0.12.2":
-  version: 0.12.2
-  resolution: "@dagger.io/dagger@npm:0.12.2"
+"@dagger.io/dagger@npm:0.12.3":
+  version: 0.12.3
+  resolution: "@dagger.io/dagger@npm:0.12.3"
   dependencies:
     "@grpc/grpc-js": "npm:^1.10.6"
     "@lifeomic/axios-fetch": "npm:^3.1.0"
@@ -748,7 +748,7 @@ __metadata:
     reflect-metadata: "npm:^0.2.1"
     tar: "npm:^7.2.0"
     typescript: "npm:^5.4.5"
-  checksum: 9fb3653707fb045aaf7e3ef6561732a41f66ce86f91f78f3973461c84710f472075d4db7c92037ff344dfb5890fa1e01f5af167056b33122213cbc57690f169a
+  checksum: 93bc66d42e71515d3f9457fd3e790fae85a271f86d957201373450c762c1e62ef4d4c002cc7fb9164730732354ddacea75b4e4e3cd19dbdaefe2ea892c2abe62
   languageName: node
   linkType: hard
 
@@ -1009,7 +1009,7 @@ __metadata:
   dependencies:
     "@actions/core": "npm:1.10.1"
     "@alcalzone/ansi-tokenize": "npm:0.1.3"
-    "@dagger.io/dagger": "npm:0.12.2"
+    "@dagger.io/dagger": "npm:0.12.3"
     "@island.is/eslint-config": "workspace:*"
     "@island.is/prettier-config": "workspace:*"
     "@island.is/scripts": "workspace:*"
@@ -1075,7 +1075,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@island.is/pipes-module-github@workspace:pipes-modules/pipes-module-github"
   dependencies:
-    "@dagger.io/dagger": "npm:0.12.2"
+    "@dagger.io/dagger": "npm:0.12.3"
     "@island.is/eslint-config": "workspace:*"
     "@island.is/pipes-core": "workspace:*"
     "@island.is/prettier-config": "workspace:*"
@@ -1108,7 +1108,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@island.is/pipes-module-node@workspace:pipes-modules/pipes-module-node"
   dependencies:
-    "@dagger.io/dagger": "npm:0.12.2"
+    "@dagger.io/dagger": "npm:0.12.3"
     "@island.is/eslint-config": "workspace:*"
     "@island.is/pipes-core": "workspace:*"
     "@island.is/prettier-config": "workspace:*"
