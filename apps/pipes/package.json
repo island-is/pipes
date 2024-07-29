@@ -72,7 +72,7 @@
     "chalk": "5.3.0",
     "ci-info": "4.0.0",
     "cli-boxes": "3.0.0",
-    "cli-cursor": "4.0.0",
+    "cli-cursor": "5.0.0",
     "cli-truncate": "4.0.0",
     "code-excerpt": "4.0.0",
     "date-fns": "2.30.0",
