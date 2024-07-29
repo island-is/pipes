@@ -1065,7 +1065,7 @@ __metadata:
     typescript: "npm:5.3.3"
     widest-line: "npm:5.0.0"
     wrap-ansi: "npm:9.0.0"
-    xo: "npm:0.59.2"
+    xo: "npm:0.59.3"
     yoga-wasm-web: "npm:0.3.3"
     zod: "npm:3.23.8"
   languageName: unknown
@@ -11745,9 +11745,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xo@npm:0.59.2":
-  version: 0.59.2
-  resolution: "xo@npm:0.59.2"
+"xo@npm:0.59.3":
+  version: 0.59.3
+  resolution: "xo@npm:0.59.3"
   dependencies:
     "@eslint/eslintrc": "npm:^3.1.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.16.1"
@@ -11788,7 +11788,7 @@ __metadata:
     typescript: "npm:^5.5.3"
   bin:
     xo: cli.js
-  checksum: 4b84cffcd5df429f334b03be05a3e3cf0f2fcabc1e59f8e5af92a680a4e519557cc10aff61211c13d42c9f679fb328ad33a0f1292ad3a0e969ac22738de93861
+  checksum: 2b1374c040f2760715444ce742ad95ba7d4880e57d89c73391b498b33127679a0577e717f0126e683a1a651b29a47a2b009e28ab040fa7cb57b74e653848ffdd
   languageName: node
   linkType: hard
 
