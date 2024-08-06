@@ -1032,7 +1032,7 @@ __metadata:
     "@types/wrap-ansi": "npm:8.1.0"
     ansi-escapes: "npm:7.0.0"
     auto-bind: "npm:5.0.1"
-    boxen: "npm:8.0.0"
+    boxen: "npm:8.0.1"
     chalk: "npm:5.3.0"
     ci-info: "npm:4.0.0"
     cli-boxes: "npm:3.0.0"
@@ -3549,19 +3549,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boxen@npm:8.0.0":
-  version: 8.0.0
-  resolution: "boxen@npm:8.0.0"
+"boxen@npm:8.0.1":
+  version: 8.0.1
+  resolution: "boxen@npm:8.0.1"
   dependencies:
     ansi-align: "npm:^3.0.1"
     camelcase: "npm:^8.0.0"
     chalk: "npm:^5.3.0"
-    cli-boxes: "npm:^4.0.0"
+    cli-boxes: "npm:^3.0.0"
     string-width: "npm:^7.2.0"
     type-fest: "npm:^4.21.0"
     widest-line: "npm:^5.0.0"
     wrap-ansi: "npm:^9.0.0"
-  checksum: 08a5d9fac78f88cef5d47ebc890b03004d104c2ee0f8921a504a65700f4ffd8e57ed9bdd2348242b5bae099699f166f448254aec03f48887f7cc0837deff04af
+  checksum: 30e2804c3b8d86735817e25961b7861dbfb19adfdc0cf2a0afd8a6dc2e7114de636f86239f4069f81349449d16da3fb33c4100422f41931982bd7d247092a78e
   languageName: node
   linkType: hard
 
@@ -3873,17 +3873,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-boxes@npm:3.0.0":
+"cli-boxes@npm:3.0.0, cli-boxes@npm:^3.0.0":
   version: 3.0.0
   resolution: "cli-boxes@npm:3.0.0"
   checksum: 637d84419d293a9eac40a1c8c96a2859e7d98b24a1a317788e13c8f441be052fc899480c6acab3acc82eaf1bccda6b7542d7cdcf5c9c3cc39227175dc098d5b2
-  languageName: node
-  linkType: hard
-
-"cli-boxes@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "cli-boxes@npm:4.0.0"
-  checksum: 315f15c723ac6345e3fb7d5673757c379ea673eca387f255a12be5bb39b11fbca590e6a893165da0c0348cbff9c71578bc46b410edce7e9c54ed9b46a4a12b0c
   languageName: node
   linkType: hard
 
