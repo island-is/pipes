@@ -61,7 +61,7 @@
     "@island.is/tsconfig-build": "workspace:*",
     "@octokit/rest": "21.0.2",
     "@swc/core": "1.7.14",
-    "@types/node": "22.4.1",
+    "@types/node": "22.4.2",
     "ci-info": "4.0.0",
     "enquirer": "2.4.1",
     "eslint": "8.57.0",
