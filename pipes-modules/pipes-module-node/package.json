@@ -62,7 +62,7 @@
     "@swc/core": "1.7.14",
     "@types/node": "22.5.0",
     "ci-info": "4.0.0",
-    "eslint": "8.57.0",
+    "eslint": "9.9.0",
     "mobx": "6.13.1",
     "prettier": "3.1.1",
     "react": "18.3.1",
