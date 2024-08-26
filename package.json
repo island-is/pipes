@@ -28,7 +28,7 @@
     "@types/semver": "7.5.8",
     "@yarnpkg/types": "4.0.0",
     "commitlint": "19.4.0",
-    "eslint": "8.57.0",
+    "eslint": "9.9.1",
     "express": "4.19.2",
     "glob": "11.0.0",
     "husky": "9.1.5",
