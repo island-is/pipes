@@ -107,7 +107,7 @@
     "@rollup/plugin-commonjs": "26.0.1",
     "@rollup/plugin-node-resolve": "15.2.3",
     "@swc/core": "1.7.23",
-    "@swc/helpers": "0.5.12",
+    "@swc/helpers": "0.5.13",
     "@types/lodash": "4.17.7",
     "@types/node": "22.5.2",
     "@types/object-hash": "3",
