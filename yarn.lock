@@ -2358,7 +2358,7 @@ __metadata:
     is-inside-container: "npm:1.0.0"
     jest-snapshot: "npm:29.7.0"
     lodash: "npm:4.17.21"
-    mobx: "npm:6.13.1"
+    mobx: "npm:6.13.2"
     node-fetch: "npm:3.3.2"
     object-hash: "npm:3.0.0"
     prettier: "npm:3.1.1"
@@ -2400,7 +2400,7 @@ __metadata:
     ci-info: "npm:4.0.0"
     enquirer: "npm:2.4.1"
     eslint: "npm:8.57.0"
-    mobx: "npm:6.13.1"
+    mobx: "npm:6.13.2"
     prettier: "npm:3.1.1"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
@@ -2431,7 +2431,7 @@ __metadata:
     "@types/node": "npm:22.5.4"
     ci-info: "npm:4.0.0"
     eslint: "npm:8.57.0"
-    mobx: "npm:6.13.1"
+    mobx: "npm:6.13.2"
     prettier: "npm:3.1.1"
     react: "npm:18.3.1"
     rollup: "npm:4.21.2"
@@ -10249,10 +10249,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:6.13.1":
-  version: 6.13.1
-  resolution: "mobx@npm:6.13.1"
-  checksum: 832a025f830d004f4c443b3dc2eb999f584dbda38bb7da4268de8af6de9983f7934bfefccf2f87a6dd7a3ab8151fce1460692a1d586dc90ba2705447ba10e3da
+"mobx@npm:6.13.2":
+  version: 6.13.2
+  resolution: "mobx@npm:6.13.2"
+  checksum: 97219439fbed2fe340e9636231c6b76d2e7e83bf5ebab483c1447aea3f2b3009eb5059ae05a8162e108c0bfe2d7fa9029c3dd74d1922b45e9185f823db066dca
   languageName: node
   linkType: hard
 
