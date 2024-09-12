@@ -19,7 +19,7 @@
     "pipes-modules/*"
   ],
   "devDependencies": {
-    "@commitlint/config-conventional": "19.4.1",
+    "@commitlint/config-conventional": "19.5.0",
     "@island.is/eslint-config": "workspace:*",
     "@island.is/prettier-config": "workspace:*",
     "@island.is/scripts": "workspace:*",
