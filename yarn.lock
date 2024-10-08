@@ -2545,7 +2545,7 @@ __metadata:
     react: "npm:18.3.1"
     rollup: "npm:4.24.0"
     rollup-plugin-node-resolve: "npm:5.2.0"
-    rollup-plugin-swc3: "npm:0.12.0"
+    rollup-plugin-swc3: "npm:0.12.1"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
     typescript: "npm:5.3.3"
@@ -11866,9 +11866,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-swc3@npm:0.12.0":
-  version: 0.12.0
-  resolution: "rollup-plugin-swc3@npm:0.12.0"
+"rollup-plugin-swc3@npm:0.12.1":
+  version: 0.12.1
+  resolution: "rollup-plugin-swc3@npm:0.12.1"
   dependencies:
     "@dual-bundle/import-meta-resolve": "npm:^4.1.0"
     "@fastify/deepmerge": "npm:^2.0.0"
@@ -11878,7 +11878,7 @@ __metadata:
   peerDependencies:
     "@swc/core": ">=1.2.165"
     rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
-  checksum: 08f268d26a1eaed6272c24f773c2781df3f50150ef53f192d746a9a4c2aae9a590ec61a637201babfdaca26f8c609daed37fb1bcd5f8f0cc5148728e680407c3
+  checksum: dcf741cc0ecb476c2342d6c61cc0a6156fdcb142d90e89eefbf62df3fc07e87039c926b8348e7b7cc9baceb6aab69d29fd796740a19675d6ff0593cba86d19d7
   languageName: node
   linkType: hard
 
