@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@island.is/prettier-config": "workspace:*",
-    "@swc/core": "1.7.28",
+    "@swc/core": "1.7.35",
     "prettier": "3.1.1"
   },
   "packageManager": "yarn@4.0.0-rc.47",
