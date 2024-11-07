@@ -2514,7 +2514,7 @@ __metadata:
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
     typescript: "npm:5.3.3"
-    zip-a-folder: "npm:3.1.7"
+    zip-a-folder: "npm:3.1.8"
   peerDependencies:
     "@dagger.io/dagger": "*"
     "@island.is/pipes-core": "*"
@@ -8393,7 +8393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:11.0.0":
+"glob@npm:11.0.0, glob@npm:^11.0.0":
   version: 11.0.0
   resolution: "glob@npm:11.0.0"
   dependencies:
@@ -8409,7 +8409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.0.0, glob@npm:^10.4.1":
+"glob@npm:^10.0.0":
   version: 10.4.1
   resolution: "glob@npm:10.4.1"
   dependencies:
@@ -14065,14 +14065,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zip-a-folder@npm:3.1.7":
-  version: 3.1.7
-  resolution: "zip-a-folder@npm:3.1.7"
+"zip-a-folder@npm:3.1.8":
+  version: 3.1.8
+  resolution: "zip-a-folder@npm:3.1.8"
   dependencies:
     archiver: "npm:^7.0.1"
-    glob: "npm:^10.4.1"
+    glob: "npm:^11.0.0"
     is-glob: "npm:^4.0.3"
-  checksum: 3f98dd6c898d63d224b4bcdd4d602f2ffafb203cd281238e340f1cb67c54c66d1a28013f02787a91543fffcba45a99e63fbc1ac5a1e1ba16e1baed2f1e17969c
+  checksum: ba2f057c40e441eca747e49e3a85ceb17c71ab994268e14cd873a05880cffba10e124e31e8f52a26e5a85aa8079a567a35ac61aab3153b800f36be7fc37ac8b5
   languageName: node
   linkType: hard
 
