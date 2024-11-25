@@ -2483,7 +2483,7 @@ __metadata:
     terminal-link: "npm:3.0.0"
     tmp-promise: "npm:3.0.3"
     ts-toolbelt: "npm:9.6.0"
-    type-fest: "npm:4.27.0"
+    type-fest: "npm:4.28.0"
     typescript: "npm:5.3.3"
     widest-line: "npm:5.0.0"
     wrap-ansi: "npm:9.0.0"
@@ -13279,10 +13279,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:4.27.0":
-  version: 4.27.0
-  resolution: "type-fest@npm:4.27.0"
-  checksum: 13be3937f39ef94012ca622aa69c7edb87850b9b61ad7742e9d410b7a98fe28ee54b508ebb50fac5be2f8563fbc7b417a3d1ef129b9b092d6f3f67b7e1fca96f
+"type-fest@npm:4.28.0":
+  version: 4.28.0
+  resolution: "type-fest@npm:4.28.0"
+  checksum: 2fc54972af0aff1846786c11beeb2e446a1a6ea19b07ba80db1d3f24894002e0ed3de7f40d2a1007fe2e6e6da264a3790a844d744825dba3d31505d1983df2a5
   languageName: node
   linkType: hard
 
