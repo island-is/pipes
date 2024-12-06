@@ -1756,9 +1756,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:7.25.9":
-  version: 7.25.9
-  resolution: "@babel/preset-react@npm:7.25.9"
+"@babel/preset-react@npm:7.26.3":
+  version: 7.26.3
+  resolution: "@babel/preset-react@npm:7.26.3"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.25.9"
     "@babel/helper-validator-option": "npm:^7.25.9"
@@ -1768,7 +1768,7 @@ __metadata:
     "@babel/plugin-transform-react-pure-annotations": "npm:^7.25.9"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 3c9daf47cf51568d96984d21b9f83992590c0e91f16a333f999100bb3c2c200730cde6806ed37fd2c999e0a63becefc881740b8f765b5a4aff4efc674e3e4197
+  checksum: 88cb78c402b79f32389ee06451da51698d5b1da7641d9a47482883f537fe5441a138bd4c077d8533fd6d557406b08911c47b94402cea843db598e020bdd9a373
   languageName: node
   linkType: hard
 
@@ -2376,7 +2376,7 @@ __metadata:
     eslint-plugin-prefer-arrow: "npm:1.2.3"
     eslint-plugin-prettier: "npm:5.2.1"
     eslint-plugin-react: "npm:7.37.2"
-    eslint-plugin-sonarjs: "npm:3.0.0"
+    eslint-plugin-sonarjs: "npm:3.0.1"
     eslint-plugin-unused-imports: "npm:4.1.4"
     eslint-plugin-workspaces: "npm:0.10.1"
     prettier: "npm:3.1.1"
@@ -7190,16 +7190,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-sonarjs@npm:3.0.0":
-  version: 3.0.0
-  resolution: "eslint-plugin-sonarjs@npm:3.0.0"
+"eslint-plugin-sonarjs@npm:3.0.1":
+  version: 3.0.1
+  resolution: "eslint-plugin-sonarjs@npm:3.0.1"
   dependencies:
     "@babel/core": "npm:7.26.0"
     "@babel/eslint-parser": "npm:7.25.9"
     "@babel/plugin-proposal-decorators": "npm:7.25.9"
     "@babel/preset-env": "npm:7.26.0"
     "@babel/preset-flow": "npm:7.25.9"
-    "@babel/preset-react": "npm:7.25.9"
+    "@babel/preset-react": "npm:7.26.3"
     "@eslint-community/regexpp": "npm:4.12.1"
     builtin-modules: "npm:3.3.0"
     bytes: "npm:3.1.2"
@@ -7208,10 +7208,10 @@ __metadata:
     minimatch: "npm:9.0.5"
     scslre: "npm:0.3.0"
     semver: "npm:7.6.3"
-    typescript: "npm:5.7.2"
+    typescript: "npm:^5"
   peerDependencies:
     eslint: ^8.0.0 || ^9.0.0
-  checksum: e41cd9632f24d337ce61ea06e8fd3c232bbd3c35db11a7982f95ce1a51b436dcc7ef0e1d01df15a69c1fce60e44c76fa1c91d4a2cd0575d94fd0e2a24a78d441
+  checksum: ffb04d1e010bb2dd21b5c80e40f138514f098ab7599ec9b6b19f7b980ab7828b4226fd96516bf0468264beea401496371b574a6dfb5ddcc2b95c183c3d86a843
   languageName: node
   linkType: hard
 
@@ -13275,7 +13275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.2":
+"typescript@npm:^5":
   version: 5.7.2
   resolution: "typescript@npm:5.7.2"
   bin:
@@ -13315,7 +13315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
   version: 5.7.2
   resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5da071"
   bin:
