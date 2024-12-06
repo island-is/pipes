@@ -29,7 +29,7 @@
     "@yarnpkg/types": "4.0.0",
     "commitlint": "19.6.0",
     "eslint": "8.57.0",
-    "express": "4.21.1",
+    "express": "4.21.2",
     "glob": "11.0.0",
     "husky": "9.1.7",
     "prettier": "3.1.1",
