@@ -2404,7 +2404,7 @@ __metadata:
     ansi-escapes: "npm:7.0.0"
     auto-bind: "npm:5.0.1"
     boxen: "npm:8.0.1"
-    chalk: "npm:5.4.0"
+    chalk: "npm:5.4.1"
     ci-info: "npm:4.1.0"
     cli-boxes: "npm:3.0.0"
     cli-cursor: "npm:5.0.0"
@@ -5422,10 +5422,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.4.0":
-  version: 5.4.0
-  resolution: "chalk@npm:5.4.0"
-  checksum: daf2bd8ac206a117be37026c4d128c05507488877c3d30f08c3976850bed75ec15a14ea007811c564764033b92585f339828bd97adb964fae0f012ff863f334a
+"chalk@npm:5.4.1":
+  version: 5.4.1
+  resolution: "chalk@npm:5.4.1"
+  checksum: 29df3ffcdf25656fed6e95962e2ef86d14dfe03cd50e7074b06bad9ffbbf6089adbb40f75c00744d843685c8d008adaf3aed31476780312553caf07fa86e5bc7
   languageName: node
   linkType: hard
 
