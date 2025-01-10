@@ -41,7 +41,7 @@
     "url": "https://github.com/island-is/pipes"
   },
   "dependencies": {
-    "@octokit/rest": "21.0.2"
+    "@octokit/rest": "21.1.0"
   },
   "peerDependencies": {
     "@dagger.io/dagger": "*",
@@ -59,7 +59,7 @@
     "@island.is/prettier-config": "workspace:*",
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
-    "@octokit/rest": "21.0.2",
+    "@octokit/rest": "21.1.0",
     "@swc/core": "1.7.28",
     "@types/node": "22.10.5",
     "ci-info": "4.1.0",
