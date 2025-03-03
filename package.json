@@ -32,7 +32,7 @@
     "express": "4.21.2",
     "glob": "11.0.1",
     "husky": "9.1.7",
-    "prettier": "3.1.1",
+    "prettier": "3.5.3",
     "semver": "7.7.1",
     "typescript": "5.3.3",
     "zod": "3.24.1"
