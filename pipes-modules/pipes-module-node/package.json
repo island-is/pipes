@@ -60,7 +60,7 @@
     "@island.is/tsconfig": "workspace:*",
     "@island.is/tsconfig-build": "workspace:*",
     "@swc/core": "1.7.28",
-    "@types/node": "22.13.1",
+    "@types/node": "22.13.9",
     "ci-info": "4.1.0",
     "eslint": "8.57.0",
     "mobx": "6.13.6",
